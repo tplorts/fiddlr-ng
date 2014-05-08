@@ -1,0 +1,80 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Translations
+*.mo
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
+
+# Django stuff:
+*.log
+*.pot
+
+# Sphinx documentation
+docs/_build/
+
+# emacs backup files
+*~
+\#*\#
+.\#*
+
+# virtual environment
+venv
+
+#?
+staticfiles
+
+# Keeping large media data in AWS S3 and
+# I do not want it inside the repository
+external
+
+
+# To detect whether on my development computer
+.devmachine
+
+# Miscellaneous notes that shouldn't be stored
+# within the repository
+.my-information
+
+# Prevent my compiled css from entering
+*.compiled.css
+
+
+node_modules
+bower_components
