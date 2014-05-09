@@ -1,0 +1,239 @@
+
+.on {
+    display: initial;
+}
+
+.off {
+    display: none;
+}
+
+
+
+.black {
+    background-color: black;
+}
+
+.transparent {
+    background-color: transparent;
+}
+
+.large {
+    font-size: large;
+}
+
+//===============================================
+// WRITING MODES (vertical/horizontal etc.)
+// thanks to David Storey
+// http://generatedcontent.org/post/45384206019/writing-modes
+
+.text-vertical-hack {
+    width: 1em;
+    line-height: 1.1;
+}
+
+.text-vertical-rl {
+    -ms-writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    -moz-writing-mode: vertical-rl;
+    -ms-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+}
+
+.text-vertical-lr {
+    -ms-writing-mode: tb-lr;
+    -webkit-writing-mode: vertical-lr;
+    -moz-writing-mode: vertical-lr;
+    -ms-writing-mode: vertical-lr;
+    writing-mode: vertical-lr;
+}
+
+.text-horizontal-lr {
+    -ms-writing-mode: lr-tb;
+    -webkit-writing-mode: horizontal-tb;
+    -moz-writing-mode: horizontal-tb;
+    -ms-writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb;
+}
+
+.text-horizontal-rl {
+    -ms-writing-mode: rl-tb;
+    -webkit-writing-mode: horizontal-tb;
+    -moz-writing-mode: horizontal-tb;
+    -ms-writing-mode: horizontal-tb;
+    writing-mode: horizontal-tb;
+
+    direction: rtl; /* not specified as part of writing-mode property in standard syntax */
+}
+
+// ~END OF~ WRITING MODES
+//==========================================
+
+
+.serif {
+    font-family: serif;
+}
+
+.text-upper {
+    text-transform: uppercase;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+
+.quarter-side-margins {
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.full-viewport {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.cap-width {
+    max-width: 100%;
+}
+
+.cap-height {
+    max-height: 100%;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+
+.fit-image {
+    width: auto;
+    height : auto;
+    .cap-width;
+    .cap-height;
+}
+
+.full-width-image {
+    .fit-image;
+    width: 100%;
+    max-height: initial;
+}
+
+
+// http://designshack.net/articles/css/10-less-css-examples-you-should-steal-for-your-projects/
+
+.border-radius (@radius: 5px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.border-radius-custom (@topleft: 5px, @topright: 5px, @bottomleft: 5px, @bottomright: 5px) {
+    -webkit-border-radius: @topleft @topright @bottomright @bottomleft;
+    -moz-border-radius: @topleft @topright @bottomright @bottomleft;
+    border-radius: @topleft @topright @bottomright @bottomleft;
+}
+
+.box-shadow( @x: 0px, @y: 3px, @blur: 5px, @alpha: 0.5 ) {
+    -webkit-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x @y @blur rgba(0, 0, 0, @alpha);
+}
+
+.transition (@prop: all, @time: 1s, @ease: linear) {
+    -webkit-transition: @prop @time @ease;
+    -moz-transition: @prop @time @ease;
+    -o-transition: @prop @time @ease;
+    -ms-transition: @prop @time @ease;
+    transition: @prop @time @ease;
+}
+
+.transform( @transforms: none ) {
+    -webkit-transform: @transforms;
+    -moz-transform: @transforms;
+    -o-transform: @transforms;
+    -ms-transform: @transforms;
+    transform: @transforms;
+}
+
+.rotate (@rotate: 90deg) {
+    -webkit-transform: rotate(@rotate);
+    -moz-transform: rotate(@rotate);
+    -o-transform: rotate(@rotate);
+    -ms-transform: rotate(@rotate);
+    transform: rotate(@rotate);
+}
+
+.gradient (@origin: left, @start: #ffffff, @stop: #000000) {
+    background-color: @start;
+    background-image: -webkit-linear-gradient(@origin, @start, @stop);
+    background-image: -moz-linear-gradient(@origin, @start, @stop);
+    background-image: -o-linear-gradient(@origin, @start, @stop);
+    background-image: -ms-linear-gradient(@origin, @start, @stop);
+    background-image: linear-gradient(@origin, @start, @stop);
+}
+
+.quick-gradient (@origin: left, @alpha: 0.2) {
+    background-image: -webkit-linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
+    background-image: -moz-linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
+    background-image: -o-linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
+    background-image: -ms-linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
+    background-image: linear-gradient(@origin, rgba(0,0,0,0.0), rgba(0,0,0,@alpha));
+}
+
+.reflect (@length: 50%, @opacity: 0.2){
+    -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(@length, transparent), to(rgba(255,255,255,@opacity)));
+}
+
+
+
+
+
+
+.filter( @things ) {
+    -webkit-filter: @things;
+    -moz-filter: @things;
+    filter: @things;
+}
+
+.grayscale( @howmuch: 100% ) {
+    .filter( grayscale(@howmuch) );
+}
+
+
+
+.cover-background( @imageURL ) {
+    background: url( @imageURL ) no-repeat center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+
+.aspect-widescreen( @width ) {
+    width: @width;
+    height: @width * 9/16;
+}
+
+
+.condensed-line {
+    line-height: 1;
+}
+

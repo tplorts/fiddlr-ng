@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en"
+      class="no-js {% block html_class %}{% endblock %}"
+      {% block html_attributes %}{% endblock %}>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>{% block title %}fiddlr{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% load staticfiles %}
+
+    <!-- ================== ICONS ================== -->
+    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-152.png' %}">
+    <meta name="msapplication-TileColor" content="#FFFFFF">
+    <meta name="msapplication-TileImage" content="{% static 'my/icons/icon-144.png' %}">
+    <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'my/icons/icon-152.png' %}">
+    <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'my/icons/icon-144.png' %}">
+    <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'my/icons/icon-120.png' %}">
+    <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'my/icons/icon-114.png' %}">
+    <!-- For first- and second-generation iPad: -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'my/icons/icon-72.png' %}">
+    <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-57.png' %}">
+    <!-- And for the rest of us -->
+    <link rel="icon" sizes="32x32" href="{% static 'my/icons/icon-32.png' %}">
+
+
+    {% block thirdparty_styles %}
+      <link rel="stylesheet" type="text/css"
+            href="{% static '3p/styles/bootstrap.min.css' %}" />
+    {% endblock thirdparty_styles %}
+
+    {% block default_styles %}
+      {% if useLESS %}
+      <link rel="stylesheet/less" type="text/css" 
+            href="{% static 'my/styles/styles.less' %}" />
+      {% else %}
+      <link rel="stylesheet" type="text/css" 
+            href="{% static 'my/styles/styles.compiled.css' %}" />
+      {% endif %}      
+    {% endblock default_styles %}
+
+    {% block styles %}{% endblock %}
+
+    
+    {% block default_prescripts %}
+      <script>
+        var isProduction = {{ isProduction|yesno:"true,false" }};
+      </script>
+
+      <script src="{% static '3p/scripts/jquery-1.11.1.min.js' %}"></script>
+      <script src="{% static '3p/scripts/bootstrap.min.js' %}"></script>
+      <script src="{% static '3p/scripts/modernizr.js' %}"></script>
+
+      {% if use_less_stylesheets %}
+        <script>
+          var less = {
+              env: "development",
+              async: false,
+              fileAsync: false,
+              poll: 1000,
+              functions: {},
+              dumpLineNumbers: "comments",
+              relativeUrls: false,
+              rootpath: ":/0.0.0.0:5000/"
+          };
+        </script>
+        <script src="{% static '3p/scripts/less-1.7.0.min.js' %}"></script>
+      {% endif %}
+
+    {% endblock default_prescripts %}
+
+    {% block prescripts %}{% endblock %}
+  </head>
+
+
+
+  <body class="{% block body_class %}{% endblock %}"
+        {% block body_attributes %}{% endblock %}>
+
+    <!--[if lt IE 8]>
+        <p class="browsehappy">
+          You are using an <strong>outdated</strong> browser. 
+          Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+        </p>
+        <![endif]-->
+
+
+    <div id="super-content" class="{%block super_class%}{%endblock%}">
+      {% block super_content %}{% endblock %}
+    </div> <!-- /#super-content -->
+
+
+
+    {% block thirdparty_postscripts %}
+    {% endblock thirdparty_postscripts %}
+
+    {% block default_postscripts %}
+      <script src="{% static 'my/scripts/main.js' %}"></script>
+    {% endblock default_postscripts %}
+
+    
+    {% block postscripts %}{% endblock %}
+
+    {% block google_analytics %}
+    {% endblock %}
+
+  </body>
+</html>
+
