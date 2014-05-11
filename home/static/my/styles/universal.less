@@ -1,5 +1,29 @@
 @import (less) "generic.less";
 @import (less) "variables.less";
 
-nothing{}
+.fiddlr-title {
+    font-size: 48px;
+    font-weight: bold;
+    padding: 6px 12px;
+}
 
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: @footer-height;
+    background-color: #DDD;
+    line-height: @footer-height;
+}
+
+.footer-link {
+    display: inline-block;
+    &::before {
+        content: "|";
+    }
+    &:first-of-type {
+        &::before {
+            content: none;
+        }
+    }
+}

@@ -1,1 +1,22 @@
-{% extends "base.html" %}
+{% extends "pagebase.html" %}
+{% load misc %}
+
+{% block content %}
+<div class="jumbotron">
+  Cover picture
+</div>
+<div class="container">
+  <div class="row">
+    {% for page in "explore,create,connect"|split:"," %}
+    <div class="col-sm-4">
+      <div class="">
+        <a href="{% url page %}"
+           class="btn btn-primary purple center-block">
+          <span class="huge">{{ page|capfirst }}</span>
+        </a>
+      </div>
+    </div><!--/.col-sm-4-->
+    {% endfor %}
+  </div><!--/.row-->
+</div><!--/.container-->
+{% endblock %}
