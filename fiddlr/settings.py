@@ -35,10 +35,11 @@ except IOError:
 SECRET_KEY = 'i=8luhlg5bs9%*p1z-1jlumcixyv5*8k**6^1vc(*n&+ns-4hf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = not isProduction
-#TEMPLATE_DEBUG = not isProduction
-DEBUG = True
-TEMPLATE_DEBUG = True
+DEBUG = not isProduction
+TEMPLATE_DEBUG = not isProduction
+#DEBUG = True
+#TEMPLATE_DEBUG = True
+
 
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
 #AWS_ACCESS_KEY_ID=''
