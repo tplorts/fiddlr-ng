@@ -14,6 +14,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 
+S3_STATIC_URL = 'http://s3.amazonaws.com/fiddlr-static/'
+
+
 # Automatically detect whether this is running on my development
 # computer, otherwise assuming that the environment is production.
 isProduction = False
@@ -35,6 +38,10 @@ SECRET_KEY = 'i=8luhlg5bs9%*p1z-1jlumcixyv5*8k**6^1vc(*n&+ns-4hf'
 DEBUG = not isProduction
 TEMPLATE_DEBUG = not isProduction
 
+DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+AWS_ACCESS_KEY_ID=''
+AWS_SECRET_ACCESS_KEY=''
+AWS_STORAGE_BUCKET_NAME=''
 
 
 # Application definition
@@ -46,6 +53,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'storages',
     'home',
 )
 
@@ -98,7 +106,10 @@ ALLOWED_HOSTS = ['*']
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+if isProduction:
+    STATIC_URL = S3_STATIC_URL
+else:
+    STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
