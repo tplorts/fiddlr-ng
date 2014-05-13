@@ -3,8 +3,37 @@
 
 .fiddlr-title {
     font-size: 48px;
-    font-weight: bold;
+    font-family: serif;
     padding: 6px 12px;
+    a {
+        color: black;
+        span {
+            margin-left: -22px;
+        }
+    }
+    img {
+        display: inline;
+        width: auto;
+        height: 40px;
+        margin-top: -15px;
+    }
+}
+
+#front-cover-image {
+    .cover-background('@{s3url}/ex/front-cover.jpg');
+    min-height: 250px;
+    margin-bottom: 50px;
+}
+
+#front-login {
+    padding-top: 70px;
+    input {
+        width: 100%;
+    }
+}
+
+.section-link {
+    padding: 0 20px;
 }
 
 #footer {

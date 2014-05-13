@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-{% load misc %}
+{% load staticfiles misc %}
 
 {% block super_content %}
 <div class="fiddlr-title">
   <a href="{% url 'front' %}">
-    fiddlr
+    <img src="{% static 'ex/f.png' %}" /><span>&nbsp; iddlr</span>
   </a>
 </div>
 <div id="content">

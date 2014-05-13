@@ -2,14 +2,29 @@
 {% load misc %}
 
 {% block content %}
-<div class="jumbotron">
-  Cover picture
+
+<div id="front-cover-image">
+  <div class="container">
+    <div class="col-sm-4 col-sm-offset-8
+                col-md-3 col-md-offset-9">
+      <div id="front-login">
+        <p><input type="email" placeholder="email"></p>
+        <p><input type="password" placeholder="password"></p>
+        <p class="text-right">
+          <button type="submit" class="btn btn-primary">
+            Login
+          </button>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="container">
   <div class="row">
     {% for page in "explore,create,connect"|split:"," %}
     <div class="col-sm-4">
-      <div class="">
+      <div class="section-link">
         <a href="{% url page %}"
            class="btn btn-primary purple center-block">
           <span class="huge">{{ page|capfirst }}</span>
@@ -19,4 +34,5 @@
     {% endfor %}
   </div><!--/.row-->
 </div><!--/.container-->
+
 {% endblock %}
