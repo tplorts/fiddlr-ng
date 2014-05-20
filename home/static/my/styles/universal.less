@@ -3,7 +3,8 @@
 
 .fiddlr-title {
     font-size: 48px;
-    font-family: serif;
+    font-family: sans-serif;
+    font-weight: bold;
     padding: 6px 12px;
     a {
         color: black;
@@ -36,6 +37,13 @@
     padding: 0 20px;
 }
 
+.snowflake {
+    &::before {
+        content: "❄";
+        font-size: 12px;
+    }
+}
+
 #header {
     background-color: #EEE;
     border-bottom: 1px solid #CCC;
@@ -52,10 +60,12 @@
     }
 }
 
+#header-links {
+    line-height: 30px;
+}
+
 .header-link {
-    &::before {
-        content: "❄";
-    }
+    .snowflake;
     &:first-of-type {
         &::before {
             content: none;

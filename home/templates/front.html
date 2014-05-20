@@ -22,12 +22,12 @@
 
 <div class="container">
   <div class="row">
-    {% for page in "explore,create,connect"|split:"," %}
+    {% for page in "Explore,Create,Connect"|split:"," %}
     <div class="col-sm-4">
       <div class="section-link">
         <a href="{% url page %}"
            class="btn btn-primary purple center-block">
-          <span class="huge">{{ page|capfirst }}</span>
+          <span class="huge">{{ page }}</span>
         </a>
       </div>
     </div><!--/.col-sm-4-->

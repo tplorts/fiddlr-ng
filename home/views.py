@@ -9,30 +9,37 @@ def renderView( request, template, context={} ):
     })
     return render( request, template, context )
 
-
+def renderPage( request, pageName, context={} ):
+    context.update({
+        'pageName': pageName.capitalize(),
+    })
+    return renderView( request, pageName+'.html', context )
 
 
 def front(q):
-    return renderView(q, 'front.html')
+    return renderPage(q, 'front')
 
 
 def explore(q):
-    return renderView(q, 'explore.html')
+    return renderPage(q, 'explore')
 
 def create(q):
-    return renderView(q, 'create.html')
+    return renderPage(q, 'create')
 
 def connect(q):
-    return renderView(q, 'connect.html')
+    return renderPage(q, 'connect')
 
 
 
 def about(q):
-    return renderView(q, 'about.html')
+    return renderPage(q, 'about')
 
 def copyrightView(q):
-    return renderView(q, 'copyright.html')
+    return renderPage(q, 'copyright')
 
 def helpView(q):
-    return renderView(q, 'help.html')
+    return renderPage(q, 'help')
+
+def adsView(q):
+    return renderPage(q, 'ads')
 
