@@ -66,14 +66,17 @@
 </div>
 
 <div id="footer">
-  <div class="container">
-    <div class="text-center text-muted">
-      {% for link in "About Fiddlr,Copyright Information,Help"|split:"," %}
-      <span class="footer-link">
-        <a href="{% url link %}">{{ link }}</a>
-      </span>
-      {% endfor %}
-    </div>
+  <div class="text-center text-muted">
+    {% for link in "About Fiddlr,Copyright Information,Help"|split:"," %}
+    <span class="footer-link">
+      <a href="{% url link %}">{{ link }}</a>
+    </span>
+    {% endfor %}
+  </div>
+  <div id="dev-warning">
+    <span class="text-danger">
+      <strong>fiddlr is presently in development</strong>
+    </span>
   </div>
 </div>
 {% endblock %}

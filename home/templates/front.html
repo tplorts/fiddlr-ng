@@ -20,19 +20,21 @@
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    {% for page in "Explore,Create,Connect"|split:"," %}
-    <div class="col-sm-4">
-      <div class="section-link">
-        <a href="{% url page %}"
-           class="btn btn-primary purple center-block">
-          <span class="huge">{{ page }}</span>
-        </a>
-      </div>
-    </div><!--/.col-sm-4-->
-    {% endfor %}
-  </div><!--/.row-->
-</div><!--/.container-->
+<div id="big-ol-buttons">
+  <div class="container">
+    <div class="row">
+      {% for page in "Explore,Create,Connect"|split:"," %}
+      <div class="col-sm-4">
+        <div class="section-link">
+          <a href="{% url page %}"
+             class="btn btn-primary purple center-block">
+            <span class="huge">{{ page }}</span>
+          </a>
+        </div>
+      </div><!--/.col-sm-4-->
+      {% endfor %}
+    </div><!--/.row-->
+  </div><!--/.container-->
+</div><!--/#big-ol-buttons-->
 
 {% endblock %}
