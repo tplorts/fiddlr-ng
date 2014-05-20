@@ -36,6 +36,33 @@
     padding: 0 20px;
 }
 
+#header {
+    background-color: #EEE;
+    border-bottom: 1px solid #CCC;
+    .nav-subrow {
+        margin-top: 5px;
+        &:first-of-type {
+            margin-top: 15px;
+        }
+    }
+    input {
+        width: 100%;
+        line-height: 24px;
+        margin: 2px 0;
+    }
+}
+
+.header-link {
+    &::before {
+        content: "❄";
+    }
+    &:first-of-type {
+        &::before {
+            content: none;
+        }
+    }
+}
+
 #footer {
     position: absolute;
     bottom: 0;

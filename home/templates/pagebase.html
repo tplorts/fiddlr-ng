@@ -2,14 +2,59 @@
 {% load staticfiles misc %}
 
 {% block super_content %}
-<div class="fiddlr-title">
-  <a href="{% url 'front' %}">
-    <img src="{% static 'ex/f.png' %}" /><span>&nbsp; iddlr</span>
-  </a>
-</div>
+<div id="header">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="fiddlr-title">
+          <a href="{% url 'front' %}">
+            {# <img src="{% static 'ex/f.png' %}" /><span>&nbsp; iddlr</span> #}
+            fiddlr
+          </a>
+        </div>
+      </div><!--/.col for title-->
+      <div class="col-sm-7">
+        <div class="row nav-subrow">
+          <div class="col-sm-5">
+            <input type="text" placeholder="what?">
+          </div>
+          <div class="col-sm-5">
+            <input type="text" placeholder="where?">
+          </div>
+          <div class="col-sm-2">
+            <button class="btn btn-default search-button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
+        </div><!--/.row for search-->
+        <div class="nav-subrow">
+          {% for link in "Home,Explore,Create,Connect,About,Help,Ads"|split:"," %}
+            <span class="header-link">
+              <a href="#">{{ link }}</a>
+            </span>
+          {% endfor %}
+        </div><!--/.row for links-->
+      </div><!--/.col for nav-->
+      <div class="col-sm-2 text-right">
+        <div class="nav-subrow">
+          <button class="btn btn-primary">
+            Login
+          </button>
+        </div>
+        <div class="nav-subrow">
+          <a href="#">
+            Join fiddlr
+          </a>
+        </div>
+      </div><!--/.col for login-->
+    </div><!--/.row-->
+  </div><!--/.container-->
+</div><!--/#header-->
+
 <div id="content">
   {% block content %}{% endblock %}
 </div>
+
 <div id="footer">
   <div class="container">
     <div class="text-center text-muted">
