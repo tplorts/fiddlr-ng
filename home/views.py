@@ -21,7 +21,9 @@ def front(q):
 
 
 def explore(q):
-    return renderPage(q, 'explore')
+    return renderPage(q, 'explore', {
+        'gmaps_api_key': settings.gmaps_api_key,
+    })
 
 def create(q):
     return renderPage(q, 'create')

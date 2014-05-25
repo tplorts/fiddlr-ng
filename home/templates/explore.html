@@ -1,5 +1,59 @@
 {% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+
+{% block html_attributes %}
+ng-app="exploreApp"
+{% endblock %}
+
+
+{% block styles %}
+<style>
+  .angular-google-map-container { 
+    height: 400px;
+  }
+</style>
+{% endblock %}
+
 
 {% block content %}
+<div ng-controller="ExploreController">
+  <div class="container full-width">
+    <div class="row">
+      <div class="col-sm-8 col-md-6">
+        <div id="gmap-explore">
+          <google-map center="map.center" zoom="map.zoom"></google-map>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-6">
+        <div>Angular seed app: v<span app-version></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block postscripts %}
+<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
+
+<!-- AngularJS framework files -->
+{% with ng_root="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10" %}
+{% for ng_piece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
+<script src="{{ ng_root }}/angular{{ ng_piece }}.min.js"></script>
+{% endfor %}
+<script src="{{ ng_root }}/angular-mocks.js"></script>
+{% endwith %}
+
+<script src="{% static '3p/scripts/angular-google-maps.min.js' %}"></script>
+
+<!-- The application files-->
+{% for appfile in "app,filters,services,directives,controllers"|split:"," %}
+<script src="{% static 'ng/explore/scripts/'|add:appfile|add:'.js' %}"></script>
+{% endfor %}
+
+
 
 {% endblock %}
+
