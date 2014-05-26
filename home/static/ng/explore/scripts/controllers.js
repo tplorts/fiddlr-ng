@@ -14,5 +14,8 @@ cmod.controller(
             },
             zoom: 12
         };
+        if( initial_markers !== undefined ) {
+            $scope.markers = initial_markers;
+        }
     }] // end: controller function
 ); // end: ExploreController

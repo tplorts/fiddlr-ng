@@ -16,13 +16,25 @@ ng-app="exploreApp"
 {% endblock %}
 
 
+{% block prescripts %}
+<script>
+  var initial_markers = {{ initial_markers|tojson }};
+</script>
+{% endblock %}
+
 {% block content %}
 <div ng-controller="ExploreController">
   <div class="container full-width">
     <div class="row">
       <div class="col-sm-8 col-md-6">
         <div id="gmap-explore">
-          <google-map center="map.center" zoom="map.zoom"></google-map>
+          <google-map center="map.center" 
+                      zoom="map.zoom"
+                      pan="false"
+                      draggable="true">
+            <marker ng-repeat="m in markers"
+                    coords="m"></marker>
+          </google-map>
         </div>
       </div>
       <div class="col-sm-4 col-md-6">
