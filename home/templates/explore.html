@@ -18,7 +18,17 @@ ng-app="exploreApp"
 
 {% block prescripts %}
 <script>
-  var initial_markers = {{ initial_markers|tojson }};
+  var initialMarkers = {{ initial_markers|tojson }};
+  var mouseoverMarker = function( event ) {
+    console.log( 'over '+this.$id );
+  };
+  var mouseoutMarker = function( event ) {
+    console.log( 'out '+this.$id );
+  };
+  var markerEvents = {
+    'mouseover': mouseoverMarker,
+    'mouseout': mouseoutMarker
+  };
 </script>
 {% endblock %}
 
@@ -33,7 +43,8 @@ ng-app="exploreApp"
                       pan="false"
                       draggable="true">
             <marker ng-repeat="m in markers"
-                    coords="m"></marker>
+                    coords="m"
+                    events="markerEvents"></marker>
           </google-map>
         </div>
       </div>
@@ -51,7 +62,7 @@ ng-app="exploreApp"
 <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
 
 <!-- AngularJS framework files -->
-{% with ng_root="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10" %}
+{% with ng_root="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10" %}
 {% for ng_piece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
 <script src="{{ ng_root }}/angular{{ ng_piece }}.min.js"></script>
 {% endfor %}
