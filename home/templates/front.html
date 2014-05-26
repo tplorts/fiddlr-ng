@@ -2,39 +2,36 @@
 {% load misc %}
 
 {% block content %}
-
-<div id="front-cover-image">
-  <div class="container">
-    <div class="col-sm-4 col-sm-offset-8
-                col-md-3 col-md-offset-9">
-      <div id="front-login">
-        <p><input type="email" placeholder="email"></p>
-        <p><input type="password" placeholder="password"></p>
-        <p class="text-right">
-          <button type="submit" class="btn btn-primary">
-            Login
-          </button>
-        </p>
+  <div id="front-cover-image">
+    <div class="container">
+      <div class="col-sm-4 col-sm-offset-8
+                  col-md-3 col-md-offset-9">
+        <div id="front-login">
+          <p><input type="email" placeholder="email"></p>
+          <p><input type="password" placeholder="password"></p>
+          <p class="text-right">
+            <button type="submit" class="btn btn-primary">
+              Login
+            </button>
+          </p>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-<div id="big-ol-buttons">
-  <div class="container">
-    <div class="row">
-      {% for page in "Explore,Create,Connect"|split:"," %}
-      <div class="col-sm-4">
-        <div class="section-link">
-          <a href="{% url page %}"
-             class="btn btn-primary purple center-block">
-            <span class="huge">{{ page }}</span>
-          </a>
-        </div>
-      </div><!--/.col-sm-4-->
-      {% endfor %}
-    </div><!--/.row-->
-  </div><!--/.container-->
-</div><!--/#big-ol-buttons-->
-
+  <div id="big-ol-buttons">
+    <div class="container">
+      <div class="row">
+        {% for page in "Explore,Create,Connect"|split:"," %}
+          <div class="col-sm-4">
+            <div class="section-link">
+              <a href="{% url page %}"
+                 class="btn btn-primary purple center-block">
+                <span class="huge">{{ page }}</span>
+              </a>
+            </div>
+          </div><!--/.col-sm-4-->
+        {% endfor %}
+      </div><!--/.row-->
+    </div><!--/.container-->
+  </div><!--/#big-ol-buttons-->
 {% endblock %}

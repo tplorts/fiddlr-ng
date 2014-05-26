@@ -12,40 +12,38 @@
     {% load staticfiles %}
 
     <!-- ================== ICONS ================== -->
-    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-152.png' %}">
-    <meta name="msapplication-TileColor" content="#FFFFFF">
-    <meta name="msapplication-TileImage" content="{% static 'my/icons/icon-144.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-152.png' %}" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="{% static 'my/icons/icon-144.png' %}" />
     <!-- For iPad with high-resolution Retina display running iOS ≥ 7: -->
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'my/icons/icon-152.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{% static 'my/icons/icon-152.png' %}" />
     <!-- For iPad with high-resolution Retina display running iOS ≤ 6: -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'my/icons/icon-144.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'my/icons/icon-144.png' %}" />
     <!-- For iPhone with high-resolution Retina display running iOS ≥ 7: -->
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'my/icons/icon-120.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{% static 'my/icons/icon-120.png' %}" />
     <!-- For iPhone with high-resolution Retina display running iOS ≤ 6: -->
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'my/icons/icon-114.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'my/icons/icon-114.png' %}" />
     <!-- For first- and second-generation iPad: -->
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'my/icons/icon-72.png' %}">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'my/icons/icon-72.png' %}" />
     <!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
-    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-57.png' %}">
+    <link rel="apple-touch-icon-precomposed" href="{% static 'my/icons/icon-57.png' %}" />
     <!-- And for the rest of us -->
-    <link rel="icon" sizes="32x32" href="{% static 'my/icons/icon-32.png' %}">
+    <link rel="icon" sizes="32x32" href="{% static 'my/icons/icon-32.png' %}" />
 
 
+      
     {% block thirdparty_styles %}
-      <link rel="stylesheet" type="text/css"
-            href="{% static '3p/styles/bootstrap.min.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static '3p/styles/bootstrap.min.css' %}" />
     {% endblock thirdparty_styles %}
 
     {% block default_styles %}
       {% if useLESS %}
-      <link rel="stylesheet/less" type="text/css" 
-            href="{% static 'my/styles/styles.less' %}" />
+        <link rel="stylesheet/less" type="text/css" href="{% static 'my/styles/styles.less' %}" />
       {% else %}
-      <link rel="stylesheet" type="text/css" 
-            href="{% static 'my/styles/styles.compiled.css' %}" />
-      {% endif %}      
+        <link rel="stylesheet" type="text/css" href="{% static 'my/styles/styles.compiled.css' %}" />
+      {% endif %}
     {% endblock default_styles %}
-
+    
     {% block styles %}{% endblock %}
 
     
