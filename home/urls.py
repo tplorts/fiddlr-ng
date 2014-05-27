@@ -12,9 +12,12 @@ urlpatterns = patterns(
     url(r'^$', views.front, name='Front'),
     url(r'^$', views.front, name='Home'),
 
-    url(r'^explore/', views.explore, name='Explore'),
+    url(r'^explore/$', views.explore, name='Explore'),
     url(r'^create/', views.create, name='Create'),
     url(r'^connect/', views.connect, name='Connect'),
+
+    url(r'^explore/map/', views.explore_map, name='Explore Map View'),
+
 
     url(r'^about/', views.about, name='About'),
     url(r'^about/', views.about, name='About Fiddlr'),

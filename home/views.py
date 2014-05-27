@@ -21,13 +21,16 @@ def front(q):
 
 
 def explore(q):
+    return renderPage(q, 'explore')
+
+def explore_map(q):
     initial_markers = (
         {'latitude': 40.7363114,
          'longitude': -73.9908941},
         {'latitude': 40.765936,
          'longitude': -73.984026},
     )
-    return renderPage(q, 'explore', {
+    return renderPage(q, 'explore-map', {
         'gmaps_api_key': settings.gmaps_api_key,
         'initial_markers': initial_markers,
     })
