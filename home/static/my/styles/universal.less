@@ -1,5 +1,7 @@
 @import (less) "generic.less";
 @import (less) "variables.less";
+@import (less) "gradient.less";
+
 
 .fiddlr-title {
     font-size: 48px;
@@ -107,3 +109,50 @@
     padding: 0 20px;
     margin: 20px 0;
 }
+
+.image-case {
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.explore-link {
+    display: block;
+    border-radius: 4px;
+    & > div {
+        border-radius: inherit;
+    }
+    &:hover {
+        .box-shadow(0, 0, 12px, 0.7);
+    }
+}
+
+.explore-section {
+    &-image {
+        height: 100%;
+        width: auto;
+    }
+    &-label {
+        position: absolute;
+        z-index: 1;
+        bottom: 15px;
+        margin-left: -15px;
+        width: 100%;
+        text-align: center;
+        @label-bg: rgba(255, 255, 255, 0.75);
+        background-color: @label-bg;
+        font-size: 18px;
+        font-weight: bold;
+        .gradient-border {
+            .gradient-border_( @label-bg, 4px );
+        }
+    }
+}
+
+.tall-height {
+    height: 240px;
+}
+
+.normal-height {
+    height: 180px;
+}
+

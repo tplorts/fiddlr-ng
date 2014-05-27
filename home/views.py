@@ -23,6 +23,19 @@ def front(q):
 def explore(q):
     return renderPage(q, 'explore')
 
+def explore_featured(q):
+    return renderPage(q, 'explore-featured')
+def explore_nearYou(q):
+    return renderPage(q, 'explore-near-you')
+def explore_forYou(q):
+    return renderPage(q, 'explore-for-you')
+def explore_fiddlrProjects(q):
+    return renderPage(q, 'explore-fiddlr-projects')
+def explore_happeningNow(q):
+    return renderPage(q, 'explore-happening-now')
+
+
+
 def explore_map(q):
     initial_markers = (
         {'latitude': 40.7363114,

@@ -4,25 +4,115 @@
 
 
 {% block content %}
+{% with standard_image_url="http://lorempixel.com/400/300/" %}
+{% with wide_image_url="http://lorempixel.com/800/400/" %}
+{% with tall_image_url="http://lorempixel.com/400/400/" %}
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
-      <div>
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="explore-link" href="{% url 'Featured' %}">
+            <div class="image-case tall-height">
+              <img class="explore-section-image"
+                   src="{{ tall_image_url|add:'fashion' }}" />
+              <div class="explore-section-label">
+                <span class="label-text">Featured</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
-      <div>
+      <div class="row">
+        <div class="col-sm-12">
+          <a class="explore-link" href="{% url 'Near You' %}">
+            <div class="image-case normal-height">
+              <img class="explore-section-image"
+                   src="{{ standard_image_url|add:'people' }}" />
+              <div class="explore-section-label">
+                <span class="label-text">Near You</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
+          <a class="explore-link" href="{% url 'For You' %}">
+            <div class="image-case normal-height">
+              <img class="explore-section-image"
+                   src="{{ standard_image_url|add:'nightlife' }}" />
+              <div class="explore-section-label">
+                <span class="label-text">For You</span>
+              </div>
+            </div>
+          </a>
         </div>
         <div class="col-sm-6">
+          <a class="explore-link" href="{% url 'fiddlr Projects' %}">
+            <div class="image-case normal-height">
+              <img class="explore-section-image"
+                   src="{{ standard_image_url|add:'cats' }}" />
+              <div class="explore-section-label">
+                <span class="label-text">fiddlr Projects</span>
+              </div>
+            </div>
+          </a>
         </div>
       </div>
       <div class="row">
+        <div class="col-sm-12">
+          <a class="explore-link" href="{% url 'Happening Now' %}">
+            <div class="image-case tall-height">
+              <img class="explore-section-image"
+                   src="{{ wide_image_url|add:'city' }}" />
+              <div class="explore-section-label">
+                <span class="label-text">Happening Now</span>
+              </div>
+            </div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+{% endwith %}
+{% endwith %}
+{% endwith %}
 {% endblock %}
 
+{% block postscripts %}
+<script>
+
+  var gradientTopMarkup = '\
+  <div class="gradient-border top-edge"></div>\
+  ';
+  var gradientMarkup = '\
+  <div class="gradient-border top-edge"></div>\
+  <div class="gradient-border bottom-edge"></div>\
+  <div class="gradient-border topright-corner"><div></div></div>\
+  <div class="gradient-border right-edge"></div>\
+  <div class="gradient-border bottomright-corner"><div></div></div>\
+  <div class="gradient-border bottomleft-corner"><div></div></div>\
+  <div class="gradient-border left-edge"></div>\
+  <div class="gradient-border topleft-corner"><div></div></div>\
+  ';
+
+(function( $ ){
+   $.fn.centerImage = function() {
+      var theca = this.parent();
+      var wd = (theca.width() - this.width()) / 2;
+      this.css('margin-left', wd+'px');
+   }; 
+   $.fn.gradientBorderTop = function() {
+       this.append(gradientTopMarkup);
+   };
+})( jQuery );
+  $(window).on('load', function() {
+//    $('.image-case > img').centerImage();
+    $('.explore-section-label').gradientBorderTop();
+  });
+</script>
+{% endblock postscripts %}
