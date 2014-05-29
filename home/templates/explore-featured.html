@@ -3,6 +3,14 @@
 
 
 {% block content %}
+
+<div class="text-center" style="margin: 20px;">
+  <a href="{% url 'Featured Map View' %}"
+     class="btn btn-warning">
+    Oh, but see it in a <em><strong>MAP</strong></em>
+  </a>
+</div>
+
 <div class="container">
   {% for x in '12345678' %}
   {# <a class="project link" href="#"> #}

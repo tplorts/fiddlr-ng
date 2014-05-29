@@ -14,12 +14,12 @@ urlpatterns = patterns(
 
     url(r'^explore/$', views.explore, name='Explore'),
     url(r'^explore/featured/$', views.explore_featured, name='Featured'),
+    url(r'^explore/featured/map/$', views.explore_map, name='Featured Map View'),
     url(r'^explore/near-you/$', views.explore_nearYou, name='Near You'),
     url(r'^explore/for-you/$', views.explore_forYou, name='For You'),
     url(r'^explore/fiddlr-projects$', views.explore_fiddlrProjects, name='fiddlr Projects'),
     url(r'^explore/happening-now/$', views.explore_happeningNow, name='Happening Now'),
     
-    url(r'^explore/map/', views.explore_map, name='Explore Map View'),
 
     url(r'^create/', views.create, name='Create'),
     url(r'^connect/', views.connect, name='Connect'),

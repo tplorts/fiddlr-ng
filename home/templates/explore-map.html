@@ -19,24 +19,16 @@ ng-app="exploreApp"
 {% block prescripts %}
 <script>
   var initialMarkers = {{ initial_markers|tojson }};
-  var mouseoverMarker = function( event ) {
-    console.log( 'over '+this.$id );
-  };
-  var mouseoutMarker = function( event ) {
-    console.log( 'out '+this.$id );
-  };
-  var markerEvents = {
-    'mouseover': mouseoverMarker,
-    'mouseout': mouseoutMarker
-  };
 </script>
+<script src="{% static 'my/scripts/explore-map.js' %}"></script>
 {% endblock %}
+
 
 {% block content %}
 <div ng-controller="ExploreController">
   <div class="container full-width">
     <div class="row">
-      <div class="col-sm-8 col-md-7">
+      <div class="col-sm-7">
         <div id="gmap-explore">
           <google-map center="map.center" 
                       zoom="map.zoom"
@@ -44,12 +36,24 @@ ng-app="exploreApp"
                       draggable="true">
             <marker ng-repeat="m in markers"
                     coords="m"
+                    project-id="m.id"
                     events="markerEvents"></marker>
           </google-map>
         </div>
       </div>
-      <div class="col-sm-4 col-md-5">
-        <div>Angular seed app: v<span app-version></span></div>
+      <div class="col-sm-5">
+        <span class="pull-right">
+          <a href="{% url 'Featured' %}">
+            Leave map view
+          </a>
+        </span>
+        <h2>Featured Projects</h2>
+        <div id="featured-projects">
+          <div ng-repeat="m in markers"
+               class="project-item" project-id="[[m.id]]">
+            Thing [[m.id]]
+          </div>
+        </div>
       </div>
     </div>
   </div>

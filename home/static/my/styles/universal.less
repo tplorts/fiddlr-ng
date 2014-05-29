@@ -192,3 +192,25 @@
 
 .project-actions {
 }
+
+
+
+.project-hover {
+    border-color: @purple;
+}
+
+.project-item {
+    margin: 12px 0;
+    padding: 2px 8px;
+    border: 1px solid @lightgrey;
+    border-radius: 4px;
+    .transition();
+    &:hover {
+        .project-hover;
+    }
+}
+
+.corresponding-marker-hover {
+    .project-hover;
+}
+
