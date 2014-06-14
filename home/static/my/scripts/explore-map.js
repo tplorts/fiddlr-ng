@@ -1,16 +1,18 @@
-var projectList = null;
+var eventList = null;
 var overMarkerClass = 'corresponding-marker-hover';
 
+var item4marker = function( m ) {
+    var id = m.coords.id;
+    var item = eventList.find('.event-item[event-id="' + id + '"]');
+    return item;
+};
+
 var mouseoverMarker = function( event ) {
-    var id = this.coords.id;
-    var item = projectList.find('.project-item[project-id="'+id+'"]');
-    item.addClass( overMarkerClass );
+    item4marker(this).addClass( overMarkerClass );
 };
 
 var mouseoutMarker = function( event ) {
-    var id = this.coords.id;
-    var item = projectList.find('.project-item[project-id="'+id+'"]');
-    item.removeClass( overMarkerClass );
+    item4marker(this).removeClass( overMarkerClass );
 };
 
 var markerEvents = {
@@ -20,16 +22,14 @@ var markerEvents = {
 
 
 var mouseoverItem = function( event ) {
-    var id = $(this).attr('project-id');
+    var id = $(this).attr('event-id');
 };
 
 var mouseoutItem = function( event ) {
-    var id = $(this).attr('project-id');
+    var id = $(this).attr('event-id');
 };
 
-$(window).on('load', function() {
-    projectList = $('#featured-projects');
-
-    projectList.find('.project-item').hover(
-        mouseoverItem, mouseoutItem );
+$(document).on('ready', function() {
+    eventList = $('#featured-events');
+    eventList.find('.event-item').hover( mouseoverItem, mouseoutItem );
 });

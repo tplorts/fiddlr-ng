@@ -38,25 +38,25 @@ class Fidentity( models.Model ):
 
 
 class Artist( Fidentity ):
-    members = models.ManyToManyField( 'User' )
-    sponsors = models.ManyToManyField( 'Sponsor' )
+    members = models.ManyToManyField( 'User', blank=True )
+    sponsors = models.ManyToManyField( 'Sponsor', blank=True )
 
 
 class Venue( Fidentity ):
-    managers = models.ManyToManyField( 'User' )
+    managers = models.ManyToManyField( 'User', blank=True )
     address = models.CharField( max_length=200, blank=True )
-    geocoordinates = models.OneToOneField( 'Geocoordinates', null=True )
-    venue_type = models.ForeignKey( 'VenueType', null=True )
-    event_types = models.ManyToManyField( 'EventType' )
+    geocoordinates = models.OneToOneField( 'Geocoordinates', null=True, blank=True )
+    venue_type = models.ForeignKey( 'VenueType', null=True, blank=True )
+    event_types = models.ManyToManyField( 'EventType', blank=True )
 
 
 class Event( Fidentity ):
-    venue = models.ForeignKey( 'Venue', null=True )
-    artists = models.ManyToManyField( 'Artist' )
-    sponsors = models.ManyToManyField( 'Sponsor' )
+    venue = models.ForeignKey( 'Venue', null=True, blank=True )
+    artists = models.ManyToManyField( 'Artist', blank=True )
+    sponsors = models.ManyToManyField( 'Sponsor', blank=True )
 
-    start = models.DateTimeField( null=True )
-    end = models.DateTimeField( null=True )
+    start = models.DateTimeField( null=True, blank=True )
+    end = models.DateTimeField( null=True, blank=True )
     iterations = models.TextField( blank=True )
 
     is_reservation_required = models.BooleanField( default=False )
@@ -84,7 +84,7 @@ class EventType( models.Model ):
 class Price( models.Model ):
     amount = models.DecimalField( max_digits=12, decimal_places=4 )
     event = models.ForeignKey( 'Event' )
-    category = models.ForeignKey( 'PriceCategory', null=True )
+    category = models.ForeignKey( 'PriceCategory', null=True, blank=True )
 
     def __unicode__(self):
         s = '$' + unicode(self.amount)
@@ -102,8 +102,8 @@ class PriceCategory( models.Model ):
 
 class Picture( models.Model ):
     url = models.URLField()
-    entity = models.ForeignKey( 'Fidentity', null=True )
-    ordinal = models.FloatField( null=True )
+    entity = models.ForeignKey( 'Fidentity', null=True, blank=True )
+    ordinal = models.FloatField( null=True, blank=True )
 
     def __unicode__(self):
         return self.url.split('/')[-1]
@@ -116,3 +116,5 @@ class Geocoordinates( models.Model ):
     def __unicode__(self):
         return '['+unicode(self.latitude)+', '+unicode(self.longitude)+']'
 
+    def id(self):
+        return self.pk

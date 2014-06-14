@@ -1,6 +1,7 @@
 from django.shortcuts import render
+from django.core.serializers import serialize
 from fiddlr import settings
-
+from models import *
 
 def renderView( request, template, context={} ):
     context.update({
@@ -24,7 +25,10 @@ def explore(q):
     return renderPage(q, 'explore')
 
 def explore_featured(q):
-    return renderPage(q, 'explore-featured')
+    return renderPage(q, 'explore-featured', {
+        'featured_events': Event.objects.all(),
+    })
+
 def explore_nearYou(q):
     return renderPage(q, 'explore-near-you')
 def explore_forYou(q):
@@ -45,9 +49,24 @@ def explore_map(q):
          'latitude': 40.765936,
          'longitude': -73.984026},
     )
+    events = Event.objects.all()
+    eventsJSON = serialize(
+        'json', 
+        events, 
+        relations={
+            'venue': {
+                'relations': {
+                    'geocoordinates': {'extras': ('id',)}
+                }
+            }
+        },
+        extras=('name',)
+    )
     return renderPage(q, 'explore-map', {
         'gmaps_api_key': settings.gmaps_api_key,
         'initial_markers': initial_markers,
+        'featured_events': events,
+        'featured_events_json': eventsJSON,
     })
 
 def create(q):

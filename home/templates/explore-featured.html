@@ -7,38 +7,45 @@
 <div class="text-center" style="margin: 20px;">
   <a href="{% url 'Featured Map View' %}"
      class="btn btn-warning">
-    Oh, but see it in a <em><strong>MAP</strong></em>
+    See these events on a map
   </a>
 </div>
 
 <div class="container">
-  {% for x in '12345678' %}
-  {# <a class="project link" href="#"> #}
-    <div class="project-block">
+  {% for event in featured_events %}
+    <div class="event-block">
       <div class="translucent hoverable content-case">
-        <div class="project-info">
-          <div class="project-name">
-            {{ "Project Name"|smallcaps }}
-          </div>
-          <p class="project-details">
-            <span class="project-time">Time</span>,
-            <span class="project-date">Date</span>,
-            <span class="project-venue">Venue</span>
+        <div class="event-info">
+          <a href="#" class="event-name">
+            {{ event.name|smallcaps }}
+          </a>
+          <p class="event-details">
+            <span class="event-time">Time</span>,
+            <span class="event-date">Date</span>,
+            <span class="event-venue">
+              <a href="#">{{ event.venue }}</a>
+            </span>
           </p>
-          <p class="project-description">
+          <p class="event-description">
             Description
           </p>
-          <p class="project-artist">
-            Artist
+          <p class="event-artist">
+            {% with artists=event.artists.all %}
+            {% for artist in artists %}
+              {% if forloop.last and artists.count > 1 %}
+                &amp;
+              {% endif %}
+              <a href="#" class="ib">{{ artist }}</a>{% if artists.count > 2 and not forloop.last %},{% endif %}
+            {% endfor %}
+            {% endwith %}
           </p>
         </div>
-        <div class="project-actions">
+        <div class="event-actions">
           <a href="#" class="pull-left">Get directions</a>
           <a href="#" class="pull-right">Attend</a>
         </div>
       </div>
     </div>
-  {# </a> #}
   {% endfor %}
 </div>
 {% endblock content %}

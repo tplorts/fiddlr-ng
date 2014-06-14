@@ -18,6 +18,18 @@ cmod.controller(
         if( initialMarkers !== undefined ) {
             $scope.markers = initialMarkers;
         }
+        if( initialEvents !== undefined ) {
+            $scope.events = initialEvents;
+            for( var i=0; i<$scope.events.length; i++ ) {
+                var e = $scope.events[i];
+                var geo = e.fields.venue.fields.geocoordinates.fields;
+                e['coords'] = {
+                    'id': e.pk,
+                    'latitude': geo.latitude,
+                    'longitude': geo.longitude
+                };
+            }
+        }
 
         $scope.markerEvents = markerEvents;
     }] // end: controller function

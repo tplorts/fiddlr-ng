@@ -19,6 +19,7 @@ ng-app="exploreApp"
 {% block prescripts %}
 <script>
   var initialMarkers = {{ initial_markers|tojson }};
+  var initialEvents = {{ featured_events_json|safe }};
 </script>
 <script src="{% static 'my/scripts/explore-map.js' %}"></script>
 {% endblock %}
@@ -34,10 +35,10 @@ ng-app="exploreApp"
                       zoom="map.zoom"
                       pan="false"
                       draggable="true">
-            <marker ng-repeat="m in markers"
-                    coords="m"
-                    project-id="m.id"
-                    events="markerEvents"></marker>
+            <marker ng-repeat="e in events"
+                    coords="e.coords"
+                    events="markerEvents">
+            </marker>
           </google-map>
         </div>
       </div>
@@ -47,11 +48,11 @@ ng-app="exploreApp"
             Leave map view
           </a>
         </span>
-        <h2>Featured Projects</h2>
-        <div id="featured-projects">
-          <div ng-repeat="m in markers"
-               class="project-item" project-id="[[m.id]]">
-            Thing [[m.id]]
+        <h3>Featured Events</h3>
+        <div id="featured-events">
+          <div ng-repeat="e in events | orderBy:'-extras.name'"
+               class="event-item" event-id="[[e.pk]]">
+            <span>:[[ e.extras.name ]]</span>
           </div>
         </div>
       </div>

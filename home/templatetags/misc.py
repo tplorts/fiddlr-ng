@@ -1,6 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
-from django.template.defaultfilters import stringfilter
+from django.core.serializers import serialize
+from django.db.models.query import QuerySet
 import re
 import json
 
@@ -18,14 +19,19 @@ class DefaultJSONEncoder(json.JSONEncoder):
         return o.__dict__
 
 @register.filter
-def tojson(obj):
-    return mark_safe( json.dumps(obj, cls=DefaultJSONEncoder, separators=(',', ':')) )
+def tojson(obj, expand=None):
+    if isinstance(obj, QuerySet):
+        if expand != None:
+            on = serialize('json', obj, relations=expand.split(','))
+        else:
+            on = serialize('json', obj)
+    else:
+        on = json.dumps(obj, cls=DefaultJSONEncoder, separators=(',', ':'))
+    return mark_safe(on)
 
 
 
-@register.filter(is_safe=True)
-@stringfilter
+@register.filter
 def smallcaps(text):
-    return re.sub(r'([a-z]+)', 
-                  r'<span class="smallcaps">\1</span>', 
-                  text)
+    o = re.sub(r'([a-z]+)', r'<span class="smallcaps">\1</span>', text)
+    return mark_safe(o)
