@@ -77,6 +77,22 @@ def explore_map(q):
         'featured_events_json': eventsJSON,
     })
 
+def explore_profile(q):
+    return renderPage(q, 'explore/profile/root')
+def explore_profile_events(q):
+    return renderPage(q, 'explore/profile/events')
+def explore_profile_artists(q):
+    return renderPage(q, 'explore/profile/artists')
+def explore_profile_venues(q):
+    return renderPage(q, 'explore/profile/venues')
+def explore_profile_forMe(q):
+    return renderPage(q, 'explore/profile/for-me')
+def explore_profile_nearMe(q):
+    return renderPage(q, 'explore/profile/near-me')
+def explore_profile_browse(q):
+    return renderPage(q, 'explore/profile/browse')
+
+
 def create(q):
     return renderPage(q, 'create/root')
 

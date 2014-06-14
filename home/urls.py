@@ -12,6 +12,7 @@ urlpatterns = patterns(
     url(r'^$', views.front, name='Front'),
     url(r'^$', views.front, name='Home'),
 
+    # EXPLORE
     url(r'^explore/$', views.explore, name='Explore'),
     url(r'^explore/featured/$', views.explore_featured, name='Featured'),
     url(r'^explore/featured/map/$', views.explore_map, name='Featured Map View'),
@@ -19,7 +20,16 @@ urlpatterns = patterns(
     url(r'^explore/for-you/$', views.explore_forYou, name='For You'),
     url(r'^explore/fiddlr-events$', views.explore_fiddlrEvents, name='fiddlr Events'),
     url(r'^explore/happening-now/$', views.explore_happeningNow, name='Happening Now'),
-    
+
+    # EXPLORE PROFILE
+    url(r'^explore/profile/$', views.explore_profile, name='Explore Profile'),
+    url(r'^explore/profile/events$', views.explore_profile_events, name='Explore Favorite Events'),
+    url(r'^explore/profile/artists$', views.explore_profile_artists, name='Explore Favorite Artists'),
+    url(r'^explore/profile/venues$', views.explore_profile_venues, name='Explore Favorite Venues'),
+    url(r'^explore/profile/for-me$', views.explore_profile_forMe, name='Explore For Me'),
+    url(r'^explore/profile/near-me$', views.explore_profile_nearMe, name='Explore Near Me'),
+    url(r'^explore/profile/browse$', views.explore_profile_browse, name='Explore Browse'),
+
 
     url(r'^create/', views.create, name='Create'),
     url(r'^connect/', views.connect, name='Connect'),
