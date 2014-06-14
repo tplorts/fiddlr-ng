@@ -17,7 +17,7 @@ urlpatterns = patterns(
     url(r'^explore/featured/map/$', views.explore_map, name='Featured Map View'),
     url(r'^explore/near-you/$', views.explore_nearYou, name='Near You'),
     url(r'^explore/for-you/$', views.explore_forYou, name='For You'),
-    url(r'^explore/fiddlr-projects$', views.explore_fiddlrProjects, name='fiddlr Projects'),
+    url(r'^explore/fiddlr-events$', views.explore_fiddlrEvents, name='fiddlr Events'),
     url(r'^explore/happening-now/$', views.explore_happeningNow, name='Happening Now'),
     
 

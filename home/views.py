@@ -3,6 +3,7 @@ from django.core.serializers import serialize
 from fiddlr import settings
 from models import *
 
+
 def renderView( request, template, context={} ):
     context.update({
         'isProduction': settings.isProduction,
@@ -10,11 +11,18 @@ def renderView( request, template, context={} ):
     })
     return render( request, template, context )
 
-def renderPage( request, pageName, context={} ):
+
+def renderPage( request, template, context={} ):
+    if '/' in template:
+        section = None
+        page = template
+    else:
+        section,_,page = template.partition('/')
     context.update({
-        'pageName': pageName.capitalize(),
+        'section': section,
+        'page': page,
     })
-    return renderView( request, pageName+'.html', context )
+    return renderView( request, template+'.html', context )
 
 
 def front(q):
@@ -22,21 +30,21 @@ def front(q):
 
 
 def explore(q):
-    return renderPage(q, 'explore')
+    return renderPage(q, 'explore/root')
 
 def explore_featured(q):
-    return renderPage(q, 'explore-featured', {
+    return renderPage(q, 'explore/featured', {
         'featured_events': Event.objects.all(),
     })
 
 def explore_nearYou(q):
-    return renderPage(q, 'explore-near-you')
+    return renderPage(q, 'explore/near-you')
 def explore_forYou(q):
-    return renderPage(q, 'explore-for-you')
-def explore_fiddlrProjects(q):
-    return renderPage(q, 'explore-fiddlr-projects')
+    return renderPage(q, 'explore/for-you')
+def explore_fiddlrEvents(q):
+    return renderPage(q, 'explore/fiddlr-events')
 def explore_happeningNow(q):
-    return renderPage(q, 'explore-happening-now')
+    return renderPage(q, 'explore/happening-now')
 
 
 
@@ -62,7 +70,7 @@ def explore_map(q):
         },
         extras=('name',)
     )
-    return renderPage(q, 'explore-map', {
+    return renderPage(q, 'explore/map', {
         'gmaps_api_key': settings.gmaps_api_key,
         'initial_markers': initial_markers,
         'featured_events': events,
