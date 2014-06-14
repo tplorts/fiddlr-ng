@@ -4,35 +4,21 @@
 
 
 {% block content %}
-{% with standard_image_url="http://lorempixel.com/400/300/" %}
-{% with wide_image_url="http://lorempixel.com/800/400/" %}
-{% with tall_image_url="http://lorempixel.com/400/400/" %}
+{% with standard_image_url="http://lorempixel.com/400/300/" wide_image_url="http://lorempixel.com/800/400/" tall_image_url="http://lorempixel.com/400/400/" %}
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
-          <a class="explore-link" href="{% url 'Featured' %}">
-            <div class="image-case tall-height">
-              <img class="explore-section-image"
-                   src="{{ tall_image_url|add:'fashion' }}" />
-              <div class="explore-section-label">
-                <span class="label-text">Featured</span>
-              </div>
-            </div>
+          <a href="{% url 'Featured' %}">
+            {% pallet text="Featured" imageURL=tall_image_url|add:"fashion" shape="tall-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a class="explore-link" href="{% url 'Near You' %}">
-            <div class="image-case normal-height">
-              <img class="explore-section-image"
-                   src="{{ standard_image_url|add:'people' }}" />
-              <div class="explore-section-label">
-                <span class="label-text">Near You</span>
-              </div>
-            </div>
+          <a href="{% url 'Near You' %}">
+            {% pallet text="Near You" imageURL=standard_image_url|add:"people" shape="normal-height" %}
           </a>
         </div>
       </div>
@@ -40,46 +26,26 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
-          <a class="explore-link" href="{% url 'For You' %}">
-            <div class="image-case normal-height">
-              <img class="explore-section-image"
-                   src="{{ standard_image_url|add:'nightlife' }}" />
-              <div class="explore-section-label">
-                <span class="label-text">For You</span>
-              </div>
-            </div>
+          <a href="{% url 'For You' %}">
+            {% pallet text="For You" imageURL=standard_image_url|add:"nightlife" shape="normal-height" %}
           </a>
         </div>
         <div class="col-sm-6">
-          <a class="explore-link" href="{% url 'fiddlr Projects' %}">
-            <div class="image-case normal-height">
-              <img class="explore-section-image"
-                   src="{{ standard_image_url|add:'cats' }}" />
-              <div class="explore-section-label">
-                <span class="label-text">fiddlr Projects</span>
-              </div>
-            </div>
+          <a href="{% url 'fiddlr Projects' %}">
+            {% pallet text="fiddlr Events" imageURL=standard_image_url|add:"cats" shape="normal-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a class="explore-link" href="{% url 'Happening Now' %}">
-            <div class="image-case tall-height">
-              <img class="explore-section-image"
-                   src="{{ wide_image_url|add:'city' }}" />
-              <div class="explore-section-label">
-                <span class="label-text">Happening Now</span>
-              </div>
-            </div>
+          <a href="{% url 'Happening Now' %}">
+            {% pallet text="Happening Now" imageURL=wide_image_url|add:"city" shape="tall-height" %}
           </a>
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endwith %}
-{% endwith %}
 {% endwith %}
 {% endblock %}
 
@@ -112,7 +78,7 @@
 })( jQuery );
   $(window).on('load', function() {
 //    $('.image-case > img').centerImage();
-    $('.explore-section-label').gradientBorderTop();
+    $('.explore-section-label > .label-inner').gradientBorderTop();
   });
 </script>
 {% endblock postscripts %}

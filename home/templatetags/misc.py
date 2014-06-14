@@ -35,3 +35,10 @@ def tojson(obj, expand=None):
 def smallcaps(text):
     o = re.sub(r'([a-z]+)', r'<span class="smallcaps">\1</span>', text)
     return mark_safe(o)
+
+
+
+@register.inclusion_tag('pallet.html')
+def pallet( *args, **kwargs ):
+    return kwargs
+

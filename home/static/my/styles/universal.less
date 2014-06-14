@@ -114,42 +114,40 @@
     margin: 20px 0;
 }
 
-.image-case {
-    overflow: hidden;
-    margin: 15px 0;
-}
 
-.explore-link {
+
+@pallet-border-radius: 4px;
+.pallet {
     display: block;
-    border-radius: 4px;
-    & > div {
-        border-radius: inherit;
-    }
+    border-radius: @pallet-border-radius;
     &:hover {
         .box-shadow(0, 0, 12px, 0.7);
     }
-}
-
-.explore-section {
     &-image {
         width: 100%;
         height: auto;
         min-height: 100%;
+        border-radius: inherit;
     }
     &-label {
         position: absolute;
         z-index: 1;
-        bottom: 15px;
+        bottom: 0;
         margin-left: -15px;
+        padding: 0 15px;
         width: 100%;
         text-align: center;
-        @label-bg: @translucent;
-        background-color: @label-bg;
         color: @purple;
         font-size: 18px;
         font-weight: bold;
-        .gradient-border {
-            .gradient-border_( @label-bg, 4px );
+        .label-inner {
+            @label-bg: @translucent;
+            background-color: @label-bg;
+            .gradient-border {
+                .gradient-border_( @label-bg, 4px );
+            }
+            border-bottom-left-radius: @pallet-border-radius;
+            border-bottom-right-radius: @pallet-border-radius;
         }
     }
 }
@@ -161,6 +159,7 @@
 .normal-height {
     height: 180px;
 }
+
 
 .event-block {
     display: inline-block;
