@@ -119,6 +119,8 @@
 @pallet-border-radius: 4px;
 .pallet {
     display: block;
+    overflow: hidden;
+    margin: 15px 0;
     border-radius: @pallet-border-radius;
     &:hover {
         .box-shadow(0, 0, 12px, 0.7);
@@ -132,7 +134,7 @@
     &-label {
         position: absolute;
         z-index: 1;
-        bottom: 0;
+        bottom: 15px;
         margin-left: -15px;
         padding: 0 15px;
         width: 100%;
