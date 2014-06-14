@@ -78,22 +78,22 @@ def explore_map(q):
     })
 
 def create(q):
-    return renderPage(q, 'create')
+    return renderPage(q, 'create/root')
 
 def connect(q):
-    return renderPage(q, 'connect')
+    return renderPage(q, 'connect/root')
 
 
 
 def about(q):
-    return renderPage(q, 'about')
+    return renderPage(q, 'auxiliary/about')
 
 def copyrightView(q):
-    return renderPage(q, 'copyright')
+    return renderPage(q, 'auxiliary/copyright')
 
 def helpView(q):
-    return renderPage(q, 'help')
+    return renderPage(q, 'auxiliary/help')
 
 def adsView(q):
-    return renderPage(q, 'ads')
+    return renderPage(q, 'auxiliary/ads')
 
