@@ -21,3 +21,29 @@ $(function() {
     });
 });
 
+
+
+/*
+  var gradientTopMarkup = '\
+  <div class="gradient-border top-edge"></div>\
+  ';
+  var gradientMarkup = '\
+  <div class="gradient-border top-edge"></div>\
+  <div class="gradient-border bottom-edge"></div>\
+  <div class="gradient-border topright-corner"><div></div></div>\
+  <div class="gradient-border right-edge"></div>\
+  <div class="gradient-border bottomright-corner"><div></div></div>\
+  <div class="gradient-border bottomleft-corner"><div></div></div>\
+  <div class="gradient-border left-edge"></div>\
+  <div class="gradient-border topleft-corner"><div></div></div>\
+  ';
+
+(function( $ ){
+   $.fn.gradientBorderTop = function() {
+       this.append(gradientTopMarkup);
+   };
+})( jQuery );
+  $(window).on('load', function() {
+    $('.pallet-label > .label-inner').gradientBorderTop();
+  });
+*/
