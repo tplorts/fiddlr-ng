@@ -79,12 +79,25 @@ def explore_map(q):
 
 def explore_profile(q):
     return renderPage(q, 'explore/profile/root')
+
 def explore_profile_events(q):
-    return renderPage(q, 'explore/profile/events')
+    u = User.objects.get(pk=76)
+    return renderPage(q, 'explore/profile/events', {
+        'favorite_events': u.favorite_events(),
+    })
+
 def explore_profile_artists(q):
-    return renderPage(q, 'explore/profile/artists')
+    u = User.objects.get(pk=76)
+    return renderPage(q, 'explore/profile/artists', {
+        'favorite_artists': u.favorite_artists(),
+    })
+
 def explore_profile_venues(q):
-    return renderPage(q, 'explore/profile/venues')
+    u = User.objects.get(pk=76)
+    return renderPage(q, 'explore/profile/venues', {
+        'favorite_venues': u.favorite_venues(),
+    })
+
 def explore_profile_forMe(q):
     return renderPage(q, 'explore/profile/for-me')
 def explore_profile_nearMe(q):

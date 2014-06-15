@@ -1,1 +1,11 @@
 {% extends "pagebase.html" %}
+{% load misc staticfiles thecae %}
+
+
+{% block content %}
+<div class="container">
+  {% for artist in favorite_artists %}
+    {% artist_theca artist %}
+  {% endfor %}
+</div>
+{% endblock content %}

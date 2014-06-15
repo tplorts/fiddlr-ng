@@ -15,6 +15,13 @@ class User( models.Model ):
         else:
             return self.email
 
+    def favorite_artists(self):
+        return [f for f in self.favorites.all() if f.is_artist()]
+    def favorite_venues(self):
+        return [f for f in self.favorites.all() if f.is_venue()]
+    def favorite_events(self):
+        return [f for f in self.favorites.all() if f.is_event()]
+
 
 class Fidentity( models.Model ):
     name = models.CharField( max_length=80 )
@@ -35,6 +42,13 @@ class Fidentity( models.Model ):
 
     def __unicode__(self):
         return self.name
+
+    def is_artist(self):
+        return hasattr(self, 'artist')
+    def is_venue(self):
+        return hasattr(self, 'venue')
+    def is_event(self):
+        return hasattr(self, 'event')
 
 
 class Artist( Fidentity ):

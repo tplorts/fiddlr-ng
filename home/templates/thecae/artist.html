@@ -1,0 +1,12 @@
+<div class="theca artist-theca">
+  <div class="theca-image-case ib">
+    {% if artist_picture %}
+      <img class="artist-image" src="{{ artist_picture }}" />
+    {% else %}
+      <img class="artist-image" src="http://lorempixel.com/150/150/{% cycle 'fashion' 'people' 'abstract' %}" />
+    {% endif %}
+  </div>
+  <div class="artist-name ib">
+    {{ artist.name }}
+  </div>
+</div>
