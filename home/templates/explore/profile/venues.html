@@ -1,1 +1,11 @@
 {% extends "pagebase.html" %}
+{% load misc staticfiles thecae %}
+
+
+{% block content %}
+<div class="container">
+  {% for venue in favorite_venues %}
+    {% venue_theca venue %}
+  {% endfor %}
+</div>
+{% endblock content %}

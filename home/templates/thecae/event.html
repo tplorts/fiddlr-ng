@@ -1,0 +1,12 @@
+<div class="theca event-theca">
+  <div class="theca-image-case ib">
+    {% if event_picture %}
+      <img class="event-image" src="{{ event_picture }}" />
+    {% else %}
+      <img class="event-image" src="http://lorempixel.com/150/150/abstract" />
+    {% endif %}
+  </div>
+  <div class="event-name ib">
+    {{ event.name }}
+  </div>
+</div>

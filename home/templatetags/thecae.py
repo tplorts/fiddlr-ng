@@ -7,3 +7,13 @@ register = template.Library()
 def artist_theca( artist ):
     return {'artist': artist}
 
+
+@register.inclusion_tag('thecae/venue.html')
+def venue_theca( venue ):
+    return {'venue': venue}
+
+
+@register.inclusion_tag('thecae/event.html')
+def event_theca( event ):
+    return {'event': event}
+

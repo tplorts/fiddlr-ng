@@ -1,1 +1,11 @@
 {% extends "pagebase.html" %}
+{% load misc staticfiles thecae %}
+
+
+{% block content %}
+<div class="container">
+  {% for event in favorite_events %}
+    {% event_theca event %}
+  {% endfor %}
+</div>
+{% endblock content %}
