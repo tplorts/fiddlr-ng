@@ -36,6 +36,8 @@ urlpatterns = patterns(
 
 
     url(r'^artist/(\d+)/$', views.artist_page, name='Artist Page'),
+    url(r'^event/(\d+)/$', views.event_page, name='Event Page'),
+    url(r'^venue/(\d+)/$', views.venue_page, name='Venue Page'),
     
 
     url(r'^about/', views.about, name='About'),
