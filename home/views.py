@@ -113,6 +113,11 @@ def connect(q):
     return renderPage(q, 'connect/root')
 
 
+def artist_page(q, artist_id):
+    return renderPage(q, 'artist/page', {
+        'artist': Artist.objects.get(pk=artist_id),
+    })
+
 
 def about(q):
     return renderPage(q, 'auxiliary/about')

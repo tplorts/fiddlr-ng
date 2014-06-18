@@ -1,12 +1,16 @@
 <div class="theca artist-theca">
   <div class="theca-image-case ib">
-    {% if artist_picture %}
-      <img class="artist-image" src="{{ artist_picture }}" />
-    {% else %}
-      <img class="artist-image" src="http://lorempixel.com/150/150/abstract" />
-    {% endif %}
+    <a href="{% url 'Artist Page' artist.pk %}">
+      {% if artist_picture %}
+        <img class="artist-image" src="{{ artist_picture }}" />
+      {% else %}
+        <img class="artist-image" src="http://lorempixel.com/150/150/abstract" />
+      {% endif %}
+    </a>
   </div>
   <div class="artist-name ib">
-    {{ artist.name }}
+    <a href="{% url 'Artist Page' artist.pk %}">
+      {{ artist.name }}
+    </a>
   </div>
 </div>

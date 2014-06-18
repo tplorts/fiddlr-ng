@@ -35,6 +35,9 @@ urlpatterns = patterns(
     url(r'^connect/', views.connect, name='Connect'),
 
 
+    url(r'^artist/(\d+)/$', views.artist_page, name='Artist Page'),
+    
+
     url(r'^about/', views.about, name='About'),
     url(r'^about/', views.about, name='About Fiddlr'),
     url(r'^copyright/', views.copyrightView, name='Copyright'),
