@@ -10,5 +10,8 @@ cmod.controller(
                 alert('You\'ve selected the alert tab!');
             });
         };
+        $scope.moveTabPane = function(tabIndex) {
+            $('.tab-content').css('margin-left', -tabIndex*100+'%');
+        };
     }] // end: controller function
 ); // end: ProfilePageController
