@@ -42,3 +42,10 @@ def smallcaps(text):
 def pallet( *args, **kwargs ):
     return kwargs
 
+
+@register.inclusion_tag('tags/placeholder-copy.html')
+def placeholder_copy(*args, **kwargs):
+    if 'length' not in kwargs:
+        kwargs['length'] = 2
+    return kwargs
+
