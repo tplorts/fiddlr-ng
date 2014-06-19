@@ -1,0 +1,8 @@
+{% load misc staticfiles %}
+<!-- The application files-->
+
+{% with base="ng/"|add:app_directory|add:"/" %}
+  {% for appfile in "app,filters,services,directives,controllers"|split:"," %}
+    <script src="{% static base|add:appfile|add:'.js' %}"></script>
+  {% endfor %}
+{% endwith %}

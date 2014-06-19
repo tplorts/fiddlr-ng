@@ -1,0 +1,11 @@
+{% load misc %}
+<!-- AngularJS framework files -->
+
+{% with ng_root="http://ajax.googleapis.com/ajax/libs/angularjs/"|add:version %}
+  {% for ng_piece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
+    <script src="{{ ng_root }}/angular{{ ng_piece }}.min.js"></script>
+  {% endfor %}
+  <script src="{{ ng_root }}/angular-mocks.js"></script>
+{% endwith %}
+
+{# To be optimized later #}
