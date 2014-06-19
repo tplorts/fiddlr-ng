@@ -55,12 +55,32 @@
       <div class="col-lg-8 col-md-6">
         <div ng-controller="ProfilePageController">
           <tabset>
-            <tab heading="Static title">Static content</tab>
-            <tab select="alertMe()">
+            <tab>
               <tab-heading>
-                <i class="glyphicon glyphicon-bell"></i> Alert!
+                <i class="glyphicon glyphicon-info-sign"></i> 
+                {{ 'About '|add:artist.name|smallcaps }}
               </tab-heading>
-              I've got an HTML heading, and a select callback. Pretty cool!
+              <div class="artist-bio">
+                {% if artist.about %}
+                  {{ artist.about }}
+                {% else %}
+                  {% placeholder_copy length=4 %}
+                {% endif %}
+              </div>
+            </tab>
+            <tab>
+              <tab-heading>
+                <i class="glyphicon glyphicon-folder-open"></i>
+                {{ 'Portfolio Media'|smallcaps }}
+              </tab-heading>
+              Folio~
+            </tab>
+            <tab>
+              <tab-heading>
+                <i class="glyphicon glyphicon-bullhorn"></i>
+                {{ 'Upcoming'|smallcaps }}
+              </tab-heading>
+              There will eventually be the lasted things going on here.
             </tab>
           </tabset>
         </div>
