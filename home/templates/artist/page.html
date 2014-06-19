@@ -1,59 +1,79 @@
 {% extends "pagebase.html" %}
-{% load misc staticfiles %}
+{% load misc staticfiles angular %}
 
-
+{% block html_attributes %}ng-app="profilePageApp"{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-lg-4 col-md-6">
-      <div class="profile-panel">
-        <div class="artist-header">
-          <span class="artist-name">
-            {{ artist.name }}
-          </span> &nbsp;
-          <span class="ib artist-location text-upper text-info">
-            New York
-          </span>
-        </div>
-        <div class="profile-picture">
-          <img class="full-width-image" 
-               src="http://lorempixel.com/250/300/animals" />
-        </div>
-        <div class="fan-buttons">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="profile-panel">
+          <div class="artist-header">
+            <span class="artist-name">
+              {{ artist.name }}
+            </span> &nbsp;
+            <span class="ib artist-location text-upper text-info">
+              New York
+            </span>
+          </div>
+          <div class="profile-picture">
+            <img class="full-width-image" 
+                 src="http://lorempixel.com/250/300/animals" />
+          </div>
+          <div class="fan-buttons">
 
-          <button class="btn btn-info">
-            301 followers
-          </button>
-          <button class="btn btn-info pull-right">
-            Follow this artist
-          </button>
-
-        </div>
-        <div class="past-events">
-          <div class="dropdown">
-            <button id="dLabel" class="btn btn-default"
-                    role="button" data-toggle="dropdown" data-target="#">
-              {{ artist.name }}'s prior events
-              <span class="caret"></span>
+            <button class="btn btn-info">
+              301 followers
             </button>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-              {% for item in "Hipsters' Night Out,I'm not a Yuppy,Who let the Opera out?"|split:"," %}
+            <button class="btn btn-info pull-right">
+              Follow this artist
+            </button>
+
+          </div>
+          <div class="past-events">
+            <div class="dropdown">
+              <button id="dLabel" class="btn btn-default"
+                      role="button" data-toggle="dropdown" data-target="#">
+                {{ artist.name }}'s prior events
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                {% for item in "Hipsters' Night Out,I'm not a Yuppy,Who let the Opera out?"|split:"," %}
                 <li role="presentation">
                   <a role="menuitem" tabindex="-1" href="#">
                     The event formerly known as {{item}}
                   </a>
                 </li>
-              {% endfor %}
-            </ul>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-    <div class="col-lg-8 col-md-6">
-      
+
+      <div class="col-lg-8 col-md-6">
+        <div ng-controller="ProfilePageController">
+          <tabset>
+            <tab heading="Static title">Static content</tab>
+            <tab select="alertMe()">
+              <tab-heading>
+                <i class="glyphicon glyphicon-bell"></i> Alert!
+              </tab-heading>
+              I've got an HTML heading, and a select callback. Pretty cool!
+            </tab>
+          </tabset>
+        </div>
+      </div>
+
     </div>
   </div>
-</div>
 {% endblock %}
+
+
+{% block postscripts %}
+{% angular %}
+<script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
+{% angular_app "profile-page" %}
+{% endblock %}
+
