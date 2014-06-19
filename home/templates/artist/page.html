@@ -4,5 +4,56 @@
 
 
 {% block content %}
-<h2>{{ artist.name }}</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-md-6">
+      <div class="profile-panel">
+        <div class="artist-header">
+          <span class="artist-name">
+            {{ artist.name }}
+          </span> &nbsp;
+          <span class="ib artist-location text-upper text-info">
+            New York
+          </span>
+        </div>
+        <div class="profile-picture">
+          <img class="full-width-image" 
+               src="http://lorempixel.com/250/300/animals" />
+        </div>
+        <div class="fan-buttons">
+
+          <button class="btn btn-info">
+            301 followers
+          </button>
+          <button class="btn btn-info pull-right">
+            Follow this artist
+          </button>
+
+        </div>
+        <div class="past-events">
+          <div class="dropdown">
+            <button id="dLabel" class="btn btn-default"
+                    role="button" data-toggle="dropdown" data-target="#">
+              {{ artist.name }}'s prior events
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+              {% for item in "Hipsters' Night Out,I'm not a Yuppy,Who let the Opera out?"|split:"," %}
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="#">
+                    The event formerly known as {{item}}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-lg-8 col-md-6">
+      
+    </div>
+  </div>
+</div>
 {% endblock %}
