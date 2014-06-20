@@ -15,9 +15,6 @@ cmod.controller(
             zoom: 12
         };
 
-        if( initialMarkers !== undefined ) {
-            $scope.markers = initialMarkers;
-        }
         if( initialEvents !== undefined ) {
             $scope.events = initialEvents;
             for( var i=0; i<$scope.events.length; i++ ) {

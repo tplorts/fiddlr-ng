@@ -18,7 +18,6 @@ ng-app="exploreApp"
 
 {% block prescripts %}
 <script>
-  var initialMarkers = {{ initial_markers|tojson }};
   var initialEvents = {{ featured_events_json|safe }};
 </script>
 <script src="{% static 'my/scripts/explore-map.js' %}"></script>
@@ -50,10 +49,20 @@ ng-app="exploreApp"
         </span>
         <h3>Featured Events</h3>
         <div id="featured-events">
-          <div ng-repeat="e in events | orderBy:'-extras.name'"
-               class="event-item" event-id="[[e.pk]]">
-            <span>:[[ e.extras.name ]]</span>
-          </div>
+          <accordion close-others="false">
+            <accordion-group 
+               class="event-item" event-id="[[e.pk]]"
+               ng-repeat="e in events | orderBy:'-extras.name'">
+              <accordion-heading>
+                <span class="event-name">[[ e.extras.name ]]</span>
+                <span class="event-venue">@ [[ e.fields.venue.extras.name ]]</span>
+              </accordion-heading>
+              <div>
+              </div>
+              <div>
+              </div>
+            </accordion-group>
+          </accordion>
         </div>
       </div>
     </div>
@@ -68,6 +77,7 @@ ng-app="exploreApp"
 
 {% angular %}
 <script src="{% static '3p/scripts/angular-google-maps.min.js' %}"></script>
+<script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
 {% angular_app "explore-map" %}
 
 {% endblock postscripts %}
