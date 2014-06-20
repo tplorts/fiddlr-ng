@@ -121,6 +121,11 @@ def event_page(q, event_id):
     })
 
 
+def alerts(q):
+    return renderPage(q, 'alerts', {
+        'alerts': ('stuff',)*10,
+    })
+
 
 def about(q):
     return renderPage(q, 'auxiliary/about')

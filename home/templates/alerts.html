@@ -1,0 +1,13 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+
+{% block content %}
+<div class="container">
+  {% for a in alerts %}
+    <div class="alert">
+      {{ a }}
+    </div>
+  {% endfor %}
+</div>
+{% endblock content %}

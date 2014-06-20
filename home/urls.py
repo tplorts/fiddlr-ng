@@ -35,6 +35,9 @@ urlpatterns = patterns(
     url(r'^connect/', views.connect, name='Connect'),
 
 
+    url(r'^alerts/', views.alerts, name='Alerts'),
+
+
     url(r'^artist/(\d+)/$', views.artist_page, name='Artist Page'),
     url(r'^event/(\d+)/$', views.event_page, name='Event Page'),
     url(r'^venue/(\d+)/$', views.venue_page, name='Venue Page'),
