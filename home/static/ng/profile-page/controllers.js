@@ -13,7 +13,6 @@ cmod.controller(
         $scope.moveTabPane = function(tabIndex) {
             $('.tab-content').css('margin-left', -tabIndex*100+'%');
             if( tabIndex == 1 && Galleria ) {
-                console.log('init galleria');
                 initGalleria();
             }
         };

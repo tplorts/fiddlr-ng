@@ -276,15 +276,18 @@
     }
 }
 
+@initial-pane-height: 350px;
+
 .tab-content {
     width: 300%;
     position: relative;
     .transition(all, 0.3s, ease-out);
-
     .tab-pane {
         display: inline-block !important;
         width: 33.33%;
+        margin: 0 ;
         padding: 3px;
+        vertical-align: top;
     }
 }
 
@@ -293,5 +296,5 @@
 }
 
 .galleria {
-    height: 250px;
+    height: 350px;
 }
