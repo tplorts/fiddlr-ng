@@ -13,28 +13,30 @@
           </a>
         </div>
       </div>
-      {% if page != "Front" %}
-      <div class="col-sm-7">
-        <div class="ib vmid">
-          <input type="text" placeholder="what?">
+      {% if page != "front" %}
+      <div class="hidden-xs">
+        <div class="col-sm-7">
+          <div class="ib vmid">
+            <input type="text" placeholder="what?">
+          </div>
+          <div class="ib vmid">
+            <input type="text" placeholder="where?">
+          </div>
+          <div class="ib vmid">
+            <button class="btn btn-sm btn-default search-button">
+              <span class="glyphicon glyphicon-search"></span>
+            </button>
+          </div>
         </div>
-        <div class="ib vmid">
-          <input type="text" placeholder="where?">
-        </div>
-        <div class="ib vmid">
-          <button class="btn btn-sm btn-default search-button">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
-        </div>
+      </div>
+      <div class="visible-xs">
+        mobile search widget coming soon
       </div>
       <div class="col-sm-3">
         <div class="ib vmid" id="header-links">
           <div class="btn-group">
             <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs">Pages</span>
-              <span class="visible-xs">
-                <span class="glyphicon glyphicon-tasks"></span>
-              </span>
               <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
@@ -67,18 +69,10 @@
   {% block content %}{% endblock %}
 </div>
 
-<div id="footer">
-  <div class="text-center text-muted">
-    {% for link in "About Fiddlr,Copyright Information,Help"|split:"," %}
-    <span class="footer-link">
-      <a href="{% url link %}">{{ link }}</a>
-    </span>
-    {% endfor %}
-  </div>
-  <div id="dev-warning" title="You have been warned.">
-    <span class="text-danger">
-      <strong>fiddlr is presently in development</strong>
-    </span>
-  </div>
+<div id="dev-warning" title="You have been warned.">
+  <span class="text-danger">
+    <strong>fiddlr is presently under development</strong>
+  </span>
 </div>
+
 {% endblock %}

@@ -13,24 +13,9 @@
         &:hover {
             color: black;
         }
-        span {
-            margin-left: -22px;
-        }
-    }
-    img {
-        display: inline;
-        width: auto;
-        height: 40px;
-        margin-top: -15px;
     }
 }
 
-.snowflake {
-    &::before {
-        content: "❄";
-        font-size: 12px;
-    }
-}
 
 #header {
     position: fixed;
@@ -57,19 +42,18 @@
 
 #content {
     margin-top: @header-height + 15px;
-    margin-bottom: @footer-height + 100px;
+    margin-bottom: 100px;
 }
 
-#footer {
+#dev-warning {
+    display: inline-block;
     position: fixed;
     bottom: 0;
-    left: 0;
     right: 0;
+    padding: 3px 8px;
     z-index: 10;
-    width: 100%;
-    height: @footer-height;
-    background-color: #DDD;
-    line-height: @footer-height;
+    background-color: #AAA;
+    border-top-left-radius: 8px;
 }
 
 .footer-link {
@@ -82,14 +66,6 @@
             content: none;
         }
     }
-}
-
-#dev-warning {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    padding: 0 20px;
-    background: inherit;
 }
 
 

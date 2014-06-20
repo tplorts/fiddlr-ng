@@ -13,7 +13,7 @@ def renderView( request, template, context={} ):
 
 
 def renderPage( request, template, context={} ):
-    if '/' in template:
+    if '/' not in template:
         section = None
         page = template
     else:
