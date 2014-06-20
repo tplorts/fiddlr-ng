@@ -4,12 +4,15 @@
 
 
 .fiddlr-title {
-    font-size: 48px;
+    font-size: 30px;
     font-family: sans-serif;
     font-weight: bold;
-    padding: 6px 12px;
+    line-height: 1;
     a {
-        color: black;
+        color: @purple;
+        &:hover {
+            color: black;
+        }
         span {
             margin-left: -22px;
         }
@@ -30,42 +33,39 @@
 }
 
 #header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
     background-color: #EEE;
     border-bottom: 1px solid #CCC;
-    .nav-subrow {
-        margin-top: 5px;
-        &:first-of-type {
-            margin-top: 15px;
-        }
-    }
-    input {
-        width: 100%;
-        line-height: 24px;
-        margin: 2px 0;
-    }
+    padding: 5px;
 }
 
 #header-links {
-    line-height: 30px;
-}
-
-.header-link {
-    .snowflake;
-    &:first-of-type {
-        &::before {
-            content: none;
+    button .glyphicon {
+        .transition(all, 0.2s, linear);
+    }
+    .open {
+        .glyphicon-chevron-down {
+            .rotate( 180deg );
         }
     }
 }
 
+
 #content {
-    margin-top: 30px;
+    margin-top: @header-height + 15px;
     margin-bottom: @footer-height + 100px;
 }
 
 #footer {
     position: fixed;
     bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
     width: 100%;
     height: @footer-height;
     background-color: #DDD;

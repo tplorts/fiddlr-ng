@@ -5,60 +5,62 @@
 <div id="header">
   <div class="container">
     <div class="row">
-      <div class="col-sm-3 col-lg-2">
-        <div class="fiddlr-title">
+      <div class="col-sm-2">
+        <div class="ib vmid fiddlr-title">
           <a href="{% url 'Front' %}">
             {# <img src="{% static 'ex/f.png' %}" /><span>&nbsp; iddlr</span> #}
             fiddlr
           </a>
         </div>
-      </div><!--/.col for title-->
-      {% if pageName != "Front" %}
-      <div class="col-sm-7 col-lg-9">
-        <div class="row nav-subrow">
-          <div class="col-lg-6">
-            <div class="row">
-              <div class="col-sm-5">
-                <input type="text" placeholder="what?">
-              </div>
-              <div class="col-sm-5">
-                <input type="text" placeholder="where?">
-              </div>
-              <div class="col-sm-2">
-                <button class="btn btn-default search-button">
-                  <span class="glyphicon glyphicon-search"></span>
-                </button>
-              </div>
-            </div><!--/.row for input columns-->
-          </div><!--/.col for search-->
-          <div class="col-lg-6">
-            <div id="header-links">
-              {% for link in "Home,Explore,Create,Connect,About,Help,Ads"|split:"," %}
-              <span class="header-link">
-                <a href="{% url link %}">{{ link }}</a>
+      </div>
+      {% if page != "Front" %}
+      <div class="col-sm-7">
+        <div class="ib vmid">
+          <input type="text" placeholder="what?">
+        </div>
+        <div class="ib vmid">
+          <input type="text" placeholder="where?">
+        </div>
+        <div class="ib vmid">
+          <button class="btn btn-sm btn-default search-button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="ib vmid" id="header-links">
+          <div class="btn-group">
+            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="hidden-xs">Pages</span>
+              <span class="visible-xs">
+                <span class="glyphicon glyphicon-tasks"></span>
               </span>
-              {% endfor %}
-            </div>
-          </div><!--/.col for links-->
-        </div><!--/.row for nav-->
-      </div><!--/.col for nav-->
-      <div class="col-sm-2 col-lg-1">
-        <div class="text-right">
-          <div class="nav-subrow">
-            <button class="btn btn-primary">
-              Login
+              <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
+            <ul class="dropdown-menu" role="menu">
+              {% for link in "Home,,Explore,Create,Connect,,About,Copyright,Help,Ads"|split:"," %}
+                {% if link == "" %}
+                  <li role="presentation" class="divider"></li>
+                {% else %}
+                  <li role="presentation">
+                    <a href="{% url link %}" role="menuitem" tabindex="-1">
+                      {{ link }}
+                    </a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
           </div>
-          <div class="nav-subrow">
-            <a href="#">
-              sign up
-            </a>
-          </div>
-        </div><!--/.text-right-->
-      </div><!--/.col for login-->
+        </div>
+        <div class="ib vmid">
+          <button class="btn btn-sm btn-primary">
+            sign in/up
+          </button>
+        </div>
+      </div>
       {% endif %}
-    </div><!--/.row-->
-  </div><!--/.container-->
+    </div>
+  </div>
 </div><!--/#header-->
 
 <div id="content">
