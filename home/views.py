@@ -49,7 +49,7 @@ def explore_happeningNow(q):
 
 
 def explore_map(q):
-    events = Event.objects.all()
+    events = Event.objects.order_by('-name')
     eventsJSON = serialize(
         'json', 
         events, 
@@ -59,9 +59,9 @@ def explore_map(q):
                     'geocoordinates': {'extras': ('id',)}
                 },
                 'extras': ('name',),
-            }
+            },
         },
-        extras=('name',)
+        extras=('name', 'brief',)
     )
     return renderPage(q, 'explore/map', {
         'gmaps_api_key': settings.gmaps_api_key,

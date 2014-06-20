@@ -39,18 +39,22 @@ ng-app="exploreApp"
 
   <div id="featured-events">
     <accordion close-others="false">
-      <accordion-group 
-         class="event-item" event-id="[[e.pk]]"
-         ng-repeat="e in events | orderBy:'-extras.name'">
+      {% for e in featured_events %}
+      <accordion-group class="event-item" event-id="{{ e.pk }}">
         <accordion-heading>
-          <span class="event-name">[[ e.extras.name ]]</span>
-          <span class="event-venue">@ [[ e.fields.venue.extras.name ]]</span>
+          <span class="event-name">{{ e.name }}</span>
+          <span class="event-venue">@ {{ e.venue.name }}</span>
         </accordion-heading>
         <div>
+          {{ e.brief|default:"Dear me! There's no brief description!" }}
         </div>
         <div>
+          {{ e.start|default:"Don't know from when" }} 
+          &mdash; 
+          {{ e.end|default:"Don't know till when" }}
         </div>
       </accordion-group>
+      {% endfor %}
     </accordion>
   </div>
 
