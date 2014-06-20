@@ -284,3 +284,33 @@
 .accordion-toggle {
     cursor: pointer;
 }
+
+#gmap-explore {
+    position: fixed;
+    top: @header-height;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+
+    google-map,
+    .angular-google-map,
+    .angular-google-map-container {
+        height: 100%;
+    }
+}
+
+#featured-events {
+    position: fixed;
+    top: @header-height;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    padding: 10px;
+}
+
+#leave-map-link {
+    z-index: 10;
+    position: fixed;
+    top: @header-height + 5px;
+    left: 80px;
+}
