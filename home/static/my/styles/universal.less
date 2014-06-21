@@ -28,7 +28,7 @@
     padding: 5px 0;
 
     input {
-        width: 160px;
+        width: 150px;
     }
 }
 
@@ -318,4 +318,32 @@
     padding: 5px 10px;
     border: 1px solid #777;
     border-radius: 5px;
+}
+
+
+.circle-button {
+    display: block;
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+    border: 1px solid #AAA;
+    border-radius: 75px;
+    cursor: pointer;
+    .transition(all, 0.1s, ease-out);
+    &:hover {
+        .box-shadow(0,0,5px);
+        background-color: #BFF;
+        text-decoration: none;
+    }
+
+}
+
+#create-navigation {
+    a {
+        color: @purple;
+        font-weight: bold;
+        font-size: 16px;
+    }
 }

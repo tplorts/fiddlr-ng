@@ -1,1 +1,16 @@
 {% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+{% block content %}
+
+<div id="create-navigation">
+  {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
+  <a class="circle-button">{{ x }}</a>
+  {% endfor %}
+</div>
+
+{% endblock %}
+
+{% block postscripts %}
+<script src="{% static 'my/scripts/circle-buttons.js' %}"></script>
+{% endblock %}
