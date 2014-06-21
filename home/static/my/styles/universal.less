@@ -331,6 +331,7 @@
     border: 1px solid #AAA;
     border-radius: 75px;
     cursor: pointer;
+    background-color: #5FF;
     .transition(all, 0.1s, ease-out);
     &:hover {
         .box-shadow(0,0,5px);
@@ -345,5 +346,11 @@
         color: @purple;
         font-weight: bold;
         font-size: 16px;
+    }
+}
+
+.prearranged { 
+    .circle-button {
+        .transition(all, 0.4s, ease-out);
     }
 }

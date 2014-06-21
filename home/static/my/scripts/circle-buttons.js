@@ -1,4 +1,6 @@
+var createNav;
 var center;
+var buttons;
 var count;
 
 function contentCenter() {
@@ -20,9 +22,11 @@ function centerButton( button, itsCenter ) {
     });
 }
 
-$(window).on('load resize orientationChanged', function() {
+
+
+
+var arrangeButtons = function() {
     center = contentCenter();
-    var buttons = $('#create-navigation .circle-button');
     count = buttons.length;
     var tincr = 2 * Math.PI / count;
     var t0 = Math.PI / 2;
@@ -35,4 +39,21 @@ $(window).on('load resize orientationChanged', function() {
         var y = radius * Math.sin(t) + center.y;
         centerButton(b, {x:x, y:y});
     }
+};
+
+function initialArrangeButtons() {
+    arrangeButtons();
+    setTimeout(function() {
+        createNav.removeClass('prearranged');},
+               405);
+}
+
+$(window).on('load', function () {
+    createNav = $('#create-navigation');
+    buttons = createNav.find('.circle-button');
+    centerButton( buttons, contentCenter() );
+    createNav.removeClass('hidden');
+    setTimeout( initialArrangeButtons, 10 );
 });
+
+$(window).on('resize orientationChanged', arrangeButtons);

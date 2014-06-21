@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div id="create-navigation">
+<div id="create-navigation" class="hidden prearranged">
   {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
   <a class="circle-button">{{ x }}</a>
   {% endfor %}
