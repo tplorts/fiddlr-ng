@@ -330,7 +330,7 @@
     border: 1px solid #AAA;
     border-radius: 75px;
     cursor: pointer;
-    background-color: #5FF;
+    background-color: rgba(100, 255, 255, 0.6);
     .transition(all, 0.1s, ease-out);
     &:hover {
         .box-shadow(0,0,5px);
@@ -352,4 +352,20 @@
     .circle-button {
         .transition(all, 0.4s, ease-out);
     }
+}
+
+
+
+
+.backdrop {
+    z-index: -10;
+    position: fixed;
+    top: @header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#create-backdrop {
+    .cover-background( '@{s3url}/ex/parchment.jpg' );
 }
