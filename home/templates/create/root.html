@@ -3,10 +3,19 @@
 
 {% block content %}
 
-<div id="create-navigation" class="hidden prearranged">
-  {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
-  <a class="circle-button">{{ x }}</a>
-  {% endfor %}
+<div id="major-button-div" class="invisible">
+  <a class="circle-button" id="create-button">
+    <span class="button-text">CREATE</span>
+  </a>
+
+  <div id="create-navigation" class="prearranged">
+    {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
+      <a class="circle-button">
+        <span class="button-text">{{ x }}</span>
+      </a>
+    {% endfor %}
+  </div>
+
 </div>
 
 {% endblock %}
