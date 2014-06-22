@@ -5,34 +5,34 @@
 <div id="header">
   <div class="container full-width">
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-2 col-xs-3">
         <div class="ib vmid fiddlr-title">
-          <a href="{% url 'Front' %}">
-            {# <img src="{% static 'ex/f.png' %}" /><span>&nbsp; iddlr</span> #}
-            fiddlr
-          </a>
+          <a href="{% url 'Front' %}">fiddlr</a>
         </div>
       </div>
       {% if page != "front" %}
       <div class="hidden-xs">
         <div class="col-sm-6">
-          <div class="ib vmid">
-            <input type="text" placeholder="what?">
-          </div>
-          <div class="ib vmid">
-            <input type="text" placeholder="where?">
-          </div>
-          <div class="ib vmid">
-            <button class="btn btn-sm btn-default search-button">
-              <span class="glyphicon glyphicon-search"></span>
-            </button>
-          </div>
+          <form action="{% url 'Search' %}" method="POST">
+            {% csrf_token %}
+            <div class="ib vmid">
+              {#<input type="text" placeholder="what?">#}
+              {{ search_form.what }}
+            </div>
+            <div class="ib vmid">
+              {#<input type="text" placeholder="where?">#}
+              {{ search_form.where }}
+            </div>
+            <div class="ib vmid">
+              <button class="btn btn-sm btn-default search-button"
+                      type="submit">
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
-      <div class="visible-xs">
-        mobile search widget coming soon
-      </div>
-      <div class="col-sm-4">
+      <div class="col-sm-4 col-xs-9">
         <div class="ib vmid" id="alerts-icon">
           <a class="btn btn-sm btn-default"
              href="{% url 'Alerts' %}">

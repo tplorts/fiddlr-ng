@@ -1,0 +1,21 @@
+{% extends "pagebase.html" %}
+
+{% block content %}
+
+  {% if search_form.data.what or search_form.data.where %}
+    <p>
+      Query: {{ search_form.data.what }} 
+      {% if search_form.data.where %}
+        in {{ search_form.data.where }}
+      {% endif %}
+    </p>
+    <div id="search-results">
+      {% for r in search_results %}
+      <p>
+        {{ r.name }}
+      </p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+{% endblock %}

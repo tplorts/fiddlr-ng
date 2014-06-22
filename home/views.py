@@ -1,7 +1,16 @@
 from django.shortcuts import render
 from django.core.serializers import serialize
+from django.db.models import Q
+from django import forms
 from fiddlr import settings
 from models import *
+
+
+
+class FiddlrSearchForm( forms.Form ):
+    what = forms.CharField()
+    where = forms.CharField(required=False)
+
 
 
 def renderView( request, template, context={} ):
@@ -18,6 +27,10 @@ def renderPage( request, template, context={} ):
         page = template
     else:
         section,_,page = template.partition('/')
+    if 'search_form' not in context:
+        # if the search form wasn't already set by the
+        # search view, supply it for any page's header
+        context.update({'search_form': FiddlrSearchForm()})
     context.update({
         'section': section,
         'page': page,
@@ -125,6 +138,21 @@ def alerts(q):
     return renderPage(q, 'alerts', {
         'alerts': ('stuff',)*10,
     })
+
+
+def search(q):
+    c = {}
+    if q.method == 'POST':
+        form = FiddlrSearchForm( q.POST )
+        what = form.data['what']
+        where = form.data['where']
+        query = Q(name__icontains=what) | Q(brief__icontains=what)
+        results = Fidentity.objects.filter(query)
+        c.update({'search_results': results})
+    else:
+        form = FiddlrSearchForm()
+    c.update({'search_form': form})
+    return renderPage(q, 'search', c)
 
 
 def about(q):
