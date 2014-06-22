@@ -78,6 +78,13 @@ $(window).on('load', function () {
     centerButton( allButtons, contentCenter() );
     majorDiv.removeClass('invisible');
     setTimeout( initialArrangeButtons, 10 );
+
+    centralButton.on('click', function() {
+        centralButton.addClass( 'pending-choice' );
+    });
+    $('#create-backdrop').on('click', function() {
+        centralButton.removeClass('pending-choice');
+    });
 });
 
 $(window).on('resize orientationChanged', function() {
