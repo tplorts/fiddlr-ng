@@ -6,15 +6,34 @@
     <div class="container">
       <div class="col-sm-4 col-sm-offset-8
                   col-md-3 col-md-offset-9">
-        <div id="front-login">
-          <p><input type="email" placeholder="email"></p>
-          <p><input type="password" placeholder="password"></p>
-          <p class="text-right">
-            <button type="submit" class="btn btn-primary">
-              Login
-            </button>
-          </p>
+        {% if user.is_authenticated %}
+        <div id="user-welcome">
+          <p>Greetings, {{ user }}</p>
+          <form action="{% url 'Logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="/" />
+            <p>
+              <button type="submit" class="btn btn-primary">
+                Logout
+              </button>
+            </p>
+          </form>
         </div>
+        {% else %}
+        <div id="front-login">
+          <form action="{% url 'Login' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="/" />
+            <p><input type="text" name="username" placeholder="username"></p>
+            <p><input type="password" name="password" placeholder="password"></p>
+            <p class="text-right">
+              <button type="submit" class="btn btn-primary">
+                Login
+              </button>
+            </p>
+          </form>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>

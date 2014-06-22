@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, url
 from django.views.generic.base import RedirectView
+from django.contrib.auth.views import login, logout
 
 from home import views
 
@@ -11,6 +12,9 @@ urlpatterns = patterns(
 
     url(r'^$', views.front, name='Front'),
     url(r'^$', views.front, name='Home'),
+
+    url(r'^login/$',  login, name='Login'),
+    url(r'^logout/$', logout, name='Logout'),
 
     # EXPLORE
     url(r'^explore/$', views.explore, name='Explore'),
