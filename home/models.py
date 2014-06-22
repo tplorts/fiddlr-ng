@@ -1,19 +1,15 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 
-class User( models.Model ):
-    name = models.CharField( max_length=50, blank=True )
-    email = models.EmailField( max_length=254 )
-    password = models.CharField( max_length=50, blank=True )
+class Fiprofile( models.Model ):
+    user = models.OneToOneField(User)
     picture = models.ForeignKey( 'Picture', null=True, blank=True )
-    favorites = models.ManyToManyField( 'Fidentity', blank=True )
+    favorites = models.ManyToManyField( 'Fithing', blank=True, related_name='fans' )
 
     def __unicode__(self):
-        if self.name and len(self.name) > 0:
-            return self.name
-        else:
-            return self.email
+        return unicode(self.user)
 
     def favorite_artists(self):
         return [f for f in self.favorites.all() if f.is_artist()]
@@ -23,7 +19,7 @@ class User( models.Model ):
         return [f for f in self.favorites.all() if f.is_event()]
 
 
-class Fidentity( models.Model ):
+class Fithing( models.Model ):
     name = models.CharField( max_length=80 )
     brief = models.CharField( max_length=200, blank=True )
     about = models.TextField( blank=True )
@@ -51,20 +47,21 @@ class Fidentity( models.Model ):
         return hasattr(self, 'event')
 
 
-class Artist( Fidentity ):
-    members = models.ManyToManyField( 'User', blank=True )
+class Artist( Fithing ):
+    members = models.ManyToManyField( User, blank=True )
     sponsors = models.ManyToManyField( 'Sponsor', blank=True )
+    artypes = models.ManyToManyField( 'Artype', blank=True )
 
 
-class Venue( Fidentity ):
-    managers = models.ManyToManyField( 'User', blank=True )
+class Venue( Fithing ):
+    managers = models.ManyToManyField( User, blank=True )
     address = models.CharField( max_length=200, blank=True )
     geocoordinates = models.OneToOneField( 'Geocoordinates', null=True, blank=True )
     venue_type = models.ForeignKey( 'VenueType', null=True, blank=True )
     event_types = models.ManyToManyField( 'EventType', blank=True )
 
 
-class Event( Fidentity ):
+class Event( Fithing ):
     venue = models.ForeignKey( 'Venue', null=True, blank=True )
     artists = models.ManyToManyField( 'Artist', blank=True )
     sponsors = models.ManyToManyField( 'Sponsor', blank=True )
@@ -76,8 +73,16 @@ class Event( Fidentity ):
     is_reservation_required = models.BooleanField( default=False )
 
 
-class Sponsor( Fidentity ):
-    pass
+class Sponsor( Fithing ):
+    managers = models.ManyToManyField( User, blank=True )
+
+
+class Artype( models.Model ):
+    name = models.CharField( max_length=80 )
+    roots = models.ManyToManyField( 'Artype', related_name='branches', blank=True )
+
+    def __unicode__(self):
+        return self.name
 
 
 class VenueType( models.Model ):
@@ -116,7 +121,7 @@ class PriceCategory( models.Model ):
 
 class Picture( models.Model ):
     url = models.URLField()
-    entity = models.ForeignKey( 'Fidentity', null=True, blank=True )
+    of = models.ForeignKey( 'Fithing', null=True, blank=True )
     ordinal = models.FloatField( null=True, blank=True )
 
     def __unicode__(self):

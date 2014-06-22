@@ -86,21 +86,18 @@ def explore_profile(q):
     return renderPage(q, 'explore/profile/root')
 
 def explore_profile_events(q):
-    u = User.objects.get(pk=76)
     return renderPage(q, 'explore/profile/events', {
-        'favorite_events': u.favorite_events(),
+        'favorite_events': [],
     })
 
 def explore_profile_artists(q):
-    u = User.objects.get(pk=76)
     return renderPage(q, 'explore/profile/artists', {
-        'favorite_artists': u.favorite_artists(),
+        'favorite_artists': [],
     })
 
 def explore_profile_venues(q):
-    u = User.objects.get(pk=76)
     return renderPage(q, 'explore/profile/venues', {
-        'favorite_venues': u.favorite_venues(),
+        'favorite_venues': [],
     })
 
 def explore_profile_forMe(q):
@@ -147,7 +144,7 @@ def search(q):
         what = form.data['what']
         where = form.data['where']
         query = Q(name__icontains=what) | Q(brief__icontains=what)
-        results = Fidentity.objects.filter(query)
+        results = Fithing.objects.filter(query)
         c.update({'search_results': results})
     else:
         form = FiddlrSearchForm()
