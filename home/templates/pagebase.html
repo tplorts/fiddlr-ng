@@ -6,7 +6,7 @@
 
 
 {% block super_content %}
-<div id="header">
+<div id="header" ng-controller="CommonHeaderController">
   <div class="container full-width">
     <div class="row">
       <div class="col-sm-2 col-xs-3">
@@ -75,7 +75,25 @@
             </button>
           </form>
           {% else %}
-          <button class="btn btn-sm btn-primary">
+          <script type="text/ng-template" id="login-modal.html">
+            <div class="modal-header">
+              <h3 class="modal-title">Sign into fiddlr</h3>
+            </div>
+            <form action="{% url 'Login' %}" method="POST">
+              <div class="modal-body">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                <p><input type="text" name="username" placeholder="username"></p>
+                <p><input type="password" name="password" placeholder="password"></p>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-default" ng-click="jk()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+              </div>
+            </form>
+          </script>
+          <button class="btn btn-sm btn-primary"
+                  ng-click="openLoginModal()">
             sign in/up
           </button>
           {% endif %}

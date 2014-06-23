@@ -5,6 +5,28 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 
 cmod.controller(
+    'CommonHeaderController',
+    ['$scope', '$modal', function($scope, $modal) {
+        $scope.openLoginModal = function() {
+            var modalInstance = $modal.open({
+                templateUrl: 'login-modal.html',
+                controller: ModalInstanceCtlr,
+                size: 'sm'
+            });
+        };
+    }] // end: controller function
+); // end: CommonHeaderController
+
+
+var ModalInstanceCtlr = function ($scope, $modalInstance) {
+    $scope.jk = function () {
+        $modalInstance.dismiss('cancel');
+    };
+}
+
+
+
+cmod.controller(
     'ExploreMapController', 
     ['$scope', function($scope) {
         $scope.map = {
