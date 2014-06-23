@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib.auth.views import login as auth_login
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
@@ -14,20 +15,14 @@ class FiddlrSearchForm( forms.Form ):
 
 
 
-def renderView( request, template, context={} ):
-    context.update({
-        'isProduction': settings.isProduction,
-        'useLESS': settings.TEMPLATE_DEBUG,
-    })
-    return render( request, template, context )
-
-
-def renderPage( request, template, context={} ):
+def injectDefaultContext( template, context ):
     if '/' not in template:
         section = None
         page = template
     else:
         section,_,page = template.partition('/')
+    if '.' in page:
+        page,_,_ = page.partition('.')
     
     if 'search_form' not in context:
         # if the search form wasn't already set by the
@@ -35,12 +30,26 @@ def renderPage( request, template, context={} ):
         context.update({'search_form': FiddlrSearchForm()})
 
     context.update({
+        'isProduction': settings.isProduction,
+        'useLESS': settings.TEMPLATE_DEBUG,
         'section': section,
         'page': page,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
     })
+
+def renderView( request, template, context={} ):
+    injectDefaultContext( template, context )
+    return render( request, template, context )
+
+def renderPage( request, template, context={} ):
     return renderView( request, template+'.html', context )
+
+
+def login(q):
+    context = {}
+    injectDefaultContext( 'login', context )
+    return auth_login( q, extra_context=context )
 
 
 def front(q):
