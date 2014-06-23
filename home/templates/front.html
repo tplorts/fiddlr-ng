@@ -1,9 +1,17 @@
 {% extends "pagebase.html" %}
-{% load misc %}
+{% load misc staticfiles %}
 
 {% block content %}
   <div id="front-cover-image">
     <div class="container">
+{% comment %}
+      <div class="col-sm-4">
+        <img src="{% static 'ex/icons/logo-152.png' %}"
+             id="front-logo" />
+      </div>
+      <div class="col-sm-4 col-sm-offset-4
+                  col-md-3 col-md-offset-5">
+{% endcomment %}
       <div class="col-sm-4 col-sm-offset-8
                   col-md-3 col-md-offset-9">
         {% if user.is_authenticated %}
