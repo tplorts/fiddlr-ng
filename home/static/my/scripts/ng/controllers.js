@@ -22,6 +22,7 @@ var ModalInstanceCtlr = function ($scope, $modalInstance) {
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };
+    $scope.signDirection = 'in';
 }
 
 
