@@ -1,22 +1,16 @@
 {% extends "pagebase.html" %}
-{% load misc staticfiles angular %}
-
-
-{% block html_attributes %}
-ng-app="exploreApp"
-{% endblock %}
+{% load misc staticfiles %}
 
 
 {% block prescripts %}
 <script>
   var initialEvents = {{ featured_events_json|safe }};
 </script>
-<script src="{% static 'my/scripts/explore-map.js' %}"></script>
 {% endblock %}
 
 
 {% block content %}
-<div ng-controller="ExploreController">
+<div ng-controller="ExploreMapController">
 
   <div id="gmap-explore">
     <google-map center="map.center" 
@@ -62,14 +56,8 @@ ng-app="exploreApp"
 {% endblock %}
 
 
+
 {% block postscripts %}
-<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
-
-{% angular %}
-<script src="{% static '3p/scripts/angular-google-maps.min.js' %}"></script>
-<script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
-{% angular_app "explore-map" %}
-
-{% endblock postscripts %}
+<script src="{% static 'my/scripts/explore-map.js' %}"></script>
+{% endblock %}
 

@@ -1,15 +1,11 @@
 'use strict';
 
 
-// Declare app level module which depends on filters, and services
-var exploreApp = angular.module('exploreApp', [
+var fiddlrApp = angular.module('fiddlrApp', [
     'google-maps',
     'ui.bootstrap',
     'ngRoute',
-    'exploreApp.filters',
-    'exploreApp.services',
-    'exploreApp.directives',
-    'exploreApp.controllers'
+    'fiddlrApp.controllers'
 ]).config(['$interpolateProvider', function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');

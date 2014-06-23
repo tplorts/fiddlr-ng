@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles misc %}
 
+
+{% block body_attributes %}ng-app="fiddlrApp"{% endblock %}
+
+
 {% block super_content %}
 <div id="header">
   <div class="container full-width">
@@ -62,9 +66,19 @@
           </div>
         </div>
         <div class="ib vmid">
+          {% if user.is_authenticated %}
+          <form action="{% url 'Logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="/" />
+            <button class="btn btn-sm btn-primary">
+              sign out
+            </button>
+          </form>
+          {% else %}
           <button class="btn btn-sm btn-primary">
             sign in/up
           </button>
+          {% endif %}
         </div>
       </div>
       {% endif %}
@@ -81,5 +95,47 @@
     <strong>fiddlr is presently under development</strong>
   </span>
 </div>
+
+{% endblock %}
+
+{% block thirdparty_postscripts %}
+  {{ block.super }}
+
+  {% for ngPiece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
+    {% with ngFile=ngVersion|add:'angular'|add:ngPiece|add:'.min.js' %}
+      {% if isProduction %}
+        <script src="{{ ngCDN|add:ngFile }}"></script>
+      {% else %}
+        <script src="{% static '3p/ng/'|add:ngFile %}"></script>
+      {% endif %}
+    {% endwith %}
+    {% if isProduction %}
+      <script src="{{ ngCDN|add:ngVersion }}angular-mocks.js"></script>
+    {% else %}
+      <script src="{% static '3p/ng/'|add:ngVersion|add:'angular-mocks.js' %}"></script>
+    {% endif %}
+  {% endfor %}
+
+  {# ~~~ no CDN ~~~ #}
+  <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
+
+  {% if isProduction %}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+  {% else %}
+    <script src="{% static '3p/scripts/underscore-min.js' %}"></script>
+  {% endif %}
+
+  <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
+
+  {# ~~~ no CDN ~~~ #}
+  <script src="{% static '3p/scripts/angular-google-maps.min.js' %}"></script>
+{% endblock %}
+
+{% block default_postscripts %}
+  {{ block.super }}
+
+  {% for appfile in "app.js,controllers.js"|split:"," %}
+    <script src="{% static 'my/scripts/ng/'|add:appfile %}"></script>
+  {% endfor %}
 
 {% endblock %}

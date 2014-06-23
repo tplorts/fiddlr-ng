@@ -62,8 +62,9 @@ staticfiles
 
 # Keeping large media data in AWS S3 and
 # I do not want it inside the repository
-external
-ex
+external/
+ex/
+3p/
 
 # To detect whether on my development computer
 .devmachine

@@ -1,11 +1,11 @@
 'use strict';
 
-/* Controllers */
 
-var cmod = angular.module('exploreApp.controllers', []);
+var cmod = angular.module('fiddlrApp.controllers', []);
+
 
 cmod.controller(
-    'ExploreController', 
+    'ExploreMapController', 
     ['$scope', function($scope) {
         $scope.map = {
             center: {
@@ -30,4 +30,23 @@ cmod.controller(
 
         $scope.markerEvents = markerEvents;
     }] // end: controller function
-); // end: ExploreController
+); // end: ExploreMapController
+
+
+
+cmod.controller(
+    'ProfilePageController', 
+    ['$scope', function($scope) {
+        $scope.alertMe = function() {
+            setTimeout(function() {
+                alert('You\'ve selected the alert tab!');
+            });
+        };
+        $scope.moveTabPane = function(tabIndex) {
+            $('.tab-content').css('margin-left', -tabIndex*100+'%');
+            if( tabIndex == 1 && Galleria ) {
+                initGalleria();
+            }
+        };
+    }] // end: controller function
+); // end: ProfilePageController
