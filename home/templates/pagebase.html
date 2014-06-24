@@ -20,15 +20,15 @@
           <form action="{% url 'Search' %}" method="POST">
             {% csrf_token %}
             <div class="ib vmid">
-              {#<input type="text" placeholder="what?">#}
-              {{ search_form.what }}
+              <input type="text" class="form-control"
+                     name="what" placeholder="what?" />
             </div>
             <div class="ib vmid">
-              {#<input type="text" placeholder="where?">#}
-              {{ search_form.where }}
+              <input type="text" class="form-control"
+                     name="where" placeholder="where?" />
             </div>
             <div class="ib vmid">
-              <button class="btn btn-sm btn-default search-button"
+              <button class="btn btn-default search-button"
                       type="submit">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
@@ -38,7 +38,7 @@
       </div>
       <div class="col-sm-4 col-xs-9">
         <div class="ib vmid" id="alerts-icon">
-          <a class="btn btn-sm btn-default"
+          <a class="btn btn-default"
              href="{% url 'Alerts' %}">
             <span class="glyphicon glyphicon-bell"></span>
             <span class="badge">482</span>
@@ -46,7 +46,7 @@
         </div>
         <div class="ib vmid" id="header-links">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-default dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs hidden-sm">Pages</span>
               <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
@@ -70,7 +70,7 @@
           <form action="{% url 'Logout' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <button class="btn btn-sm btn-primary">
+            <button class="btn btn-primary">
               sign out
             </button>
           </form>
@@ -86,37 +86,43 @@
                 </label>
               </div>
             </div>
-            <div ng-show="signDirection == 'in'">
-              <form action="{% url 'Login' %}" method="POST">
-                <div class="modal-body">
+            <div class="modal-body">
+              <div ng-show="signDirection == 'in'">
+                <form action="{% url 'Login' %}" method="POST">
                   {% csrf_token %}
-                  <input type="hidden" name="next" value="{{ request.get_full_path }}" />
-                  <p><input type="text" name="username" placeholder="username"></p>
-                  <p><input type="password" name="password" placeholder="password"></p>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-default" ng-click="jk()">Never mind</button>
-                  <button type="submit" class="btn btn-primary purple">Sign in</button>
-                </div>
-              </form>
-            </div>
-            <div ng-show="signDirection == 'up'">
-              <form action="{#% url 'Signup' %#}" method="POST">
-                <div class="modal-body">
+                  <input type="hidden" name="next" 
+                         value="{{ request.get_full_path }}" />
+                  <p><input type="text" name="username" 
+                            placeholder="username"
+                            class="form-control" /></p>
+                  <p><input type="password" name="password"
+                            placeholder="password"
+                            class="form-control" /></p>
+                  <button type="submit" class="btn btn-primary purple pull-right">
+                    sign in
+                  </button>
+                </form>
+              </div>
+              <div ng-show="signDirection == 'up'">
+                <form action="{#% url 'Signup' %#}" method="POST">
                   {% csrf_token %}
-                  <p><input type="text" name="username" placeholder="username"></p>
-                  <p><input type="password" name="password" placeholder="password"></p>
-                </div>
-                <div class="modal-footer">
-                  <button class="btn btn-default" ng-click="jk()">Never mind</button>
-                  <button type="submit" class="btn btn-primary purple">Create an account</button>
-                </div>
-              </form>
+                  <p><input type="text" name="username" 
+                            placeholder="username"
+                            class="form-control"></p>
+                  <p><input type="password" name="password"
+                            placeholder="password"
+                            class="form-control"></p>
+                  <button type="submit" class="btn btn-primary purple pull-right">
+                    create an account
+                  </button>
+                </form>
+              </div>
+              <button class="btn btn-default" ng-click="jk()">never mind</button>
             </div>
           </script>
-          <button class="btn btn-sm btn-primary"
+          <button class="btn btn-primary"
                   ng-click="openLoginModal()">
-            sign in/up
+            sign in &amp; up
           </button>
           {% endif %}
         </div>
