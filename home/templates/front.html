@@ -32,8 +32,12 @@
           <form action="{% url 'Login' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <p><input type="text" name="username" placeholder="username"></p>
-            <p><input type="password" name="password" placeholder="password"></p>
+            <p><input type="text" name="username" 
+                      class="form-control"
+                      placeholder="username"></p>
+            <p><input type="password" name="password" 
+                      class="form-control"
+                      placeholder="password"></p>
             <p class="text-right">
               <button type="submit" class="btn btn-primary">
                 Login
