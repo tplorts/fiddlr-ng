@@ -65,7 +65,7 @@ function initialArrangeButtons() {
     arrangeButtons();
     setTimeout(function() {
         createNav.removeClass('prearranged');},
-               405);
+               820);
 }
 
 $(window).on('load', function () {
@@ -77,7 +77,7 @@ $(window).on('load', function () {
     centralButton = majorDiv.find('#create-button');
     centerButton( allButtons, contentCenter() );
     majorDiv.removeClass('invisible');
-    setTimeout( initialArrangeButtons, 10 );
+    setTimeout( initialArrangeButtons, 50 );
 
     centralButton.on('click', function() {
         centralButton.addClass( 'pending-choice' );

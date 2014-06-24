@@ -35,7 +35,7 @@
 
 #header-links {
     button .glyphicon {
-        .transition(all, 0.2s, linear);
+        .transition(all, 200ms, ease);
     }
     .open {
         .glyphicon-chevron-down {
@@ -278,7 +278,8 @@
 .tab-content {
     width: 300%;
     position: relative;
-    .transition(all, 0.3s, ease-out);
+    .transition(all, 400ms, ease);
+
     .tab-pane {
         display: inline-block !important;
         width: 33.33%;
@@ -345,7 +346,8 @@
     border-radius: 75px;
     cursor: pointer;
     background-color: rgba(100, 200, 100, 0.7);
-    .transition(all, 0.1s, ease-out);
+    .transition();
+
     &:hover {
         .box-shadow(0,0,5px);
         background-color: #BFF;
@@ -362,9 +364,17 @@
     }
 }
 
+.generate-delays(@n, @i: 0) when (@i < @n) {
+    &:nth-child(@{i}) {
+        transition-delay: (@i+1)*70ms;
+    }
+    .generate-delays(@n, (@i + 1));
+}
+
 .prearranged { 
     .circle-button {
-        .transition(all, 0.4s, ease-out);
+        .transition(all, 450ms, ease);
+        .generate-delays(5);
     }
 }
 
