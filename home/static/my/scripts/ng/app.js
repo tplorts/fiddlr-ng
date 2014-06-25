@@ -6,7 +6,13 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ui.bootstrap',
     'ngRoute',
     'fiddlrApp.controllers'
-]).config(['$interpolateProvider', function($interpolateProvider) {
-    $interpolateProvider.startSymbol('[[');
-    $interpolateProvider.endSymbol(']]');
-}]);
+]).config(
+    ['$interpolateProvider', '$tooltipProvider',
+     function($interpolateProvider, $tooltipProvider) {
+         $interpolateProvider.startSymbol('[[');
+         $interpolateProvider.endSymbol(']]');
+
+         $tooltipProvider.setTriggers({
+             'showUsernameTooltip': 'hideUsernameTooltip'
+         });
+     }]);

@@ -104,23 +104,29 @@
                 </form>
               </div>
               <div ng-show="signDirection == 'up'">
-                <form action="{#% url 'Signup' %#}" method="POST" name="signupForm">
+                <form action="{#% url 'Signup' %#}" method="POST" name="signup">
                   {% csrf_token %}
                   <div class="form-group has-feedback labelless
-                              [[ signupForm.username.$valid ? '' : 'has-error' ]]">
-                    <input type="text" class="form-control"
+                              [[ signup.username.$invalid ? 'has-error' : (isUsernameTaken ? 'has-warning' : 'has-success') ]]">
+                    <input type="text" class="form-control" id="signup-username"
                            name="username" placeholder="choose a username"
                            ng-model="pending.username"
-                           tooltip="[[ usernameTooltip() ]]"
-                           tooltip-trigger="focus" />
-                    <span ng-show="isUsernameOK()"
+                           ng-model-options="{ updateOn: 'default usernameChecked', debounce: {default: 0, usernameChecked: 250} }"
+                           ng-pattern="/^[\w\d\-\.\+\@\_]*$/"
+                           maxlength="30"
+                           ng-change="usernameChanged(signup.username.$error)"
+                           tooltip="[[ usernameTooltip ]]"
+                           tooltip-trigger="showUsernameTooltip" />
+                    {% comment %}
+                    <span ng-show="signup.username.$valid && !isUsernameTaken"
                           class="glyphicon glyphicon-ok form-control-feedback"></span>
                     <span ng-show="isUsernameTaken"
                           class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    <span ng-show="!isUsernameValid"
+                    <span ng-show="signup.username.$invalid"
                           class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    {% endcomment %}
                   </div>
-                  <div class="form-group [[ signupForm.password.$valid ? '' : 'has-error' ]]">
+                  <div class="form-group [[ signup.password.$valid ? '' : 'has-error' ]]">
                     <input type="password" class="form-control"
                            name="password" placeholder="password"
                            ng-model="pendingPassword" />

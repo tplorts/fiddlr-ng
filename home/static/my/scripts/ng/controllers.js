@@ -6,19 +6,23 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 cmod.controller(
     'CommonHeaderController',
-    ['$scope', '$modal', '$position', function($scope, $modal, $position) {
-        $scope.openLoginModal = function() {
-            var modalInstance = $modal.open({
-                templateUrl: 'login-modal.html',
-                controller: ModalInstanceCtlr,
-                size: 'sm'
-            });
-        };
-    }] // end: controller function
+    ['$scope', '$modal', '$position', '$tooltip',
+     function($scope, $modal, $position, $tooltip) {
+         $scope.openLoginModal = function() {
+             var modalInstance = $modal.open({
+                 templateUrl: 'login-modal.html',
+                 controller: ModalInstanceCtlr,
+                 size: 'sm'
+             });
+         };
+     } // end: controller function
+    ] 
 ); // end: CommonHeaderController
 
 
-var ModalInstanceCtlr = function ($scope, $modalInstance) {
+var ModalInstanceCtlr = 
+    function ($scope, $modalInstance, $position, $tooltip)
+{
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };
@@ -30,21 +34,25 @@ var ModalInstanceCtlr = function ($scope, $modalInstance) {
     };
 
     $scope.isUsernameTaken = false;
-    $scope.isUsernameValid = true;
-    $scope.isUsernameOK = function() {
-        return $scope.isUsernameValid && !$scope.isUsernameTaken;
-    }
 
-    $scope.usernameTooltip = function() {
-        if( 1 ) {
-            return 'looks good';
-        } else {
-            return 'Please only use letters, numbers, and -+_@';
-        }
+    $scope.usernameTooltip = '';
+    $scope.getUsernameTooltip = function( error ) {
+        if( error && error.pattern )
+            return 'please only use letters, numbers, or any of: . - + @ _ (no spaces)';
+        return '';
     };
-
-    $scope.checkUsername = function( inputObject ) {
-        $scope.pendingUsername = inputObject.$viewValue;
+    $scope.usernameChanged = function( errors ) {
+        $scope.usernameTooltip = $scope.getUsernameTooltip(errors);
+        if( $scope.usernameTooltip.length > 0 ) {
+            setTimeout( function() {
+                $('#signup-username').trigger('showUsernameTooltip');
+            }, 0);
+        } else {
+            // check if available
+            setTimeout( function() {
+                $('#signup-username').trigger('hideUsernameTooltip');
+            }, 0);
+        }
     };
 };
 
