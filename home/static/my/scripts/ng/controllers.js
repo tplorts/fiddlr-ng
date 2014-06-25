@@ -6,7 +6,7 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 cmod.controller(
     'CommonHeaderController',
-    ['$scope', '$modal', function($scope, $modal) {
+    ['$scope', '$modal', '$position', function($scope, $modal, $position) {
         $scope.openLoginModal = function() {
             var modalInstance = $modal.open({
                 templateUrl: 'login-modal.html',
@@ -23,7 +23,30 @@ var ModalInstanceCtlr = function ($scope, $modalInstance) {
         $modalInstance.dismiss('cancel');
     };
     $scope.signDirection = 'in';
-}
+
+    $scope.pending = {
+        username: '',
+        password: ''
+    };
+
+    $scope.isUsernameTaken = false;
+    $scope.isUsernameValid = true;
+    $scope.isUsernameOK = function() {
+        return $scope.isUsernameValid && !$scope.isUsernameTaken;
+    }
+
+    $scope.usernameTooltip = function() {
+        if( 1 ) {
+            return 'looks good';
+        } else {
+            return 'Please only use letters, numbers, and -+_@';
+        }
+    };
+
+    $scope.checkUsername = function( inputObject ) {
+        $scope.pendingUsername = inputObject.$viewValue;
+    };
+};
 
 
 

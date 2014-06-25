@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.views import login as auth_login
+# from django.contrib.auth.models import User, DoesNotExist
+# from django.views.decorators.debug import sensitive_post_parameters
+# from django.views.decorators.csrf import csrf_protect
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
@@ -50,6 +53,19 @@ def login(q):
     context = {}
     injectDefaultContext( 'login', context )
     return auth_login( q, extra_context=context )
+
+
+# @sensitive_post_parameters()
+# @csrf_protect
+# def is_username_available(q):
+#     if q.method == 'POST'
+#     uname = q.POST['username']
+#     try:
+#         User.objects.get(username=uname)
+#     except DoesNotExist:
+#         return 'true'
+#     else:
+#         return 'false'
 
 
 def front(q):
