@@ -5,9 +5,13 @@ from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
 from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
 from models import *
+
+
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -72,17 +76,13 @@ def login(q):
     return auth_login( q, extra_context=context )
 
 
-# @sensitive_post_parameters()
-# @csrf_protect
-# def is_username_available(q):
-#     if q.method == 'POST'
-#     uname = q.POST['username']
-#     try:
-#         User.objects.get(username=uname)
-#     except DoesNotExist:
-#         return 'true'
-#     else:
-#         return 'false'
+
+@api_view(['GET'])
+def user_exists(request, username, format=None):
+    exists = User.objects.filter(username=username).exists()
+    return Response(exists)
+
+
 
 
 def front(q):

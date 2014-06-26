@@ -2,6 +2,7 @@ from django.conf.urls import patterns, url, include
 from django.views.generic.base import RedirectView
 from django.contrib.auth.views import logout
 from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
 
 
@@ -66,3 +67,10 @@ urlpatterns = patterns(
     url(r'^help/', views.helpView, name='Help'),
     url(r'^ads/', views.adsView, name='Ads'),
 )
+
+
+urlpatterns += format_suffix_patterns(patterns(
+    '',
+    url(r'^custom-api/exists/user/(?P<username>\w{0,30})/$', views.user_exists),
+))
+
