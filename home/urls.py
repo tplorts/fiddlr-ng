@@ -1,11 +1,22 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns, url, include
 from django.views.generic.base import RedirectView
 from django.contrib.auth.views import logout
-
+from rest_framework import routers
 from home import views
+
+
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+
+
 
 urlpatterns = patterns(
     '',
+
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Place the favicon in a standard static location but still conform to an old fashion favicon
 #    url(r'^favicon\.ico$', RedirectView.as_view(url=s3+'main/icons/favicon.ico'), name='favicon'),

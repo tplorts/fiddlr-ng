@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 #    'storages',
     'home',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -86,6 +87,12 @@ ROOT_URLCONF = 'fiddlr.urls'
 
 WSGI_APPLICATION = 'fiddlr.wsgi.application'
 
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'PAGINATE_BY': 10
+}
 
 
 # Internationalization

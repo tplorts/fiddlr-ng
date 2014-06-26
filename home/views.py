@@ -1,13 +1,30 @@
 from django.shortcuts import render
 from django.contrib.auth.views import login as auth_login
-# from django.contrib.auth.models import User, DoesNotExist
-# from django.views.decorators.debug import sensitive_post_parameters
-# from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
+from rest_framework import viewsets
 from fiddlr import settings
+from serializers import UserSerializer, GroupSerializer
 from models import *
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class GroupViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
 
 
  
