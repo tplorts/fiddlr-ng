@@ -36,8 +36,8 @@ var ModalInstanceCtlr =
     $scope.isUsernameTaken = false;
 
     $scope.usernameTooltip = '';
-    $scope.getUsernameTooltip = function( error ) {
-        if( error && error.pattern )
+    $scope.getUsernameTooltip = function( errors ) {
+        if( errors && errors.pattern )
             return 'please only use letters, numbers, or any of: . - + @ _ (no spaces)';
         return '';
     };
@@ -48,10 +48,11 @@ var ModalInstanceCtlr =
                 $('#signup-username').trigger('showUsernameTooltip');
             }, 0);
         } else {
-            // check if available
             setTimeout( function() {
                 $('#signup-username').trigger('hideUsernameTooltip');
             }, 0);
+            // check if available
+            console.log( 'check availability of ' + $scope.pending.username );
         }
     };
 };
