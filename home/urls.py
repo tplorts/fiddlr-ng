@@ -71,6 +71,6 @@ urlpatterns = patterns(
 
 urlpatterns += format_suffix_patterns(patterns(
     '',
-    url(r'^custom-api/exists/user/(?P<username>\w{0,30})/$', views.user_exists),
+    url(r'^custom-api/exists/user/(?P<username>[\w\d\-\.\+\@\_]{0,30})/$', views.UserExistsView.as_view()),
 ))
 

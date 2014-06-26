@@ -78,16 +78,16 @@
           <script type="text/ng-template" id="login-modal.html">
             <div class="modal-header">
               <div class="btn-group btn-group-justified">
-                <label class="btn btn-primary" ng-model="signDirection" btn-radio="'in'">
+                <label class="btn btn-primary" ng-model="signinup.which" btn-radio="'in'">
                   Sign in
                 </label>
-                <label class="btn btn-primary" ng-model="signDirection" btn-radio="'up'">
+                <label class="btn btn-primary" ng-model="signinup.which" btn-radio="'up'">
                   Sign up
                 </label>
               </div>
             </div>
             <div class="modal-body">
-              <div ng-show="signDirection == 'in'">
+              <div ng-show="signinup.which == 'in'">
                 <form action="{% url 'Login' %}" method="POST">
                   {% csrf_token %}
                   <input type="hidden" name="next" 
@@ -103,36 +103,38 @@
                   </button>
                 </form>
               </div>
-              <div ng-show="signDirection == 'up'">
-                <form action="{#% url 'Signup' %#}" method="POST" name="signup">
+              <div ng-show="signinup.which == 'up'">
+                <form action="{#% url 'Signup' %#}"
+                      method="POST" name="forms.signup">
                   {% csrf_token %}
-                  <div class="form-group has-feedback labelless
-                              [[ signup.username.$invalid ? 'has-error' : (isUsernameTaken ? 'has-warning' : 'has-success') ]]">
-                    <input type="text" class="form-control" id="signup-username"
-                           name="username" placeholder="choose a username"
+                  <div class="form-group has-feedback 
+                              labelless [[ usernameStatus() ]]">
+
+                    <input type="text" class="form-control" 
+                           id="signup-username" name="username" 
+                           placeholder="choose a username"
                            ng-model="pending.username"
-                           ng-model-options="{ updateOn: 'default usernameChecked', debounce: {default: 0, usernameChecked: 250} }"
                            ng-pattern="/^[\w\d\-\.\+\@\_]*$/"
                            maxlength="30"
-                           ng-change="usernameChanged(signup.username.$error)"
-                           tooltip="[[ usernameTooltip ]]"
+                           ng-change="usernameChanged()"
+                           tooltip="[[ getUsernameTooltip() ]]"
                            tooltip-trigger="showUsernameTooltip" />
-                    {% comment %}
-                    <span ng-show="signup.username.$valid && !isUsernameTaken"
-                          class="glyphicon glyphicon-ok form-control-feedback"></span>
-                    <span ng-show="isUsernameTaken"
-                          class="glyphicon glyphicon-warning-sign form-control-feedback"></span>
-                    <span ng-show="signup.username.$invalid"
-                          class="glyphicon glyphicon-remove form-control-feedback"></span>
-                    {% endcomment %}
+
+                    <span class="glyphicon-[[ usernameIcon() ]] 
+                                 glyphicon form-control-feedback"
+                          ng-show="forms.signup.username.$dirty && pending.username.length > 0"></span>
+
                   </div>
-                  <div class="form-group [[ signup.password.$valid ? '' : 'has-error' ]]">
+                  <div class="form-group">
+
+                    {# TODO: impose password requirements #}
                     <input type="password" class="form-control"
                            name="password" placeholder="password"
-                           ng-model="pendingPassword" />
+                           ng-model="pending.password" />
+
                   </div>                  
                   <button type="submit" class="btn btn-primary purple pull-right">
-                    create an account
+                    create account
                   </button>
                 </form>
               </div>

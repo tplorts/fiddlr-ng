@@ -6,12 +6,12 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 cmod.controller(
     'CommonHeaderController',
-    ['$scope', '$modal', '$position', '$tooltip',
-     function($scope, $modal, $position, $tooltip) {
+    ['$scope', '$modal', '$position', '$tooltip', '$http',
+     function($scope, $modal, $position, $tooltip, $http) {
          $scope.openLoginModal = function() {
              var modalInstance = $modal.open({
                  templateUrl: 'login-modal.html',
-                 controller: ModalInstanceCtlr,
+                 controller: SigninupModalController,
                  size: 'sm'
              });
          };
@@ -20,41 +20,132 @@ cmod.controller(
 ); // end: CommonHeaderController
 
 
-var ModalInstanceCtlr = 
-    function ($scope, $modalInstance, $position, $tooltip)
+var SigninupModalController = 
+    function ($scope, $modalInstance, $position, $tooltip, $http)
 {
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };
-    $scope.signDirection = 'in';
 
+    // Open the modal with the sign-in page active
+    $scope.signinup = {which: 'in'};
+
+    // The pending credentials in the sign-up form
     $scope.pending = {
         username: '',
-        password: ''
+        password: '' 
     };
 
-    $scope.isUsernameTaken = false;
+    $scope.forms = {};
+    
+    var isUsernameTaken = false;
+    var awaitingUsernameCheck = false;
+    var usernameTimeout = null;
 
-    $scope.usernameTooltip = '';
-    $scope.getUsernameTooltip = function( errors ) {
+    // Keep a cache of usernames we've already looked-up
+    var checkedUsernames = {};
+
+    function _turnUsernameTooltip( showhide ) {
+        $('#signup-username').trigger(showhide+'UsernameTooltip');
+    }
+    function turnUsernameTooltip( showhide ) {
+        setTimeout( function() {
+            _turnUsernameTooltip(showhide);
+        }, 0);
+    }
+
+    function checkUsername() {
+        awaitingUsernameCheck = true;
+        usernameTimeout = null;
+        var u = $scope.pending.username;
+        var apiURL = '/custom-api/exists/user/'+u+'/.json';
+        var p = $http({method: 'GET', url: apiURL});
+        p.success(function(data, status, headers, config) {
+            // If the input was changed between issuing the request
+            // and receiving a response, then keep awaiting-
+            // username-check at true.
+            if( !usernameTimeout ) {
+                awaitingUsernameCheck = false;
+                isUsernameTaken = (data === 'true');
+                checkedUsernames[u] = isUsernameTaken;
+                if( isUsernameTaken )
+                    turnUsernameTooltip('show');
+            }
+        });
+        p.error(function(data, status, headers, config) {
+            // called asynchronously if an error occurs
+            // or server returns response with an error status.
+            console.log('error response from user existence check');
+            //TODO: recheck?
+        });
+    };
+
+
+
+    $scope.getUsernameTooltip = function() {
+        if( $scope.signinup.which != 'up' ) return '';
+
+        var errors = $scope.forms.signup.username.$error;
         if( errors && errors.pattern )
             return 'please only use letters, numbers, or any of: . - + @ _ (no spaces)';
+        if( awaitingUsernameCheck )
+            return 'checking that username; please wait a moment';
+        if( isUsernameTaken )
+            return 'that username is taken; please choose another';
         return '';
     };
-    $scope.usernameChanged = function( errors ) {
-        $scope.usernameTooltip = $scope.getUsernameTooltip(errors);
-        if( $scope.usernameTooltip.length > 0 ) {
-            setTimeout( function() {
-                $('#signup-username').trigger('showUsernameTooltip');
-            }, 0);
+
+
+    $scope.usernameChanged = function() {
+        // Cancel the check-username http request before it issues
+        // because the username input has been updated.
+        clearTimeout( usernameTimeout );
+        usernameTimeout = null;
+        awaitingUsernameCheck = false;
+        isUsernameTaken = false;
+
+        var u = $scope.pending.username;
+        if( $scope.forms.signup.username.$invalid ) {
+            turnUsernameTooltip('show');
+        } else if( checkedUsernames[u] !== undefined ) {
+            isUsernameTaken = checkedUsernames[u];
+            if( isUsernameTaken )
+                turnUsernameTooltip('show');
         } else {
-            setTimeout( function() {
-                $('#signup-username').trigger('hideUsernameTooltip');
-            }, 0);
-            // check if available
-            console.log( 'check availability of ' + $scope.pending.username );
+            turnUsernameTooltip('hide');
+            if( u.length > 0 ) {
+                // check if available
+                usernameTimeout = setTimeout(function() {
+                    checkUsername( u );
+                }, 500);
+            }
         }
     };
+
+    $scope.usernameStatus = function() {
+        if( $scope.signinup.which != 'up' ) return '';
+
+        if( $scope.forms.signup.username.$invalid ) 
+            return 'has-error';
+        var u = $scope.pending.username;
+        if( !u.length || usernameTimeout || awaitingUsernameCheck )
+            return '';
+        if( isUsernameTaken )
+            return 'has-warning';
+        return 'has-success';
+    }
+
+    $scope.usernameIcon = function() {
+        if( $scope.signinup.which != 'up' ) return '';
+
+        if( $scope.forms.signup.username.$invalid )
+            return 'remove';
+        if( usernameTimeout || awaitingUsernameCheck )
+            return 'time';
+        if( isUsernameTaken )
+            return 'warning-sign';
+        return 'ok';
+    }
 };
 
 

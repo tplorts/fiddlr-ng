@@ -4,14 +4,21 @@ from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions, authentication
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
 from models import *
 
 
+class UserExistsView(APIView):
+    authentication_classes = ()
+    permission_classes = (permissions.AllowAny,)
+
+    def get(self, request, username, format=None):
+        exists = User.objects.filter(username=username).exists()
+        return Response(exists)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -29,6 +36,14 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+
+
+
+
+def login(q):
+    context = {}
+    injectDefaultContext( 'login', context )
+    return auth_login( q, extra_context=context )
 
 
  
@@ -68,19 +83,6 @@ def renderView( request, template, context={} ):
 
 def renderPage( request, template, context={} ):
     return renderView( request, template+'.html', context )
-
-
-def login(q):
-    context = {}
-    injectDefaultContext( 'login', context )
-    return auth_login( q, extra_context=context )
-
-
-
-@api_view(['GET'])
-def user_exists(request, username, format=None):
-    exists = User.objects.filter(username=username).exists()
-    return Response(exists)
 
 
 
