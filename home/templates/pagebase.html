@@ -156,13 +156,28 @@
 
 <div id="content">
   {% block content %}{% endblock %}
+  
+  {% if time2boogie %}
+  <img id="discoball" class="center-block"
+       src="{% static 'ex/discoball3.gif' %}" />
+  {% endif %}
 </div>
 
-<div id="dev-warning" title="You have been warned.">
+<div id="dev-warning" title="You have been warned."
+     {% if time2boogie %}
+       class="boogie-button"
+     {% endif %}>
   <span class="text-danger">
     <strong>fiddlr is presently under development</strong>
   </span>
 </div>
+
+{% if time2boogie %}
+<audio src="{% static 'ex/BoogieOogieOogie.mp3' %}"
+       preload="auto" id="boogieoogieoogie">
+</audio>
+<div class="backdrop disco-backdrop"></div>
+{% endif %}
 
 {% endblock %}
 
@@ -205,5 +220,9 @@
   {% for appfile in "app.js,controllers.js"|split:"," %}
     <script src="{% static 'my/scripts/ng/'|add:appfile %}"></script>
   {% endfor %}
+
+  {% if time2boogie %}
+    <script src="{% static 'my/scripts/boogie.js' %}"></script>
+  {% endif %}
 
 {% endblock %}

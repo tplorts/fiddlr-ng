@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
 from models import *
+import datetime
 
 
 class UserExistsView(APIView):
@@ -91,7 +92,12 @@ def renderPage( request, template, context={} ):
 
 
 def front(q):
-    return renderPage(q, 'front')
+    now = datetime.datetime.utcnow().time()
+    # Window of Good Morning Gaby: [8:48, 8:52)
+    time4gaby = now.hour==12 and now.minute in range(48, 52)
+    return renderPage(q, 'front', {
+        'time4gabymorning': time4gaby
+    })
 
 
 def explore(q):
@@ -105,7 +111,9 @@ def explore_featured(q):
 def explore_nearYou(q):
     return renderPage(q, 'explore/near-you')
 def explore_forYou(q):
-    return renderPage(q, 'explore/for-you')
+    return renderPage(q, 'explore/for-you', {
+        'time2boogie': True
+    })
 def explore_fiddlrEvents(q):
     return renderPage(q, 'explore/fiddlr-events')
 def explore_happeningNow(q):

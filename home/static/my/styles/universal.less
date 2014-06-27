@@ -412,3 +412,23 @@
         top: 0;
     }
 }
+
+
+
+#discoball {
+    .transition(all, 6s, linear);
+    transition-delay: 3s;
+    position: relative;
+    margin-top: -400px;
+    &.dothedisco {
+        margin-top: @header-height + 20px;
+    }
+}
+
+.disco-backdrop {
+    .transition(all, 3s, ease-out);
+}
+
+.black-backdrop {
+    background-color: #000;
+}

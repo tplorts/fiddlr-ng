@@ -51,7 +51,7 @@
   </div>
   <div id="big-ol-buttons">
     <div class="container">
-      {% if user.is_authenticated and user.username == 'gaby' %}
+      {% if user.is_authenticated and user.username == 'gaby' and time4gabymorning %}
         <audio src="{% static 'ex/goodmorningGABY.mp3' %}"
                preload="auto" id="gaby">
         </audio>
