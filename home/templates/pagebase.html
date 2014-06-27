@@ -199,20 +199,22 @@
     <script src="{% static '3p/ng/'|add:ngVersion|add:'angular-mocks.js' %}"></script>
   {% endif %}
 
-  {# ~~~ no CDN ~~~ #}
-  <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
-
-  {% if isProduction %}
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-  {% else %}
-    <script src="{% static '3p/scripts/underscore-min.js' %}"></script>
-  {% endif %}
 
   <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
 
-  {# ~~~ no CDN ~~~ #}
-  <script src="{% static '3p/scripts/angular-google-maps.min.js' %}"></script>
+  {% if isProduction %}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
+    <script src="{% static '3p/scripts/angular-google-maps-1.1.4.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
+  {% else %}
+    <script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>
+    <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.js' %}"></script>
+    <script src="{% static '3p/scripts/angular-google-maps-1.1.4.js' %}"></script>
+  {% endif %}
+
 {% endblock %}
+
+
 
 {% block default_postscripts %}
   {{ block.super }}
