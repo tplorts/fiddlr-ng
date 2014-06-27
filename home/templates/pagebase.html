@@ -185,11 +185,11 @@
   {{ block.super }}
 
   {% for ngPiece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
-    {% with ngFile=ngVersion|add:'angular'|add:ngPiece|add:'.min.js' %}
+    {% with ngFile=ngVersion|add:'angular'|add:ngPiece %}
       {% if isProduction %}
-        <script src="{{ ngCDN|add:ngFile }}"></script>
+        <script src="{{ ngCDN|add:ngFile|add:'.min.js' }}"></script>
       {% else %}
-        <script src="{% static '3p/ng/'|add:ngFile %}"></script>
+        <script src="{% static '3p/ng/'|add:ngFile|add:'.js' %}"></script>
       {% endif %}
     {% endwith %}
   {% endfor %}
