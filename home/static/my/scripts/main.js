@@ -1,3 +1,13 @@
+
+$(window).on('load', function() {
+    if( loginPrompted ) {
+        $('#signinup-modal-button').trigger('click');
+    }
+});
+
+
+
+
 function deepCopy( obj ) {
     return JSON.parse(JSON.stringify(obj));
 }

@@ -23,6 +23,8 @@ cmod.controller(
 var SigninupModalController = 
     function ($scope, $modalInstance, $position, $tooltip, $http)
 {
+    $scope.loginPrompted = loginPrompted !== undefined && loginPrompted;
+
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };

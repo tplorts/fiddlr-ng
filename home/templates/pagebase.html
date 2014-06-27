@@ -77,6 +77,9 @@
           {% else %}
           <script type="text/ng-template" id="login-modal.html">
             <div class="modal-header">
+              <div ng-show="loginPrompted">
+                <p class="large">Please sign in to view this page</p>
+              </div>
               <div class="btn-group btn-group-justified">
                 <label class="btn btn-primary" ng-model="signinup.which" btn-radio="'in'">
                   Sign in
@@ -138,7 +141,9 @@
                   </button>
                 </form>
               </div>
-              <button class="btn btn-default" ng-click="jk()">never mind</button>
+              <button class="btn btn-default" ng-click="jk()">
+                never mind
+              </button>
             </div>
           </script>
           <button class="btn btn-primary narrower-button"

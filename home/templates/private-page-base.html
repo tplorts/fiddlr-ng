@@ -1,0 +1,13 @@
+{% extends "pagebase.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div id="private-content">
+  {% block private_content %}
+  {% endblock %}
+</div>
+{% else %}
+<script> loginPrompted = true; </script>
+{% endif %}
+{% endblock content %}
+

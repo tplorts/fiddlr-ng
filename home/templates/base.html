@@ -54,6 +54,7 @@
     {% block default_prescripts %}
       <script>
         var isProduction = {{ isProduction|yesno:"true,false" }};
+        var loginPrompted = false;
       </script>
 
       {% if useLESS %}
