@@ -46,6 +46,9 @@ def login(q):
     return auth_login( q, extra_context=context )
 
 
+def signup(q):
+    pass
+
  
 
 class FiddlrSearchForm( forms.Form ):

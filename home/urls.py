@@ -27,6 +27,8 @@ urlpatterns = patterns(
 
     url(r'^login/$',  views.login, name='Login'),
     url(r'^logout/$', logout, name='Logout'),
+    url(r'^signup/$', views.signup, name='Signup'),
+    
 
     # EXPLORE
     url(r'^explore/$', views.explore, name='Explore'),
