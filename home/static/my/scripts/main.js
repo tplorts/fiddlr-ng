@@ -2,6 +2,12 @@
 $(window).on('load', function() {
     if( loginPrompted ) {
         $('#signinup-modal-button').trigger('click');
+        $('#auxiliary-signinup-button').click( function() {
+            $('#signinup-modal-button').trigger('click');
+        });
+        setTimeout( function() {
+            $('#please-login').removeClass('invisible');
+        }, 1000 );
     }
 });
 

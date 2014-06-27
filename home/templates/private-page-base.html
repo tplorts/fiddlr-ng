@@ -7,6 +7,15 @@
   {% endblock %}
 </div>
 {% else %}
+<div id="please-login" class="text-center invisible">
+  <p class="large">
+    This page requires signing in.
+  </p>
+  <button class="btn btn-primary center-block"
+          id="auxiliary-signinup-button">
+    Sign in or Sign up
+  </button>
+</div>
 <script> loginPrompted = true; </script>
 {% endif %}
 {% endblock content %}
