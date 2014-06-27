@@ -33,7 +33,11 @@
 
       
     {% block thirdparty_styles %}
-      <link rel="stylesheet" type="text/css" href="{% static '3p/styles/bootstrap.min.css' %}" />
+      {% if isProduction %}
+        <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+      {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static '3p/bootstrap-3.2.0-dist/css/bootstrap.css' %}" />
+      {% endif %}
     {% endblock thirdparty_styles %}
 
     {% block default_styles %}
@@ -93,8 +97,15 @@
 
 
     {% block thirdparty_postscripts %}
-      <script src="{% static '3p/scripts/jquery-1.11.1.min.js' %}"></script>
-      <script src="{% static '3p/scripts/bootstrap.min.js' %}"></script>
+      {% if isProduction %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+      {% else %}
+        <script src="{% static '3p/scripts/jquery-1.11.1.js' %}"></script>
+        <script src="{% static '3p/bootstrap-3.2.0-dist/js/bootstrap.js' %}"></script>
+      {% endif %}
+
+      {# TODO: make a custom build of modernizr with only required parts #}
       <script src="{% static '3p/scripts/modernizr.js' %}"></script>
     {% endblock thirdparty_postscripts %}
 
