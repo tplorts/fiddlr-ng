@@ -192,12 +192,12 @@
         <script src="{% static '3p/ng/'|add:ngFile %}"></script>
       {% endif %}
     {% endwith %}
-    {% if isProduction %}
-      <script src="{{ ngCDN|add:ngVersion }}angular-mocks.js"></script>
-    {% else %}
-      <script src="{% static '3p/ng/'|add:ngVersion|add:'angular-mocks.js' %}"></script>
-    {% endif %}
   {% endfor %}
+
+  {# mocks is only for testing #}
+  {% if not isProduction %}
+    <script src="{% static '3p/ng/'|add:ngVersion|add:'angular-mocks.js' %}"></script>
+  {% endif %}
 
   {# ~~~ no CDN ~~~ #}
   <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script>
