@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 class Fiprofile( models.Model ):
     user = models.OneToOneField(User)
+    email_verified = models.BooleanField( default=False )
     picture = models.ForeignKey( 'Picture', null=True, blank=True )
     favorites = models.ManyToManyField( 'Fithing', blank=True, related_name='fans' )
 

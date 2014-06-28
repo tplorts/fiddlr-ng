@@ -157,6 +157,8 @@ cmod.controller(
     'EditAccountController', 
     ['$scope', '$position', '$tooltip',
      function($scope, $position, $tooltip) {
+         $scope.isEmailVerified = false;
+
          $scope.isPasswordChangerOpen = false;
          $scope.pw = {
              first: '',
