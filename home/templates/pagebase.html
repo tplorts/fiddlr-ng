@@ -159,7 +159,7 @@
   </div>
 </div><!--/#header-->
 
-<div id="content">
+<div id="content" class="{% block content_class %}{% endblock %}">
   {% block content %}{% endblock %}
   
   {% if time2boogie %}

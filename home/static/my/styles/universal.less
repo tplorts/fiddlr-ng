@@ -46,8 +46,11 @@
 
 
 #content {
-    margin-top: @header-height;
+    margin-top: @header-height + 30px;
     margin-bottom: 100px;
+    &.flush-with-header {
+        margin-top: @header-height;
+    }
 }
 
 #please-login {
