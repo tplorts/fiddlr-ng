@@ -35,7 +35,8 @@ var SigninupModalController =
     // The pending credentials in the sign-up form
     $scope.pending = {
         username: '',
-        password: '' 
+        password: '',
+        email: ''
     };
 
     $scope.forms = {};
@@ -153,6 +154,32 @@ var SigninupModalController =
 
 
 cmod.controller(
+    'EditAccountController', 
+    ['$scope', '$position', '$tooltip',
+     function($scope, $position, $tooltip) {
+         $scope.isPasswordChangerOpen = false;
+         $scope.pw = {
+             first: '',
+             second: ''
+         };
+         $scope.pwValid = function() {
+             return $scope.pw.first.length > 0 && 
+                 $scope.pw.first == $scope.pw.second;
+         };
+         $scope.pwTooltip = 'Please ensure that the two password fields match';
+         $scope.submitNewPassword = function() {
+             if( $scope.pwValid() ) {
+                 var newPassword = $scope.pw.first;
+                 
+             }
+         };
+     }
+    ]
+);
+
+
+
+cmod.controller(
     'ExploreMapController', 
     ['$scope', function($scope) {
         $scope.map = {
@@ -185,11 +212,6 @@ cmod.controller(
 cmod.controller(
     'ProfilePageController', 
     ['$scope', function($scope) {
-        $scope.alertMe = function() {
-            setTimeout(function() {
-                alert('You\'ve selected the alert tab!');
-            });
-        };
         $scope.moveTabPane = function(tabIndex) {
             $('.tab-content').css('margin-left', -tabIndex*100+'%');
             if( tabIndex == 1 && Galleria ) {

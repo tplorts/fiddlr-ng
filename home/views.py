@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
 from django.contrib.auth.models import User, Group
@@ -21,6 +22,10 @@ class UserExistsView(APIView):
     def get(self, request, username, format=None):
         exists = User.objects.filter(username=username).exists()
         return Response(exists)
+
+
+class SetPasswordView(APIView):
+    pass#todo: only let user x change x's password (or admin)
 
 
 class UserViewSet(viewsets.ModelViewSet):

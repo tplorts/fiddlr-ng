@@ -130,6 +130,14 @@
                   </div>
                   <div class="form-group">
 
+                    {# TODO: realtime validate email #}
+                    <input type="email" class="form-control"
+                           name="email" placeholder="email"
+                           ng-model="pending.email" />
+
+                  </div>
+                  <div class="form-group">
+
                     {# TODO: impose password requirements #}
                     <input type="password" class="form-control"
                            name="password" placeholder="password"

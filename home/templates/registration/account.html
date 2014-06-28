@@ -8,18 +8,20 @@
         <label for="input-username" class="col-sm-2 control-label">
           Username
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-6">
           <input type="text" class="form-control" 
-                 id="input-username" placeholder="username" />
+                 id="input-username" placeholder="username"
+                 value="{{ user.username }}" />
         </div>
       </div>
       <div class="form-group">
         <label for="input-email" class="col-sm-2 control-label">
           Email
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-6">
           <input type="email" class="form-control" 
-                 id="input-email" placeholder="email" />
+                 id="input-email" placeholder="email"
+                 value="{{ user.email }}" />
         </div>
       </div>
       <div class="form-group">
@@ -27,8 +29,37 @@
           Password
         </label>
         <div class="col-sm-10">
-          <input type="password" class="form-control"
-                 id="input-password" placeholder="password" />
+          <accordion>
+            <accordion-group heading="Change password"
+                             is-open="isPassowrdChangerOpen">
+              <div id="password-changer">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <input type="password" class="form-control"
+                           id="input-password" 
+                           placeholder="new password"
+                           ng-model="pw.first" />
+                  </div>
+                  <div class="col-sm-5">
+                    <input type="password" class="form-control"
+                           id="input-password-verify"
+                           placeholder="please verify" 
+                           ng-model="pw.second" />
+                  </div>
+                  <div class="col-sm-2 col-xs-4">
+                    <button class="btn full-width
+                                   btn-[[ pwValid() ? 'success':'warning' ]]"
+                            ng-click="submitNewPassword()"
+                            tooltip="[[ pwTooltip ]]"
+                            tooltip-trigger="[[ {true:'focus', false:'never'}[!pwValid()] ]]">
+                      {# TODO: also validate on password requirements #}
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </accordion-group>
+          </accordion>
         </div>
       </div>
     </form>

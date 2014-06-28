@@ -13,6 +13,9 @@ var fiddlrApp = angular.module('fiddlrApp', [
          $interpolateProvider.endSymbol(']]');
 
          $tooltipProvider.setTriggers({
+             'mouseenter': 'mouseleave',
+             'click': 'click',
+             'focus': 'blur',
              'showUsernameTooltip': 'hideUsernameTooltip'
          });
      }]);

@@ -188,11 +188,7 @@
 }
 
 .rotate (@rotate: 90deg) {
-    -webkit-transform: rotate(@rotate);
-    -moz-transform: rotate(@rotate);
-    -o-transform: rotate(@rotate);
-    -ms-transform: rotate(@rotate);
-    transform: rotate(@rotate);
+    .transform( rotate(@rotate) );
 }
 
 .gradient (@origin: left, @start: #ffffff, @stop: #000000) {
@@ -274,4 +270,12 @@
 .menu-align-right-edge {
     left: initial;
     right: 0;
+}
+
+
+
+.user-select( @select ) {
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
 }
