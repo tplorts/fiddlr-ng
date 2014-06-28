@@ -1,8 +1,8 @@
-{% extends "pagebase.html" %}
+{% extends "private-page-base.html" %}
 {% load misc %}
 
 
-{% block content %}
+{% block private_content %}
 
 <div class="text-center" style="margin: 20px;">
   <a href="{% url 'Featured Map View' %}"
@@ -52,4 +52,4 @@
     </div>
   {% endfor %}
 </div>
-{% endblock content %}
+{% endblock private_content %}

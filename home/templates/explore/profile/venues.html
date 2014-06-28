@@ -1,11 +1,11 @@
-{% extends "pagebase.html" %}
+{% extends "private-page-base.html" %}
 {% load misc staticfiles thecae %}
 
 
-{% block content %}
+{% block private_content %}
 <div class="container">
   {% for venue in favorite_venues %}
     {% venue_theca venue %}
   {% endfor %}
 </div>
-{% endblock content %}
+{% endblock private_content %}

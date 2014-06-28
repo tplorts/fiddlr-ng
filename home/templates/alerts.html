@@ -1,8 +1,8 @@
-{% extends "pagebase.html" %}
+{% extends "private-page-base.html" %}
 {% load misc staticfiles %}
 
 
-{% block content %}
+{% block private_content %}
 <div class="container">
   {% for a in alerts %}
     <div class="alert">
@@ -10,4 +10,4 @@
     </div>
   {% endfor %}
 </div>
-{% endblock content %}
+{% endblock %}
