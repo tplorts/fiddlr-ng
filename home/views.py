@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.views import login as auth_login
+from django.contrib import auth
+from django.contrib.auth.views import login as auth_login_view
 from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
 from django.db.models import Q
@@ -40,17 +41,6 @@ class GroupViewSet(viewsets.ModelViewSet):
 
 
 
-
-def login(q):
-    context = {}
-    injectDefaultContext( 'login', context )
-    return auth_login( q, extra_context=context )
-
-
-def signup(q):
-    pass
-
- 
 
 class FiddlrSearchForm( forms.Form ):
     what = forms.CharField()
@@ -98,6 +88,36 @@ def front(q):
     return renderPage(q, 'front', {
         'time4gabymorning': time4gaby
     })
+
+
+
+def login(q):
+    context = {}
+    injectDefaultContext( 'login', context )
+    return auth_login_view( q, extra_context=context )
+
+
+def signup(q):
+    if q.method == 'POST':
+        uname = q.POST['username']
+        email = q.POST['email']
+        pword = q.POST['password']
+        User.objects.create_user(uname, email, pword)
+        #TODO: handle failure to create user
+        user = auth.authenticate(username=uname, password=pword)
+        if user is not None and user.is_active:
+            auth.login(q, user)
+            return HttpResponseRedirect('/account/')
+        else:
+            #TODO: in what case would this happen?
+            return HttpResponseRedirect('/signup/')
+    else:
+        return renderPage(q, 'registration/signup')
+
+
+def account(q):
+    return renderPage(q, 'registration/account')
+
 
 
 def explore(q):

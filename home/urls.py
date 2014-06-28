@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url, include
 from django.views.generic.base import RedirectView
-from django.contrib.auth.views import logout
+from django.contrib.auth.views import logout as auth_logout_view
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
@@ -25,10 +25,11 @@ urlpatterns = patterns(
     url(r'^$', views.front, name='Front'),
     url(r'^$', views.front, name='Home'),
 
+    # REGISTRATION
     url(r'^login/$',  views.login, name='Login'),
-    url(r'^logout/$', logout, name='Logout'),
+    url(r'^logout/$', auth_logout_view, name='Logout'),
     url(r'^signup/$', views.signup, name='Signup'),
-    
+    url(r'^account/$', views.account, name='Account'),
 
     # EXPLORE
     url(r'^explore/$', views.explore, name='Explore'),
