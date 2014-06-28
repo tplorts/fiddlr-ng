@@ -2,6 +2,12 @@
 {% load misc staticfiles %}
 
 
+{% block body_class %}
+  {{ block.super }}
+  scrollbar-always-present
+{% endblock %}
+
+
 {% block prescripts %}
 <script>
   var initialEvents = {{ featured_events_json|safe }};
@@ -31,7 +37,7 @@
     </a>
   </div>
 
-  <div id="featured-events">
+  <div id="featured-events" ng-cloak>
     <accordion close-others="false">
       {% for e in featured_events %}
       <accordion-group class="event-item" event-id="{{ e.pk }}">
