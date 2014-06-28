@@ -6,18 +6,19 @@ from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
-from rest_framework import viewsets, permissions, authentication
+from rest_framework import viewsets, authentication
+from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
+from permissions import JustMe
 from models import *
 import datetime
 
 
 class UserExistsView(APIView):
-    authentication_classes = ()
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (AllowAny,)
 
     def get(self, request, username, format=None):
         exists = User.objects.filter(username=username).exists()
@@ -25,7 +26,23 @@ class UserExistsView(APIView):
 
 
 class SetPasswordView(APIView):
-    pass#todo: only let user x change x's password (or admin)
+    permission_classes = (JustMe,)
+
+#    def post(self, request, format=None):
+
+        
+
+
+class IsEmailVerifiedView(APIView):
+    permission_classes = (JustMe,)
+
+    def post(self, request, format=None):
+        try:
+            isVerified = request.user.fiprofile.email_verified
+        except Fiprofile.DoesNotExist:
+            isVerified = False
+        return Response(isVerified)
+
 
 
 class UserViewSet(viewsets.ModelViewSet):

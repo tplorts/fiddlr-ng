@@ -5,7 +5,8 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'google-maps',
     'ui.bootstrap',
     'ngRoute',
-    'fiddlrApp.controllers'
+    'fiddlrApp.controllers',
+    'ngCookies'
 ]).config(
     ['$interpolateProvider', '$tooltipProvider',
      function($interpolateProvider, $tooltipProvider) {

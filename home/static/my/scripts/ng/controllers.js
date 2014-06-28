@@ -155,9 +155,17 @@ var SigninupModalController =
 
 cmod.controller(
     'EditAccountController', 
-    ['$scope', '$position', '$tooltip',
-     function($scope, $position, $tooltip) {
-         $scope.isEmailVerified = false;
+    ['$scope', '$position', '$tooltip', '$http', '$cookies',
+     function($scope, $position, $tooltip, $http, $cookies) {
+
+         $scope.isEmailVerified = null;
+
+         $http.post('/custom-api/is-email-verified/', {}, {
+             xsrfHeaderName: 'X-CSRFToken',
+             xsrfCookieName: 'csrftoken'
+         }).success(function(data, status) {
+             $scope.isEmailVerified = data === 'true';
+         });
 
          $scope.isPasswordChangerOpen = false;
          $scope.pw = {
