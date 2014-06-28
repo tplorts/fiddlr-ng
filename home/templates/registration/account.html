@@ -35,6 +35,21 @@
         </div>
       </div>
       <div class="form-group">
+        <label for="input-givenname" class="col-sm-2 control-label">
+          Name
+        </label>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" 
+                 id="input-givenname" placeholder="given name"
+                 value="{{ user.first_name }}" />
+        </div>
+        <div class="col-sm-5">
+          <input type="text" class="form-control" 
+                 id="input-surname" placeholder="surname"
+                 value="{{ user.last_name }}" />
+        </div>
+      </div>
+      <div class="form-group">
         <label for="input-password" class="col-sm-2 control-label">
           Password
         </label>
@@ -59,6 +74,7 @@
                   <div class="col-sm-2 col-xs-4">
                     <button class="btn full-width
                                    btn-[[ pwValid() ? 'success':'warning' ]]"
+                            ng-disabled="pw.first.length == 0"
                             ng-click="submitNewPassword()"
                             tooltip="[[ pwTooltip ]]"
                             tooltip-trigger="[[ {true:'focus', false:'never'}[!pwValid()] ]]">
