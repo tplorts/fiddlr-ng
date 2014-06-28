@@ -34,7 +34,9 @@
             </button>
           </div>
           <div ng-show="isEmailVerified === true" ng-cloak>
-            <p class="text-success">This email is verified</p>
+            <div class="text-success form-control-message">
+              This email is verified
+            </div>
           </div>
           <div ng-show="isEmailVerified === null" ng-cloak>
             <small class="text-info form-control-message">

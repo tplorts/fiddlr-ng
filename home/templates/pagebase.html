@@ -14,7 +14,6 @@
           <a href="{% url 'Front' %}">fiddlr</a>
         </div>
       </div>
-      {% if page != "front" %}
       <div class="hidden-xs">
         <div class="col-sm-6">
           <form action="{% url 'Search' %}" method="POST">
@@ -37,6 +36,7 @@
         </div>
       </div>
       <div class="col-sm-4 col-xs-9">
+        {% if user.is_authenticated %}
         <div class="ib vmid" id="alerts-icon">
           <a class="btn btn-default narrower-button"
              href="{% url 'Alerts' %}">
@@ -44,6 +44,7 @@
             <span class="badge">482</span>
           </a>
         </div>
+        {% endif %}
         <div class="ib vmid" id="header-links">
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -51,7 +52,7 @@
               <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
             <ul class="dropdown-menu menu-align-right-edge" role="menu">
-              {% for link in "Home,,Explore,Create,Connect,,About,Copyright,Help,Ads"|split:"," %}
+              {% for link in "Home,Account,,Explore,Create,Connect,,About,Copyright,Help,Ads"|split:"," %}
                 {% if link == "" %}
                   <li role="presentation" class="divider"></li>
                 {% else %}
@@ -71,7 +72,7 @@
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
             <button class="btn btn-primary">
-              sign out
+              Sign out
             </button>
           </form>
           {% else %}
@@ -102,7 +103,7 @@
                             placeholder="password"
                             class="form-control" /></p>
                   <button type="submit" class="btn btn-primary purple pull-right">
-                    sign in
+                    Sign in
                   </button>
                 </form>
               </div>
@@ -145,24 +146,23 @@
 
                   </div>                  
                   <button type="submit" class="btn btn-primary purple pull-right">
-                    create account
+                    Create account
                   </button>
                 </form>
               </div>
               <button class="btn btn-default" ng-click="jk()">
-                never mind
+                Nevermind
               </button>
             </div>
           </script>
           <button class="btn btn-primary narrower-button"
                   id="signinup-modal-button"
                   ng-click="openLoginModal()">
-            sign in/up
+            Sign in/up
           </button>
           {% endif %}
         </div>
       </div>
-      {% endif %}
     </div>
   </div>
 </div><!--/#header-->
