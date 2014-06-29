@@ -37,6 +37,19 @@
     font-size: 32px;
 }
 
+.text-bold {
+    font-weight: bold;
+}
+
+.text-white {
+    color: #DDD;
+}
+
+.dark-text-shadow {
+    text-shadow: 2px 3px #222;
+}
+
+
 //===============================================
 // WRITING MODES (vertical/horizontal etc.)
 // thanks to David Storey
@@ -284,3 +297,13 @@
 .scrollbar-always-present {
     overflow-y: scroll;
 }
+
+
+
+.mt-loop(@k) when (@k > 0) {
+    .mt-loop( (@k - 5) );
+    .mt@{k} {
+        margin-top: @k;
+    }
+}
+.mt-loop(100px);

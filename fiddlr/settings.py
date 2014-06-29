@@ -95,6 +95,19 @@ REST_FRAMEWORK = {
 }
 
 
+
+
+ADMINS = (
+    ('lol Theodore', 'tplorts@gmail.com'),
+)
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'fiddlr.backend@gmail.com'
+EMAIL_HOST_PASSWORD = 'discoball'
+EMAIL_PORT = 587
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 

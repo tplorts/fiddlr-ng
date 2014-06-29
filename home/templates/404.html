@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load misc staticfiles %}
+
+{% block super_content %}
+<div class="backdrop backdrop-full backdrop-littlelamb"></div>
+
+<div class="text-center mt50px">
+  <div class=" huge text-bold text-white dark-text-shadow">
+    <p>Oh, Little Lamb!</p>
+    <p>Are you lost?</p>
+  </div>
+  <a class="btn btn-default success"
+     href="{% url 'Front' %}">
+    Let's Go Home
+  </a>
+</div>
+
+{% endblock %}
