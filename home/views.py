@@ -128,6 +128,8 @@ def signup(q):
         #TODO: handle failure to create user
         user = auth.authenticate(username=uname, password=pword)
         if user is not None and user.is_active:
+            profile = Fiprofile(user=user)
+            profile.save()
             auth.login(q, user)
             return HttpResponseRedirect('/account/')
         else:
