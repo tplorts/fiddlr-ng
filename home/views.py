@@ -119,8 +119,12 @@ def login(q):
     return auth_login_view( q, extra_context=context )
 
 
+secret_agents = ('the1&onlyGABY', 'H@NN@H',)
 def signup(q):
     if q.method == 'POST':
+        said = q.POST['secret_agent_id']
+        if said not in secret_agents:
+            return HttpResponseRedirect('/access-denied/')
         uname = q.POST['username']
         email = q.POST['email']
         pword = q.POST['password']
