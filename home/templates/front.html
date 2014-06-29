@@ -6,16 +6,10 @@
 
 
 {% block content %}
+<div ng-controller="FrontPageController">
+  <div class="backdrop backdrop-front"></div>
   <div id="front-cover-image">
     <div class="container">
-{% comment %}
-      <div class="col-sm-4">
-        <img src="{% static 'ex/icons/logo-152.png' %}"
-             id="front-logo" />
-      </div>
-      <div class="col-sm-4 col-sm-offset-4
-                  col-md-3 col-md-offset-5">
-{% endcomment %}
       <div class="col-sm-4 col-sm-offset-8
                   col-md-3 col-md-offset-9">
         {% if user.is_authenticated %}
@@ -56,21 +50,24 @@
   <div id="big-ol-buttons">
     <div class="container">
       {% if user.is_authenticated and user.username == 'gaby' and time4gabymorning %}
-        <audio src="{% static 'ex/goodmorningGABY.mp3' %}"
-               preload="auto" id="gaby">
-        </audio>
-        <p>
-          Gaby!  How very nice of you stop by!<br>
-          Say &ndash; is your volume turned up? &hellip;
-          <button onclick="document.getElementById('gaby').play()">Umm.. yes?</button>
-        </p>
+      <audio src="{% static 'ex/goodmorningGABY.mp3' %}"
+             preload="auto" id="gaby">
+      </audio>
+      <p>
+        Gaby!  How very nice of you stop by!<br>
+        Say &ndash; is your volume turned up? &hellip;
+        <button onclick="document.getElementById('gaby').play()">Umm.. yes?</button>
+      </p>
       {% endif %}
       <div class="row">
         {% for page in "Explore,Create,Connect"|split:"," %}
           <div class="col-sm-4">
             <a href="{% url page %}"
                class="section-link btn btn-primary btn-purple 
-                      text-bold center-block">
+                      text-bold center-block"
+               popover="[[  briefs['{{page}}']  ]]" 
+               popover-placement="bottom"
+               popover-trigger="mouseenter">
               <span class="huge">{{ page|smallcaps }}</span>
             </a>
           </div><!--/.col-sm-4-->
@@ -78,4 +75,5 @@
       </div><!--/.row-->
     </div><!--/.container-->
   </div><!--/#big-ol-buttons-->
+</div>
 {% endblock %}

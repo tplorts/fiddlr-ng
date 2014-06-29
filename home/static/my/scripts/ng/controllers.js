@@ -154,6 +154,21 @@ var SigninupModalController =
 
 
 cmod.controller(
+    'FrontPageController', 
+    ['$scope', '$position', '$tooltip',
+     function($scope, $position, $tooltip) {
+         $scope.briefs = {
+             'Explore': 'Arma virumque cano, Troiae qui primus ab oris Italiam, fato profugus, Laviniaque venit litora, multum ille et terris iactatus et alto vi superum saevae memorem Iunonis ob iram; multa quoque et bello passus, dum conderet urbem, inferretque deos Latio, genus unde Latinum, Albanique patres, atque altae moenia Romae.',
+             'Create': 'Musa, mihi causas memora, quo numine laeso, quidve dolens, regina deum tot volvere casus insignem pietate virum, tot adire labores impulerit. Tantaene animis caelestibus irae?',
+             'Connect': 'Urbs antiqua fuit, Tyrii tenuere coloni, Karthago, Italiam contra Tiberinaque longe ostia, dives opum studiisque asperrima belli; quam Iuno fertur terris magis omnibus unam posthabita coluisse Samo; hic illius arma, hic currus fuit; hoc regnum dea gentibus esse, si qua fata sinant, iam tum tenditque fovetque.'
+         };
+     }
+    ]
+);
+
+
+
+cmod.controller(
     'EditAccountController', 
     ['$scope', '$position', '$tooltip', '$http', '$cookies',
      function($scope, $position, $tooltip, $http, $cookies) {

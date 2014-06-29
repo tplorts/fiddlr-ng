@@ -2,6 +2,19 @@
 @import (less) "variables.less";
 @import (less) "gradient.less";
 
+.backdrop {
+    z-index: -10;
+    position: fixed;
+    top: @header-height;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    &-full {
+        top: 0;
+    }
+}
+
+
 
 .fiddlr-title {
     font-size: 34px;
@@ -81,15 +94,10 @@
 }
 
 
-
+@front-cover-height: 250px;
 #front-cover-image {
     .cover-background('@{s3url}/ex/front-cover.jpg');
-    min-height: 250px;
-}
-
-#front-logo {
-    .fit-image;
-    margin-top: (250px - 152px)/2;
+    height: @front-cover-height;
 }
 
 #front-login {
@@ -107,8 +115,13 @@
     text-shadow: 1px 2px black;
 }
 
+.backdrop-front {
+    top: @header-height + @front-cover-height;
+    .gradient-down(@black);
+}
+
 #big-ol-buttons {
-    margin: 50px 0;
+    margin: 10px 0;
 }
 
 .section-link {
@@ -117,8 +130,6 @@
         .dark-text-shadow;
     }
 }
-
-
 
 .btn-purple {
     background-color: @purple;
@@ -403,17 +414,6 @@
 
 
 
-.backdrop {
-    z-index: -10;
-    position: fixed;
-    top: @header-height;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    &-full {
-        top: 0;
-    }
-}
 
 .backdrop-littlelamb {
     .cover-background( '@{s3url}/ex/oh-little-lamb-exclamation-mark.jpg' );
