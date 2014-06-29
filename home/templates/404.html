@@ -2,7 +2,9 @@
 {% load misc staticfiles %}
 
 {% block super_content %}
-<div class="backdrop backdrop-full backdrop-littlelamb"></div>
+<div class="backdrop backdrop-full 
+            backdrop-littlelamb hue-rotate">
+</div>
 
 <div class="text-center mt50px">
   <div class=" huge text-bold text-white dark-text-shadow">
@@ -15,4 +17,8 @@
   </a>
 </div>
 
+{% endblock %}
+
+{% block postscripts %}
+<script src="{% static 'my/scripts/hue-rotate.js' %}"></script>
 {% endblock %}

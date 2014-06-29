@@ -4,7 +4,7 @@ from django.contrib.auth.views import logout as auth_logout_view
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
-
+from fiddlr import settings
 
 
 router = routers.DefaultRouter()
@@ -79,3 +79,10 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/is-email-verified/$', views.IsEmailVerifiedView.as_view()),
 ))
 
+
+if not settings.isProduction:
+    urlpatterns += patterns(
+        '',
+        url(r'^404/$', views.test404),
+        url(r'^500/$', views.test500),
+    )

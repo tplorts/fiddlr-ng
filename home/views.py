@@ -268,3 +268,11 @@ def helpView(q):
 def adsView(q):
     return renderPage(q, 'auxiliary/ads')
 
+
+
+if not settings.isProduction:
+    def test404(q):
+        return render(q, '404.html', {})
+    def test500(q):
+        return render(q, '500.html', {})
+
