@@ -68,12 +68,11 @@
       <div class="row">
         {% for page in "Explore,Create,Connect"|split:"," %}
           <div class="col-sm-4">
-            <div class="section-link">
-              <a href="{% url page %}"
-                 class="btn btn-primary purple center-block">
-                <span class="huge">{{ page }}</span>
-              </a>
-            </div>
+            <a href="{% url page %}"
+               class="section-link btn btn-primary btn-purple 
+                      text-bold center-block">
+              <span class="huge">{{ page|smallcaps }}</span>
+            </a>
           </div><!--/.col-sm-4-->
         {% endfor %}
       </div><!--/.row-->

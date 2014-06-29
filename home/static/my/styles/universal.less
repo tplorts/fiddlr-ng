@@ -112,8 +112,23 @@
 }
 
 .section-link {
-    padding: 0 20px;
-    margin: 20px 0;
+    margin: 15px;
+    &:hover {
+        .dark-text-shadow;
+    }
+}
+
+
+
+.btn-purple {
+    background-color: @purple;
+    color: @lightgrey;
+    border-color: @black;
+    .transition();
+    &:hover {
+        background-color: @purple-blue;
+        color: @lightgrey;
+    }
 }
 
 
