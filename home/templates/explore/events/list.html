@@ -39,9 +39,6 @@
               </a>
             </span>
           </p>
-          <p class="event-description">
-            Description
-          </p>
           <p class="event-artist">
             {% with artists=event.artists.all %}
             {% for artist in artists %}
@@ -53,6 +50,9 @@
             </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
             {% endfor %}
             {% endwith %}
+          </p>
+          <p class="event-description">
+            {{ event.brief }}
           </p>
         </div>
         <div class="event-actions">
