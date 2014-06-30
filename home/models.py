@@ -8,6 +8,7 @@ class Fiprofile( models.Model ):
     email_verified = models.BooleanField( default=False )
     picture = models.ForeignKey( 'Picture', null=True, blank=True )
     favorites = models.ManyToManyField( 'Fithing', blank=True, related_name='fans' )
+    autovocated = models.ManyToManyField('Fithing', blank=True, related_name='vocatees')
 
     def __unicode__(self):
         return unicode(self.user)
