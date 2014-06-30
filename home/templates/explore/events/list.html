@@ -22,7 +22,10 @@
 
   {% for event in events %}
     <div class="event-block">
-      <div class="translucent hoverable content-case">
+      <div class="expand-event-block">
+        <span class="glyphicon glyphicon-resize-full"></span>
+      </div>
+      <div class="content-case">
         <div class="event-info">
           <a href="{% url 'Event Page' event.pk %}" class="event-name">
             {{ event.name|smallcaps }}
@@ -42,12 +45,12 @@
           <p class="event-artist">
             {% with artists=event.artists.all %}
             {% for artist in artists %}
-              {% if forloop.last and artists.count > 1 %}
-                &amp;
-              {% endif %}
-              <a href="{% url 'Artist Page' artist.pk %}" class="ib">
-                {{ artist }}
-              </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
+            {% if forloop.last and artists.count > 1 %}
+            &amp;
+            {% endif %}
+            <a href="{% url 'Artist Page' artist.pk %}" class="ib">
+              {{ artist }}
+            </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
             {% endfor %}
             {% endwith %}
           </p>
