@@ -4,15 +4,23 @@
 
 {% block private_content %}
 
-<div class="text-center" style="margin: 20px;">
-  <a href="{% url 'Featured Map View' %}"
-     class="btn btn-info bold btn-purple large">
-    Enter the map view
-  </a>
-</div>
-
 <div class="container">
-  {% for event in featured_events %}
+
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="events-list-title">{{ list_title }}</div>
+    </div>
+    <div class="col-sm-3">
+      <div class="text-right">
+        <a href="{% url 'Events Map' list_name %}"
+           class="btn btn-info bold btn-purple large">
+          Map View
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {% for event in events %}
     <div class="event-block">
       <div class="translucent hoverable content-case">
         <div class="event-info">

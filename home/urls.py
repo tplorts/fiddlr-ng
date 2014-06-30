@@ -33,12 +33,8 @@ urlpatterns = patterns(
 
     # EXPLORE
     url(r'^explore/$', views.explore, name='Explore'),
-    url(r'^explore/featured/$', views.explore_featured, name='Featured'),
-    url(r'^explore/featured/map/$', views.explore_map, name='Featured Map View'),
-    url(r'^explore/near-you/$', views.explore_nearYou, name='Near You'),
-    url(r'^explore/for-you/$', views.explore_forYou, name='For You'),
-    url(r'^explore/fiddlr-events$', views.explore_fiddlrEvents, name='fiddlr Events'),
-    url(r'^explore/happening-now/$', views.explore_happeningNow, name='Happening Now'),
+    url(r'^explore/events/(?P<list_name>[\w\d\-]+)/$', views.explore_events_list, name='Events List'),
+    url(r'^explore/events/(?P<list_name>[\w\d\-]+)/map/$', views.explore_events_map, name='Events Map'),
 
     # EXPLORE PROFILE
     url(r'^explore/profile/$', views.explore_profile, name='Explore Profile'),

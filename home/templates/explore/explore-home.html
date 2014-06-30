@@ -10,14 +10,14 @@
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Featured' %}">
+          <a href="{% url 'Events List' 'featured' %}">
             {% pallet text="Featured" imageURL=tall_image_url|add:"fashion" shape="tall-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Near You' %}">
+          <a href="{% url 'Events List' 'near-you' %}">
             {% pallet text="Near You" imageURL=standard_image_url|add:"people" shape="normal-height" %}
           </a>
         </div>
@@ -26,19 +26,19 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
-          <a href="{% url 'For You' %}">
+          <a href="{% url 'Events List' 'for-you' %}">
             {% pallet text="For You" imageURL=standard_image_url|add:"nightlife" shape="normal-height" %}
           </a>
         </div>
         <div class="col-sm-6">
-          <a href="{% url 'fiddlr Events' %}">
+          <a href="{% url 'Events List' 'fiddlr-events' %}">
             {% pallet text="fiddlr Events" imageURL=standard_image_url|add:"cats" shape="normal-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Happening Now' %}">
+          <a href="{% url 'Events List' 'happening-now' %}">
             {% pallet text="Happening Now" imageURL=wide_image_url|add:"city" shape="tall-height" %}
           </a>
         </div>

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
 from django.contrib.auth.models import User, Group
@@ -146,31 +146,26 @@ def account(q):
 
 
 def explore(q):
-    return renderPage(q, 'explore/root')
+    return renderPage(q, 'explore/explore-home')
 
-def explore_featured(q):
-    return renderPage(q, 'explore/featured', {
-        'featured_events': Event.objects.all(),
-    })
+event_lists = {
+    'featured': 'Featured',
+    'for-you': 'For You',
+    'near-you': 'Near You',
+    'happening-now': 'Happening Now',
+    'fiddlr-events': 'fiddlr Events',
+}
+event_view_types = ('list', 'map')
 
-def explore_nearYou(q):
-    return renderPage(q, 'explore/near-you')
-def explore_forYou(q):
-    return renderPage(q, 'explore/for-you', {
-        'time2boogie': True
-    })
-def explore_fiddlrEvents(q):
-    return renderPage(q, 'explore/fiddlr-events')
-def explore_happeningNow(q):
-    return renderPage(q, 'explore/happening-now')
+def explore_events(q, list_name, view_type):
+    if list_name not in event_lists:
+        raise Http404
+    if view_type not in event_view_types:
+        raise Http404
 
-
-
-def explore_map(q):
-    events = Event.objects.order_by('-name')
     eventsJSON = serialize(
         'json', 
-        events, 
+        Event.objects.all(),
         relations={
             'venue': {
                 'relations': {
@@ -181,11 +176,24 @@ def explore_map(q):
         },
         extras=('name', 'brief',)
     )
-    return renderPage(q, 'explore/map', {
+
+    return renderPage(q, 'explore/events/'+view_type, {
+        'events': Event.objects.all(),
+        'list_name': list_name,
+        'list_title': event_lists[list_name],
         'gmaps_api_key': settings.gmaps_api_key,
-        'featured_events': events,
-        'featured_events_json': eventsJSON,
+#        'time2boogie': list_name == 'for-you',
+        'events_json': eventsJSON,
     })
+        
+
+def explore_events_list(q, list_name):
+    return explore_events(q, list_name, 'list')
+
+def explore_events_map(q, list_name):
+    return explore_events(q, list_name, 'map')
+
+
 
 def explore_profile(q):
     return renderPage(q, 'explore/profile/root')
