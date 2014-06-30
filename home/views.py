@@ -136,11 +136,8 @@ def signup(q):
             profile.save()
             auth.login(q, user)
             return HttpResponseRedirect('/account/')
-        else:
-            #TODO: in what case would this happen?
-            return HttpResponseRedirect('/signup/')
-    else:
-        return renderPage(q, 'registration/signup')
+
+    return HttpResponseRedirect(q.META.get('HTTP_REFERER'))
 
 
 def account(q):
