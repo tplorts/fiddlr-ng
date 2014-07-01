@@ -244,7 +244,7 @@
 {% block default_postscripts %}
   {{ block.super }}
 
-  {% for appfile in "app.js,controllers.js"|split:"," %}
+  {% for appfile in "app.js,controllers.js,directives.js"|split:"," %}
     <script src="{% static 'my/scripts/ng/'|add:appfile %}"></script>
   {% endfor %}
 

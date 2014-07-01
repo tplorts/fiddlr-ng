@@ -1,8 +1,11 @@
 {% extends "private-page-base.html" %}
-{% load misc %}
+{% load misc staticfiles %}
 
 
 {% block private_content %}
+<audio id="ooh" preload="auto"
+       src="{% static 'ex/sounds/ooh.mp3' %}">
+</audio>
 
 <div class="container">
 
@@ -28,38 +31,44 @@
       <div class="content-case">
         <div class="event-info">
           <a href="{% url 'Event Page' event.pk %}"
-             class="event-name" title="{{ event.name }}">
-            {{ event.name|smallcaps }}
+             class="event-name" title="{{ event.name }}"
+             fiddlr-tooltip-if-overflow>
+            <span class="inner-content">
+              {{ event.name|smallcaps }}
+            </span>
           </a>
           <div class="event-venue">
-            @ 
-            <a href="{% url 'Venue Page' event.venue.pk %}"
-               title="{{ event.venue.name }}">
-              {{ event.venue.name }}
-            </a>
+            <span class="inner-content">
+              @ 
+              <a href="{% url 'Venue Page' event.venue.pk %}"
+                 title="{{ event.venue.name }}">
+                {{ event.venue.name }}
+              </a>
+            </span>
           </div>
           <div class="event-datetime">
-            <span class="event-date">
-              {{ event.start.date }}
-            </span>
-            <span class="event-time">
-              {{ event.start.time }}
+            <span class="inner-content">
+              {{ event.start }}
             </span>
           </div>
           <div class="event-artist">
-            {% with artists=event.artists.all %}
-            {% for artist in artists %}
-            {% if forloop.last and artists.count > 1 %}
-            &amp;
-            {% endif %}
-            <a href="{% url 'Artist Page' artist.pk %}" class="ib">
-              {{ artist }}
-            </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
-            {% endfor %}
-            {% endwith %}
+            <span class="inner-content">
+              {% with artists=event.artists.all %}
+              {% for artist in artists %}
+              {% if forloop.last and artists.count > 1 %}
+              &amp;
+              {% endif %}
+              <a href="{% url 'Artist Page' artist.pk %}" class="ib">
+                {{ artist }}
+              </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
+              {% endfor %}
+              {% endwith %}
+            </span>
           </div>
           <div class="event-description">
-            <div>{{ event.brief }}</div>
+            <span class="inner-content">
+              {{ event.brief }}
+            </span>
           </div>
         </div>
         <div class="event-actions">
@@ -70,4 +79,15 @@
     </div>
   {% endfor %}
 </div>
+  
 {% endblock private_content %}
+
+{% block postscripts %}
+<script>
+  var ooh = document.getElementById('ooh');
+  $('.event-block').mouseenter(function() { 
+    ooh.load();
+    ooh.play(); 
+  });
+</script>
+{% endblock %}
