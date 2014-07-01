@@ -145,17 +145,17 @@ def account(q):
 
 
 
-def explore(q):
-    return renderPage(q, 'explore/explore-home')
-
 event_lists = {
-    'featured': 'Featured',
-    'for-you': 'For You',
-    'near-you': 'Near You',
-    'happening-now': 'Happening Now',
+    'featured': 'Featured Events',
+    'for-you': 'Events For You',
+    'near-you': 'Events Near You',
+    'happening-now': 'Events Happening Now',
     'fiddlr-events': 'fiddlr Events',
 }
 event_view_types = ('list', 'map')
+
+def explore(q):
+    return renderPage(q, 'explore/explore-home')
 
 def explore_events(q, list_name, view_type):
     if list_name not in event_lists:

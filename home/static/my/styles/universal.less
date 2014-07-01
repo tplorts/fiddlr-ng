@@ -174,7 +174,8 @@ a {
     &-label {
         position: absolute;
         z-index: 1;
-        bottom: 15px;
+        //bottom: 15px; (Only small+)
+        bottom: 0;
         margin-left: -15px;
         padding: 0 15px;
         width: 100%;
@@ -205,6 +206,8 @@ a {
 
 .events-list-title {
     font-size: 36px;
+    line-height: 39px; // .btn.large height
+    font-family: serif;
 }
 
 .event-block {
@@ -422,7 +425,9 @@ a {
 }
 
 .events-map-title {
-    font-size: 26px;
+    font-size: 30px;
+    line-height: 34px; // same height as a btn
+    font-family: serif;
 }
 
 #leave-map-link {
