@@ -27,7 +27,8 @@
       </div>
       <div class="content-case">
         <div class="event-info">
-          <a href="{% url 'Event Page' event.pk %}" class="event-name">
+          <a href="{% url 'Event Page' event.pk %}"
+             class="event-name" title="{{ event.name }}">
             {{ event.name|smallcaps }}
           </a>
           <p class="event-details">
