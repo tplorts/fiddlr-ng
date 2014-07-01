@@ -31,16 +31,22 @@
              class="event-name" title="{{ event.name }}">
             {{ event.name|smallcaps }}
           </a>
-          <p class="event-details">
-            <span class="event-time">Time</span>,
-            <span class="event-date">Date</span>,
-            <span class="event-venue">
-              <a href="{% url 'Venue Page' event.venue.pk %}">
-                {{ event.venue.name }}
-              </a>
+          <div class="event-venue">
+            @ 
+            <a href="{% url 'Venue Page' event.venue.pk %}"
+               title="{{ event.venue.name }}">
+              {{ event.venue.name }}
+            </a>
+          </div>
+          <div class="event-datetime">
+            <span class="event-date">
+              {{ event.start.date }}
             </span>
-          </p>
-          <p class="event-artist">
+            <span class="event-time">
+              {{ event.start.time }}
+            </span>
+          </div>
+          <div class="event-artist">
             {% with artists=event.artists.all %}
             {% for artist in artists %}
             {% if forloop.last and artists.count > 1 %}
@@ -51,10 +57,10 @@
             </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
             {% endfor %}
             {% endwith %}
-          </p>
-          <p class="event-description">
-            {{ event.brief }}
-          </p>
+          </div>
+          <div class="event-description">
+            <div>{{ event.brief }}</div>
+          </div>
         </div>
         <div class="event-actions">
           <a href="#" class="pull-left">Get directions</a>

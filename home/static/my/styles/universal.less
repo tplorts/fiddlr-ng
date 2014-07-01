@@ -230,12 +230,30 @@ a {
         display: block;
         font-size: 18px;
         font-weight: bold;
+    }
+
+    .event-venue {
+        padding-left: 5px;
+        a {
+            margin-left: 5px;
+        }
+    }
+
+    .event-name, .event-venue {
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
     }
 
-    .event-details {
+    .event-datetime {
+        font-family: serif;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .event-description {
+        font-size: 12px;
+        overflow: hidden;
     }
 
     .event-actions {
@@ -257,6 +275,10 @@ a {
         opacity: 0;
         cursor: pointer;
         .transition();
+        
+        &:hover {
+            color: @mustard;
+        }
     }
 
     &:hover {
