@@ -2,7 +2,7 @@
 var soulfood;
 $(window).on('load', function() {
     soulfood = document.getElementById('soulfoodhaaappy');
-    $('#signout-button').click( function() {
+    $('.signout-button').click( function() {
         soulfood.play();
         return false;
     });
