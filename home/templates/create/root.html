@@ -19,8 +19,15 @@
 
 </div>
 
+{% if user.is_authenticated and user.username == 'gaby' %}
+<audio id="gruntsforgaby" preload="auto"
+       src="{% static 'ex/mambogruntsgaby.mp3' %}"><audio>
+{% endif%}
 {% endblock %}
 
 {% block postscripts %}
 <script src="{% static 'my/scripts/circle-buttons.js' %}"></script>
+{% if user.is_authenticated and user.username == 'gaby' %}
+  <script src="{% static 'my/scripts/gruntsforgaby.js' %}"></script>
+{% endif %}
 {% endblock %}
