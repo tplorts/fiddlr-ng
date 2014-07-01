@@ -68,10 +68,11 @@
         </div>
         <div class="ib vmid">
           {% if user.is_authenticated %}
-          <form action="{% url 'Logout' %}" method="POST">
+          <form action="{% url 'Logout' %}" method="POST"
+                id="signout-form">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <button class="btn btn-primary">
+            <button id="signout-button" class="btn btn-primary">
               Sign out
             </button>
           </form>
@@ -173,6 +174,11 @@
   </div>
 </div><!--/#header-->
 
+{% if user.is_authenticated and user.username == 'gaby' %}
+<audio id="soulfoodhaaappy" preload="auto"
+       src="{% static 'ex/soulfoodhaaappy.mp3' %}"></audio>
+{% endif %}
+
 <div id="content" class="{% block content_class %}{% endblock %}">
   {% block content %}{% endblock %}
   
@@ -244,6 +250,10 @@
 
   {% if time2boogie %}
     <script src="{% static 'my/scripts/boogie.js' %}"></script>
+  {% endif %}
+
+  {% if user.is_authenticated and user.username == 'gaby' %}
+    <script src="{% static 'my/scripts/soulfood.js' %}"></script>
   {% endif %}
 
 {% endblock %}
