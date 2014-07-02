@@ -2,8 +2,11 @@ from django import template
 from django.utils.safestring import mark_safe
 from django.core.serializers import serialize
 from django.db.models.query import QuerySet
+from fiddlr import settings
 import re
 import json
+import pytz
+
 
 register = template.Library()
 
@@ -52,7 +55,13 @@ def placeholder_copy(*args, **kwargs):
 
 @register.inclusion_tag('tags/date-range.html')
 def date_range( start, end ):
+    start = start.astimezone(pytz.timezone(settings.TIME_ZONE))
+    end = end.astimezone(pytz.timezone(settings.TIME_ZONE))
+    same_month = start.month == end.month
+    same_day = same_month and start.day == end.day
     return {
         'start': start,
         'end': end,
+        'same_month': same_month,
+        'same_day': same_day,
     }

@@ -1,10 +1,10 @@
-{{ start|date:"M j" }}<sup>{{ start|date:"S" }}</sup>,
+{{ start|date:"M j" }}<sup>{{ start|date:"S" }}</sup>, 
 {{ start|date:"P" }}
 &mdash;
-{% if start.month != end.month %}
+{% if not same_month %}
   {{ end|date:"M" }}
 {% endif %}
-{% if start.day != end.day or start.month != end.month %}
+{% if not same_day %}
   {{ end|date:"j" }}<sup>{{ end|date:"S" }}</sup>,
 {% endif %}
 {{ end|date:"P" }}
