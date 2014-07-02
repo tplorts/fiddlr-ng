@@ -151,7 +151,7 @@ event_lists = {
     'for-you': 'Events For You',
     'near-you': 'Events Near You',
     'happening-now': 'Events Happening Now',
-    'fiddlr-events': 'fiddlr Events',
+    'fiddlr-events': 'fiddlr events',
 }
 event_view_types = ('list', 'map')
 
