@@ -14,7 +14,13 @@ from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
 from permissions import JustMe
 from models import *
-import datetime
+from datetime import datetime, timedelta, time
+
+
+def tomorrow_midnight():
+    today = datetime.today().date()
+    asatte = today + timedelta(days=2)
+    return datetime.combine(asatte, time.min)
 
 
 class UserExistsView(APIView):
@@ -91,6 +97,7 @@ def injectDefaultContext( template, context ):
         'page': page,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
+        'thetime': datetime.now(),
     })
 
 def renderView( request, template, context={} ):
@@ -104,7 +111,7 @@ def renderPage( request, template, context={} ):
 
 
 def front(q):
-    now = datetime.datetime.utcnow().time()
+    now = datetime.utcnow().time()
     # Window of Good Morning Gaby: [8:48, 8:52)
     time4gaby = now.hour==12 and now.minute in range(48, 52)
     return renderPage(q, 'front', {
@@ -163,9 +170,23 @@ def explore_events(q, list_name, view_type):
     if view_type not in event_view_types:
         raise Http404
 
+    if not q.user.is_authenticated():
+        events = []
+    elif list_name == 'featured':
+        events = Event.objects.all()
+    elif list_name == 'near-you':
+        events = Event.objects.all()
+    elif list_name == 'for-you':
+        events = q.user.fiprofile.autovocated_events()
+    elif list_name == 'happening-now':
+        events = Event.objects.filter(
+            Q( end__gte=datetime.now() ) &
+            Q( start__lte=tomorrow_midnight() )
+        ).order_by('end')
+
     eventsJSON = serialize(
         'json', 
-        Event.objects.all(),
+        events,
         relations={
             'venue': {
                 'relations': {
@@ -178,7 +199,7 @@ def explore_events(q, list_name, view_type):
     )
 
     return renderPage(q, 'explore/events/'+view_type, {
-        'events': Event.objects.all(),
+        'events': events,
         'list_name': list_name,
         'list_title': event_lists[list_name],
         'gmaps_api_key': settings.gmaps_api_key,

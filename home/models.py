@@ -14,11 +14,18 @@ class Fiprofile( models.Model ):
         return unicode(self.user)
 
     def favorite_artists(self):
-        return [f for f in self.favorites.all() if f.is_artist()]
+        return [f.artist for f in self.favorites.all() if f.is_artist()]
     def favorite_venues(self):
-        return [f for f in self.favorites.all() if f.is_venue()]
+        return [f.venue for f in self.favorites.all() if f.is_venue()]
     def favorite_events(self):
-        return [f for f in self.favorites.all() if f.is_event()]
+        return [f.event for f in self.favorites.all() if f.is_event()]
+
+    def autovocated_artists(self):
+        return [f.artist for f in self.autovocated.all() if f.is_artist()]
+    def autovocated_venues(self):
+        return [f.venue for f in self.autovocated.all() if f.is_venue()]
+    def autovocated_events(self):
+        return [f.event for f in self.autovocated.all() if f.is_event()]
 
 
 class Fithing( models.Model ):
