@@ -3,10 +3,6 @@
 
 
 {% block private_content %}
-<audio id="ooh" preload="auto"
-       src="{% static 'ex/sounds/ooh.mp3' %}">
-</audio>
-
 <div class="container">
 
   <div class="row">
@@ -83,13 +79,3 @@
 </div>
   
 {% endblock private_content %}
-
-{% block postscripts %}
-<script>
-  var ooh = document.getElementById('ooh');
-  $('.event-block').mouseenter(function() { 
-    ooh.load();
-    ooh.play(); 
-  });
-</script>
-{% endblock %}
