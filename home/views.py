@@ -97,6 +97,7 @@ def injectDefaultContext( template, context ):
         'page': page,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
+        'thetime': datetime.now(),
     })
 
 def renderView( request, template, context={} ):
