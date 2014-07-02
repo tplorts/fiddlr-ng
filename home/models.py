@@ -81,6 +81,9 @@ class Event( Fithing ):
 
     is_reservation_required = models.BooleanField( default=False )
 
+    # For the real implementation of Featured Events,
+    # we'll probably add a model for an EventFeature.
+    is_featured = models.BooleanField( default=False )
 
 class Sponsor( Fithing ):
     managers = models.ManyToManyField( User, blank=True )
