@@ -284,10 +284,20 @@ a {
         }
     }
 
+    .scroll-down-button {
+        opacity: 0;
+        cursor: pointer;
+        padding: 0 10px;
+        .transition(all, 150ms, ease-in);
+    }
+
     &:hover {
         .box-shadow(0, 0, 8px);
         .expand-event-block {
             opacity: 0.95;
+        }
+        .scroll-down-button {
+            opacity: 1;
         }
     }
 }
