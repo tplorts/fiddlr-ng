@@ -205,9 +205,10 @@ a {
 
 
 .events-list-title {
-    font-size: 36px;
+    font-size: 34px;
     line-height: 39px; // .btn.large height
     font-family: serif;
+    font-weight: bold;
 }
 
 .event-block {
@@ -227,6 +228,7 @@ a {
 
     .event-info {
         height: 160px;
+        overflow: hidden;
     }
 
     .event-name {
@@ -257,6 +259,10 @@ a {
     .event-description {
         font-size: 12px;
         overflow: hidden;
+        .inner-content {
+            .transition(all, 500ms, ease);
+            position: relative;
+        }
     }
 
     .event-actions {
