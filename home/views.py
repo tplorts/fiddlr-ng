@@ -14,13 +14,7 @@ from fiddlr import settings
 from serializers import UserSerializer, GroupSerializer
 from permissions import JustMe
 from models import *
-from datetime import datetime, timedelta, time
-
-
-def tomorrow_midnight():
-    today = datetime.today().date()
-    asatte = today + timedelta(days=2)
-    return datetime.combine(asatte, time.min)
+from datetime import datetime, timedelta, date, time
 
 
 class UserExistsView(APIView):
@@ -179,10 +173,16 @@ def explore_events(q, list_name, view_type):
     elif list_name == 'for-you':
         events = q.user.fiprofile.autovocated_events()
     elif list_name == 'happening-now':
+        hasnt_ended = Q( end__gt=datetime.now() )
+        starts_by_tomorrow = Q( start__lt=date.today()+timedelta(days=2) )
+        # Why +2 days? Read the warning about dates & datetimes.
+        # To include tomorrow, set upper bound to 0:00 after tomorrow.
+        # https://docs.djangoproject.com/en/1.6/ref/models/querysets/#range
         events = Event.objects.filter(
-            Q( end__gte=datetime.now() ) &
-            Q( start__lte=tomorrow_midnight() )
+            hasnt_ended & starts_by_tomorrow
         ).order_by('end')
+    elif list_name == 'fiddlr-events':
+        events = []
 
     eventsJSON = serialize(
         'json', 

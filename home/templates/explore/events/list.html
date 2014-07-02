@@ -48,7 +48,7 @@
           </div>
           <div class="event-datetime">
             <span class="inner-content">
-              {{ event.start }}
+              {% date_range event.start event.end %}
             </span>
           </div>
           <div class="event-artist">

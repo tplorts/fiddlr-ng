@@ -49,3 +49,10 @@ def placeholder_copy(*args, **kwargs):
         kwargs['length'] = 2
     return kwargs
 
+
+@register.inclusion_tag('tags/date-range.html')
+def date_range( start, end ):
+    return {
+        'start': start,
+        'end': end,
+    }
