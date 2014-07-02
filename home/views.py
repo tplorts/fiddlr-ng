@@ -167,7 +167,7 @@ def explore_events(q, list_name, view_type):
     if not q.user.is_authenticated():
         events = []
     elif list_name == 'featured':
-        events = Event.objects.all()
+        events = Event.objects.filter( is_featured=True )
     elif list_name == 'near-you':
         events = Event.objects.all()
     elif list_name == 'for-you':
