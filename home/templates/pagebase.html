@@ -9,7 +9,7 @@
 <div id="header" ng-controller="CommonHeaderController">
   <div class="container full-width">
     <div class="row">
-      <div class="col-sm-2 col-xs-3">
+      <div class="col-sm-2 col-xs-4">
         <div class="ib vmid fiddlr-title">
           <a href="{% url 'Front' %}">fiddlr</a>
         </div>
@@ -35,10 +35,10 @@
           </form>
         </div>
       </div>
-      <div class="col-sm-4 col-xs-9">
+      <div class="col-sm-4 col-xs-8">
         {% if user.is_authenticated %}
         <div class="ib vmid" id="alerts-icon">
-          <a class="btn btn-default narrower-button"
+          <a class="btn btn-default btn-narrow-xs"
              href="{% url 'Alerts' %}">
             <span class="glyphicon glyphicon-bell"></span>
             <span class="badge">482</span>
@@ -72,7 +72,7 @@
                 id="signout-form">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <button class="btn btn-primary signout-button">
+            <button class="btn btn-primary signout-button btn-narrow-xs">
               Sign out
             </button>
           </form>
@@ -162,7 +162,7 @@
               </button>
             </div>
           </script>
-          <button class="btn btn-primary narrower-button"
+          <button class="btn btn-primary btn-narrow-xs"
                   id="signinup-modal-button"
                   ng-click="openLoginModal()">
             Sign in/up
