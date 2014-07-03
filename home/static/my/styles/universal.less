@@ -242,7 +242,6 @@ a {
         display: block;
         font-size: 16px;
         font-weight: bold;
-        .transition(all, 200ms, ease-out);
     }
 
     .event-venue {
@@ -279,6 +278,8 @@ a {
     }
 
     .expand-event-block {
+        display: none; // not good for mobile
+
         position: absolute;
         top: inherit;
         left: inherit;
@@ -311,9 +312,6 @@ a {
         .box-shadow(0, 0, 8px);
         .expand-event-block {
             opacity: 0.95;
-        }
-        .event-name {
-            padding-left: 32px;
         }
         .scroll-down-button {
             opacity: 1;
