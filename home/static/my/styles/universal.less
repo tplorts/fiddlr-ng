@@ -2,7 +2,7 @@
 @import (less) "variables.less";
 @import (less) "gradient.less";
 
-
+//'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif
 a {
     .transition(color, 100ms, ease);
     color: @navyblue;
@@ -211,13 +211,14 @@ a {
     font-weight: bold;
 }
 
+@event-block-height: 175px;
 .event-block {
     display: inline-block;
     vertical-align: top;
-    width: 250px;
-    height: 200px;
+    width: 280px;
+    height: @event-block-height;
     overflow: hidden;
-    margin: 15px;
+    margin: 20px;
     border-radius: 8px;
     background-color: @faintgreen;
     .transition();
@@ -227,19 +228,19 @@ a {
     }
 
     .event-info {
-        height: 165px;
+        height: @event-block-height - 35px;
         overflow: hidden;
     }
 
     .event-name {
         display: block;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         .transition(all, 200ms, ease-out);
     }
 
     .event-venue {
-        margin-top: 5px;
+        margin-top: 8px;
     }
 
     .event-name, .event-venue {
@@ -256,7 +257,7 @@ a {
     }
 
     .event-artists {
-        margin-top: 3px;
+        margin-top: 8px;
     }
 
     .event-description {
