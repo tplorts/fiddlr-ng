@@ -8,7 +8,8 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ngCookies',
     'ngSanitize',
     'fiddlrApp.controllers',
-    'fiddlrApp.directives'
+    'fiddlrApp.directives',
+    'fiddlrApp.filters'
 ]).config(
     ['$interpolateProvider', '$tooltipProvider',
      function($interpolateProvider, $tooltipProvider) {

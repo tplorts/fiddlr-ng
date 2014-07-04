@@ -211,40 +211,6 @@ cmod.controller(
         $scope.events = [];
         $http.get('/api/events/.json').success( function(data, status, headers, config) {
             $scope.events = data.results;
-
-            var thSuffixes = ['th','st','nd','rd'];
-            function th(day) {
-                if( day >= 11 && day <= 13 ) return 'th';
-                var ones = day % 10;
-                ones = ones > 3 ? 0 : ones;
-                return thSuffixes[ones];
-            }
-            function supTH(day) {
-                return '<sup>' + th(day) + '</sup>';
-            }
-            function fTime(date) {
-                var fmt = 'h';
-                if( date.getMinutes() != 0 )
-                    fmt += ':mm';
-                return $filter('date')(date, fmt+'a').toLowerCase();
-            }
-            
-            $scope.dateRange = function(event) {
-                var start = new Date(event.start);
-                var end = new Date(event.end);
-                var sameMonth = start.getMonth() == end.getMonth();
-                var sameDay = sameMonth && start.getDate() == end.getDate();
-                
-                var md1 = $filter('date')(start, 'MMM d');
-                var from = md1 + supTH(start.getDate()) + ', ' + fTime(start);
-
-                var to = fTime(end);
-                if( !sameDay )
-                    to = $filter('date')(end, 'd') + supTH(end.getDate()) + ', ' + to;
-                if( !sameMonth )
-                    to = $filter('date')(end, 'MMM ') + to;
-                return from + ' &ndash; ' + to;
-            };
         });
     }]
 );
