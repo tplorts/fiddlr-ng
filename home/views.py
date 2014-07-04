@@ -11,7 +11,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from fiddlr import settings
-from serializers import UserSerializer, GroupSerializer
+from serializers import *
 from permissions import JustMe
 from models import *
 from datetime import datetime, timedelta, date, time
@@ -29,8 +29,6 @@ class SetPasswordView(APIView):
     permission_classes = (JustMe,)
 
 #    def post(self, request, format=None):
-
-        
 
 
 class IsEmailVerifiedView(APIView):
@@ -60,6 +58,10 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+
+class EventViewSet(viewsets.ModelViewSet):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
 
 
 

@@ -3,7 +3,7 @@
 
 
 {% block private_content %}
-<div class="container">
+<div class="container" ng-controller="EventsListController">
 
   <div class="row">
     <div class="col-sm-9">
@@ -19,53 +19,51 @@
     </div>
   </div>
 
-  {% for event in events %}
-    <div class="event-block">
-      <div class="expand-event-block">
-        <span class="glyphicon glyphicon-resize-full"></span>
+  <div ng-repeat="event in events"
+
+       class="event-block" ng-cloak>
+    <div class="expand-event-block">
+      <span class="glyphicon glyphicon-resize-full"></span>
+    </div>
+    <div class="content-case">
+      <div class="event-info">
+        <a href="/event/[[ event.id ]]/"
+           class="event-name" title="[[ event.name ]]">
+          <span class="inner-content">
+            [[ event.name ]]
+          </span>
+        </a>
+        <div class="event-venue">
+          <span class="inner-content">
+            @ 
+            <a href="/venue/[[ event.venue.id ]]/"
+               title="[[ event.venue.name ]]">
+              [[ event.venue.name ]]
+            </a>
+          </span>
+        </div>
+        <div class="event-datetime">
+          <span class="inner-content">
+            <span ng-bind-html="dateRange(event)"></span>
+          </span>
+        </div>
+        <div class="event-artists">
+          <span class="inner-content">
+            <span ng-repeat="artist in event.artists">
+              <span ng-show="$last && $index > 0">&amp;</span>
+              <a href="/artist/[[ artist.id ]]/" class="ib">
+                [[ artist.name ]]
+              </a><span ng-show="!$last && event.artists.length > 2">,</span>
+            </span>
+          </span>
+        </div>
       </div>
-      <div class="content-case">
-        <div class="event-info">
-          <a href="{% url 'Event Page' event.pk %}"
-             class="event-name" title="{{ event.name }}">
-            <span class="inner-content">
-              {{ event.name }}
-            </span>
-          </a>
-          <div class="event-venue">
-            <span class="inner-content">
-              @ 
-              <a href="{% url 'Venue Page' event.venue.pk %}"
-                 title="{{ event.venue.name }}">
-                {{ event.venue.name }}
-              </a>
-            </span>
-          </div>
-          <div class="event-datetime">
-            <span class="inner-content">
-              {% date_range event.start event.end %}
-            </span>
-          </div>
-          <div class="event-artists">
-            <span class="inner-content">
-              {% with artists=event.artists.all %}
-                {% for artist in artists %}
-                  {% if forloop.last and artists.count > 1 %}&amp;{% endif %}
-                  <a href="{% url 'Artist Page' artist.pk %}" class="ib">
-                    {{ artist }}
-                  </a>{% if artists.count > 2 and not forloop.last %},{% endif %}
-                {% endfor %}
-              {% endwith %}
-            </span>
-          </div>
-        </div>
-        <div class="event-actions">
-          <a href="#" class="pull-left">Directions</a>
-          <a href="#" class="pull-right">Attend</a>
-        </div>
+      <div class="event-actions">
+        <a href="#" class="pull-left">Directions</a>
+        <a href="#" class="pull-right">Attend</a>
       </div>
     </div>
-  {% endfor %}
+  </div>
 </div>
 
 

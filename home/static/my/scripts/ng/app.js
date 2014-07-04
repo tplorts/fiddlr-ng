@@ -6,6 +6,7 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ui.bootstrap',
     'ngRoute',
     'ngCookies',
+    'ngSanitize',
     'fiddlrApp.controllers',
     'fiddlrApp.directives'
 ]).config(
