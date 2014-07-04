@@ -208,9 +208,11 @@ cmod.controller(
 cmod.controller(
     'EventsListController',
     ['$scope', '$http', '$filter', function($scope, $http, $filter) {
+        $scope.isLoading = true;
         $scope.events = [];
         $http.get('/api/events/.json').success( function(data, status, headers, config) {
             $scope.events = data.results;
+            $scope.isLoading = false;
         });
         $scope.eventFilter = function(listName) {
             if( listName == 'near-you' ) {
@@ -221,7 +223,7 @@ cmod.controller(
                 return function( event ) {
                     var evloc = event.venue.geocoordinates;
                     var distance = geoDistance(evloc, myself);
-                    return distance < 2;
+                    return distance < 1;
                 };
             }
             return function( event ) { return true; };

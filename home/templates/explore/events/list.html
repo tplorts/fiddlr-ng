@@ -19,6 +19,17 @@
     </div>
   </div>
 
+  <script>
+    function activateLoadingIndicator(image) {
+        setTimeout(function() {image.className += ' active ';}, 20);
+    }
+  </script>
+  <div id="loading-indicator" ng-show="isLoading">
+    <img src="{% static 'ex/zeaface-sm.png' %}" 
+         class="center-block"
+         onload="activateLoadingIndicator(this)" />
+  </div>
+
   <div ng-repeat="event in events | filter:eventFilter('{{list_name}}')"
        class="event-block" ng-cloak>
     <div class="expand-event-block">
