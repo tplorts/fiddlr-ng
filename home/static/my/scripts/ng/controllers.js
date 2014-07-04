@@ -212,6 +212,20 @@ cmod.controller(
         $http.get('/api/events/.json').success( function(data, status, headers, config) {
             $scope.events = data.results;
         });
+        $scope.eventFilter = function(listName) {
+            if( listName == 'near-you' ) {
+                var myself = {
+                    latitude: 40.767902,
+                    longitude: -73.982038
+                };
+                return function( event ) {
+                    var evloc = event.venue.geocoordinates;
+                    var distance = geoDistance(evloc, myself);
+                    return distance < 2;
+                };
+            }
+            return function( event ) { return true; };
+        };
     }]
 );
 

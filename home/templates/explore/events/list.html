@@ -19,8 +19,7 @@
     </div>
   </div>
 
-  <div ng-repeat="event in events"
-
+  <div ng-repeat="event in events | filter:eventFilter('{{list_name}}')"
        class="event-block" ng-cloak>
     <div class="expand-event-block">
       <span class="glyphicon glyphicon-resize-full"></span>
@@ -82,3 +81,7 @@
 {% endif %}
   
 {% endblock private_content %}
+
+{% block postscripts %}
+<script src="{% static 'my/scripts/geo.js' %}"></script>
+{% endblock %}

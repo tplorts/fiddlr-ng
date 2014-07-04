@@ -23,7 +23,7 @@ function haversineDistance(φ1, λ1, φ2, λ2) {
 function equirectDistance(φ1, λ1, φ2, λ2) {
     var x = (λ2-λ1) * Math.cos((φ1+φ2)/2);
     var y = (φ2-φ1);
-    var d = Math.sqrt(x*x + y*y) * EarthRadius;
+    return Math.sqrt(x*x + y*y) * EarthRadius;
 }
 
 function geoDistanceUsing(ll1, ll2, distFn) {
