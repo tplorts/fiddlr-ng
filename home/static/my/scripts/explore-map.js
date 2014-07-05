@@ -7,17 +7,16 @@ var item4marker = function( m ) {
     return item;
 };
 
-var mouseoverMarker = function( event ) {
-    item4marker(this).addClass( overMarkerClass );
-};
-
-var mouseoutMarker = function( event ) {
-    item4marker(this).removeClass( overMarkerClass );
-};
-
 var markerEvents = {
-    'mouseover': mouseoverMarker,
-    'mouseout': mouseoutMarker
+    'mouseover': function(event) {
+        item4marker(this).addClass( overMarkerClass );
+    },
+    'mouseout': function(event) {
+        item4marker(this).removeClass( overMarkerClass );
+    },
+    'click': function(event) {
+        item4marker(this).find('.accordion-toggle').click();
+    }
 };
 
 
