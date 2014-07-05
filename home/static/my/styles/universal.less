@@ -217,11 +217,12 @@ a {
     font-weight: bold;
 }
 
+@event-block-width: 280px;
 @event-block-height: 175px;
 .event-block {
     display: inline-block;
     vertical-align: top;
-    width: 280px;
+    width: @event-block-width;
     height: @event-block-height;
     overflow: hidden;
     margin: 15px 5px; //container has 15px padding on phone
@@ -285,16 +286,21 @@ a {
         left: inherit;
         width: 38px;
         height: 38px;
+        margin-left: @event-block-width - 38px;
         border-radius: inherit;
-        border-top-right-radius: 0;
-        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 0;
         background-color: darkred;
         color: @lightgrey;
-        padding: 2px 5px;
+        padding: 2px 4px;
         font-size: 28px;
         opacity: 0;
         cursor: pointer;
         .transition(all, 150ms, ease-in);
+
+        .glyphicon {
+            .rotate(90deg);
+        }
         
         &:hover {
             color: @mustard;
