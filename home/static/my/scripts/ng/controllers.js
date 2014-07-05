@@ -203,29 +203,40 @@ cmod.controller(
 );
 
 
-
+var eventListURLs = {
+    'featured': '/custom-api/events/featured/',
+    'near-you': '/custom-api/events/near/' };
 
 cmod.controller(
     'EventsListController',
     ['$scope', '$http', '$filter', function($scope, $http, $filter) {
         $scope.isLoading = true;
         $scope.events = [];
-        $http.get('/api/events/.json').success( function(data, status, headers, config) {
+
+        var listURL = '/custom-api/events/' + listName + '/.json';
+        $http.get(listURL).success( function(data, status, h, c) {
             $scope.events = data.results;
             $scope.isLoading = false;
         });
+
+        function nearYouFilter( event ) {
+            var myself = {
+                latitude: 40.767902,
+                longitude: -73.982038
+            };
+            var evloc = event.venue.geocoordinates;
+            var distance = geoDistance(evloc, myself);
+            return distance < 1;
+        }
+
+
+        var eventFilters = {
+            'near-you': nearYouFilter
+        };
+
         $scope.eventFilter = function(listName) {
-            if( listName == 'near-you' ) {
-                var myself = {
-                    latitude: 40.767902,
-                    longitude: -73.982038
-                };
-                return function( event ) {
-                    var evloc = event.venue.geocoordinates;
-                    var distance = geoDistance(evloc, myself);
-                    return distance < 1;
-                };
-            }
+            if( listName in eventFilters )
+                return eventFilters[listName];
             return function( event ) { return true; };
         };
     }]

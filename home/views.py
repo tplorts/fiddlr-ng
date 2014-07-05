@@ -6,8 +6,8 @@ from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
 from django.db.models import Q
 from django import forms
-from rest_framework import viewsets, authentication
-from rest_framework.permissions import AllowAny
+from rest_framework import viewsets, authentication, generics
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from fiddlr import settings
@@ -59,9 +59,34 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class EventViewSet(viewsets.ModelViewSet):
+class EventsViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+class EventListView(generics.ListAPIView):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = EventSerializer
+
+class FeaturedEventsList(EventListView):
+    queryset = Event.objects.filter( is_featured=True )
+
+class EventsNearYouList(EventListView):
+    queryset = Event.objects.all() #TODO: geoDistance in python
+    
+class EventsForYouList(EventListView):
+    def get_queryset(self):
+        return self.request.user.fiprofile.autovocated_events()
+
+class EventsHappeningNowList(EventListView):
+    def get_queryset(self):
+        end_of_tomorrow = date.today() + timedelta(days=2)
+        hasnt_ended = Q( end__gt=datetime.now() )
+        starts_by_tomorrow = Q( start__lt=end_of_tomorrow )
+        return Event.objects.filter(
+            hasnt_ended & starts_by_tomorrow
+        ).order_by('end')
+
 
 
 
@@ -166,47 +191,10 @@ def explore_events(q, list_name, view_type):
     if view_type not in event_view_types:
         raise Http404
 
-    if not q.user.is_authenticated():
-        events = []
-    elif list_name == 'featured':
-        events = Event.objects.filter( is_featured=True )
-    elif list_name == 'near-you':
-        events = Event.objects.all()
-    elif list_name == 'for-you':
-        events = q.user.fiprofile.autovocated_events()
-    elif list_name == 'happening-now':
-        hasnt_ended = Q( end__gt=datetime.now() )
-        starts_by_tomorrow = Q( start__lt=date.today()+timedelta(days=2) )
-        # Why +2 days? Read the warning about dates & datetimes.
-        # To include tomorrow, set upper bound to 0:00 after tomorrow.
-        # https://docs.djangoproject.com/en/1.6/ref/models/querysets/#range
-        events = Event.objects.filter(
-            hasnt_ended & starts_by_tomorrow
-        ).order_by('end')
-    elif list_name == 'fiddlr-events':
-        events = []
-
-    eventsJSON = serialize(
-        'json', 
-        events,
-        relations={
-            'venue': {
-                'relations': {
-                    'geocoordinates': {'extras': ('id',)}
-                },
-                'extras': ('name',),
-            },
-        },
-        extras=('name', 'brief',)
-    )
-
     return renderPage(q, 'explore/events/'+view_type, {
-        'events': events,
         'list_name': list_name,
         'list_title': event_lists[list_name],
         'gmaps_api_key': settings.gmaps_api_key,
-#        'time2boogie': list_name == 'for-you',
-        'events_json': eventsJSON,
     })
         
 

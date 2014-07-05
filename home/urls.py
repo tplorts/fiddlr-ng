@@ -10,7 +10,7 @@ from fiddlr import settings
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'events', views.EventViewSet)
+router.register(r'events', views.EventsViewSet)
 
 
 
@@ -74,6 +74,11 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/exists/user/(?P<username>[\w\d\-\.\+\@\_]{0,30})/$', views.UserExistsView.as_view()),
     url(r'^custom-api/set-password/$', views.SetPasswordView.as_view()),
     url(r'^custom-api/is-email-verified/$', views.IsEmailVerifiedView.as_view()),
+
+    url(r'^custom-api/events/featured/$', views.FeaturedEventsList.as_view()),
+    url(r'^custom-api/events/near-you/$', views.EventsNearYouList.as_view()),
+    url(r'^custom-api/events/for-you/$', views.EventsForYouList.as_view()),
+    url(r'^custom-api/events/happening-now/$', views.EventsHappeningNowList.as_view()),
 ))
 
 
