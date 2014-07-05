@@ -31,6 +31,11 @@
                 draggable="true">
       <marker ng-repeat="e in events | filter:eventFilter('{{list_name}}')"
               coords="e.venue.geocoordinates"
+              {% comment %}
+              ng-init="mgeo = e.venue.geocoordinates"
+              coords="mgeo"
+              {% endcomment %}
+              options="{opacity:1}"
               events="markerEvents">
       </marker>
     </google-map>
@@ -49,8 +54,10 @@
     <div ng-cloak>
       <accordion close-others="false">
         <accordion-group ng-repeat="e in events | filter:eventFilter('{{list_name}}')"
-                         class="event-item" 
-                         geo-id="[[ e.venue.geocoordinates.id ]]">
+                         ng-init="geo = e.venue.geocoordinates"
+                         class="event-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
+                         is-open="itemStati[geo.id]"
+                         ng-click="clickEventItem(geo.id)">
           <accordion-heading>
             <div class="event-name">[[ e.name ]]</div>
           </accordion-heading>
@@ -72,7 +79,6 @@
 
 
 {% block postscripts %}
-<script src="{% static 'my/scripts/explore-map.js' %}"></script>
 <script src="{% static 'my/scripts/geo.js' %}"></script>
 {% endblock %}
 

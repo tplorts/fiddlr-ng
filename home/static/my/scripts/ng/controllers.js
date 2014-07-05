@@ -246,8 +246,39 @@ cmod.controller(
             zoom: 12
         };
 
-        if( typeof markerEvents !== 'undefined' )
-            $scope.markerEvents = markerEvents;
+        $scope.hoverMarkerId = null;
+        $scope.clickedMarkerId = null;
+        $scope.itemStati = {}; // empty is ok: all start closed
+        $scope.markerEvents = {
+            'mouseover': function(event) {
+                this.options.opacity = 1;
+                var id = this.coords.id;
+                $scope.$apply(function() {
+                    $scope.hoverMarkerId = id;
+                });
+            },
+            'mouseout': function(event) {
+                this.options.opacity = 0.7;
+                $scope.$apply(function() {
+                    $scope.hoverMarkerId = null;
+                });
+            },
+            'click': function(event) {
+                var id = this.coords.id;
+                $scope.$apply(function() {
+                    $scope.itemStati[id] = true;
+                });
+            },
+            'icon_changed': function(event) {
+                this.options.opacity = 1;
+            }
+        };
+        $scope.activeItemId = 4;
+        $scope.clickEventItem = function( geoId ) {
+            console.log('clicked item with geo '+geoId);
+            $scope.activeItemId = geoId;
+//            $scope.broadcast(
+        };
     }]
 );
 
