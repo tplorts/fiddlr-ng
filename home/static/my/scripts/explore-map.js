@@ -3,7 +3,7 @@ var overMarkerClass = 'corresponding-marker-hover';
 
 var item4marker = function( m ) {
     var id = m.coords.id;
-    var item = eventList.find('.event-item[event-id="' + id + '"]');
+    var item = eventList.find('.event-item[geo-id="' + id + '"]');
     return item;
 };
 
@@ -30,6 +30,6 @@ var mouseoutItem = function( event ) {
 };
 
 $(document).on('ready', function() {
-    eventList = $('#featured-events');
+    eventList = $('.events-map-list');
     eventList.find('.event-item').hover( mouseoverItem, mouseoutItem );
 });

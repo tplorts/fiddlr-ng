@@ -203,9 +203,6 @@ cmod.controller(
 );
 
 
-var eventListURLs = {
-    'featured': '/custom-api/events/featured/',
-    'near-you': '/custom-api/events/near/' };
 
 cmod.controller(
     'EventsListController',
@@ -239,15 +236,8 @@ cmod.controller(
                 return eventFilters[listName];
             return function( event ) { return true; };
         };
-    }]
-);
 
-
-
-
-cmod.controller(
-    'ExploreMapController', 
-    ['$scope', function($scope) {
+        // Specific to the map view
         $scope.map = {
             center: {
                 latitude: 40.7590615,
@@ -256,22 +246,12 @@ cmod.controller(
             zoom: 12
         };
 
-        if( initialEvents !== undefined ) {
-            $scope.events = initialEvents;
-            for( var i=0; i<$scope.events.length; i++ ) {
-                var e = $scope.events[i];
-                var geo = e.fields.venue.fields.geocoordinates.fields;
-                e['coords'] = {
-                    'id': e.pk,
-                    'latitude': geo.latitude,
-                    'longitude': geo.longitude
-                };
-            }
-        }
+        if( typeof markerEvents !== 'undefined' )
+            $scope.markerEvents = markerEvents;
+    }]
+);
 
-        $scope.markerEvents = markerEvents;
-    }] // end: controller function
-); // end: ExploreMapController
+
 
 
 

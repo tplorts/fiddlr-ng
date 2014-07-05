@@ -8,28 +8,29 @@
 {% endblock %}
 
 
-{% block prescripts %}
-<script>
-  var initialEvents = {{ events_json|safe }};
-</script>
-{% endblock %}
-
-
 {% block content_class %}
+  {{ block.super }}
   flush-with-header
 {% endblock %}
 
 
+{% block prescripts %}
+<script>
+  var listName = '{{ list_name }}';
+</script>
+{% endblock %}
+
+
 {% block private_content %}
-<div ng-controller="ExploreMapController">
+<div ng-controller="EventsListController">
 
   <div id="gmap-explore">
     <google-map center="map.center" 
                 zoom="map.zoom"
                 pan="false"
                 draggable="true">
-      <marker ng-repeat="e in events"
-              coords="e.coords"
+      <marker ng-repeat="e in events | filter:eventFilter('{{list_name}}')"
+              coords="e.venue.geocoordinates"
               events="markerEvents">
       </marker>
     </google-map>
@@ -47,22 +48,20 @@
     <div class="events-map-title">{{ list_title }}</div>
     <div ng-cloak>
       <accordion close-others="false">
-        {% for e in events %}
-        <accordion-group class="event-item" event-id="{{ e.pk }}">
+        <accordion-group ng-repeat="e in events | filter:eventFilter('{{list_name}}')"
+                         class="event-item" 
+                         geo-id="[[ e.venue.geocoordinates.id ]]">
           <accordion-heading>
-            <span class="event-name">{{ e.name }}</span>
-            <span class="event-venue">@ {{ e.venue.name }}</span>
+            <div class="event-name">[[ e.name ]]</div>
           </accordion-heading>
+          <div class="event-venue">@ [[ e.venue.name ]]</div>
           <div>
-            {{ e.brief|default:"Dear me! There's no brief description!" }}
+            <div ng-bind-html="e | dateRange"></div>
           </div>
           <div>
-            {{ e.start|default:"Don't know from when" }} 
-            &mdash; 
-            {{ e.end|default:"Don't know till when" }}
+            [[ e.brief ]]
           </div>
         </accordion-group>
-        {% endfor %}
       </accordion>
     </div>
   </div>
@@ -74,5 +73,6 @@
 
 {% block postscripts %}
 <script src="{% static 'my/scripts/explore-map.js' %}"></script>
+<script src="{% static 'my/scripts/geo.js' %}"></script>
 {% endblock %}
 
