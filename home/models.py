@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import datetime
+from utilities import *
 
 
 class Fiprofile( models.Model ):
@@ -70,7 +70,7 @@ class Fithing( models.Model ):
                 e = self.artist.event_set
             else:
                 e = self.venue.event_set
-            return e.filter(end__lt=datetime.now()).order_by('-end')[:5]
+            return e.filter(end__lt=localNow()).order_by('-end')[:5]
         return None
 
     def generalLocation(self):

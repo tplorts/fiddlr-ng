@@ -15,6 +15,8 @@ from serializers import *
 from permissions import JustMe
 from models import *
 from datetime import datetime, timedelta, date, time
+from utilities import *
+
 
 
 class UserExistsView(APIView):
@@ -80,9 +82,8 @@ class EventsForYouList(EventListView):
 
 class EventsHappeningNowList(EventListView):
     def get_queryset(self):
-        end_of_tomorrow = date.today() + timedelta(days=2)
-        hasnt_ended = Q( end__gt=datetime.now() )
-        starts_by_tomorrow = Q( start__lt=end_of_tomorrow )
+        hasnt_ended = Q( end__gt=localNow() )
+        starts_by_tomorrow = Q( start__lt=endOfTomorrow() )
         return Event.objects.filter(
             hasnt_ended & starts_by_tomorrow
         ).order_by('end')
@@ -118,7 +119,7 @@ def injectDefaultContext( template, context ):
         'page': page,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
-        'thetime': datetime.now(),
+        'thetime': localNow(),
     })
 
 def renderView( request, template, context={} ):
@@ -132,7 +133,7 @@ def renderPage( request, template, context={} ):
 
 
 def front(q):
-    now = datetime.utcnow().time()
+    now = localNow().time()
     # Window of Good Morning Gaby: [8:48, 8:52)
     time4gaby = now.hour==12 and now.minute in range(48, 52)
     return renderPage(q, 'front', {
