@@ -290,15 +290,11 @@ cmod.controller(
 cmod.controller(
     'ProfilePageController', 
     ['$scope', function($scope) {
-        function isSmAboutOn() {
-            return $('#small-about').css('display') !== 'none';
-        }
-
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
             if( isSmAboutOn() && tabIndex == 0 ) {
                 setTimeout( function() {
-                    $('#profile-tabs > ul > li:eq(1) a').click();
+                    gotoTab1();
                 }, 1);
                 return;
             }
@@ -310,3 +306,21 @@ cmod.controller(
         };
     }] // end: controller function
 ); // end: ProfilePageController
+
+function isSmAboutOn() {
+    return $('#small-about').css('display') !== 'none';
+}
+
+function gotoTab1() {
+    $('#profile-tabs > ul > li:eq(1) > a').click();
+}
+
+function isAboutTabOpen() {
+    return $('#profile-tabs .tab-pane:eq(0)').hasClass('active');
+}
+
+$(window).on('load resize orientationChange', function() {
+    if( isAboutTabOpen() && isSmAboutOn() ) {
+        gotoTab1();
+    }
+});

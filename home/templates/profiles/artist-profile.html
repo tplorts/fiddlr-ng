@@ -5,13 +5,13 @@
 {% block private_content %}
 <div class="container" ng-controller="ProfilePageController">
   <div class="row">
-    <div class="col-sm-6 col-md-4">
+    <div class="col-sm-5 col-md-4">
       <div class="profile-panel">
-        <div class="artist-header">
-          <span class="artist-name">
+        <div class="profile-header">
+          <span class="profile-name">
             {{ artist.name }}
           </span> &nbsp;
-          <span class="ib artist-location text-upper text-info">
+          <span class="ib profile-location text-upper text-info">
             New York
           </span>
         </div>
@@ -21,11 +21,19 @@
         </div>
         <div class="fan-buttons">
 
-          <button class="btn btn-info">
-            301 followers
+          <button disabled class="btn btn-info">
+            {% with n=artist.fans.count %}
+            <b>{{ n }}</b>
+            <small>fan{% if n != 1 %}s{% endif %}</small>
+            {% endwith %}
           </button>
-          <button class="btn btn-info pull-right">
+          <button class="btn btn-info pull-right"
+                  id="follow-this-thing">
+            {% if isFollowingThis %}
+            Already following
+            {% else %}
             Follow this artist
+            {% endif %}
           </button>
 
         </div>
@@ -51,12 +59,12 @@
       </div>
     </div>
 
-    <div class="col-sm-6 visible-sm" id="small-about">
-      <div>
+    <div class="col-sm-7 visible-sm" id="small-about">
+      <div class="small-about-header">
         <i class="glyphicon glyphicon-info-sign"></i> 
         {{ 'About'|smallcaps }}
       </div>
-      <div class="artist-bio">
+      <div class="profile-bio">
         {% if artist.about %}
         {{ artist.about }}
         {% else %}
@@ -73,7 +81,7 @@
               <i class="glyphicon glyphicon-info-sign"></i> 
               {{ 'About'|smallcaps }}
             </tab-heading>
-            <div class="artist-bio">
+            <div class="profile-bio">
               {% if artist.about %}
               {{ artist.about }}
               {% else %}

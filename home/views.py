@@ -239,19 +239,28 @@ def connect(q):
     return renderPage(q, 'connect/root')
 
 
+def isUserFollowingThis(user, thingID):
+    if not user.is_authenticated:
+        return False
+    qs = user.fiprofile.favorites.filter(pk=thingID)
+    return qs.count() > 0
+
 def artist_page(q, artist_id):
     return renderPage(q, 'profiles/artist-profile', {
         'artist': Artist.objects.get(pk=artist_id),
+        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
     })
 
 def venue_page(q, venue_id):
     return renderPage(q, 'profiles/venue-profile', {
         'venue': Venue.objects.get(pk=venue_id),
+        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
     })
 
 def event_page(q, event_id):
     return renderPage(q, 'profiles/event-profile', {
         'event': Event.objects.get(pk=event_id),
+        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
     })
 
 
