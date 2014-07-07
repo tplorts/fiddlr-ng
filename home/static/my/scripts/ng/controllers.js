@@ -287,12 +287,21 @@ cmod.controller(
 
 
 
-
 cmod.controller(
     'ProfilePageController', 
     ['$scope', function($scope) {
+        function isSmAboutOn() {
+            return $('#small-about').css('display') !== 'none';
+        }
+
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
+            if( isSmAboutOn() && tabIndex == 0 ) {
+                setTimeout( function() {
+                    $('#profile-tabs > ul > li:eq(1) a').click();
+                }, 1);
+                return;
+            }
             $('.tab-content').css('margin-left', -tabIndex*100+'%');
             if( !$scope.isGalleriaInitialized && tabIndex == 1 && Galleria ) {
                 initGalleria();
