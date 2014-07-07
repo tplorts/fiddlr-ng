@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import datetime
 
 
 class Fiprofile( models.Model ):
@@ -55,6 +55,15 @@ class Fithing( models.Model ):
     def is_event(self):
         return hasattr(self, 'event')
 
+    def recentEvents(self):
+        if self.is_artist() or self.is_venue():
+            if self.is_artist():
+                e = self.artist.event_set
+            else:
+                e = self.venue.event_set
+            return e.filter(end__lt=datetime.now()).order_by('-end')[:5]
+        return None
+
 
 class Artist( Fithing ):
     members = models.ManyToManyField( User, blank=True )
@@ -68,7 +77,7 @@ class Venue( Fithing ):
     geocoordinates = models.OneToOneField( 'Geocoordinates', null=True, blank=True )
     venue_type = models.ForeignKey( 'VenueType', null=True, blank=True )
     event_types = models.ManyToManyField( 'EventType', blank=True )
-
+        
 
 class Event( Fithing ):
     venue = models.ForeignKey( 'Venue', null=True, blank=True )
@@ -84,6 +93,7 @@ class Event( Fithing ):
     # For the real implementation of Featured Events,
     # we'll probably add a model for an EventFeature.
     is_featured = models.BooleanField( default=False )
+
 
 class Sponsor( Fithing ):
     managers = models.ManyToManyField( User, blank=True )

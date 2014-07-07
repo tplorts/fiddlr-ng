@@ -245,24 +245,16 @@ def isUserFollowingThis(user, thingID):
     qs = user.fiprofile.favorites.filter(pk=thingID)
     return qs.count() > 0
 
-def artist_page(q, artist_id):
-    return renderPage(q, 'profiles/artist-profile', {
-        'artist': Artist.objects.get(pk=artist_id),
-        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
+def profile(q, thingID):
+    return renderPage(q, 'profiles/thing-profile', {
+        'thing': Fithing.objects.get(pk=thingID),
+        'isFollowingThis': isUserFollowingThis(q.user, thingID),
     })
 
-def venue_page(q, venue_id):
-    return renderPage(q, 'profiles/venue-profile', {
-        'venue': Venue.objects.get(pk=venue_id),
-        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
+def thing_events(q, thingID):
+    return renderPage(q, 'profiles/thing-events', {
+        'thing': Fithing.objects.get(pk=thingID),
     })
-
-def event_page(q, event_id):
-    return renderPage(q, 'profiles/event-profile', {
-        'event': Event.objects.get(pk=event_id),
-        'isFollowingThis': isUserFollowingThis(q.user, artist_id),
-    })
-
 
 def alerts(q):
     return renderPage(q, 'alerts', {

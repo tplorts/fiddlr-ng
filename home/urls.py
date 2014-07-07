@@ -55,10 +55,8 @@ urlpatterns = patterns(
 
     url(r'^search/', views.search, name='Search'),
 
-    url(r'^artist/(\d+)/$', views.artist_page, name='Artist Page'),
-    url(r'^event/(\d+)/$', views.event_page, name='Event Page'),
-    url(r'^venue/(\d+)/$', views.venue_page, name='Venue Page'),
-    
+    url(r'^profile/(\d+)/$', views.profile, name='Profile'),
+    url(r'^profile/(\d+)/events/$', views.thing_events),
 
     url(r'^about/', views.about, name='About'),
     url(r'^about/', views.about, name='About Fiddlr'),

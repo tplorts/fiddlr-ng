@@ -44,7 +44,7 @@
     </div>
     <div class="content-case">
       <div class="event-info">
-        <a href="/event/[[ event.id ]]/"
+        <a href="/profile/[[ event.id ]]/"
            class="event-name" title="[[ event.name ]]">
           <span class="inner-content">
             [[ event.name ]]
@@ -53,7 +53,7 @@
         <div class="event-venue">
           <span class="inner-content">
             @ 
-            <a href="/venue/[[ event.venue.id ]]/"
+            <a href="/profile/[[ event.venue.id ]]/"
                title="[[ event.venue.name ]]">
               [[ event.venue.name ]]
             </a>
@@ -68,7 +68,7 @@
           <span class="inner-content">
             <span ng-repeat="artist in event.artists">
               <span ng-show="$last && $index > 0">&amp;</span>
-              <a href="/artist/[[ artist.id ]]/" class="ib">
+              <a href="/profile/[[ artist.id ]]/" class="ib">
                 [[ artist.name ]]
               </a><span ng-show="!$last && event.artists.length > 2">,</span>
             </span>
