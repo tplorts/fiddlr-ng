@@ -291,10 +291,12 @@ cmod.controller(
 cmod.controller(
     'ProfilePageController', 
     ['$scope', function($scope) {
+        $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
             $('.tab-content').css('margin-left', -tabIndex*100+'%');
-            if( tabIndex == 1 && Galleria ) {
+            if( !$scope.isGalleriaInitialized && tabIndex == 1 && Galleria ) {
                 initGalleria();
+                $scope.isGalleriaInitialized = true;
             }
         };
     }] // end: controller function
