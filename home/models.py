@@ -14,18 +14,18 @@ class Fiprofile( models.Model ):
         return unicode(self.user)
 
     def favorite_artists(self):
-        return [f.artist for f in self.favorites.all() if f.is_artist()]
+        return [f.artist for f in self.favorites.all() if f.isArtist()]
     def favorite_venues(self):
-        return [f.venue for f in self.favorites.all() if f.is_venue()]
+        return [f.venue for f in self.favorites.all() if f.isVenue()]
     def favorite_events(self):
-        return [f.event for f in self.favorites.all() if f.is_event()]
+        return [f.event for f in self.favorites.all() if f.isEvent()]
 
     def autovocated_artists(self):
-        return [f.artist for f in self.autovocated.all() if f.is_artist()]
+        return [f.artist for f in self.autovocated.all() if f.isArtist()]
     def autovocated_venues(self):
-        return [f.venue for f in self.autovocated.all() if f.is_venue()]
+        return [f.venue for f in self.autovocated.all() if f.isVenue()]
     def autovocated_events(self):
-        return [f.event for f in self.autovocated.all() if f.is_event()]
+        return [f.event for f in self.autovocated.all() if f.isEvent()]
 
 
 class Fithing( models.Model ):
@@ -48,16 +48,16 @@ class Fithing( models.Model ):
     def __unicode__(self):
         return self.name
 
-    def is_artist(self):
+    def isArtist(self):
         return hasattr(self, 'artist')
-    def is_venue(self):
+    def isVenue(self):
         return hasattr(self, 'venue')
-    def is_event(self):
+    def isEvent(self):
         return hasattr(self, 'event')
 
     def recentEvents(self):
-        if self.is_artist() or self.is_venue():
-            if self.is_artist():
+        if self.isArtist() or self.isVenue():
+            if self.isArtist():
                 e = self.artist.event_set
             else:
                 e = self.venue.event_set
