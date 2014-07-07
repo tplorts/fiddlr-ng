@@ -234,10 +234,10 @@ def explore_profile_browse(q):
 
 
 def create(q):
-    return renderPage(q, 'create/root')
+    return renderPage(q, 'create/create-home')
 
 def connect(q):
-    return renderPage(q, 'connect/root')
+    return renderPage(q, 'connect/connect-home')
 
 
 def isUserFollowingThis(user, thingID):
