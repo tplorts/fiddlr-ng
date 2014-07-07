@@ -13,6 +13,24 @@
   <em>&ldquo;{{ thing.brief }}&rdquo;</em>
 </div>
 {% endif %}
+{% if thing.isEvent %}
+<div class="thing-artists">
+  {% with artists=thing.event.artists.all %}
+  {% for artist in artists %}
+    <span class="ib">
+      {% if forloop.last and artists.count > 1 %}&amp;{% endif %}
+      <a href="{% url 'Profile' artist.id %}">{{ artist }}</a>{% if artists.count > 2 and not forloop.last %},{% endif %}
+    </span>
+  {% endfor %}
+  {% endwith %}
+</div>
+<div class="thing-venue">
+  <span class="bold large">@</span>
+  <a href="{% url 'Profile' thing.event.venue.id %}">
+    {{ thing.event.venue.name }}
+  </a>
+</div>
+{% endif %}
 {% if thing.about %}
 <div class="thing-about">{{ thing.about }}</div>
 {% else %}
