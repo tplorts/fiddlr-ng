@@ -10,9 +10,6 @@
         <div class="profile-header">
           <span class="profile-name">
             {{ thing.name }}
-          </span> &nbsp;
-          <span class="ib profile-location text-upper text-info">
-            New York
           </span>
         </div>
         <div class="profile-picture">
@@ -43,7 +40,7 @@
             <button id="dLabel" class="btn btn-default"
                     role="button" data-toggle="dropdown"
                     data-target="#">
-              Recent events
+              Prior events
               <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" 
@@ -75,11 +72,7 @@
         {{ 'About'|smallcaps }}
       </div>
       <div class="profile-bio">
-        {% if thing.about %}
-        {{ thing.about }}
-        {% else %}
-        {% placeholder_copy length=4 %}
-        {% endif %}
+        {% thingInfo thing %}
       </div>
     </div>        
 
@@ -94,11 +87,7 @@
               {{ 'About'|smallcaps }}
             </tab-heading>
             <div class="profile-bio">
-              {% if thing.about %}
-              {{ thing.about }}
-              {% else %}
-              {% placeholder_copy length=4 %}
-              {% endif %}
+              {% thingInfo thing %}
             </div>
           </tab>
           <tab select="moveTabPane(1)">

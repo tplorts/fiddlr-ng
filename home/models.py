@@ -73,6 +73,9 @@ class Fithing( models.Model ):
             return e.filter(end__lt=datetime.now()).order_by('-end')[:5]
         return None
 
+    def generalLocation(self):
+        return 'Bushwick, Brooklyn'
+
 
 class Artist( Fithing ):
     members = models.ManyToManyField( User, blank=True )

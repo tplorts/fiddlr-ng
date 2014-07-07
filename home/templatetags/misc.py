@@ -65,3 +65,10 @@ def date_range( start, end ):
         'same_month': same_month,
         'same_day': same_day,
     }
+
+
+@register.inclusion_tag('tags/thing-info.html')
+def thingInfo(thing):
+    return {
+        'thing': thing,
+    }
