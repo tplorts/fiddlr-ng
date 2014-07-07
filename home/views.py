@@ -240,17 +240,17 @@ def connect(q):
 
 
 def artist_page(q, artist_id):
-    return renderPage(q, 'artist/page', {
+    return renderPage(q, 'profiles/artist-profile', {
         'artist': Artist.objects.get(pk=artist_id),
     })
 
 def venue_page(q, venue_id):
-    return renderPage(q, 'venue/page', {
+    return renderPage(q, 'profiles/venue-profile', {
         'venue': Venue.objects.get(pk=venue_id),
     })
 
 def event_page(q, event_id):
-    return renderPage(q, 'event/page', {
+    return renderPage(q, 'profiles/event-profile', {
         'event': Event.objects.get(pk=event_id),
     })
 
