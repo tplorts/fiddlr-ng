@@ -27,6 +27,7 @@ class Fiprofile( models.Model ):
     def autovocated_events(self):
         return [f.event for f in self.autovocated.all() if f.isEvent()]
 
+KindOfThings = ('artist', 'event', 'venue', 'sponsor')
 
 class Fithing( models.Model ):
     name = models.CharField( max_length=80 )
@@ -48,12 +49,20 @@ class Fithing( models.Model ):
     def __unicode__(self):
         return self.name
 
+    def kindofthing(self):
+        for kind in KindOfThings:
+            if hasattr(self, kind):
+                return kind
+        return None
+
     def isArtist(self):
         return hasattr(self, 'artist')
     def isVenue(self):
         return hasattr(self, 'venue')
     def isEvent(self):
         return hasattr(self, 'event')
+    def isSponsor(self):
+        return hasattr(self, 'sponsor')
 
     def recentEvents(self):
         if self.isArtist() or self.isVenue():
