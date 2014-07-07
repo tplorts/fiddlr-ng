@@ -251,15 +251,16 @@ cmod.controller(
         $scope.itemStati = {}; // empty is ok: all start closed
         $scope.markerEvents = {
             'mouseover': function(event) {
-                this.options.opacity = 1;
-                var id = this.coords.id;
+                var thisMarker = this;
                 $scope.$apply(function() {
-                    $scope.hoverMarkerId = id;
+                    thisMarker.options.opacity = 1;
+                    $scope.hoverMarkerId = thisMarker.coords.id;
                 });
             },
             'mouseout': function(event) {
-                this.options.opacity = 0.7;
+                var thisMarker = this;
                 $scope.$apply(function() {
+                    thisMarker.options.opacity = 0.7;
                     $scope.hoverMarkerId = null;
                 });
             },
@@ -271,13 +272,14 @@ cmod.controller(
             },
             'icon_changed': function(event) {
                 this.options.opacity = 1;
+                console.log('got it!');
             }
         };
         $scope.activeItemId = 4;
         $scope.clickEventItem = function( geoId ) {
             console.log('clicked item with geo '+geoId);
             $scope.activeItemId = geoId;
-//            $scope.broadcast(
+            $scope.$broadcast('icon_changed');
         };
     }]
 );
