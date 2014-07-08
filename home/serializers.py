@@ -32,7 +32,7 @@ class EventArtistsSerializer(serializers.ModelSerializer):
         model = Artist
         fields = ('id', 'name')
 
-class EventSerializer(serializers.ModelSerializer):
+class EventListSerializer(serializers.ModelSerializer):
     venue = EventVenueSerializer()
     artists = EventArtistsSerializer(many=True)
 
@@ -41,3 +41,7 @@ class EventSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'brief', 'venue', 'logo', 'start',
                   'end', 'iterations', 'artists', 'sponsors')
 
+
+class EventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event

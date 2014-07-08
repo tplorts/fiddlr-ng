@@ -10,7 +10,7 @@ from fiddlr import settings
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'events', views.EventsViewSet)
+router.register(r'events', views.EventViewSet)
 
 
 

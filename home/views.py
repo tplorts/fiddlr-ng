@@ -61,14 +61,17 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class EventsViewSet(viewsets.ReadOnlyModelViewSet):
+class EventViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Event.objects.all()
     serializer_class = EventSerializer
+    #TODO: creators only can have permission to modify/make
+
+
 
 class EventListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = EventSerializer
+    serializer_class = EventListSerializer
 
 class FeaturedEventsList(EventListView):
     queryset = Event.objects.filter( is_featured=True )
