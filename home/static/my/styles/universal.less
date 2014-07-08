@@ -1,6 +1,7 @@
 @import (less) "generic.less";
 @import (less) "variables.less";
 @import (less) "gradient.less";
+@import (less) "create.less";
 
 //'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif
 a {
@@ -506,108 +507,11 @@ a {
     border-radius: 5px;
 }
 
-@cbr: 80px;
-@create-button-bg: rgba(100, 200, 100, 0.7);
 
-.create-button {
-    display: block;
-    background-color: @create-button-bg;
-    cursor: pointer;
-    .transition();
-    text-align: center;
-    color: @charcoal;
-    font-weight: bold;
-    font-size: 16px;
-
-    .button-text {
-        display: inline-block;
-    }
-    
-    &:hover {
-        .box-shadow(0,0,5px);
-        background-color: #BFF;
-        text-decoration: none;
-        color: @navyblue;
-    }
+.create-round-button {
+    .create-round-button_(40px, 14px);
 }
 
-.circle-button {
-    position: fixed;
-    width: 2 * @cbr;
-    height: 2 * @cbr;
-    border: 1px solid #AAA;
-    border-radius: @cbr;
-}
-
-.generate-delays(@n, @i: 0) when (@i < @n) {
-    &:nth-child(@{i}) {
-        transition-delay: (@i+1)*70ms;
-    }
-    .generate-delays(@n, (@i + 1));
-}
-
-.prearranged { 
-    .circle-button {
-        .transition(all, 450ms, ease);
-        .generate-delays(5);
-    }
-}
-
-#central-create {
-    position: fixed;
-    width: 2 * @cbr;
-    height: 2 * @cbr;
-
-    .behind {
-        z-index: -1;
-        opacity: 0;
-    }
-}
-    
-
-#create-button, #create-button-set {
-    position: absolute;
-    .transition(opacity, 300ms, ease-out);
-}    
-
-#create-button {
-    line-height: 2 * @cbr;
-    .transition();
-}
-
-@inborder: 1px solid @grey;
-#create-button-set {
-    a {
-        position: absolute;
-        width: @cbr;
-        height: @cbr;
-        line-height: @cbr;
-        &:nth-child(1) {
-            border-top-left-radius: @cbr;
-            border-right: @inborder;
-            border-bottom: @inborder;
-        }
-        &:nth-child(2) {
-            margin-left: @cbr;
-            border-top-right-radius: @cbr;
-            border-left: @inborder;
-            border-bottom: @inborder;
-        }
-        &:nth-child(3) {
-            margin-top: @cbr;
-            border-bottom-left-radius: @cbr;
-            border-right: @inborder;
-            border-top: @inborder;
-        }
-        &:nth-child(4) {
-            margin-left: @cbr;
-            margin-top: @cbr;
-            border-bottom-right-radius: @cbr;
-            border-left: @inborder;
-            border-top: @inborder;
-        }
-    }
-}
 
 
 
@@ -619,12 +523,6 @@ a {
 
 #create-backdrop {
     .gradient-radial( @marine, black );
-}
-
-#create-button {
-    &.pending-choice {
-        border-radius: 2px;
-    }
 }
 
 

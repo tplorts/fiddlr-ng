@@ -1,0 +1,45 @@
+@import (less) "generic.less";
+@import (less) "variables.less";
+
+
+@create-button-bg: rgba(100, 200, 100, 0.8);
+.create-round-button_( @radius, @fontsize ) {
+    display: block;
+    .transition();
+    position: fixed;
+    width: 2 * @radius;
+    height: 2 * @radius;
+    background-color: @create-button-bg;
+    color: @charcoal;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bold;
+    font-size: @fontsize;
+    border: 1px solid #AAA;
+    border-radius: @radius;
+
+    .button-text {
+        display: inline-block;
+    }
+    
+    &:hover {
+        .box-shadow(0,0,5px);
+        background-color: #BFF;
+        text-decoration: none;
+        color: @navyblue;
+    }
+}
+
+.generate-delays(@n, @i: 0) when (@i < @n) {
+    &:nth-child(@{i}) {
+        transition-delay: (@i+1)*70ms;
+    }
+    .generate-delays(@n, (@i + 1));
+}
+
+.prearranged { 
+    .create-round-button {
+        .transition(all, 450ms, ease);
+        .generate-delays(5);
+    }
+}

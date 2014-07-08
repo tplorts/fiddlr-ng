@@ -4,24 +4,18 @@
 {% block private_content %}
 <div id="create-backdrop" class="backdrop"></div>
 
-<div id="major-button-div" class="invisible">
-  <div id="central-create">
-    <a class="create-button circle-button" id="create-button">
+<div id="create-wrapper" class="invisible">
+
+  <div id="create-something-wrapper">
+    <a class="create-round-button" id="create-something">
       <span class="button-text">CREATE</span>
     </a>
-    <div id="create-button-set" class="behind">
-      {% for i in '1234' %}
-      <a class="create-button">
-        <span class="button-text">{{ i }}</span>
-      </a>
-      {% endfor %}
-    </div>
   </div>
 
   <div id="create-navigation" class="prearranged">
     {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
-      <a class="create-button circle-button">
-        <span class="button-text">{{ x }}</span>
+      <a class="create-round-button">
+        <span class="button-text">{{ x|space2newline }}</span>
       </a>
     {% endfor %}
   </div>

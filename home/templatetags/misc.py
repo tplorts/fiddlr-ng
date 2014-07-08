@@ -40,6 +40,11 @@ def smallcaps(text):
     return mark_safe(o)
 
 
+@register.filter
+def space2newline(text):
+    o = re.sub(r'\s+', r'<br>', text)
+    return mark_safe(o)
+
 
 @register.inclusion_tag('pallet.html')
 def pallet( *args, **kwargs ):

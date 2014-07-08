@@ -1,12 +1,11 @@
-var majorDiv;
+var allCreate;
 var allButtons;
 var createNav;
-var center;
+var viewCenter;
 var navButtons;
 var count;
 var central;
 var centralButton;
-var centralButtonSet;
 
 function contentSize() {
     return {
@@ -36,20 +35,18 @@ function centerButton( button, itsCenter ) {
 
 
 var arrangeButtons = function() {
-    center = contentCenter();
-    centerButton( central, center );
+    viewCenter = contentCenter();
+    centerButton( centralButton, viewCenter );
     count = navButtons.length;
     var tincr = 2 * Math.PI / count;
     var t0 = Math.PI / 2;
-    var size = contentSize();
-    var space = Math.min(size.width, size.height);
-    var radius = space/2 - 0.7*navButtons.width();
+    var radius = 1.5 * navButtons.width();
     for( var i = 0; i < count; i++ ) {
         var b = $(navButtons[i]);
         var t = i * tincr + t0;
         centerButton(b, {
-            x: center.x + radius * Math.cos(t), 
-            y: center.y + radius * Math.sin(t)
+            x: viewCenter.x + radius * Math.cos(t), 
+            y: viewCenter.y + radius * Math.sin(t)
         });
     }
 };
@@ -70,31 +67,31 @@ function initialArrangeButtons() {
                820);
 }
 
+function centerButtonTexts() {
+    $.each( allButtons, function(babymovethat, butt) {
+        $(butt).centerText();
+    });
+}
+
 $(window).on('load', function () {
-    majorDiv = $('#major-button-div');
-    central = $('#central-create');
-    allButtons = majorDiv.find('.circle-button');
-    createNav = majorDiv.find('#create-navigation');
-    navButtons = createNav.find('.circle-button');
-    navButtons.centerText();
-    centralButton = majorDiv.find('#create-button');
-    centralButtonSet = majorDiv.find('#create-button-set');
-    centerButton( central, contentCenter() );
-    centerButton( navButtons, contentCenter() );
-    majorDiv.removeClass('invisible');
+    allCreate = $('#create-wrapper');
+    central = $('#create-something-wrapper');
+    centralButton = central.find('#create-something');
+    allButtons = allCreate.find('.create-round-button');
+    createNav = allCreate.find('#create-navigation');
+    navButtons = createNav.find('.create-round-button');
+    centerButton( allButtons, contentCenter() );
+    centerButtonTexts();
+    allCreate.removeClass('invisible');
     setTimeout( initialArrangeButtons, 50 );
 
     centralButton.on('click', function() {
-        centralButton.addClass('behind');
-        centralButtonSet.removeClass('behind');
     });
     $('#create-backdrop').on('click', function() {
-        centralButton.removeClass('behind');
-        centralButtonSet.addClass('behind');
     });
 });
 
 $(window).on('resize orientationChanged', function() {
     arrangeButtons();
-    allButtons.centerText();
+    centerButtonTexts();
 });
