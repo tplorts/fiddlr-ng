@@ -47,7 +47,9 @@ urlpatterns = patterns(
     url(r'^explore/profile/browse$', views.explore_profile_browse, name='Explore Browse'),
 
 
-    url(r'^create/', views.create, name='Create'),
+    url(r'^create/$', views.create, name='Create'),
+    url(r'^create/new-(\w+)/$', views.newThing),
+
     url(r'^connect/', views.connect, name='Connect'),
 
 

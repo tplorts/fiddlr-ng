@@ -1,0 +1,30 @@
+{% extends "private-page-base.html" %}
+{% load misc staticfiles %}
+
+{% block private_content %}
+
+{% if kindOfThing != "artist" %}
+<div id="soon-message">
+  COM<br>
+  ING<br>
+  SOO<br>
+  N!@!
+</div>
+<div class="left-margin-gradient"></div>
+<div class="right-margin-gradient"></div>
+{% endif %}
+
+{% endblock private_content %}
+
+
+{% block postscripts %}
+<script src="{% static 'my/scripts/hue-rotate.js' %}"></script>
+<script>
+  var ha = new HueRotation('#soon-message');
+  var haha = new HueRotation('.left-margin-gradient');
+  var hahaha = new HueRotation('.right-margin-gradient');
+  ha.start();
+  haha.start();
+  hahaha.start();
+</script>
+{% endblock %}

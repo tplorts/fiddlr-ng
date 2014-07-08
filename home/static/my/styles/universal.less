@@ -606,3 +606,34 @@ a {
         }
     }
 }
+
+
+#soon-message {
+    color: #C00;
+    text-shadow: 2px 3px magenta;
+    text-align: center;
+    font-size: 80px;
+    line-height: 1;
+    font-weight: 900;
+    margin-top: 60px;
+    z-index: 5;
+}
+
+.margin-gradient {
+    position: fixed;
+    top: @header-height;
+    bottom: 0;
+    width: 50%;
+}
+
+.left-margin-gradient {
+    .margin-gradient;
+    left: 0;
+    .gradient-right(#0A0);
+}
+
+.right-margin-gradient {
+    .margin-gradient;
+    right: 0;
+    .gradient-left(#00A);
+}

@@ -16,10 +16,10 @@
           Create:
         </div>
         <div class="btn-group-vertical btn-group-centered mt10px">
-          {% for createlink in 'Artist Profile,Venue Profile,Event,Sponsor Profile'|split:',' %}
+          {% for kindofthing in 'artist,venue,event,sponsor'|split:',' %}
           <a class="btn btn-default large"
-             href="#">
-            {{ createlink }}
+             href="new-{{ kindofthing }}/">
+            {{ kindofthing|capfirst }}
           </a>
           {% endfor %}
         </div>

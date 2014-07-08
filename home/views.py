@@ -239,6 +239,15 @@ def explore_profile_browse(q):
 def create(q):
     return renderPage(q, 'create/create-home')
 
+def newThing(request, kindOfThing):
+    if kindOfThing not in KindOfThings:
+        raise Http404
+    return renderPage(request, 'create/new-thing', {
+        'kindOfThing': kindOfThing,
+    })
+
+
+
 def connect(q):
     return renderPage(q, 'connect/connect-home')
 
