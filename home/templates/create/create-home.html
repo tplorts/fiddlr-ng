@@ -10,6 +10,24 @@
     <a class="create-round-button" id="create-something">
       <span class="button-text">CREATE</span>
     </a>
+    <div class="smokescreen">
+      <div class="text-center mt100px">
+        <div class="create-something-title">
+          Create:
+        </div>
+        <div class="btn-group-vertical btn-group-centered mt10px">
+          {% for createlink in 'Artist Profile,Venue Profile,Event,Sponsor Profile'|split:',' %}
+          <a class="btn btn-default large"
+             href="#">
+            {{ createlink }}
+          </a>
+          {% endfor %}
+        </div>
+        <div class="mt30px">
+          <em>Tap anywhere to cancel</em>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div id="create-navigation" class="prearranged">

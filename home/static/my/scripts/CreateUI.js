@@ -31,6 +31,7 @@ function CreateUI( createWrapperSelector ) {
     this.wrapper = $(createWrapperSelector);
     this.central = $('#create-something-wrapper');
     this.centralButton = this.central.find('#create-something');
+    this.smokescreen = this.central.find('.smokescreen');
     this.allButtons = this.wrapper.find('.create-round-button');
     this.createNav = this.wrapper.find('#create-navigation');
     this.navButtons = this.createNav.find('.create-round-button');
@@ -41,10 +42,14 @@ function CreateUI( createWrapperSelector ) {
     var self = this;
     setTimeout( function() {
         self.initialArrangeButtons();
-    }, 50 );
+    }, 0 );
 
-    // this.centralButton.on('click', showCreateSomething);
-    // $('#create-backdrop').on('click', hideCreateSomething);
+    this.centralButton.on('click', function() {
+        self.showCreateSomething();
+    });
+    $('#create-backdrop, .smokescreen').on('click', function() {
+        self.hideCreateSomething();
+    });
 }
 
 CreateUI.prototype.arrangeButtons = function() {
@@ -78,10 +83,12 @@ CreateUI.prototype.vCenterBTexts = function() {
 };
 
 
-
-function showCreateSomething() {
+CreateUI.prototype.showCreateSomething = function() {
+    this.smokescreen.addClass('active');
 }
-function hideCreateSomething() {
+
+CreateUI.prototype.hideCreateSomething = function() {
+    this.smokescreen.removeClass('active');
 }
 
 
