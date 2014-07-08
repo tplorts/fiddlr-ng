@@ -4,7 +4,9 @@ var createNav;
 var center;
 var navButtons;
 var count;
+var central;
 var centralButton;
+var centralButtonSet;
 
 function contentSize() {
     return {
@@ -35,7 +37,7 @@ function centerButton( button, itsCenter ) {
 
 var arrangeButtons = function() {
     center = contentCenter();
-    centerButton( centralButton, center );
+    centerButton( central, center );
     count = navButtons.length;
     var tincr = 2 * Math.PI / count;
     var t0 = Math.PI / 2;
@@ -70,20 +72,25 @@ function initialArrangeButtons() {
 
 $(window).on('load', function () {
     majorDiv = $('#major-button-div');
+    central = $('#central-create');
     allButtons = majorDiv.find('.circle-button');
-    allButtons.centerText();
     createNav = majorDiv.find('#create-navigation');
     navButtons = createNav.find('.circle-button');
+    navButtons.centerText();
     centralButton = majorDiv.find('#create-button');
-    centerButton( allButtons, contentCenter() );
+    centralButtonSet = majorDiv.find('#create-button-set');
+    centerButton( central, contentCenter() );
+    centerButton( navButtons, contentCenter() );
     majorDiv.removeClass('invisible');
     setTimeout( initialArrangeButtons, 50 );
 
     centralButton.on('click', function() {
-        centralButton.addClass( 'pending-choice' );
+        centralButton.addClass('behind');
+        centralButtonSet.removeClass('behind');
     });
     $('#create-backdrop').on('click', function() {
-        centralButton.removeClass('pending-choice');
+        centralButton.removeClass('behind');
+        centralButtonSet.addClass('behind');
     });
 });
 

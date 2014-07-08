@@ -5,13 +5,22 @@
 <div id="create-backdrop" class="backdrop"></div>
 
 <div id="major-button-div" class="invisible">
-  <a class="circle-button" id="create-button">
-    <span class="button-text">CREATE</span>
-  </a>
+  <div id="central-create">
+    <a class="create-button circle-button" id="create-button">
+      <span class="button-text">CREATE</span>
+    </a>
+    <div id="create-button-set" class="behind">
+      {% for i in '1234' %}
+      <a class="create-button">
+        <span class="button-text">{{ i }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
 
   <div id="create-navigation" class="prearranged">
     {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
-      <a class="circle-button">
+      <a class="create-button circle-button">
         <span class="button-text">{{ x }}</span>
       </a>
     {% endfor %}
