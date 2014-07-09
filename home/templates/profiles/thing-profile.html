@@ -30,7 +30,7 @@
       <div class="profile-panel">
         <div class="profile-header">
           <span class="profile-name">
-            {{ thing.name }}
+            {{ thing.name|default:"Anonymous Thing" }}
           </span>
         </div>
         <div class="profile-picture">
@@ -184,4 +184,3 @@
 </script>
 {#############################################}
 {% endblock %}
-

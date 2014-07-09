@@ -67,6 +67,11 @@ class EventViewSet(viewsets.ModelViewSet):
     serializer_class = EventSerializer
     #TODO: creators only can have permission to modify/make
 
+class ArtistViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Artist.objects.all()
+    serializer_class = ArtistSerializer
+    
 
 
 class EventListView(generics.ListAPIView):

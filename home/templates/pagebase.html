@@ -237,6 +237,8 @@
     <script src="{% static '3p/scripts/angular-google-maps-1.1.4.js' %}"></script>
   {% endif %}
 
+  <script src="{% static 'djangular/js/django-angular.js' %}"></script>
+
 {% endblock %}
 
 
@@ -244,7 +246,7 @@
 {% block default_postscripts %}
   {{ block.super }}
 
-  {% for appfile in "app.js,controllers.js,directives.js,filters.js"|split:"," %}
+  {% for appfile in "app.js,controllers.js,directives.js,filters.js,services.js"|split:"," %}
     <script src="{% static 'my/scripts/ng/'|add:appfile %}"></script>
   {% endfor %}
 

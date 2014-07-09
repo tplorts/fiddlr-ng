@@ -7,11 +7,11 @@ from home import views
 from fiddlr import settings
 
 
-router = routers.DefaultRouter()
+router = routers.DefaultRouter( trailing_slash=False )
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'events', views.EventViewSet)
-
+router.register(r'artists', views.ArtistViewSet)
 
 
 urlpatterns = patterns(

@@ -7,12 +7,17 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ngRoute',
     'ngCookies',
     'ngSanitize',
+    'ngResource',
     'fiddlrApp.controllers',
     'fiddlrApp.directives',
-    'fiddlrApp.filters'
-]).config(
-    ['$interpolateProvider', '$tooltipProvider',
-     function($interpolateProvider, $tooltipProvider) {
+    'fiddlrApp.filters',
+    'fiddlrApp.services'
+]);
+
+fiddlrApp.config(
+    ['$interpolateProvider', '$tooltipProvider', 
+     '$httpProvider', '$resourceProvider',
+     function($interpolateProvider, $tooltipProvider, $httpProvider, $resourceProvider) {
          $interpolateProvider.startSymbol('[[');
          $interpolateProvider.endSymbol(']]');
 
@@ -22,4 +27,17 @@ var fiddlrApp = angular.module('fiddlrApp', [
              'focus': 'blur',
              'showUsernameTooltip': 'hideUsernameTooltip'
          });
-     }]);
+
+         $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+         // Don't strip trailing slashes from calculated URLs
+         //$resourceProvider.defaults.stripTrailingSlashes = false;
+     }
+    ]
+);
+
+fiddlrApp.run( function($http, $cookies) {
+    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+    $http.defaults.xsrfCookieName = 'csrftoken';
+    $http.defaults.xsrfHeaderName = 'X-CSRFToken';
+});

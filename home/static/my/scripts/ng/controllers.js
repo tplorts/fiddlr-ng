@@ -289,7 +289,7 @@ cmod.controller(
 
 cmod.controller(
     'ThingProfileController', 
-    ['$scope', function($scope) {
+    ['$scope', 'Artist', function($scope, Artist) {
         $scope.isEditing = isEditingThing;
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
@@ -305,6 +305,12 @@ cmod.controller(
                 $scope.isGalleriaInitialized = true;
             }
         };
+        
+        // Everthing past this point is only for Create
+        if( !$scope.isEditing ) return;
+
+        $scope.artists = Artist.query();
+
     }] // end: controller function
 ); // end: ThingProfileController
 
