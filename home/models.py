@@ -30,8 +30,8 @@ class Fiprofile( models.Model ):
 KindOfThings = ('artist', 'event', 'venue', 'sponsor')
 
 class Fithing( models.Model ):
-    name = models.CharField( max_length=80 )
-    brief = models.CharField( max_length=200, blank=True )
+    name = models.CharField( max_length=60, blank=True )
+    brief = models.CharField( max_length=100, blank=True )
     about = models.TextField( blank=True )
 
     website = models.URLField( blank=True )
