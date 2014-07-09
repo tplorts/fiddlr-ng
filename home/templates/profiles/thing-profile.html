@@ -2,8 +2,29 @@
 {% load misc staticfiles %}
 
 
+{% block prescripts %}
+<script>
+  var editThingMode = {{ editMode|default:"false" }};
+</script>
+{% endblock %}
+
+
 {% block private_content %}
-<div class="container" ng-controller="ProfilePageController">
+
+{% if editMode and kindOfThing != "artist" %}
+{#############################################}
+<div id="soon-message">
+  COM<br>
+  ING<br>
+  SOO<br>
+  N!@!
+</div>
+<div class="left-margin-gradient"></div>
+<div class="right-margin-gradient"></div>
+{#############################################}
+{% else %}
+
+<div class="container" ng-controller="ThingProfileController">
   <div class="row">
     <div class="col-sm-5 col-md-4">
       <div class="profile-panel">
@@ -135,6 +156,9 @@
     </div>
   </div>
 </div>
+
+{% endif %}
+
 {% endblock %}
 
 
@@ -146,5 +170,17 @@
       Galleria.run('.galleria');
     }
   </script>
+
+{#############################################}
+<script src="{% static 'my/scripts/hue-rotate.js' %}"></script>
+<script>
+  var ha = new HueRotation('#soon-message');
+  var haha = new HueRotation('.left-margin-gradient');
+  var hahaha = new HueRotation('.right-margin-gradient');
+  ha.start();
+  haha.start();
+  hahaha.start();
+</script>
+{#############################################}
 {% endblock %}
 

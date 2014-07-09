@@ -288,8 +288,9 @@ cmod.controller(
 
 
 cmod.controller(
-    'ProfilePageController', 
+    'ThingProfileController', 
     ['$scope', function($scope) {
+        $scope.isEditMode = editThingMode;
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
             if( isSmAboutOn() && tabIndex == 0 ) {
@@ -305,7 +306,7 @@ cmod.controller(
             }
         };
     }] // end: controller function
-); // end: ProfilePageController
+); // end: ThingProfileController
 
 function isSmAboutOn() {
     return $('#small-about').css('display') !== 'none';

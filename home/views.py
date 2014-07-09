@@ -242,8 +242,9 @@ def create(q):
 def newThing(request, kindOfThing):
     if kindOfThing not in KindOfThings:
         raise Http404
-    return renderPage(request, 'create/new-thing', {
+    return renderPage(request, 'profiles/thing-profile', {
         'kindOfThing': kindOfThing,
+        'editMode': True,
     })
 
 
@@ -260,6 +261,7 @@ def isUserFollowingThis(user, thingID):
 
 def profile(q, thingID):
     return renderPage(q, 'profiles/thing-profile', {
+        'editMode': False,
         'thing': Fithing.objects.get(pk=thingID),
         'isFollowingThis': isUserFollowingThis(q.user, thingID),
     })
