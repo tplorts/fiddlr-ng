@@ -290,13 +290,13 @@ cmod.controller(
 cmod.controller(
     'ThingProfileController', 
     ['$scope', function($scope) {
-        $scope.isEditMode = editThingMode;
+        $scope.isEditing = isEditingThing;
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
             if( isSmAboutOn() && tabIndex == 0 ) {
                 setTimeout( function() {
                     gotoTab1();
-                }, 1);
+                }, 0);
                 return;
             }
             $('.tab-content').css('margin-left', -tabIndex*100+'%');

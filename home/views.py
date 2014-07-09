@@ -239,12 +239,12 @@ def explore_profile_browse(q):
 def create(q):
     return renderPage(q, 'create/create-home')
 
-def newThing(request, kindOfThing):
-    if kindOfThing not in KindOfThings:
+def newThing(request, kindofthing):
+    if kindofthing not in KindOfThings:
         raise Http404
     return renderPage(request, 'profiles/thing-profile', {
-        'kindOfThing': kindOfThing,
-        'editMode': True,
+        'kindofthing': kindofthing,
+        'isEditing': True,
     })
 
 
@@ -260,9 +260,11 @@ def isUserFollowingThis(user, thingID):
     return qs.count() > 0
 
 def profile(q, thingID):
+    thing = Fithing.objects.get(pk=thingID)
     return renderPage(q, 'profiles/thing-profile', {
-        'editMode': False,
-        'thing': Fithing.objects.get(pk=thingID),
+        'isEditing': False,
+        'thing': thing,
+        'kindofthing': thing.kindofthing,
         'isFollowingThis': isUserFollowingThis(q.user, thingID),
     })
 

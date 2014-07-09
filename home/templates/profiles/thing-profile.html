@@ -4,14 +4,14 @@
 
 {% block prescripts %}
 <script>
-  var editThingMode = {{ editMode|default:"false" }};
+  var isEditingThing = {{ isEditing|default:"false"|lower }};
 </script>
 {% endblock %}
 
 
 {% block private_content %}
 
-{% if editMode and kindOfThing != "artist" %}
+{% if isEditing and kindofthing != "artist" %}
 {#############################################}
 <div id="soon-message">
   COM<br>
@@ -46,11 +46,12 @@
           {% endwith %}
 
           <button class="btn btn-info pull-right"
+                  {% if isEditing %}disabled{% endif %}
                   id="follow-this-thing">
             {% if isFollowingThis %}
             Already following
             {% else %}
-            Follow this {{ thing.kindofthing }}
+            Follow this {{ kindofthing }}
             {% endif %}
           </button>
 
