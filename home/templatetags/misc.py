@@ -1,10 +1,7 @@
 from django import template
 from django.utils.safestring import mark_safe
-from django.core.serializers import serialize
-from django.db.models.query import QuerySet
 from fiddlr import settings
 import re
-import json
 import pytz
 
 
@@ -15,22 +12,6 @@ register = template.Library()
 def split(string, delimiter):
     return string.split(delimiter)
 
-
-
-class DefaultJSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        return o.__dict__
-
-@register.filter
-def tojson(obj, expand=None):
-    if isinstance(obj, QuerySet):
-        if expand != None:
-            on = serialize('json', obj, relations=expand.split(','))
-        else:
-            on = serialize('json', obj)
-    else:
-        on = json.dumps(obj, cls=DefaultJSONEncoder, separators=(',', ':'))
-    return mark_safe(on)
 
 
 

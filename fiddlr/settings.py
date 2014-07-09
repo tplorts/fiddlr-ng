@@ -27,11 +27,6 @@ except IOError:
     isProduction = True
 
 
-# Wad of Stuff
-SERIALIZATION_MODULES = {
-    'json': 'wadofstuff.django.serializers.json'
-}
-
 
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
