@@ -11,13 +11,13 @@
       <span class="button-text">CREATE</span>
     </a>
     <div class="smokescreen">
-      <div class="text-center mt100px">
+      <div class="text-center">
         <div class="create-something-title">
           Create:
         </div>
         <div class="btn-group-vertical btn-group-centered mt10px">
           {% for kindofthing in 'artist,venue,event,sponsor'|split:',' %}
-          <a class="btn btn-default large"
+          <a class="btn btn-default large btn-tall"
              href="new-{{ kindofthing }}/">
             {{ kindofthing|capfirst }}
           </a>
