@@ -72,6 +72,7 @@ INSTALLED_APPS = (
     'storages',
     'home',
     'rest_framework',
+    'djangular',
 )
 
 MIDDLEWARE_CLASSES = (
