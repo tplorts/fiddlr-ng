@@ -271,7 +271,7 @@ def thing_events(q, thingID):
 
 def alerts(q):
     return renderPage(q, 'alerts', {
-        'alerts': ('stuff',)*10,
+        'alerts': ('stuff',)*482,
     })
 
 
