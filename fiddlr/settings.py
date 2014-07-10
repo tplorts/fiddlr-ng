@@ -51,9 +51,12 @@ TEMPLATE_DEBUG = not isProduction
 if isProduction:
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    # DEFAULT_FILE_STORAGE = 'storages.backends.s3.S3Storage'
+    # STATICFILES_STORAGE = 'storages.backends.s3.S3Storage'
 AWS_ACCESS_KEY_ID = 'AKIAJNU5YCE2AUPUHVKQ' #for ted
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'fiddlr'
+AWS_PRELOAD_METADATA = True
 AWS_HEADERS = {
 #    'x-amz-acl': 'public-read',
 }
@@ -143,11 +146,11 @@ ALLOWED_HOSTS = ['*']
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
-S3_STATIC_URL = 'https://fiddlr.s3.amazonaws.com/'
-if isProduction:
-    STATIC_URL = S3_STATIC_URL
-else:
-    STATIC_URL = '/static/'
+# S3_STATIC_URL = 'https://fiddlr.s3.amazonaws.com/'
+# if isProduction:
+#     STATIC_URL = S3_STATIC_URL
+# else:
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
