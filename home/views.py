@@ -255,7 +255,7 @@ def create(q):
 def newThing(request, kindofthing):
     if kindofthing not in KindOfThings:
         raise Http404
-    return renderPage(request, 'profiles/thing-profile', {
+    return renderPage(request, 'fithifile/fithifile', {
         'kindofthing': kindofthing,
         'isEditing': True,
     })
@@ -268,7 +268,7 @@ def editThing(request, thingID):
             raise PermissionDenied
     except Fithing.DoesNotExist:
         raise Http404
-    return renderPage(request, 'profiles/thing-profile', {
+    return renderPage(request, 'fithifile/fithifile', {
         'thing': thing,
         'kindofthing': thing.kindofthing(),
         'isEditing': True,

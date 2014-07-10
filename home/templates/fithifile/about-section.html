@@ -1,7 +1,7 @@
 {% load misc %}
 
 {% if thing.generalLocation %}
-<div class="thing-general-location">
+<div class="fithifile-general-location">
   <span class="large text-info">
     <span class="glyphicon glyphicon-globe"></span>
     {{ thing.generalLocation|smallcaps }}
@@ -9,12 +9,12 @@
 </div>
 {% endif %}
 {% if thing.brief %}
-<div class="thing-brief">
+<div class="fithifile-field fithifile-brief">
   <em>&ldquo;{{ thing.brief }}&rdquo;</em>
 </div>
 {% endif %}
 {% if thing.isEvent %}
-<div class="thing-artists">
+<div class="fithifile-artists">
   {% with artists=thing.event.artists.all %}
   {% for artist in artists %}
     <span class="ib">
@@ -24,7 +24,7 @@
   {% endfor %}
   {% endwith %}
 </div>
-<div class="thing-venue">
+<div class="fithifile-venue">
   <span class="bold large">@</span>
   <a href="{% url 'Profile' thing.event.venue.id %}">
     {{ thing.event.venue.name }}
@@ -32,7 +32,7 @@
 </div>
 {% endif %}
 {% if thing.about %}
-<div class="thing-about">{{ thing.about }}</div>
+<div class="fithifile-about">{{ thing.about }}</div>
 {% else %}
-<div class="thing-about">{% placeholder_copy length=3 %}</div>
+<div class="fithifile-about">{% placeholder_copy length=3 %}</div>
 {% endif %}

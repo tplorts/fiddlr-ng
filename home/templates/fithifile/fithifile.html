@@ -1,5 +1,5 @@
 {% extends "private-page-base.html" %}
-{% load misc staticfiles FieldEditor %}
+{% load misc staticfiles FithifileTags %}
 
 
 {% block prescripts %}
@@ -31,15 +31,9 @@
      ng-controller="ThingProfileController">
   <div class="row">
     <div class="col-sm-5 col-md-4">
-      <div class="profile-panel">
-        <div class="fithifile-field profile-name">
-          {% if isEditing %}
-          {% FieldEditor "name" %}
-          {% else %}
-          {{ thing.name|default:"Anonymous Thing" }}
-          {% endif %}
-        </div>
-        <div class="profile-picture">
+      <div class="fithifile-panel">
+        {% FithifileField "name" %}
+        <div class="fithifile-picture">
           <img class="full-width-image" 
                src="http://lorempixel.com/350/450/animals" />
         </div>
@@ -100,7 +94,7 @@
         {{ 'About'|smallcaps }}
       </div>
       <div class="profile-bio">
-        {% thingInfo thing %}
+        {% FithifileAboutSection %}
       </div>
     </div>        
 
@@ -115,7 +109,7 @@
               {{ 'About'|smallcaps }}
             </tab-heading>
             <div class="profile-bio">
-              {% thingInfo thing %}
+              {% FithifileAboutSection %}
             </div>
           </tab>
           <tab select="moveTabPane(1)">

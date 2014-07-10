@@ -2,6 +2,8 @@
 @import (less) "variables.less";
 @import (less) "gradient.less";
 @import (less) "create.less";
+@import (less) "fithifile.less";
+
 
 //'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif
 a {
@@ -352,130 +354,6 @@ a {
             height: auto;
         }            
     }
-}
-
-.fithifile-field {
-    border: 1px dotted transparent;
-}
-
-.profile-name {
-    font-size: 24px;
-    height: 36px;
-    margin-bottom: 2px;
-    .ellipflow;
-}
-
-.profile-panel {
-    padding: 0px 3px 3px 3px;
-    background-color: #DDF;
-    margin-bottom: 30px;
-    border: 2px solid #EEF;
-}
-
-.small-about-header {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 5px;
-}
-
-.fan-buttons {
-    margin: 10px 0;
-}
-
-#prior-events {
-}
-
-.thing-general-location {
-}
-
-.thing-brief {
-    color: @darkgrey;
-    margin-bottom: 10px;
-}
-
-.thing-artists {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.thing-venue {
-    margin-bottom: 10px;
-}
-
-.thing-about {
-    font-size: 12px;
-}
-
-.nav-tabs > li {
-    > a {
-        font-size: 16px;
-        font-weight: bold;
-        background-color: #111 !important;
-        cursor: pointer !important;
-        color: #CCC;
-    }
-    &.active > a {
-        background-color: @purple !important;
-        cursor: default !important;
-        color: #DDD
-    }
-}
-
-@initial-pane-height: 350px;
-
-.tab-content {
-    width: 300%;
-    position: relative;
-    .transition(all, 400ms, ease);
-
-    .tab-pane {
-        display: inline-block !important;
-        width: 33.33%;
-        margin: 0 ;
-        padding: 3px;
-        vertical-align: top;
-    }
-}
-
-.sliding-tabs-theca {
-    overflow-x: hidden;
-}
-
-.fithing-editor {
-    .field-editor {
-        position: relative;
-
-        // like ellipflow if parent is
-        .ellipflow-inherit;
-
-        .field-preview {
-            .ellipflow-inherit;
-        }
-
-        .edit-field-btn {
-            position: absolute;
-            right: 0px;
-            top: 2px;
-            opacity: 0.25;
-            .transition(opacity, 250ms);
-        }
-    }
-
-    .fithifile-field {
-        .transition(border-color, 250ms);
-        &:hover {
-            border-color: @grey;
-            .edit-field-btn {
-                opacity: 0.85;
-            }
-        }
-    }
-}
-
-
-.galleria {
-    height: 250px; // for mobile
 }
 
 .accordion-toggle {
