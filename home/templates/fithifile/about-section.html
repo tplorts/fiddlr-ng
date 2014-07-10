@@ -1,4 +1,4 @@
-{% load misc %}
+{% load misc FithifileTags %}
 
 {% if thing.generalLocation %}
 <div class="fithifile-general-location">
@@ -9,9 +9,7 @@
 </div>
 {% endif %}
 {% if thing.brief %}
-<div class="fithifile-field fithifile-brief">
-  <em>&ldquo;{{ thing.brief }}&rdquo;</em>
-</div>
+  {% FithifileField "brief" %}
 {% endif %}
 {% if thing.isEvent %}
 <div class="fithifile-artists">
