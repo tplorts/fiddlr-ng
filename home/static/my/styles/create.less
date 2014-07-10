@@ -5,7 +5,9 @@
 @create-button-bg: rgba(100, 200, 100, 0.8);
 .create-round-button_( @radius, @fontsize ) {
     display: block;
-    .transition();
+    transition-property: bottom, left, background-color, color;
+    @dp: 500ms; @dc: 150ms;
+    transition-duration: @dp, @dp, @dc, @dc;
     position: fixed;
     width: 2 * @radius;
     height: 2 * @radius;

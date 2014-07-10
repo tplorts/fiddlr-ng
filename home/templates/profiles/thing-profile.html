@@ -1,10 +1,13 @@
 {% extends "private-page-base.html" %}
-{% load misc staticfiles %}
+{% load misc staticfiles FieldEditor %}
 
 
 {% block prescripts %}
 <script>
   var isEditingThing = {{ isEditing|default:"false"|lower }};
+  {% if isEditing %}
+    var thingID = {{ thing.pk }};
+  {% endif %}
 </script>
 {% endblock %}
 
@@ -24,14 +27,17 @@
 {#############################################}
 {% else %}
 
-<div class="container" ng-controller="ThingProfileController">
+<div class="container {% if isEditing %}fithing-editor{% endif %}" 
+     ng-controller="ThingProfileController">
   <div class="row">
     <div class="col-sm-5 col-md-4">
       <div class="profile-panel">
-        <div class="profile-header">
-          <span class="profile-name">
-            {{ thing.name|default:"Anonymous Thing" }}
-          </span>
+        <div class="fithifile-field profile-name">
+          {% if isEditing %}
+          {% FieldEditor "name" %}
+          {% else %}
+          {{ thing.name|default:"Anonymous Thing" }}
+          {% endif %}
         </div>
         <div class="profile-picture">
           <img class="full-width-image" 

@@ -27,6 +27,35 @@ class Fiprofile( models.Model ):
     def autovocated_events(self):
         return [f.event for f in self.autovocated.all() if f.isEvent()]
 
+
+    def myArtistCount(self):
+        return self.user.artist_set.count()
+    def myVenueCount(self):
+        return self.user.venue_set.count()
+    def mySponsorCount(self):
+        return self.user.sponsor_set.count()
+
+    def myFithingCount(self):
+        return self.myArtistCount() + self.myVenueCount() + self.mySponsorCount()
+
+    def isAfithic(self):
+        return self.myFithingCount() == 0
+    def isUnifithic(self):
+        return self.myFithingCount() == 1
+    def isMultifithic(self):
+        return self.myFithingCount() > 1
+
+    def myFithing(self):
+        if not self.isUnifithic():
+            return None
+        if self.myArtistCount() == 1:
+            return self.user.artist_set.all()[0]
+        if self.myVenueCount() == 1:
+            return self.user.venue_set.all()[0]
+        if self.mySponsorCount() == 1:
+            return self.user.sponsor_set.all()[0]
+
+
 KindOfThings = ('artist', 'event', 'venue', 'sponsor')
 
 class Fithing( models.Model ):
@@ -75,6 +104,16 @@ class Fithing( models.Model ):
 
     def generalLocation(self):
         return 'Bushwick, Brooklyn'
+
+    def getManagers(self):
+        if self.isArtist():
+            return self.artist.members
+        if self.isVenue():
+            return self.venue.managers
+        if self.isSponsor():
+            return self.sponsor.managers
+        if self.isEvent():
+            return self.event.getManagers()
 
 
 class Artist( Fithing ):

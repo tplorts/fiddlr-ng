@@ -6,6 +6,10 @@
 
 <div id="create-wrapper" class="invisible">
 
+  <button id="crotator" class="btn btn-warning">
+    <span class="glyphicon glyphicon-heart"></span>
+  </button>
+
   <div id="create-something-wrapper">
     <a class="create-round-button" id="create-something">
       <span class="button-text">CREATE</span>
@@ -31,7 +35,11 @@
   </div>
 
   <div id="create-navigation" class="prearranged">
-    {% for x in "Your Profile,Your Contacts,Your Projects,For You,Near You"|split:"," %}
+      <a class="create-round-button"
+         href="{{ yourProfileURL }}">
+        <span class="button-text">Your<br>Profile</span>
+      </a>
+    {% for x in "Your Contacts,Your Projects,For You,Near You"|split:"," %}
       <a class="create-round-button">
         <span class="button-text">{{ x|space2newline }}</span>
       </a>

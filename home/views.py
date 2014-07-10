@@ -4,6 +4,7 @@ from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
 from django.contrib.auth.models import User, Group
 from django.core.serializers import serialize
+from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django import forms
 from rest_framework import viewsets, authentication, generics
@@ -242,7 +243,14 @@ def explore_profile_browse(q):
 
 
 def create(q):
-    return renderPage(q, 'create/create-home')
+    if q.user.is_authenticated and q.user.fiprofile.isUnifithic():
+        k = q.user.fiprofile.myFithing().pk
+        yourProfileURL = 'profile/' + unicode(k) + '/'
+    else:
+        yourProfileURL = '#yo-dude-you-need-to-make-yo-first-fithing'
+    return renderPage(q, 'create/create-home', {
+        'yourProfileURL': yourProfileURL,
+    })
 
 def newThing(request, kindofthing):
     if kindofthing not in KindOfThings:
@@ -252,6 +260,21 @@ def newThing(request, kindofthing):
         'isEditing': True,
     })
 
+#@login_required
+def editThing(request, thingID):
+    try:
+        thing = Fithing.objects.get(pk=thingID)
+        if thing.getManagers().filter(pk=request.user.pk).count() != 1:
+            raise PermissionDenied
+    except Fithing.DoesNotExist:
+        raise Http404
+    return renderPage(request, 'profiles/thing-profile', {
+        'thing': thing,
+        'kindofthing': thing.kindofthing(),
+        'isEditing': True,
+    })
+    
+        
 
 
 def connect(q):

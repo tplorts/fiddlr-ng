@@ -38,7 +38,9 @@ function CreateUI( createWrapperSelector ) {
     this.navCount = this.navButtons.length;
     Create.placeButton( this.allButtons, Create.contentCenter() );
     this.vCenterBTexts();
+    this.k = 0;
     this.wrapper.removeClass('invisible');
+
     var self = this;
     setTimeout( function() {
         self.initialArrangeButtons();
@@ -59,7 +61,7 @@ CreateUI.prototype.arrangeButtons = function() {
     var t0 = Math.PI / 2;
     var radius = 1.5 * this.navButtons.width();
     for( var i = 0; i < this.navCount; i++ ) {
-        var b = $(this.navButtons[i]);
+        var b = $(this.navButtons[(i+this.k)%this.navCount]);
         var t = i * tincr + t0;
         Create.placeButton(b, {
             x: viewCenter.x + radius * Math.cos(t), 
@@ -101,4 +103,10 @@ $(window).on('load', function () {
 $(window).on('resize orientationChanged', function() {
     createUI.arrangeButtons();
     createUI.vCenterBTexts();
+});
+
+
+$('#crotator').click(function() {
+    createUI.k++;
+    createUI.arrangeButtons();
 });

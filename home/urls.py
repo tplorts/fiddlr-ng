@@ -49,6 +49,7 @@ urlpatterns = patterns(
 
     url(r'^create/$', views.create, name='Create'),
     url(r'^create/new-(\w+)/$', views.newThing),
+    url(r'^create/profile/(\d+)/$', views.editThing),
 
     url(r'^connect/', views.connect, name='Connect'),
 

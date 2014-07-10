@@ -212,7 +212,7 @@ cmod.controller(
 
         var listURL = '/custom-api/events/' + listName + '/.json';
         $http.get(listURL).success( function(data, status, h, c) {
-            $scope.events = data.results;
+            $scope.events = data;
             $scope.isLoading = false;
         });
 
@@ -277,7 +277,6 @@ cmod.controller(
         };
         $scope.activeItemId = 4;
         $scope.clickEventItem = function( geoId ) {
-            console.log('clicked item with geo '+geoId);
             $scope.activeItemId = geoId;
             $scope.$broadcast('icon_changed');
         };
@@ -309,7 +308,17 @@ cmod.controller(
         // Everthing past this point is only for Create
         if( !$scope.isEditing ) return;
 
-        $scope.artists = Artist.query();
+        $scope.editing = {};
+
+        //TODO: handle creating a new one:
+        //$scope.thing = new Artist();
+        $scope.thing = Artist.get({pk: 10});
+        
+        $scope.saveThing = function() {
+            $scope.thing.$save();
+        };
+
+        //$scope.artists = Artist.query();
 
     }] // end: controller function
 ); // end: ThingProfileController

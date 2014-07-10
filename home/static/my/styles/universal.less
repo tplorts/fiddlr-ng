@@ -244,9 +244,7 @@ a {
     }
 
     .event-name, .event-venue {
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
+        .ellipflow;
     }
 
     .event-datetime {
@@ -356,19 +354,19 @@ a {
     }
 }
 
-.profile-header {
-    padding: 0 6px;
-    font-size: 32px;
-    .profile-name {
-        font-family: serif;
-    }
-    .profile-location {
-        font-size: 70%;
-    }
+.fithifile-field {
+    border: 1px dotted transparent;
+}
+
+.profile-name {
+    font-size: 24px;
+    height: 36px;
+    margin-bottom: 2px;
+    .ellipflow;
 }
 
 .profile-panel {
-    padding: 0px 3px;
+    padding: 0px 3px 3px 3px;
     background-color: #DDF;
     margin-bottom: 30px;
     border: 2px solid #EEF;
@@ -383,11 +381,9 @@ a {
 
 .fan-buttons {
     margin: 10px 0;
-    padding: 0 6px;
 }
 
 #prior-events {
-    padding: 6px;
 }
 
 .thing-general-location {
@@ -446,6 +442,38 @@ a {
     overflow-x: hidden;
 }
 
+.fithing-editor {
+    .field-editor {
+        position: relative;
+
+        // like ellipflow if parent is
+        .ellipflow-inherit;
+
+        .field-preview {
+            .ellipflow-inherit;
+        }
+
+        .edit-field-btn {
+            position: absolute;
+            right: 0px;
+            top: 2px;
+            opacity: 0.25;
+            .transition(opacity, 250ms);
+        }
+    }
+
+    .fithifile-field {
+        .transition(border-color, 250ms);
+        &:hover {
+            border-color: @grey;
+            .edit-field-btn {
+                opacity: 0.85;
+            }
+        }
+    }
+}
+
+
 .galleria {
     height: 250px; // for mobile
 }
@@ -455,8 +483,7 @@ a {
     span {
         display: inline-block;
         width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        .ellipflow;
     }
 }
 
@@ -525,6 +552,12 @@ a {
     .dark-text-shadow;
 
     margin-top: 20px;
+}
+
+#crotator {
+    position: fixed;
+    top: @header-height + 5px;
+    left: 5px;
 }
 
 .btn-group-centered {
@@ -643,3 +676,6 @@ a {
     right: 0;
     .gradient-left(#00A);
 }
+
+
+
