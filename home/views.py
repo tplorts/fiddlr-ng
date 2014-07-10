@@ -289,7 +289,7 @@ def isUserFollowingThis(user, thingID):
 
 def profile(q, thingID):
     thing = Fithing.objects.get(pk=thingID)
-    return renderPage(q, 'profiles/thing-profile', {
+    return renderPage(q, 'fithifile/fithifile', {
         'isEditing': False,
         'thing': thing,
         'kindofthing': thing.kindofthing,

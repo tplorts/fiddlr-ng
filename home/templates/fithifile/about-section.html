@@ -1,16 +1,13 @@
 {% load misc FithifileTags %}
 
 {% if thing.generalLocation %}
-<div class="fithifile-general-location">
-  <span class="large text-info">
-    <span class="glyphicon glyphicon-globe"></span>
-    {{ thing.generalLocation|smallcaps }}
-  </span>
-</div>
+  {% FithifileField "generalLocation" %}
 {% endif %}
+
 {% if thing.brief %}
   {% FithifileField "brief" %}
 {% endif %}
+
 {% if thing.isEvent %}
 <div class="fithifile-artists">
   {% with artists=thing.event.artists.all %}
@@ -29,6 +26,7 @@
   </a>
 </div>
 {% endif %}
+
 {% if thing.about %}
 <div class="fithifile-about">{{ thing.about }}</div>
 {% else %}
