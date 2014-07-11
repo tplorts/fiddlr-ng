@@ -261,9 +261,9 @@ def newThing(request, kindofthing):
     })
 
 from djangular.forms.angular_model import NgModelFormMixin
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, Textarea
 TextFormControl = TextInput(attrs={'class':'form-control'})
-
+TextareaFormControl = Textarea(attrs={'class': 'form-control'})
 class FithingForm(NgModelFormMixin, ModelForm):
     form_name = 'fithiform' #note that these need to stay distinct
     scope_prefix = 'thing'
@@ -273,7 +273,7 @@ class FithingForm(NgModelFormMixin, ModelForm):
         widgets = {
             'name': TextFormControl,
             'brief': TextFormControl,
-
+            'about': TextareaFormControl,
         }
 
 #@login_required
