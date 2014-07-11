@@ -285,6 +285,7 @@ def editThing(request, thingID):
     except Fithing.DoesNotExist:
         raise Http404
     return renderPage(request, 'fithifile/fithifile', {
+        'fithingId': thingID,
         'thing': thing,
         'kindofthing': thing.kindofthing(),
         'isEditing': True,

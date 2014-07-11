@@ -287,9 +287,13 @@ cmod.controller(
 
 
 cmod.controller(
-    'ThingProfileController', 
+    'FithifileController', 
     ['$scope', 'Artist', function($scope, Artist) {
-        $scope.isEditing = isEditingThing;
+        if( typeof ngScopeInitials !== 'undefined' ) {
+            $scope.isEditing = ngScopeInitials.isEditing;
+            $scope.fithingId = ngScopeInitials.fithingId;
+        }
+        
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
             if( isSmAboutOn() && tabIndex == 0 ) {
@@ -312,7 +316,7 @@ cmod.controller(
 
         //TODO: handle creating a new one:
         //$scope.thing = new Artist();
-        $scope.thing = Artist.get({pk: 10});
+        $scope.thing = Artist.get({pk: $scope.fithingId});
         
         $scope.saveThing = function() {
             $scope.thing.$save();
