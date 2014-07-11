@@ -1,11 +1,12 @@
 {% load misc FithifileTags %}
 
 {% if thing.generalLocation %}
-  {% FithifileField "generalLocation" %}
+{{ thing.generalLocation }}
+{#  {% FithifileField "generalLocation" with isEditing=False %} #}
 {% endif %}
 
 {% if thing.brief %}
-  {% FithifileField "brief" %}
+  {% FithifileField "brief" fithiform.brief %}
 {% endif %}
 
 {% if thing.isEvent %}

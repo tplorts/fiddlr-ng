@@ -22,6 +22,7 @@ class LalaNgScope():
 
 @register.inclusion_tag('fithifile/field-editor.html', takes_context=True)
 def FithifileFieldEditor(context):
+    fname = context['field'].name
     c = Context({
         'ng': LalaNgScope('thing'),
     })
@@ -30,9 +31,10 @@ def FithifileFieldEditor(context):
 
 
 @register.inclusion_tag('fithifile/field.html', takes_context=True)
-def FithifileField(context, fieldName):
+def FithifileField(context, fieldName, fieldTag=None):
     c = Context({
         'field': LalaField(context['thing'], fieldName),
+        'fieldTag': fieldTag,
     })
     c.update(context)
     return c

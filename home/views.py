@@ -260,6 +260,22 @@ def newThing(request, kindofthing):
         'isEditing': True,
     })
 
+from djangular.forms.angular_model import NgModelFormMixin
+from django.forms import ModelForm, TextInput
+TextFormControl = TextInput(attrs={'class':'form-control'})
+
+class FithingForm(NgModelFormMixin, ModelForm):
+    form_name = 'fithiform' #note that these need to stay distinct
+    scope_prefix = 'thing'
+    class Meta:
+        model = Fithing
+        fields = ['name','logo','cover','brief','about',]
+        widgets = {
+            'name': TextFormControl,
+            'brief': TextFormControl,
+
+        }
+
 #@login_required
 def editThing(request, thingID):
     try:
@@ -272,6 +288,7 @@ def editThing(request, thingID):
         'thing': thing,
         'kindofthing': thing.kindofthing(),
         'isEditing': True,
+        'fithiform': FithingForm(),
     })
     
         

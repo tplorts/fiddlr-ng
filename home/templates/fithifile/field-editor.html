@@ -8,9 +8,12 @@
     </button>
   </div><!-- /field-preview -->
   <div class="input-group" ng-show="editing.{{ field.name }}">
+    {{ fieldTag }}
+    {% comment %}
     <input type="text" class="form-control" 
            maxlength="60"
            ng-model="{{ ng.thing }}.{{ field.name }}" />
+    {% endcomment %}
     <span class="input-group-btn">
       <button class="btn btn-default" type="button"
               ng-click="editing.{{ field.name }} = false">
