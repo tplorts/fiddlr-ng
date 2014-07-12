@@ -1,5 +1,5 @@
-{% extends "private-page-base.html" %}
-{% load misc staticfiles FithifileTags %}
+{% extends "pagebase.html" %}
+{% load misc staticfiles fing %}
 
 
 {% block prescripts %}
@@ -7,7 +7,7 @@
   var ngScopeInitials = {
       isEditing: {{ isEditing|default:"false"|lower }},
       {% if isEditing %}
-        fithingId: {{ fithingId }},
+        fingId: {{ fingId }},
       {% endif %}
       lalalala:""
   };
@@ -15,9 +15,9 @@
 {% endblock %}
 
 
-{% block private_content %}
+{% block content %}
 
-{% if isEditing and kindofthing != "artist" %}
+{% if isEditing and fype != 1 %}
 {#############################################}
 <div id="soon-message">
   COM<br>
@@ -30,18 +30,23 @@
 {#############################################}
 {% else %}
 
-<div class="container {% if isEditing %}fithing-editor{% endif %}" 
-     ng-controller="FithifileController">
+<div class="container fing-page 
+            {% if isEditing %}fing-editor{% endif %}" 
+     ng-controller="FingPageController">
   <div class="row">
     <div class="col-sm-5 col-md-4">
-      <div class="fithifile-panel">
-        {% FithifileField "name" fithiform.name %}
-        <div class="fithifile-picture">
+      <div class="fing-panel">
+        {% FingField "name" fingForm.name %}
+        <div class="fing-picture">
           <img class="full-width-image" 
-               src="http://lorempixel.com/350/450/animals" />
+               {% if fing.cover %}
+               src="{{ fing.cover.url }}"
+               {% else %}
+               src="http://lorempixel.com/350/450/animals" 
+               {% endif %}  />
         </div>
         <div class="fan-buttons">
-          {% with n=thing.fans.count %}
+          {% with n=fing.fans.count %}
           <button disabled class="btn btn-info {% if n == 0 %}invisible{% endif %}">
             <b>{{ n }}</b>
             <small>fan{% if n != 1 %}s{% endif %}</small>
@@ -50,16 +55,16 @@
 
           <button class="btn btn-info pull-right"
                   {% if isEditing %}disabled{% endif %}
-                  id="follow-this-thing">
+                  id="follow-this-fing">
             {% if isFollowingThis %}
             Already following
             {% else %}
-            Follow this {{ kindofthing }}
+            Follow this {{ fype }}
             {% endif %}
           </button>
 
         </div>
-        {% if thing.recentEvents and thing.recentEvents.count > 0 %}
+        {% if fing.events.count > 0 %}
         <div id="prior-events">
           <div class="dropdown">
             <button id="dLabel" class="btn btn-default"
@@ -70,7 +75,7 @@
             </button>
             <ul class="dropdown-menu" role="menu" 
                 aria-labelledby="dLabel">
-              {% for event in thing.recentEvents %}
+              {% for event in fing.events %}
               <li role="presentation">
                 <a role="menuitem" tabindex="-1"
                    href="{% url 'Profile' event.id %}">
@@ -81,7 +86,7 @@
               <li role="presentation" class="divider"></li>
               <li role="presentation">
                 <a href="events/" role="menuitem" tabindex="-1">
-                  See all prior events of {{ thing.name }}
+                  See all prior events of {{ fing.name }}
                 </a>
               </li>
             </ul>
@@ -97,7 +102,7 @@
         {{ 'About'|smallcaps }}
       </div>
       <div class="profile-bio">
-        {% FithifileAboutSection %}
+        {% FingAboutSection %}
       </div>
     </div>        
 
@@ -112,7 +117,7 @@
               {{ 'About'|smallcaps }}
             </tab-heading>
             <div class="profile-bio">
-              {% FithifileAboutSection %}
+              {% FingAboutSection %}
             </div>
           </tab>
           <tab select="moveTabPane(1)">
@@ -146,7 +151,7 @@
               <accordion-group heading="UmadagagadaUmadagagadaUmadagagadaUmadagagada">
                 Well then
               </accordion-group>
-              <accordion-group heading="Nothing to see here &hellip;">
+              <accordion-group heading="Nofing to see here &hellip;">
                 <p>Oh, hello!</p>
                 <iframe width="560" height="315" src="//www.youtube.com/embed/-_6kyx1XGDo" frameborder="0" allowfullscreen></iframe>
               </accordion-group>

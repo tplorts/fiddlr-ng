@@ -1,8 +1,0 @@
-{% load FithifileTags %}
-<div class="fithifile-field fithifile-{{ field.name }}">
-  {% if isEditing %}
-    {% FithifileFieldEditor %}
-  {% else %}
-    {{ field.value|default:field.defaultValue }}
-  {% endif %}
-</div>

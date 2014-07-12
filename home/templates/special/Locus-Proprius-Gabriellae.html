@@ -1,0 +1,32 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+{% block content %}
+
+{% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/400/200/' lpl='http://lorempixel.com/400/200/' %}
+<div class="galleria-gabriellae">
+  {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
+  <a href="{{ lpm|add:category }}">
+    <img src="{{ lps|add:category }}" 
+         data-big="{{ lpl|add:category }}" 
+         data-title="{{ category }}" 
+         data-description="This is a random picture of the {{category}}">
+  </a>
+  {% endfor %}
+</div>
+{% endwith %}
+
+{% endblock content %}
+
+
+
+{% block postscripts %}
+  <script src="{% static '3p/galleria/galleria-1.3.5.min.js' %}"></script>
+  <script>
+    var initGalleria = function() {
+      Galleria.loadTheme("{% static '3p/galleria/themes/classic/galleria.classic.min.js' %}");
+      Galleria.run('.galleria-gabriellae');
+    }
+    $(window).on('load', function() { initGalleria(); });
+  </script>
+{% endblock %}

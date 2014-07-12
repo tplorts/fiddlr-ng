@@ -1,182 +1,135 @@
 from django.db import models
+from django.db.models import Q
 from django.contrib.auth.models import User
 from utilities import *
 
 
-class Fiprofile( models.Model ):
+class NamedModel():
+    def __unicode__(self):
+        return self.name
+
+
+FypeArtist = 1
+FypeVenue = 2
+FypeSponsor = 3
+FypeEvent = 4
+FypeTour = 5
+FypeChoices = (
+    (FypeArtist, 'Artist'),
+    (FypeVenue, 'Venue'),
+    (FypeSponsor, 'Sponsor'),
+    (FypeEvent, 'Event'),
+    (FypeTour, 'Tour'),
+)
+
+ValidFypes = range(FypeChoices[0][0], FypeChoices[-1][0]+1)
+
+QArtist = Q(fype=FypeArtist)
+QVenue = Q(fype=FypeVenue)
+QSponsor = Q(fype=FypeSponsor)
+QEvent = Q(fype=FypeEvent)
+QTour = Q(fype=FypeTour)
+
+
+
+class Fuser( models.Model ):
     user = models.OneToOneField(User)
-    email_verified = models.BooleanField( default=False )
+    pseudonym = models.CharField( max_length=50, blank=True )
+    isEmailVerified = models.BooleanField( default=False )
     picture = models.ForeignKey( 'Picture', null=True, blank=True )
-    favorites = models.ManyToManyField( 'Fithing', blank=True, related_name='fans' )
-    autovocated = models.ManyToManyField('Fithing', blank=True, related_name='vocatees')
+    favorites = models.ManyToManyField( 'Fing', blank=True,
+                                        related_name='fans' )
+    autovocated = models.ManyToManyField('Fing', blank=True,
+                                         related_name='vocatees')
 
     def __unicode__(self):
         return unicode(self.user)
 
-    def favorite_artists(self):
-        return [f.artist for f in self.favorites.all() if f.isArtist()]
-    def favorite_venues(self):
-        return [f.venue for f in self.favorites.all() if f.isVenue()]
-    def favorite_events(self):
-        return [f.event for f in self.favorites.all() if f.isEvent()]
+    def favoriteArtists(self):
+        return self.favorites.filter(QArtist)
+    def favoriteVenues(self):
+        return self.favorites.filter(QVenue)
+    def favoriteEvents(self):
+        return self.favorites.filter(QEvent)
 
-    def autovocated_artists(self):
-        return [f.artist for f in self.autovocated.all() if f.isArtist()]
-    def autovocated_venues(self):
-        return [f.venue for f in self.autovocated.all() if f.isVenue()]
-    def autovocated_events(self):
-        return [f.event for f in self.autovocated.all() if f.isEvent()]
+    def autovocatedArtists(self):
+        return self.autovocated.filter(QArtist)
+    def autovocatedVenues(self):
+        return self.autovocated.filter(QVenue)
+    def autovocatedEvents(self):
+        return self.autovocated.filter(QEvent)
 
-
-    def myArtistCount(self):
-        return self.user.artist_set.count()
-    def myVenueCount(self):
-        return self.user.venue_set.count()
-    def mySponsorCount(self):
-        return self.user.sponsor_set.count()
-
-    def myFithingCount(self):
-        return self.myArtistCount() + self.myVenueCount() + self.mySponsorCount()
-
-    def isAfithic(self):
-        return self.myFithingCount() == 0
-    def isUnifithic(self):
-        return self.myFithingCount() == 1
-    def isMultifithic(self):
-        return self.myFithingCount() > 1
-
-    def myFithing(self):
-        if not self.isUnifithic():
-            return None
-        if self.myArtistCount() == 1:
-            return self.user.artist_set.all()[0]
-        if self.myVenueCount() == 1:
-            return self.user.venue_set.all()[0]
-        if self.mySponsorCount() == 1:
-            return self.user.sponsor_set.all()[0]
+    def isFollowing(self, fingId):
+        return self.favorites.filter(pk=fingId).count() == 1
 
 
-KindOfThings = ('artist', 'event', 'venue', 'sponsor')
-
-class Fithing( models.Model ):
+class Fing( models.Model, NamedModel ):
+    fype = models.SmallIntegerField( choices=FypeChoices )
     name = models.CharField( max_length=60, blank=True )
     brief = models.CharField( max_length=100, blank=True )
     about = models.TextField( blank=True )
-
+    location = models.ForeignKey( 'Location', null=True, blank=True,
+                                  related_name='fings' )
     website = models.URLField( blank=True )
     email = models.EmailField( max_length=254, blank=True )
     phone = models.CharField( max_length=20, blank=True )
-    
-    # Set of pictures will be accessible but that relation
-    # is defined in the Picture model.
-    logo = models.ForeignKey( 'Picture', null=True, blank=True, related_name='+' )
-    cover = models.ForeignKey( 'Picture', null=True, blank=True, related_name='+' )
-    
-    is_official = models.BooleanField( default=False )
-    is_public = models.BooleanField( default=False )
-
-    def __unicode__(self):
-        return self.name
-
-    def kindofthing(self):
-        for kind in KindOfThings:
-            if hasattr(self, kind):
-                return kind
-        return None
-
-    def isArtist(self):
-        return hasattr(self, 'artist')
-    def isVenue(self):
-        return hasattr(self, 'venue')
-    def isEvent(self):
-        return hasattr(self, 'event')
-    def isSponsor(self):
-        return hasattr(self, 'sponsor')
-
-    def recentEvents(self):
-        if self.isArtist() or self.isVenue():
-            if self.isArtist():
-                e = self.artist.event_set
-            else:
-                e = self.venue.event_set
-            return e.filter(end__lt=localNow()).order_by('-end')[:5]
-        return None
-
-    def generalLocation(self):
-        return 'Bushwick, Brooklyn'
-
-    def getManagers(self):
-        if self.isArtist():
-            return self.artist.members
-        if self.isVenue():
-            return self.venue.managers
-        if self.isSponsor():
-            return self.sponsor.managers
-        if self.isEvent():
-            return self.event.getManagers()
-
-
-class Artist( Fithing ):
-    members = models.ManyToManyField( User, blank=True )
-    sponsors = models.ManyToManyField( 'Sponsor', blank=True )
-    artypes = models.ManyToManyField( 'Artype', blank=True )
-
-
-class Venue( Fithing ):
-    managers = models.ManyToManyField( User, blank=True )
-    address = models.CharField( max_length=200, blank=True )
-    geocoordinates = models.OneToOneField( 'Geocoordinates', null=True, blank=True )
-    venue_type = models.ForeignKey( 'VenueType', null=True, blank=True )
-    event_types = models.ManyToManyField( 'EventType', blank=True )
-        
-
-class Event( Fithing ):
-    venue = models.ForeignKey( 'Venue', null=True, blank=True )
-    artists = models.ManyToManyField( 'Artist', blank=True )
-    sponsors = models.ManyToManyField( 'Sponsor', blank=True )
-
+    logo = models.ForeignKey( 'Picture', null=True, blank=True, 
+                              related_name='+' )
+    cover = models.ForeignKey( 'Picture', null=True, blank=True, 
+                               related_name='+' )
+    isOfficial = models.BooleanField( default=False )
+    isPublic = models.BooleanField( default=False )
     start = models.DateTimeField( null=True, blank=True )
     end = models.DateTimeField( null=True, blank=True )
-    iterations = models.TextField( blank=True )
-
-    is_reservation_required = models.BooleanField( default=False )
-
-    # For the real implementation of Featured Events,
-    # we'll probably add a model for an EventFeature.
-    is_featured = models.BooleanField( default=False )
+    isReservationRequired = models.BooleanField( default=False )
+    managers = models.ManyToManyField( Fuser, related_name='fings' )
+    ties = models.ManyToManyField( 'self' )
+    fategories = models.ManyToManyField( 'Fategory', blank=True,
+                                         related_name='fings' )
 
 
-class Sponsor( Fithing ):
-    managers = models.ManyToManyField( User, blank=True )
+    # I make these just for the convenience in template authoring
+    def isArtist(self):
+        return self.fype == FypeArtist
+    def isVenue(self):
+        return self.fype == FypeVenue
+    def isSponsor(self):
+        return self.fype == FypeSponsor
+    def isEvent(self):
+        return self.fype == FypeEvent
+    def isTour(self):
+        return self.fype == FypeTour
 
 
-class Artype( models.Model ):
-    name = models.CharField( max_length=80 )
-    roots = models.ManyToManyField( 'Artype', related_name='branches', blank=True )
+    def sponsors(self):
+        return self.ties.filter(QSponsor)
+    def events(self):
+        return self.ties.filter(QEvent)
+    def artists(self):
+        return self.ties.filter(QArtist)
+    def venues(self):
+        return self.ties.filter(QVenue)
+    def venue(self):
+        if self.venues().count() > 0:
+            return self.venues()[0]
+        return None
 
-    def __unicode__(self):
-        return self.name
+    def isManager(self, fuserId):
+        return self.managers.filter(pk=fuser).count() == 1
 
 
-class VenueType( models.Model ):
-    name = models.CharField( max_length=80 )
-    event_types = models.ManyToManyField( 'EventType' )
-
-    def __unicode__(self):
-        return self.name
-
-
-class EventType( models.Model ):
-    name = models.CharField( max_length=80 )
-
-    def __unicode__(self):
-        return self.name
+class Fategory( models.Model, NamedModel ):
+    fype = models.SmallIntegerField( choices=FypeChoices )
+    name = models.CharField( max_length=60 )
+    roots = models.ManyToManyField( 'self', symmetrical=False,
+                                    related_name='kin' )
 
 
 class Price( models.Model ):
     amount = models.DecimalField( max_digits=12, decimal_places=4 )
-    event = models.ForeignKey( 'Event' )
-    category = models.ForeignKey( 'PriceCategory', null=True, blank=True )
+    what = models.ForeignKey( Fing, related_name='prices' )
+    category = models.ForeignKey( 'PriceCategory', 
+                                  null=True, blank=True )
 
     def __unicode__(self):
         s = '$' + unicode(self.amount)
@@ -185,28 +138,50 @@ class Price( models.Model ):
         return s
 
 
-class PriceCategory( models.Model ):
+class PriceCategory( models.Model, NamedModel ):
     name = models.CharField( max_length=80 )
-
-    def __unicode__(self):
-        return self.name
 
 
 class Picture( models.Model ):
     url = models.URLField()
-    of = models.ForeignKey( 'Fithing', null=True, blank=True )
+    caption = models.CharField( max_length=100, blank=True )
     ordinal = models.FloatField( null=True, blank=True )
 
     def __unicode__(self):
-        return self.url.split('/')[-1]
+        return self.caption
 
 
-class Geocoordinates( models.Model ):
-    latitude = models.DecimalField( max_digits=9, decimal_places=6 )
-    longitude = models.DecimalField( max_digits=9, decimal_places=6 )
+class PictureAlbum( models.Model, NamedModel ):
+    name = models.CharField( max_length=80, blank=True )
+    about = models.TextField( blank=True )
+    pictures = models.ManyToManyField( Picture, blank=True, 
+                                       related_name='albums' )
+
+
+class Location( models.Model ):
+    address = models.CharField( max_length=100, blank=True )
+    neighborhood = models.CharField( max_length=50, blank=True )
+    zipcode = models.CharField( max_length=10, blank=True )
+    latitude = models.DecimalField( max_digits=10, decimal_places=7, 
+                                    null=True, blank=True )
+    longitude = models.DecimalField( max_digits=10, decimal_places=7,
+                                     null=True, blank=True )
 
     def __unicode__(self):
-        return '['+unicode(self.latitude)+', '+unicode(self.longitude)+']'
+        if len(self.address) != 0:
+            return self.address
+        if len(self.neighborhood) != 0:
+            return self.neighborhood
+        if len(self.zipcode) != 0:
+            return self.zipcode
+        if self.latitude and self.longitude:
+            return '%.7,%.7' % self.latitude, self.longitude
+        return 'undefined location'
 
     def id(self):
         return self.pk
+
+
+class Feature( models.Model ):
+    fing = models.ForeignKey( Fing, related_name='featurings' )
+    #TODO: things...

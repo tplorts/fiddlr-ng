@@ -287,11 +287,11 @@ cmod.controller(
 
 
 cmod.controller(
-    'FithifileController', 
+    'FingPageController', 
     ['$scope', 'Artist', function($scope, Artist) {
         if( typeof ngScopeInitials !== 'undefined' ) {
             $scope.isEditing = ngScopeInitials.isEditing;
-            $scope.fithingId = ngScopeInitials.fithingId;
+            $scope.fingId = ngScopeInitials.fingId;
         }
         
         $scope.isGalleriaInitialized = false;
@@ -315,17 +315,17 @@ cmod.controller(
         $scope.editing = {};
 
         //TODO: handle creating a new one:
-        //$scope.thing = new Artist();
-        $scope.thing = Artist.get({pk: $scope.fithingId});
+        //$scope.fing = new Artist();
+        $scope.fing = Artist.get({pk: $scope.fingId});
         
-        $scope.saveThing = function() {
-            $scope.thing.$save();
+        $scope.saveFing = function() {
+            $scope.fing.$save();
         };
 
         //$scope.artists = Artist.query();
 
     }] // end: controller function
-); // end: ThingProfileController
+); // end: FingPageController
 
 function isSmAboutOn() {
     return $('#small-about').css('display') !== 'none';

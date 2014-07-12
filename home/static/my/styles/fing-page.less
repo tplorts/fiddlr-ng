@@ -1,0 +1,145 @@
+@import (less) "generic.less";
+@import (less) "variables.less";
+@import (less) "gradient.less";
+
+.fing-page {
+
+    .fing-field {
+        border: 1px dotted transparent;
+    }
+
+    .fing-text-field {
+        min-height: 36px;
+        margin-bottom: 2px;
+    }
+
+    .fing-name {
+        .fing-text-field;
+        font-size: 24px;
+        height: 36px;
+        .ellipflow;
+    }
+
+    .fing-panel {
+        padding: 0px 3px 3px 3px;
+        background-color: #DDF;
+        margin-bottom: 30px;
+        border: 2px solid #EEF;
+    }
+
+    .small-about-header {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+
+    .fan-buttons {
+        margin: 10px 0;
+    }
+
+    #prior-events {
+    }
+
+    .fing-generalLocation {
+        .fing-text-field;
+        color: @infoblue;
+        font-weight: bold;
+    }
+
+    .fing-brief {
+        .fing-text-field;
+        color: @darkgrey;
+        font-style: italic;
+    }
+
+    .fing-artists {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .fing-venue {
+        margin-bottom: 10px;
+        &::before {
+            content: "@";
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+
+    .fing-about {
+        .fing-text-field;
+        font-size: 12px;
+    }
+
+    .nav-tabs > li {
+        > a {
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #111 !important;
+            cursor: pointer !important;
+            color: #CCC;
+        }
+        &.active > a {
+            background-color: @purple !important;
+            cursor: default !important;
+            color: #DDD
+        }
+    }
+
+    @initial-pane-height: 350px;
+
+    .tab-content {
+        width: 300%;
+        position: relative;
+        .transition(all, 400ms, ease);
+
+        .tab-pane {
+            display: inline-block !important;
+            width: 33.33%;
+            margin: 0 ;
+            padding: 3px;
+            vertical-align: top;
+        }
+    }
+
+    .sliding-tabs-theca {
+        overflow-x: hidden;
+    }
+
+    .fing-editor {
+        .field-editor {
+            position: relative;
+
+            // like ellipflow if parent is
+            .ellipflow-inherit;
+
+            .field-preview {
+                .ellipflow-inherit;
+            }
+
+            .edit-field-btn {
+                position: absolute;
+                right: 0px;
+                top: 2px;
+                opacity: 0.25;
+                .transition(opacity, 250ms);
+            }
+        }
+
+        .fing-field {
+            .transition(border-color, 250ms);
+            &:hover {
+                border-color: @grey;
+                .edit-field-btn {
+                    opacity: 0.85;
+                }
+            }
+        }
+    }
+
+
+    .galleria {
+        height: 250px; // for mobile
+    }
+}

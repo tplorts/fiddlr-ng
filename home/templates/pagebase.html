@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load staticfiles misc %}
+{% load staticfiles misc registration %}
 
 
 {% block body_attributes %}ng-app="fiddlrApp"{% endblock %}
@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-sm-2 col-xs-4">
         <div class="ib vmid fiddlr-title">
-          <a href="{% url 'Front' %}">fiddlr</a>
+          <a href="{% url 'Home' %}">fiddlr</a>
         </div>
       </div>
       <div class="hidden-xs">
@@ -68,7 +68,7 @@
         </div>
         <div class="ib vmid">
           {% if user.is_authenticated %}
-          <form action="{% url 'Logout' %}" method="POST"
+          <form action="{% url 'Sign out' %}" method="POST"
                 id="signout-form">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
@@ -93,23 +93,10 @@
             </div>
             <div class="modal-body">
               <div ng-show="signinup.which == 'in'">
-                <form action="{% url 'Login' %}" method="POST">
-                  {% csrf_token %}
-                  <input type="hidden" name="next" 
-                         value="{{ request.get_full_path }}" />
-                  <p><input type="text" name="username" 
-                            placeholder="username"
-                            class="form-control" /></p>
-                  <p><input type="password" name="password"
-                            placeholder="password"
-                            class="form-control" /></p>
-                  <button type="submit" class="btn btn-primary btn-purple pull-right">
-                    Sign in
-                  </button>
-                </form>
+                {% SigninForm %}
               </div>
               <div ng-show="signinup.which == 'up'">
-                <form action="{% url 'Signup' %}"
+                <form action="{% url 'Sign up' %}"
                       method="POST" name="forms.signup">
                   {% csrf_token %}
                   <div class="form-group has-feedback 
@@ -225,7 +212,7 @@
   {% endif %}
 
 
-  <script src="http://maps.googleapis.com/maps/api/js?key={{ gmaps_api_key }}&sensor=true"></script>
+  <script src="http://maps.googleapis.com/maps/api/js?key={{ gmapsAPIKey }}&sensor=true"></script>
 
   {% if isProduction %}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>

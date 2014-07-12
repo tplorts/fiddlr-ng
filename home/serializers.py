@@ -15,38 +15,29 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 
 
-class GeocoordinatesSerializer(serializers.ModelSerializer):
+class LocationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Geocoordinates
+        model = Location
+        fields = ('id', 'latitude', 'longitude')
 
-class EventVenueSerializer(serializers.ModelSerializer):
-    geocoordinates = GeocoordinatesSerializer()
 
+class FingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Venue
-        fields = ('id', 'name', 'website', 'logo', 'address', 
-                  'geocoordinates')
+        model = Fing
 
-class EventArtistsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Artist
+
+class EventVenueSerializer(FingSerializer):
+    location = LocationSerializer()
+    class Meta(FingSerializer.Meta):
+        fields = ('id', 'name', 'website', 'logo', 'location')
+
+class EventArtistsSerializer(FingSerializer):
+    class Meta(FingSerializer.Meta):
         fields = ('id', 'name')
 
-class EventListSerializer(serializers.ModelSerializer):
+class EventListSerializer(FingSerializer):
     venue = EventVenueSerializer()
     artists = EventArtistsSerializer(many=True)
-
-    class Meta:
-        model = Event
+    class Meta(FingSerializer.Meta):
         fields = ('id', 'name', 'brief', 'venue', 'logo', 'start',
-                  'end', 'iterations', 'artists', 'sponsors')
-
-
-class EventSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Event
-
-
-class ArtistSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Artist
+                  'end', 'artists', 'sponsors')

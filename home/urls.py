@@ -4,10 +4,14 @@ from django.contrib.auth.views import logout as auth_logout_view
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
+from home.views import *
 from fiddlr import settings
 
 
 router = routers.DefaultRouter( trailing_slash=False )
+# Not using trailing slashes on the API now because angular
+# presently does not respect the trailing slash upon issuing
+# API-bound requests.
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
 router.register(r'events', views.EventViewSet)
@@ -23,69 +27,117 @@ urlpatterns = patterns(
     # Place the favicon in a standard static location but still conform to an old fashion favicon
 #    url(r'^favicon\.ico$', RedirectView.as_view(url=s3+'main/icons/favicon.ico'), name='favicon'),
 
-    url(r'^$', views.front, name='Front'),
-    url(r'^$', views.front, name='Home'),
+    url(r'^$', Fiew.as_view(template='front'), name='Home'),
 
     # REGISTRATION
-    url(r'^login/$',  views.login, name='Login'),
-    url(r'^logout/$', auth_logout_view, name='Logout'),
-    url(r'^signup/$', views.signup, name='Signup'),
-    url(r'^account/$', views.account, name='Account'),
+    url(r'^signin/$', signin, name='Sign in'),
+    url(r'^signup/$', signup, name='Sign up'),
+    url(r'^signout/$', auth_logout_view, name='Sign out'),
+    url(r'^account/$', IntraFiew.as_view(template='registration/account'), name='Account'),
 
     # EXPLORE
-    url(r'^explore/$', views.explore, name='Explore'),
-    url(r'^explore/events/(?P<list_name>[\w\d\-]+)/$', views.explore_events_list, name='Events List'),
-    url(r'^explore/events/(?P<list_name>[\w\d\-]+)/map/$', views.explore_events_map, name='Events Map'),
+    url(r'^explore/$', IntraFiew.as_view(template='explore/explore-home'), name='Explore'),
+    url(r'^explore/(\d+)/$', exploreFing, name='Explore Fing'),
+    url(r'^explore/(\d+)/events/$', exploreFingEvents, name='Explore Fing Events'),
+    url(r'^explore/events/([\w\d\-]+)/$', exploreEventListingList, name='Event Listing'),
+    url(r'^explore/events/([\w\d\-]+)/map/$', exploreEventListingMap, name='Event Listing Map'),
 
     # EXPLORE PROFILE
-    url(r'^explore/profile/$', views.explore_profile, name='Explore Profile'),
-    url(r'^explore/profile/events$', views.explore_profile_events, name='Explore Favorite Events'),
-    url(r'^explore/profile/artists$', views.explore_profile_artists, name='Explore Favorite Artists'),
-    url(r'^explore/profile/venues$', views.explore_profile_venues, name='Explore Favorite Venues'),
-    url(r'^explore/profile/for-me$', views.explore_profile_forMe, name='Explore For Me'),
-    url(r'^explore/profile/near-me$', views.explore_profile_nearMe, name='Explore Near Me'),
-    url(r'^explore/profile/browse$', views.explore_profile_browse, name='Explore Browse'),
+    url(r'^explore/profile/$', IntraFiew.as_view(template='explore/profile/root'), name='Explore Profile'),
+    url(r'^explore/profile/events$', IntraFiew.as_view(template='explore/profile/events'), name='Explore Favorite Events'),
+    url(r'^explore/profile/artists$', IntraFiew.as_view(template='explore/profile/artists'), name='Explore Favorite Artists'),
+    url(r'^explore/profile/venues$', IntraFiew.as_view(template='explore/profile/venues'), name='Explore Favorite Venues'),
+    url(r'^explore/profile/for-me$', IntraFiew.as_view(template='explore/profile/for-me'), name='Explore For Me'),
+    url(r'^explore/profile/near-me$', IntraFiew.as_view(template='explore/profile/near-me'), name='Explore Near Me'),
+    url(r'^explore/profile/browse$', IntraFiew.as_view(template='explore/profile/browse'), name='Explore Browse'),
 
 
-    url(r'^create/$', views.create, name='Create'),
-    url(r'^create/new-(\w+)/$', views.newThing),
-    url(r'^create/profile/(\d+)/$', views.editThing),
+    url(r'^create/$', createHome, name='Create'),
+    url(r'^create/new/', newFing),
+    url(r'^create/edit/(\d+)/$', editFing),
 
-    url(r'^connect/', views.connect, name='Connect'),
+    url(r'^connect/', IntraFiew.as_view(template='connect/connect-home'), name='Connect'),
 
 
-    url(r'^alerts/', views.alerts, name='Alerts'),
+    url(r'^alerts/', alerts, name='Alerts'),
 
-    url(r'^search/', views.search, name='Search'),
+    url(r'^search/', search, name='Search'),
 
-    url(r'^profile/(\d+)/$', views.profile, name='Profile'),
-    url(r'^profile/(\d+)/events/$', views.thing_events),
-
-    url(r'^about/', views.about, name='About'),
-    url(r'^about/', views.about, name='About Fiddlr'),
-    url(r'^copyright/', views.copyrightView, name='Copyright'),
-    url(r'^copyright/', views.copyrightView, name='Copyright Information'),
-    url(r'^help/', views.helpView, name='Help'),
-    url(r'^ads/', views.adsView, name='Ads'),
+    url(r'^about/', Fiew.as_view(template='auxiliary/about'), name='About'),
+    url(r'^copyright/', Fiew.as_view(template='auxiliary/copyright'), name='Copyright'),
+    url(r'^help/', Fiew.as_view(template='auxiliary/help'), name='Help'),
+    url(r'^ads/', Fiew.as_view(template='auxiliary/ads'), name='Ads'),
 )
 
 
 urlpatterns += format_suffix_patterns(patterns(
     '',
-    url(r'^custom-api/exists/user/(?P<username>[\w\d\-\.\+\@\_]{0,30})/$', views.UserExistsView.as_view()),
-    url(r'^custom-api/set-password/$', views.SetPasswordView.as_view()),
-    url(r'^custom-api/is-email-verified/$', views.IsEmailVerifiedView.as_view()),
+    url(r'^custom-api/exists/user/(?P<username>[\w\d\-\.\+\@\_]{0,30})/$', UserExistsView.as_view()),
+    url(r'^custom-api/set-password/$', SetPasswordView.as_view()),
+    url(r'^custom-api/is-email-verified/$', IsEmailVerifiedView.as_view()),
 
-    url(r'^custom-api/events/featured/$', views.FeaturedEventsList.as_view()),
-    url(r'^custom-api/events/near-you/$', views.EventsNearYouList.as_view()),
-    url(r'^custom-api/events/for-you/$', views.EventsForYouList.as_view()),
-    url(r'^custom-api/events/happening-now/$', views.EventsHappeningNowList.as_view()),
+    url(r'^custom-api/events/featured/$', FeaturedEventsList.as_view()),
+    url(r'^custom-api/events/near-you/$', EventsNearYouList.as_view()),
+    url(r'^custom-api/events/for-you/$', EventsForYouList.as_view()),
+    url(r'^custom-api/events/happening-now/$', EventsHappeningNowList.as_view()),
 ))
 
 
 if not settings.isProduction:
     urlpatterns += patterns(
         '',
-        url(r'^404/$', views.test404),
-        url(r'^500/$', views.test500),
+        url(r'^404/$', test404),
+        url(r'^500/$', test500),
     )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#    _____ ________________  ____________   _____   ____  _   ________
+#   / ___// ____/ ____/ __ \/ ____/_  __/  /__  /  / __ \/ | / / ____/
+#   \__ \/ __/ / /   / /_/ / __/   / /       / /  / / / /  |/ / __/   
+#  ___/ / /___/ /___/ _, _/ /___  / /       / /__/ /_/ / /|  / /___   
+# /____/_____/\____/_/ |_/_____/ /_/       /____/\____/_/ |_/_____/   
+
+
+urlpatterns += patterns(
+    '',
+    url(r'^Locus-Proprius-Gabriellae/$', LocusPropriusGabriellae),
+)

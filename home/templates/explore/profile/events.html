@@ -1,11 +1,11 @@
-{% extends "private-page-base.html" %}
+{% extends "pagebase.html" %}
 {% load misc staticfiles thecae %}
 
 
-{% block private_content %}
+{% block content %}
 <div class="container">
-  {% for event in favorite_events %}
+  {% for event in user.fuser.favoriteEvents %}
     {% event_theca event %}
   {% endfor %}
 </div>
-{% endblock private_content %}
+{% endblock content %}

@@ -1,24 +1,24 @@
-{% extends "private-page-base.html" %}
+{% extends "pagebase.html" %}
 {% load misc staticfiles %}
 
 
 {% block prescripts %}
 <script>
-  var listName = '{{ list_name }}';
+  var listName = '{{ listingKey }}';
 </script>
 {% endblock %}
 
 
-{% block private_content %}
+{% block content %}
 <div class="container" ng-controller="EventsListController">
 
   <div class="row">
     <div class="col-sm-9">
-      <div class="events-list-title">{{ list_title }}</div>
+      <div class="events-list-title">{{ listingTitle }}</div>
     </div>
     <div class="col-sm-3">
       <div class="text-right">
-        <a href="{% url 'Events Map' list_name %}"
+        <a href="{% url 'Event Listing Map' listingKey %}"
            class="btn btn-info bold btn-purple large">
           Map View
         </a>
@@ -37,7 +37,7 @@
          onload="activateLoadingIndicator(this)" />
   </div>
 
-  <div ng-repeat="event in events | filter:eventFilter('{{list_name}}')"
+  <div ng-repeat="event in events | filter:eventFilter('{{listingKey}}')"
        class="event-block" ng-cloak>
     <div class="expand-event-block">
       <span class="glyphicon glyphicon-resize-full"></span>
@@ -84,7 +84,7 @@
 </div>
 
 
-{% if list_name == 'featured' %}
+{% if listingKey == 'featured' %}
 <div id="feature-feature">
   <div class="container">
     <hr>
@@ -98,7 +98,7 @@
 </div>
 {% endif %}
   
-{% endblock private_content %}
+{% endblock content %}
 
 {% block postscripts %}
 <script src="{% static 'my/scripts/geo.js' %}"></script>

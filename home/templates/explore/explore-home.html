@@ -1,23 +1,23 @@
-{% extends "private-page-base.html" %}
+{% extends "pagebase.html" %}
 {% load misc staticfiles tz %}
 
 
 
-{% block private_content %}
+{% block content %}
 {% with standard_image_url="http://lorempixel.com/400/300/" wide_image_url="http://lorempixel.com/800/400/" tall_image_url="http://lorempixel.com/400/400/" %}
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Events List' 'featured' %}">
+          <a href="{% url 'Event Listing' 'featured' %}">
             {% pallet text="Featured" imageURL=tall_image_url|add:"fashion" shape="tall-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Events List' 'near-you' %}">
+          <a href="{% url 'Event Listing' 'near-you' %}">
             {% pallet text="Near You" imageURL=standard_image_url|add:"people" shape="normal-height" %}
           </a>
         </div>
@@ -26,19 +26,19 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
-          <a href="{% url 'Events List' 'for-you' %}">
+          <a href="{% url 'Event Listing' 'for-you' %}">
             {% pallet text="For You" imageURL=standard_image_url|add:"nightlife" shape="normal-height" %}
           </a>
         </div>
         <div class="col-sm-6">
-          <a href="{% url 'Events List' 'fiddlr-events' %}">
+          <a href="{% url 'Event Listing' 'fiddlr-events' %}">
             {% pallet text="fiddlr events" imageURL=standard_image_url|add:"cats" shape="normal-height" %}
           </a>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Events List' 'happening-now' %}">
+          <a href="{% url 'Event Listing' 'happening-now' %}">
             {% pallet text="Happening Now" imageURL=wide_image_url|add:"city" shape="tall-height" %}
           </a>
         </div>

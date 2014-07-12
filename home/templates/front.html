@@ -1,5 +1,5 @@
 {% extends "pagebase.html" %}
-{% load misc staticfiles %}
+{% load misc staticfiles registration %}
 
 
 {% block content_class %} flush-with-header {% endblock %}
@@ -15,7 +15,7 @@
         {% if user.is_authenticated %}
         <div id="user-welcome">
           <p>Greetings, {{ user.first_name|default:user }}</p>
-          <form action="{% url 'Logout' %}" method="POST">
+          <form action="{% url 'Sign out' %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
             <p>
@@ -28,21 +28,7 @@
         </div>
         {% else %}
         <div id="front-login">
-          <form action="{% url 'Login' %}" method="POST">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="/" />
-            <p><input type="text" name="username" 
-                      class="form-control"
-                      placeholder="username"></p>
-            <p><input type="password" name="password" 
-                      class="form-control"
-                      placeholder="password"></p>
-            <p class="text-right">
-              <button type="submit" class="btn btn-primary">
-                Sign in
-              </button>
-            </p>
-          </form>
+          {% SigninForm %}
         </div>
         {% endif %}
       </div>
@@ -50,7 +36,7 @@
   </div>
   <div id="big-ol-buttons">
     <div class="container">
-      {% if user.is_authenticated and user.username == 'gaby' and time4gabymorning %}
+      {% if isGabrielle and time4gabymorning %}
       <audio src="{% static 'ex/goodmorningGABY.mp3' %}"
              preload="auto" id="gaby">
       </audio>
@@ -74,20 +60,6 @@
           </div><!--/.col-sm-4-->
         {% endfor %}
       </div><!--/.row-->
-      {% comment %}
-      <div class="text-center">
-        <h3>Get in on the Action</h3>
-        <div>
-          <p>
-            Don't miss out on our exciting new program,
-            <span class="text-danger">
-              <strong><em>fiddlr bang for buck!</em></strong>
-            </span>
-          </p>
-          <p>Sit tight &ndash; more info coming soon</p>
-        </div>
-      </div>
-      {% endcomment %}
     </div><!--/.container-->
   </div><!--/#big-ol-buttons-->
 </div>

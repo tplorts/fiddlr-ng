@@ -1,0 +1,8 @@
+{% load fing %}
+<div class="fing-field fing-{{ field.name }}">
+  {% if isEditing %}
+    {% FingFieldEditor %}
+  {% else %}
+    {{ field.value|default:field.defaultValue }}
+  {% endif %}
+</div>

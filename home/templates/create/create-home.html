@@ -1,7 +1,7 @@
-{% extends "private-page-base.html" %}
+{% extends "pagebase.html" %}
 {% load misc staticfiles %}
 
-{% block private_content %}
+{% block content %}
 <div id="create-backdrop" class="backdrop"></div>
 
 <div id="create-wrapper" class="invisible">
@@ -20,10 +20,10 @@
           Create:
         </div>
         <div class="btn-group-vertical btn-group-centered mt10px">
-          {% for kindofthing in 'artist,venue,event,sponsor'|split:',' %}
+          {% for fype in 'artist,venue,event,sponsor'|split:',' %}
           <a class="btn btn-default large btn-tall"
-             href="new-{{ kindofthing }}/">
-            {{ kindofthing|capfirst }}
+             href="new/{{ fype }}/">
+            {{ fype|capfirst }}
           </a>
           {% endfor %}
         </div>

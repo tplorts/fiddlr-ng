@@ -1,16 +1,12 @@
 from django.contrib import admin
-import models as fmo
+import models
 
-admin.site.register( fmo.Fiprofile )
-admin.site.register( fmo.Fithing )
-admin.site.register( fmo.Artist )
-admin.site.register( fmo.Venue )
-admin.site.register( fmo.Event )
-admin.site.register( fmo.Sponsor )
-admin.site.register( fmo.Artype )
-admin.site.register( fmo.VenueType )
-admin.site.register( fmo.EventType )
-admin.site.register( fmo.Price )
-admin.site.register( fmo.PriceCategory )
-admin.site.register( fmo.Picture )
-admin.site.register( fmo.Geocoordinates )
+admin.site.register( models.Fuser )
+admin.site.register( models.Fing )
+admin.site.register( models.Fategory )
+admin.site.register( models.Price )
+admin.site.register( models.PriceCategory )
+admin.site.register( models.Picture )
+admin.site.register( models.PictureAlbum )
+admin.site.register( models.Location )
+admin.site.register( models.Feature )

@@ -1,0 +1,28 @@
+{% extends "pagebase.html" %}
+{% load registration %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4
+                col-md-3">
+      <div class="text-bold text-info large">
+        <p>Please, sign in.</p>
+      </div>
+      <div class="small">
+        <p>It would mean so much to your mother.</p>
+      </div>
+      {% SigninForm %}
+    </div>
+  </div>
+  <div class="row mt100px">
+    <div class="col-sm-10 col-sm-offset-1
+                col-md-8  col-md-offset-2
+                col-lg-6  col-lg-offset-3">
+      <p class="inspirational-quote text-center">
+        {# {{ inspirationalQuote }} #}
+        <em>&ldquo;When your mind is full of indecision, try thinking with your heart.&rdquo;</em>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

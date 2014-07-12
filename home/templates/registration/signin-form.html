@@ -1,0 +1,19 @@
+<form action="{% url 'Sign in' %}" method="POST">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next|escape }}" />
+
+  <div class="form-group">
+    <input type="text" name="username" 
+           placeholder="username"
+           class="form-control" />
+  </div>
+  <div class="form-group">
+    <input type="password" name="password"
+           placeholder="password"
+           class="form-control" />
+  </div>
+
+  <button type="submit" class="btn btn-purple pull-right">
+    <span class="strong">Sign in</span>
+  </button>
+</form>
