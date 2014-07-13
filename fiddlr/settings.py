@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 LOGIN_URL = '/signin/'
 
-gmapsAPIKey = 'AIzaSyCnOiybCXuruO3EII8NV1aEsa7SWE6mrJg'
+googleAPIKey = 'AIzaSyCnOiybCXuruO3EII8NV1aEsa7SWE6mrJg'
 
 # Automatically detect whether this is running on my development
 # computer, otherwise assuming that the environment is production.

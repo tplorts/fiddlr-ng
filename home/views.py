@@ -209,7 +209,7 @@ def exploreEventListing(q, listingKey, viewType):
     return renderPage(q, 'explore/events/'+viewType, {
         'listingKey': listingKey,
         'listingTitle': EventListings[listingKey],
-        'gmapsAPIKey': settings.gmapsAPIKey,
+        'googleAPIKey': settings.googleAPIKey,
     })
 
 
