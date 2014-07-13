@@ -383,16 +383,16 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class EventViewSet(viewsets.ModelViewSet):
+class FingViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Fing.objects.filter(QEvent)
-    serializer_class = FingSerializer
-    #TODO: creators only can have permission to modify/make
+    queryset = Fing.objects.all()
+    serializer_class = FingSerializer    
+
 
 class ArtistViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Fing.objects.filter(QArtist)
-    serializer_class = FingSerializer
+    queryset = Fing.artists.all()
+    serializer_class = ArtistSerializer
     
 
 
@@ -401,12 +401,12 @@ class EventListView(generics.ListAPIView):
     serializer_class = EventListSerializer
 
 class FeaturedEventsList(EventListView):
-    queryset = Fing.objects.filter(QEvent)
+    queryset = Fing.events.all()
     #TODO: probably can't get away with not returning a queryset
     #      to feature objects instead of event objects
 
 class EventsNearYouList(EventListView):
-    queryset = Fing.objects.filter(QEvent) 
+    queryset = Fing.events.all()
     #TODO: geoDistance in python
     
 class EventsForYouList(EventListView):
@@ -417,8 +417,7 @@ class EventsHappeningNowList(EventListView):
     def get_queryset(self):
         hasntEnded = Q( end__gt=localNow() )
         startsByTomorrow = Q( start__lt=endOfTomorrow() )
-        return Fing.objects.filter(
-            QEvent &
+        return Fing.events.filter(
             hasntEnded & startsByTomorrow
         ).order_by('end')
 

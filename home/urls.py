@@ -14,8 +14,8 @@ router = routers.DefaultRouter( trailing_slash=False )
 # API-bound requests.
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'events', views.EventViewSet)
-router.register(r'artists', views.ArtistViewSet)
+router.register(r'fings', FingViewSet)
+router.register(r'artists', ArtistViewSet)
 
 
 urlpatterns = patterns(

@@ -63,6 +63,20 @@ class Fuser( models.Model ):
         return self.favorites.filter(pk=fingId).count() == 1
 
 
+class ArtistModelManager( models.Manager ):
+    def get_queryset(self):
+        return super(ArtistModelManager, self).get_queryset().filter(QArtist)
+class VenueModelManager( models.Manager ):
+    def get_queryset(self):
+        return super(VenueModelManager, self).get_queryset().filter(QVenue)
+class SponsorModelManager( models.Manager ):
+    def get_queryset(self):
+        return super(SponsorModelManager, self).get_queryset().filter(QSponsor)
+class EventModelManager( models.Manager ):
+    def get_queryset(self):
+        return super(EventModelManager, self).get_queryset().filter(QEvent)
+
+
 class Fing( models.Model, NamedModel ):
     fype = models.SmallIntegerField( choices=FypeChoices )
     name = models.CharField( max_length=60, blank=True )
@@ -87,6 +101,12 @@ class Fing( models.Model, NamedModel ):
     fategories = models.ManyToManyField( 'Fategory', blank=True,
                                          related_name='fings' )
 
+    objects = models.Manager()
+
+    artists = ArtistModelManager()
+    venues = VenueModelManager()
+    sponsor = SponsorModelManager()
+    events = EventModelManager()
 
     # I make these just for the convenience in template authoring
     def isArtist(self):
@@ -101,17 +121,9 @@ class Fing( models.Model, NamedModel ):
         return self.fype == FypeTour
 
 
-    def sponsors(self):
-        return self.ties.filter(QSponsor)
-    def events(self):
-        return self.ties.filter(QEvent)
-    def artists(self):
-        return self.ties.filter(QArtist)
-    def venues(self):
-        return self.ties.filter(QVenue)
     def venue(self):
-        if self.venues().count() > 0:
-            return self.venues()[0]
+        if self.venues.count() > 0:
+            return self.venues.all()[0]
         return None
 
     def isManager(self, fuserId):

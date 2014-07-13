@@ -7,5 +7,4 @@ def localNow():
 
 
 def endOfTomorrow():
-    #TODO: take off the time to turn it into midnight
-    return date.today() + timedelta(days=2)
+    return localNow().date() + timedelta(days=2)

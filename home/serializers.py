@@ -25,6 +25,11 @@ class FingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fing
 
+class ArtistSerializer(FingSerializer):
+    class Meta(FingSerializer.Meta):
+        fields = ('id','name','brief')
+
+
 
 class EventVenueSerializer(FingSerializer):
     location = LocationSerializer()
@@ -33,11 +38,16 @@ class EventVenueSerializer(FingSerializer):
 
 class EventArtistsSerializer(FingSerializer):
     class Meta(FingSerializer.Meta):
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'brief')
+
+class EventSponsorsSerializer(FingSerializer):
+    class Meta(FingSerializer.Meta):
+        fields = ('id', 'name', 'logo')
 
 class EventListSerializer(FingSerializer):
     venue = EventVenueSerializer()
     artists = EventArtistsSerializer(many=True)
+    sponsors = EventSponsorsSerializer(many=True)
     class Meta(FingSerializer.Meta):
         fields = ('id', 'name', 'brief', 'venue', 'logo', 'start',
                   'end', 'artists', 'sponsors')
