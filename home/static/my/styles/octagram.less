@@ -1,0 +1,42 @@
+
+@Cx: 300px;
+@Cy: 300px;
+@r: 200px;
+
+@Er: 10px;
+
+
+.octagram {
+    .ngram-loop(8);
+}
+
+
+
+.ngram-loop (@n, @k:0) when (@k < @n) {
+    @t: 2*pi()*@k/@n;
+    .ngram-p@{k} {
+        animation-name: movepoint-@{k};
+        animation-duration: 500ms;
+    }
+    @keyframes movepoint-@{k} {
+        from {
+            left: @Cx + @r*cos(@t) - @Er;
+            bottom: @Cy + @r*sin(@t) - @Er;
+        }
+        to {
+            @t2: mod(@t + 3, @n);
+            left: @Cx + @r*cos(@t2) - @Er;
+            bottom: @Cy + @r*sin(@t2) - @Er;
+        }
+    }
+    .ngram-loop(@n, @k+1);
+}
+
+
+.ngmpt {
+    position: fixed;
+    background-color: #008;
+    border-radius: @Er;
+    width: 2*@Er;
+    height: 2*@Er;
+}

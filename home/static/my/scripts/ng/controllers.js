@@ -210,11 +210,13 @@ cmod.controller(
         $scope.isLoading = true;
         $scope.events = [];
 
-        var listURL = '/custom-api/events/' + listName + '/.json';
-        $http.get(listURL).success( function(data, status, h, c) {
-            $scope.events = data;
-            $scope.isLoading = false;
-        });
+        if( listName != 'fiddlr-events' ) {
+            var listURL = '/custom-api/events/' + listName + '/.json';
+            $http.get(listURL).success( function(data, status, h, c) {
+                $scope.events = data;
+                $scope.isLoading = false;
+            });
+        }
 
         function nearYouFilter( event ) {
             var myself = {
@@ -350,24 +352,47 @@ $(window).on('load resize orientationChange', function() {
 
 
 
-function range(start, stop, step){
-    if (typeof stop=='undefined'){
-        // one param defined
-        stop = start;
-        start = 0;
-    };
-    if (typeof step=='undefined'){
-        step = 1;
-    };
-    if ((step>0 && start>=stop) || (step<0 && start<=stop)){
-        return [];
-    };
-    var result = [];
-    for (var i=start; step>0 ? i<stop : i>stop; i+=step){
-        result.push(i);
-    };
-    return result;
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    _____ ________________  ____________   _____   ____  _   ________
+//   / ___// ____/ ____/ __ \/ ____/_  __/  /__  /  / __ \/ | / / ____/
+//   \__ \/ __/ / /   / /_/ / __/   / /       / /  / / / /  |/ / __/   
+//  ___/ / /___/ /___/ _, _/ /___  / /       / /__/ /_/ / /|  / /___   
+// /____/_____/\____/_/ |_/_____/ /_/       /____/\____/_/ |_/_____/   
+
 
 cmod.controller(
     'ControllerGabriellae',

@@ -1,1 +1,9 @@
-{% extends "private-page-base.html" %}
+{% extends "pagebase.html" %}
+
+{% block content %}
+<div class="octagram">
+  {% for i in '01234567' %}
+  <div class="ngmpt ngram-p{{i}}"></div>
+  {% endfor %}
+</div>
+{% endblock %}
