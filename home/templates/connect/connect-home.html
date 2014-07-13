@@ -1,9 +1,11 @@
 {% extends "pagebase.html" %}
+{% load staticfiles %}
+
 
 {% block content %}
-<div class="octagram">
-  {% for i in '01234567' %}
-  <div class="ngmpt ngram-p{{i}}"></div>
+<div class="ngram octagram">
+  {% for i in '0123' %}
+  <div class="ngmpt ngmpt-{{i}}"></div>
   {% endfor %}
 </div>
 {% endblock %}
