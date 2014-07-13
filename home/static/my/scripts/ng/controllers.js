@@ -344,3 +344,58 @@ $(window).on('load resize orientationChange', function() {
         gotoTab1();
     }
 });
+
+
+
+
+
+
+function range(start, stop, step){
+    if (typeof stop=='undefined'){
+        // one param defined
+        stop = start;
+        start = 0;
+    };
+    if (typeof step=='undefined'){
+        step = 1;
+    };
+    if ((step>0 && start>=stop) || (step<0 && start<=stop)){
+        return [];
+    };
+    var result = [];
+    for (var i=start; step>0 ? i<stop : i>stop; i+=step){
+        result.push(i);
+    };
+    return result;
+};
+
+cmod.controller(
+    'ControllerGabriellae',
+    ['$scope', function($scope) {
+        $scope.map = {
+            center: {
+                latitude: 40.7517556,
+                longitude: -73.9844816
+            },
+            zoom: 14
+        };
+        var coor = function(t) {
+            var i = t;
+            t *= Math.PI*2 / 30;
+            var r = (-73.972315 - -73.996112) / 10;
+            var y = r*( 13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t) );
+            var x = r*( 16*Math.pow(Math.sin(t), 3) );
+            var hCenter = $scope.map.center;
+            return {
+                id: i,
+                latitude: hCenter.latitude + y,
+                longitude: hCenter.longitude + x
+            };
+        };
+        $scope.coords = [];
+        for( var i=0; i<30; i++ ) {
+            $scope.coords.push( coor(i) );
+        }
+    }]
+);
+

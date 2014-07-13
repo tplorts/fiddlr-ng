@@ -2,20 +2,36 @@
 {% load misc staticfiles %}
 
 {% block content %}
+<div id="Locus-Proprius-Gabriellae"
+     ng-controller="ControllerGabriellae">
+  <div class="backdrop black-backdrop"></div>
 
-{% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/400/200/' lpl='http://lorempixel.com/400/200/' %}
-<div class="galleria-gabriellae">
-  {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
-  <a href="{{ lpm|add:category }}">
-    <img src="{{ lps|add:category }}" 
-         data-big="{{ lpl|add:category }}" 
-         data-title="{{ category }}" 
-         data-description="This is a random picture of the {{category}}">
-  </a>
-  {% endfor %}
+  <div class="container">
+    <div id="cardiac-map" class="gmap">
+      <google-map center="map.center" zoom="map.zoom"
+                  pan="false" draggable="true">
+        <marker ng-repeat="c in coords" coords="c">
+        </marker>
+      </google-map>
+    </div>
+  </div>
+
+  <div class="container mt70px">
+    {% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/800/400/' lpl='http://lorempixel.com/1200/600/' %}
+    <div class="galleria-gabriellae">
+      {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
+      <a href="{{ lpm|add:category }}">
+        <img src="{{ lps|add:category }}" 
+             data-big="{{ lpl|add:category }}" 
+             data-title="{{ category }}" 
+             data-description="This is a random picture of the {{category}}">
+      </a>
+      {% endfor %}
+    </div>
+    {% endwith %}
+  </div>
+
 </div>
-{% endwith %}
-
 {% endblock content %}
 
 
