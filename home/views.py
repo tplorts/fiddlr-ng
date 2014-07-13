@@ -236,7 +236,7 @@ def exploreEventListingMap(q, listingKey):
 def createHome(q):
     if q.user.is_authenticated and getFuser(q).fings.count() > 0:
         k = getFuser(q).fings.all()[0].pk
-        yourProfileURL = 'profile/%d/' % k
+        yourProfileURL = 'edit/%d/' % k
         #TODO: change for multifing creators
     else:
         yourProfileURL = '#yo---you-should-like--create-somefing'
@@ -274,14 +274,14 @@ class FingForm(NgModelFormMixin, ModelForm):
 def editFing(request, fingId):
     try:
         fing = Fing.objects.get(pk=fingId)
-        if not request.user.is_authenticated or not fing.isManager(getFuser(request)):
+        if not request.user.is_authenticated or not fing.isManager(getFuser(request).pk):
             raise PermissionDenied
     except Fing.DoesNotExist:
         raise Http404
     return renderPage(request, 'fing/fing-page', {
         'fingId': fingId,
         'fing': fing,
-        'fype': fing.fype(),
+        'fype': fing.fype,
         'isEditing': True,
         'fingForm': FingForm(),
     })

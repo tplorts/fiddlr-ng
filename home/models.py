@@ -97,7 +97,7 @@ class Fing( models.Model, NamedModel ):
     end = models.DateTimeField( null=True, blank=True )
     isReservationRequired = models.BooleanField( default=False )
     managers = models.ManyToManyField( Fuser, related_name='fings' )
-    ties = models.ManyToManyField( 'self' )
+    ties = models.ManyToManyField( 'self', blank=True )
     fategories = models.ManyToManyField( 'Fategory', blank=True,
                                          related_name='fings' )
 
@@ -127,7 +127,7 @@ class Fing( models.Model, NamedModel ):
         return None
 
     def isManager(self, fuserId):
-        return self.managers.filter(pk=fuser).count() == 1
+        return self.managers.filter(pk=fuserId).count() == 1
 
 
 class Fategory( models.Model, NamedModel ):
