@@ -53,9 +53,14 @@ class FiddlrSearchForm( forms.Form ):
     where = forms.CharField(required=False)
 
 
-def isGabrielle(request):
+def isSomeone(request, username):
     return (request.user.is_authenticated and
-            request.user.username == 'gaby')
+            request.user.username == username)
+
+def isGabrielle(r):
+    return isSomeone(r, 'gaby')
+def isTheodore(r):
+    return isSomeone(r, 'ted')
 
 
 def injectDefaultContext(request, template, context):
@@ -75,6 +80,7 @@ def injectDefaultContext(request, template, context):
     context.update({
         'isProduction': settings.isProduction,
         'isGabrielle': isGabrielle(request),
+        'isTheodore': isTheodore(request),
         'useLESS': settings.TEMPLATE_DEBUG,
         'section': section,
         'page': page,
