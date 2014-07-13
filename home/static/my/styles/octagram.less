@@ -57,14 +57,14 @@
 
     .point-loop(@nPoints, @i: 0) when (@i < @nPoints) {
         .ngmpt-@{i} {
-            -webkit-animation-duration: 5s;
+            -webkit-animation-duration: 8s;
             -webkit-animation-name: ngram-animation;
             -webkit-animation-iteration-count: infinite;
             -webkit-animation-delay: 1s * @i;
         }
         .point-loop(@nPoints, (@i + 1));
     }
-    .point-loop(4);
+    .point-loop(8);
 
 
     .ngmpt {
