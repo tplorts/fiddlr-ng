@@ -1,79 +1,65 @@
+@import (less) "generic.less";
+@import (less) "variables.less";
+@import (less) "gradient.less";
+
+
+@Bx: 30px;
+@By: 30px;
+@r: 65px;
+@Er: 5px;
+@Lr: @r + @Er + 1;
+@Cx: @Bx + @Lr;
+@Cy: @By + @Lr;
 .ngram {
-    @Cx: 300px;
-    @Cy: 300px;
-    @r: 200px;
-    @Er: 10px;
 
-/*
-    .ngram-loop(@count, @k: 0, @p: 0) when (@k < @count) {
-        @nextp: mod((@p + 3), @count);
-        @t1: 2*pi() * @p / @count;
-        @t2: 2*pi() * @nextp / @count;
-        @-webkit-keyframes ~"ngram-animation-@{k}" {
-            @percent: 50;
-            @percent-str: ~'@{percent}%';
-            from {
-                left: @Cx + @r*cos(@t1) - @Er;
-                bottom: @Cy + @r*sin(@t1) - @Er;
+    .animation-loop(@count, @a: 0) when (@a < @count) {
+        @-webkit-keyframes ~"ngram-animation-@{a}" {
+            .keyframe-loop(@p, @k: 0) when (@k <= @count) {
+                @t: 2*pi() * @p / @count;
+                @percent: 100 * @k / @count;
+                @percent-str: ~'@{percent}%';
+                @{percent-str} {
+                    left: @Cx + @r*cos(@t) - @Er;
+                    bottom: @Cy + @r*sin(@t) - @Er;
+                }
+                .keyframe-loop(mod((@p + 2), @count), (@k + 1));
             }
-            @{percent-str} {
-                left: @Cx - @Er;
-                bottom: @Cy - @Er;
-            }
-            to {
-                left: @Cx + @r*cos(@t2) - @Er;
-                bottom: @Cy + @r*sin(@t2) - @Er;
-            }                
+            .keyframe-loop(@a);
         }
-
-        .ngmpt-@{k} {
-            -webkit-animation-duration: 2s;
-            -webkit-animation-name: ~"ngram-animation-@{k}";
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-direction: alternate;
+        .ngmpt-@{a} {
+            -webkit-animation-name: ~"ngram-animation-@{a}";
         }
-
-        .ngram-loop(@count, (@k + 1), @nextp);
-    }
-    .ngram-loop(8);
-*/
-
-    @-webkit-keyframes ngram-animation {
-        .ngram-loop(@count, @k: 0, @p: 0) when (@k <= @count) {
-            @nextp: mod((@p + 3), @count);
-            @t1: 2*pi() * @p / @count;
-            @t2: 2*pi() * @nextp / @count;
-            @percent: 100 * @k / @count;
-            @percent-str: ~'@{percent}%';
-            @{percent-str} {
-                left: @Cx + @r*cos(@t1) - @Er;
-                bottom: @Cy + @r*sin(@t1) - @Er;
-            }
-            .ngram-loop(@count, (@k + 1), @nextp);
-        }
-        .ngram-loop(8);
+        .animation-loop(@count, (@a + 1));
     }
 
-
-    .point-loop(@nPoints, @i: 0) when (@i < @nPoints) {
-        .ngmpt-@{i} {
-            -webkit-animation-duration: 8s;
-            -webkit-animation-name: ngram-animation;
-            -webkit-animation-iteration-count: infinite;
-            -webkit-animation-delay: 1s * @i;
-        }
-        .point-loop(@nPoints, (@i + 1));
+    &.octagram {
+        .animation-loop(8);
     }
-    .point-loop(8);
-
 
     .ngmpt {
         position: fixed;
-        background-color: #008;
+        background-color: #9AF;
         border-radius: @Er;
         width: 2*@Er;
         height: 2*@Er;
-        left: -3*@Er;
+        -webkit-animation-duration: 6s;
+        -webkit-animation-iteration-count: infinite;
     }
+}
 
+.ngram-loader {
+    z-index: 10;
+    width: 2*@Lr;
+    height: 2*@Lr;
+    border-radius: @Lr;
+    .gradient-radial(#CCC, #777);
+    position: fixed;
+    bottom: @By;
+    left: @Bx;
+    line-height: 2*@Lr;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-shadow: 1px 1px white;
+    .box-shadow(0, 0, 20px, #088);
 }
