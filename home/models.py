@@ -77,6 +77,13 @@ class EventModelManager( models.Manager ):
         return super(EventModelManager, self).get_queryset().filter(QEvent)
 
 
+def generalS3Key(group, instance, filename):
+    return '/'.join(('media', group, instance.name, filename))
+def logoS3Key(instance, filename):
+    return generalS3Key('logo', instance, filename)
+def coverS3Key(instance, filename):
+    return generalS3Key('cover', instance, filename)
+
 class Fing( models.Model, NamedModel ):
     fype = models.SmallIntegerField( choices=FypeChoices )
     name = models.CharField( max_length=60, blank=True )
@@ -87,10 +94,8 @@ class Fing( models.Model, NamedModel ):
     website = models.URLField( blank=True )
     email = models.EmailField( max_length=254, blank=True )
     phone = models.CharField( max_length=20, blank=True )
-    logo = models.ForeignKey( 'Picture', null=True, blank=True, 
-                              related_name='+' )
-    cover = models.ForeignKey( 'Picture', null=True, blank=True, 
-                               related_name='+' )
+    logo = models.ImageField(upload_to=logoS3Key, blank=True)
+    cover = models.ImageField(upload_to=coverS3Key, blank=True)
     isOfficial = models.BooleanField( default=False )
     isPublic = models.BooleanField( default=False )
     start = models.DateTimeField( null=True, blank=True )
