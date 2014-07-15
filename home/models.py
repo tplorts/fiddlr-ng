@@ -163,7 +163,7 @@ class PriceCategory( models.Model, NamedModel ):
 
 
 def albumPictureS3Key(instance, filename):
-    return 'media/albums/%s/%s' % instance.album.name, filename
+    return 'media/albums/%s/%s' % (instance.album.name, filename)
 
 class Picture( models.Model ):
     image = models.ImageField( upload_to=albumPictureS3Key )
