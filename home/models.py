@@ -31,12 +31,15 @@ QEvent = Q(fype=FypeEvent)
 QTour = Q(fype=FypeTour)
 
 
+def userPictureS3Key(instance, filename):
+    return '/'.join(('media', 'users', instance.username, filname))
 
 class Fuser( models.Model ):
     user = models.OneToOneField(User)
     pseudonym = models.CharField( max_length=50, blank=True )
     isEmailVerified = models.BooleanField( default=False )
-    picture = models.ForeignKey( 'Picture', null=True, blank=True )
+    picture = models.ImageField( upload_to=userPictureS3Key, 
+                                 blank=True )
     favorites = models.ManyToManyField( 'Fing', blank=True,
                                         related_name='fans' )
     autovocated = models.ManyToManyField('Fing', blank=True,
@@ -159,8 +162,13 @@ class PriceCategory( models.Model, NamedModel ):
     name = models.CharField( max_length=80 )
 
 
+def albumPictureS3Key(instance, filename):
+    return 'media/albums/%s/%s' % instance.album.name, filename
+
 class Picture( models.Model ):
-    url = models.URLField()
+    image = models.ImageField( upload_to=albumPictureS3Key )
+    album = models.ForeignKey( 'PictureAlbum', 
+                               related_name='pictures' )
     caption = models.CharField( max_length=100, blank=True )
     ordinal = models.FloatField( null=True, blank=True )
 
@@ -171,8 +179,8 @@ class Picture( models.Model ):
 class PictureAlbum( models.Model, NamedModel ):
     name = models.CharField( max_length=80, blank=True )
     about = models.TextField( blank=True )
-    pictures = models.ManyToManyField( Picture, blank=True, 
-                                       related_name='albums' )
+    fing = models.ForeignKey( Fing, null=True, blank=True,
+                              related_name='pictureAlbums' )
 
 
 class Location( models.Model ):
