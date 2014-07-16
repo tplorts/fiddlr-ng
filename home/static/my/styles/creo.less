@@ -118,7 +118,7 @@
                 .ellipflow-inherit;
             }
 
-            .edit-field-btn {
+            .btn-begin-editing {
                 position: absolute;
                 right: 0px;
                 top: 2px;
@@ -127,11 +127,21 @@
             }
         }
 
+        .creo-about {
+            textarea {
+                margin-top: 7px;
+                margin-bottom: 7px;
+            }
+            .btn-end-editing {
+                height: 100%;
+            }
+        }
+
         .creo-field {
             .transition(border-color, 180ms);
             &:hover {
                 border-color: @grey;
-                .edit-field-btn {
+                .btn-begin-editing {
                     opacity: 0.85;
                 }
             }
