@@ -1,0 +1,25 @@
+{% load misc creo %}
+
+
+
+{% CreoField "brief" creoForm.brief %}
+
+{% if creo.isEvent %}
+<div class="creo-artists">
+  {% for artist in creo.artists %}
+    <span class="ib">
+      {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
+      <a href="{% url 'Explore Creo' artist.id %}">
+        {{ artist }}
+      </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
+    </span>
+  {% endfor %}
+</div>
+<div class="creo-venue">
+  <a href="{% url 'Explore Creo' creo.venue.id %}">
+    {{ creo.venue.name }}
+  </a>
+</div>
+{% endif %}
+
+{% CreoField "about" creoForm.about %}

@@ -9,40 +9,40 @@ class NamedModel():
         return self.name
 
 
-FypeArtist = 1
-FypeVenue = 2
-FypeSponsor = 3
-FypeEvent = 4
-FypeTour = 5
-FypeChoices = (
-    (FypeArtist, 'Artist'),
-    (FypeVenue, 'Venue'),
-    (FypeSponsor, 'Sponsor'),
-    (FypeEvent, 'Event'),
-    (FypeTour, 'Tour'),
+CreotypeArtist = 1
+CreotypeVenue = 2
+CreotypeSponsor = 3
+CreotypeEvent = 4
+CreotypeTour = 5
+CreotypeChoices = (
+    (CreotypeArtist, 'Artist'),
+    (CreotypeVenue, 'Venue'),
+    (CreotypeSponsor, 'Sponsor'),
+    (CreotypeEvent, 'Event'),
+    (CreotypeTour, 'Tour'),
 )
 
-ValidFypes = range(FypeChoices[0][0], FypeChoices[-1][0]+1)
+ValidCreotypes = range(CreotypeChoices[0][0], CreotypeChoices[-1][0]+1)
 
-QArtist = Q(fype=FypeArtist)
-QVenue = Q(fype=FypeVenue)
-QSponsor = Q(fype=FypeSponsor)
-QEvent = Q(fype=FypeEvent)
-QTour = Q(fype=FypeTour)
+QArtist = Q(creotype=CreotypeArtist)
+QVenue = Q(creotype=CreotypeVenue)
+QSponsor = Q(creotype=CreotypeSponsor)
+QEvent = Q(creotype=CreotypeEvent)
+QTour = Q(creotype=CreotypeTour)
 
 
 def userPictureS3Key(instance, filename):
     return '/'.join(('media', 'users', instance.username, filname))
 
-class Fuser( models.Model ):
+class Uzer( models.Model ):
     user = models.OneToOneField(User)
     pseudonym = models.CharField( max_length=50, blank=True )
     isEmailVerified = models.BooleanField( default=False )
     picture = models.ImageField( upload_to=userPictureS3Key, 
                                  blank=True )
-    favorites = models.ManyToManyField( 'Fing', blank=True,
+    favorites = models.ManyToManyField( 'Creo', blank=True,
                                         related_name='fans' )
-    autovocated = models.ManyToManyField('Fing', blank=True,
+    autovocated = models.ManyToManyField('Creo', blank=True,
                                          related_name='vocatees')
 
     def __unicode__(self):
@@ -62,8 +62,8 @@ class Fuser( models.Model ):
     def autovocatedEvents(self):
         return self.autovocated.filter(QEvent)
 
-    def isFollowing(self, fingId):
-        return self.favorites.filter(pk=fingId).count() == 1
+    def isFollowing(self, creoId):
+        return self.favorites.filter(pk=creoId).count() == 1
 
 
 class ArtistModelManager( models.Manager ):
@@ -87,13 +87,13 @@ def logoS3Key(instance, filename):
 def coverS3Key(instance, filename):
     return generalS3Key('cover', instance, filename)
 
-class Fing( models.Model, NamedModel ):
-    fype = models.SmallIntegerField( choices=FypeChoices )
+class Creo( models.Model, NamedModel ):
+    creotype = models.SmallIntegerField( choices=CreotypeChoices )
     name = models.CharField( max_length=60, blank=True )
     brief = models.CharField( max_length=100, blank=True )
     about = models.TextField( blank=True )
     location = models.ForeignKey( 'Location', null=True, blank=True,
-                                  related_name='fings' )
+                                  related_name='creos' )
     website = models.URLField( blank=True )
     email = models.EmailField( max_length=254, blank=True )
     phone = models.CharField( max_length=20, blank=True )
@@ -104,10 +104,10 @@ class Fing( models.Model, NamedModel ):
     start = models.DateTimeField( null=True, blank=True )
     end = models.DateTimeField( null=True, blank=True )
     isReservationRequired = models.BooleanField( default=False )
-    managers = models.ManyToManyField( Fuser, related_name='fings' )
+    editors = models.ManyToManyField( Uzer, related_name='creos' )
     ties = models.ManyToManyField( 'self', blank=True )
-    fategories = models.ManyToManyField( 'Fategory', blank=True,
-                                         related_name='fings' )
+    genres = models.ManyToManyField( 'Genre', blank=True,
+                                     related_name='creos' )
 
     objects = models.Manager()
 
@@ -118,15 +118,15 @@ class Fing( models.Model, NamedModel ):
 
     # I make these just for the convenience in template authoring
     def isArtist(self):
-        return self.fype == FypeArtist
+        return self.creotype == CreotypeArtist
     def isVenue(self):
-        return self.fype == FypeVenue
+        return self.creotype == CreotypeVenue
     def isSponsor(self):
-        return self.fype == FypeSponsor
+        return self.creotype == CreotypeSponsor
     def isEvent(self):
-        return self.fype == FypeEvent
+        return self.creotype == CreotypeEvent
     def isTour(self):
-        return self.fype == FypeTour
+        return self.creotype == CreotypeTour
 
 
     def venue(self):
@@ -134,12 +134,12 @@ class Fing( models.Model, NamedModel ):
             return self.venues.all()[0]
         return None
 
-    def isManager(self, fuserId):
-        return self.managers.filter(pk=fuserId).count() == 1
+    def isEditor(self, uzerId):
+        return self.editors.filter(pk=uzerId).count() == 1
 
 
-class Fategory( models.Model, NamedModel ):
-    fype = models.SmallIntegerField( choices=FypeChoices )
+class Genre( models.Model, NamedModel ):
+    creotype = models.SmallIntegerField( choices=CreotypeChoices )
     name = models.CharField( max_length=60 )
     roots = models.ManyToManyField( 'self', symmetrical=False,
                                     related_name='kin' )
@@ -147,7 +147,7 @@ class Fategory( models.Model, NamedModel ):
 
 class Price( models.Model ):
     amount = models.DecimalField( max_digits=12, decimal_places=4 )
-    what = models.ForeignKey( Fing, related_name='prices' )
+    what = models.ForeignKey( Creo, related_name='prices' )
     category = models.ForeignKey( 'PriceCategory', 
                                   null=True, blank=True )
 
@@ -179,7 +179,7 @@ class Picture( models.Model ):
 class PictureAlbum( models.Model, NamedModel ):
     name = models.CharField( max_length=80, blank=True )
     about = models.TextField( blank=True )
-    fing = models.ForeignKey( Fing, null=True, blank=True,
+    creo = models.ForeignKey( Creo, null=True, blank=True,
                               related_name='pictureAlbums' )
 
 
@@ -208,5 +208,5 @@ class Location( models.Model ):
 
 
 class Feature( models.Model ):
-    fing = models.ForeignKey( Fing, related_name='featurings' )
+    creo = models.ForeignKey( Creo, related_name='featurings' )
     #TODO: things...

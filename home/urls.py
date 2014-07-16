@@ -14,7 +14,7 @@ router = routers.DefaultRouter( trailing_slash=False )
 # API-bound requests.
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'fings', FingViewSet)
+router.register(r'creos', CreoViewSet)
 router.register(r'artists', ArtistViewSet)
 
 
@@ -37,8 +37,8 @@ urlpatterns = patterns(
 
     # EXPLORE
     url(r'^explore/$', IntraFiew.as_view(template='explore/explore-home'), name='Explore'),
-    url(r'^explore/(\d+)/$', exploreFing, name='Explore Fing'),
-    url(r'^explore/(\d+)/events/$', exploreFingEvents, name='Explore Fing Events'),
+    url(r'^explore/(\d+)/$', exploreCreo, name='Explore Creo'),
+    url(r'^explore/(\d+)/events/$', exploreCreoEvents, name='Explore Creo Events'),
     url(r'^explore/events/([\w\d\-]+)/$', exploreEventListingList, name='Event Listing'),
     url(r'^explore/events/([\w\d\-]+)/map/$', exploreEventListingMap, name='Event Listing Map'),
 
@@ -53,8 +53,8 @@ urlpatterns = patterns(
 
 
     url(r'^create/$', createHome, name='Create'),
-    url(r'^create/new/', newFing),
-    url(r'^create/edit/(\d+)/$', editFing),
+    url(r'^create/new/', newCreo),
+    url(r'^create/edit/(\d+)/$', editCreo),
 
     url(r'^connect/', IntraFiew.as_view(template='connect/connect-home'), name='Connect'),
 

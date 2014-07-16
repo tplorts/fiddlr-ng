@@ -2,25 +2,25 @@
 @import (less) "variables.less";
 @import (less) "gradient.less";
 
-.fing-page {
+.creo-page {
 
-    .fing-field {
+    .creo-field {
         border: 1px dotted transparent;
     }
 
-    .fing-text-field {
+    .creo-text-field {
         min-height: 36px;
         margin-bottom: 2px;
     }
 
-    .fing-name {
-        .fing-text-field;
+    .creo-name {
+        .creo-text-field;
         font-size: 24px;
         height: 36px;
         .ellipflow;
     }
 
-    .fing-panel {
+    .creo-panel {
         padding: 0px 3px 3px 3px;
         background-color: #DDF;
         margin-bottom: 30px;
@@ -41,24 +41,24 @@
     #prior-events {
     }
 
-    .fing-generalLocation {
-        .fing-text-field;
+    .creo-generalLocation {
+        .creo-text-field;
         color: @infoblue;
         font-weight: bold;
     }
 
-    .fing-brief {
-        .fing-text-field;
+    .creo-brief {
+        .creo-text-field;
         color: @darkgrey;
         font-style: italic;
     }
 
-    .fing-artists {
+    .creo-artists {
         font-weight: bold;
         margin-bottom: 10px;
     }
 
-    .fing-venue {
+    .creo-venue {
         margin-bottom: 10px;
         &::before {
             content: "@";
@@ -67,8 +67,8 @@
         }
     }
 
-    .fing-about {
-        .fing-text-field;
+    .creo-about {
+        .creo-text-field;
         font-size: 12px;
     }
 
@@ -107,7 +107,7 @@
         overflow-x: hidden;
     }
 
-    &.fing-editor {
+    &.creo-editor {
         .field-editor {
             position: relative;
 
@@ -127,7 +127,7 @@
             }
         }
 
-        .fing-field {
+        .creo-field {
             .transition(border-color, 180ms);
             &:hover {
                 border-color: @grey;

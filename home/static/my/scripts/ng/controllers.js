@@ -289,11 +289,11 @@ cmod.controller(
 
 
 cmod.controller(
-    'FingPageController', 
+    'CreoPageController', 
     ['$scope', 'Artist', function($scope, Artist) {
         if( typeof ngScopeInitials !== 'undefined' ) {
             $scope.isEditing = ngScopeInitials.isEditing;
-            $scope.fingId = ngScopeInitials.fingId;
+            $scope.creoId = ngScopeInitials.creoId;
         }
         
         $scope.isGalleriaInitialized = false;
@@ -317,17 +317,17 @@ cmod.controller(
         $scope.editing = {};
 
         //TODO: handle creating a new one:
-        //$scope.fing = new Artist();
-        $scope.fing = Artist.get({pk: $scope.fingId});
+        //$scope.creo = new Artist();
+        $scope.creo = Artist.get({pk: $scope.creoId});
         
-        $scope.saveFing = function() {
-            $scope.fing.$save();
+        $scope.saveCreo = function() {
+            $scope.creo.$save();
         };
 
         //$scope.artists = Artist.query();
 
     }] // end: controller function
-); // end: FingPageController
+); // end: CreoPageController
 
 function isSmAboutOn() {
     return $('#small-about').css('display') !== 'none';

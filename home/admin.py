@@ -1,9 +1,9 @@
 from django.contrib import admin
 import models
 
-admin.site.register( models.Fuser )
-admin.site.register( models.Fing )
-admin.site.register( models.Fategory )
+admin.site.register( models.Uzer )
+admin.site.register( models.Creo )
+admin.site.register( models.Genre )
 admin.site.register( models.Price )
 admin.site.register( models.PriceCategory )
 admin.site.register( models.Picture )

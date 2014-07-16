@@ -20,10 +20,10 @@
           Create:
         </div>
         <div class="btn-group-vertical btn-group-centered mt10px">
-          {% for fype in 'artist,venue,event,sponsor'|split:',' %}
+          {% for creotype in 'artist,venue,event,sponsor'|split:',' %}
           <a class="btn btn-default large btn-tall"
-             href="new/{{ fype }}/">
-            {{ fype|capfirst }}
+             href="new/{{ creotype }}/">
+            {{ creotype|capfirst }}
           </a>
           {% endfor %}
         </div>

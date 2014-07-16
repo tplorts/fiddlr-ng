@@ -21,33 +21,33 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ('id', 'latitude', 'longitude')
 
 
-class FingSerializer(serializers.ModelSerializer):
+class CreoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Fing
+        model = Creo
 
-class ArtistSerializer(FingSerializer):
-    class Meta(FingSerializer.Meta):
+class ArtistSerializer(CreoSerializer):
+    class Meta(CreoSerializer.Meta):
         fields = ('id','name','brief')
 
 
 
-class EventVenueSerializer(FingSerializer):
+class EventVenueSerializer(CreoSerializer):
     location = LocationSerializer()
-    class Meta(FingSerializer.Meta):
+    class Meta(CreoSerializer.Meta):
         fields = ('id', 'name', 'website', 'logo', 'location')
 
-class EventArtistsSerializer(FingSerializer):
-    class Meta(FingSerializer.Meta):
+class EventArtistsSerializer(CreoSerializer):
+    class Meta(CreoSerializer.Meta):
         fields = ('id', 'name', 'brief')
 
-class EventSponsorsSerializer(FingSerializer):
-    class Meta(FingSerializer.Meta):
+class EventSponsorsSerializer(CreoSerializer):
+    class Meta(CreoSerializer.Meta):
         fields = ('id', 'name', 'logo')
 
-class EventListSerializer(FingSerializer):
+class EventListSerializer(CreoSerializer):
     venue = EventVenueSerializer()
     artists = EventArtistsSerializer(many=True)
     sponsors = EventSponsorsSerializer(many=True)
-    class Meta(FingSerializer.Meta):
+    class Meta(CreoSerializer.Meta):
         fields = ('id', 'name', 'brief', 'venue', 'logo', 'start',
                   'end', 'artists', 'sponsors')

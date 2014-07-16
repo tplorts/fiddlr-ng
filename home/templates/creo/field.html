@@ -1,7 +1,7 @@
-{% load fing %}
-<div class="fing-field fing-{{ field.name }}">
+{% load creo %}
+<div class="creo-field creo-{{ field.name }}">
   {% if isEditing %}
-    {% FingFieldEditor %}
+    {% CreoFieldEditor %}
   {% else %}
     {{ field.value|default:field.defaultValue }}
   {% endif %}

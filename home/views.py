@@ -106,9 +106,9 @@ class IntraFiew(LoginRequiredMixin, Fiew):
     pass
 
 
-def getFuser(q):
+def getUzer(q):
     if q.user.is_authenticated:
-        return Fuser.objects.get(user=q.user.pk)
+        return Uzer.objects.get(user=q.user.pk)
     return None
 
 
@@ -149,7 +149,7 @@ def signup(q):
         #TODO: handle failure to create user
         user = auth.authenticate(username=uname, password=pword)
         if user is not None and user.is_active:
-            profile = Fuser(user=user)
+            profile = Uzer(user=user)
             profile.save()
             auth.login(q, user)
             return HttpResponseRedirect('/account/')
@@ -168,30 +168,30 @@ def signup(q):
 
 
 @login_required
-def exploreFing(q, fingId):
+def exploreCreo(q, creoId):
     try:
-        fing = Fing.objects.get(pk=fingId)
-    except Fing.DoesNotExist:
+        creo = Creo.objects.get(pk=creoId)
+    except Creo.DoesNotExist:
         raise Http404
 
     if not q.user.is_authenticated:
         following = False
     else:
-        following = getFuser(q).isFollowing(fingId)
+        following = getUzer(q).isFollowing(creoId)
 
-    return renderPage(q, 'fing', {
+    return renderPage(q, 'creo', {
         'isEditing': False,
-        'fing': fing,
-        'fype': fing.fype,
+        'creo': creo,
+        'creotype': creo.creotype,
         'isFollowingThis': following
     })
 
 
 @login_required
-def exploreFingEvents(q, fingId):
+def exploreCreoEvents(q, creoId):
     raise Http404 #Haven't made this template yet
-    return renderPage(q, 'fing/fing-events', {
-        'fing': Fing.objects.get(pk=fingId),
+    return renderPage(q, 'creo/creo-events', {
+        'creo': Creo.objects.get(pk=creoId),
     })
 
 
@@ -240,23 +240,23 @@ def exploreEventListingMap(q, listingKey):
 
 @login_required
 def createHome(q):
-    if q.user.is_authenticated and getFuser(q).fings.count() > 0:
-        k = getFuser(q).fings.all()[0].pk
+    if q.user.is_authenticated and getUzer(q).creos.count() > 0:
+        k = getUzer(q).creos.all()[0].pk
         yourProfileURL = 'edit/%d/' % k
-        #TODO: change for multifing creators
+        #TODO: change for multicreo creators
     else:
-        yourProfileURL = '#yo---you-should-like--create-somefing'
+        yourProfileURL = '#yo---you-should-like--create-somecreo'
     return renderPage(q, 'create/create-home', {
         'yourProfileURL': yourProfileURL,
     })
 
 
 @login_required
-def newFing(request, fype):
-    if fype not in ValidFypes:
+def newCreo(request, creotype):
+    if creotype not in ValidCreotypes:
         raise Http404
-    return renderPage(request, 'fing/fing-page', {
-        'fype': fype,
+    return renderPage(request, 'creo/creo-page', {
+        'creotype': creotype,
         'isEditing': True,
     })
 
@@ -264,11 +264,11 @@ from djangular.forms.angular_model import NgModelFormMixin
 from django.forms import ModelForm, TextInput, Textarea
 TextFormControl = TextInput(attrs={'class': 'form-control'})
 TextareaFormControl = Textarea(attrs={'class': 'form-control'})
-class FingForm(NgModelFormMixin, ModelForm):
-    form_name = 'fingForm' #note that these need to stay distinct
-    scope_prefix = 'fing'
+class CreoForm(NgModelFormMixin, ModelForm):
+    form_name = 'creoForm' #note that these need to stay distinct
+    scope_prefix = 'creo'
     class Meta:
-        model = Fing
+        model = Creo
         fields = ['name','logo','cover','brief','about',]
         widgets = {
             'name': TextFormControl,
@@ -277,19 +277,19 @@ class FingForm(NgModelFormMixin, ModelForm):
         }
 
 @login_required
-def editFing(request, fingId):
+def editCreo(request, creoId):
     try:
-        fing = Fing.objects.get(pk=fingId)
-        if not request.user.is_authenticated or not fing.isManager(getFuser(request).pk):
+        creo = Creo.objects.get(pk=creoId)
+        if not request.user.is_authenticated or not creo.isEditor(getUzer(request).pk):
             raise PermissionDenied
-    except Fing.DoesNotExist:
+    except Creo.DoesNotExist:
         raise Http404
-    return renderPage(request, 'fing/fing-page', {
-        'fingId': fingId,
-        'fing': fing,
-        'fype': fing.fype,
+    return renderPage(request, 'creo/creo-page', {
+        'creoId': creoId,
+        'creo': creo,
+        'creotype': creo.creotype,
         'isEditing': True,
-        'fingForm': FingForm(),
+        'creoForm': CreoForm(),
     })
     
         
@@ -319,7 +319,7 @@ def search(q):
                    Q( location__neighborhood__icontains=where ) |
                    Q( location__zipcode=where ) )
 
-        results = Fing.objects.filter(qWhere & qWhat)
+        results = Creo.objects.filter(qWhere & qWhat)
         c.update({'searchResults': results})
     else:
         form = FiddlrSearchForm()
@@ -366,8 +366,8 @@ class IsEmailVerifiedView(APIView):
 
     def post(self, request, format=None):
         try:
-            isVerified = getFuser(request).isEmailVerified
-        except Fuser.DoesNotExist:
+            isVerified = getUzer(request).isEmailVerified
+        except Uzer.DoesNotExist:
             isVerified = False
         return Response(isVerified)
 
@@ -389,15 +389,15 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
-class FingViewSet(viewsets.ModelViewSet):
+class CreoViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Fing.objects.all()
-    serializer_class = FingSerializer    
+    queryset = Creo.objects.all()
+    serializer_class = CreoSerializer    
 
 
 class ArtistViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Fing.artists.all()
+    queryset = Creo.artists.all()
     serializer_class = ArtistSerializer
     
 
@@ -407,23 +407,23 @@ class EventListView(generics.ListAPIView):
     serializer_class = EventListSerializer
 
 class FeaturedEventsList(EventListView):
-    queryset = Fing.events.all()
+    queryset = Creo.events.all()
     #TODO: probably can't get away with not returning a queryset
     #      to feature objects instead of event objects
 
 class EventsNearYouList(EventListView):
-    queryset = Fing.events.all()
+    queryset = Creo.events.all()
     #TODO: geoDistance in python
     
 class EventsForYouList(EventListView):
     def get_queryset(self):
-        return getFuser(self.request).autovocatedEvents()
+        return getUzer(self.request).autovocatedEvents()
 
 class EventsHappeningNowList(EventListView):
     def get_queryset(self):
         hasntEnded = Q( end__gt=localNow() )
         startsByTomorrow = Q( start__lt=endOfTomorrow() )
-        return Fing.events.filter(
+        return Creo.events.filter(
             hasntEnded & startsByTomorrow
         ).order_by('end')
 
