@@ -52,7 +52,8 @@ TEMPLATE_DEBUG = not isProduction
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+if isProduction:
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 AWS_ACCESS_KEY_ID = 'AKIAJNU5YCE2AUPUHVKQ' #for ted
 AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'fiddlr'

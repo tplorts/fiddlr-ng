@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url, include
 from django.views.generic.base import RedirectView
 from django.contrib.auth.views import logout as auth_logout_view
+from django.templatetags.static import static
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
@@ -17,7 +18,6 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'creos', CreoViewSet)
 router.register(r'artists', ArtistViewSet)
 
-
 urlpatterns = patterns(
     '',
 
@@ -25,7 +25,7 @@ urlpatterns = patterns(
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 
     # Place the favicon in a standard static location but still conform to an old fashion favicon
-#    url(r'^favicon\.ico$', RedirectView.as_view(url=s3+'main/icons/favicon.ico'), name='favicon'),
+    url(r'^favicon\.ico$', RedirectView.as_view(url=static('ex/icons/favicon.ico')), name='favicon'),
 
     url(r'^$', Fiew.as_view(template='front'), name='Home'),
 
