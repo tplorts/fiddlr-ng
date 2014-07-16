@@ -32,7 +32,7 @@ QTour = Q(creotype=CreotypeTour)
 
 
 def userPictureS3Key(instance, filename):
-    return '/'.join(('media', 'users', instance.username, filname))
+    return '/'.join(('media', 'users', instance.user.username, filename))
 
 class Uzer( models.Model ):
     user = models.OneToOneField(User)
