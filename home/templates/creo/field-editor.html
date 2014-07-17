@@ -1,14 +1,19 @@
 <div class="field-editor" ng-cloak>
-  <div ng-show="!editing.{{ field.name }}" class="field-preview">
-    [[ {{ ng.creo }}.{{ field.name }} ]]
+  <div class="field-preview">
+    {% block fieldPreview %}
+      [[ {{ ng.creo }}.{{ field.name }} ]]
+    {% endblock %}
     <button class="btn btn-default btn-sm btn-begin-editing"
             type="button"
             ng-click="editing.{{ field.name }} = true">
       <span class="glyphicon glyphicon-pencil"></span>
     </button>
   </div><!-- /field-preview -->
-  <div class="input-group" ng-show="editing.{{ field.name }}">
-    {{ fieldTag }}
+  <div class="input-group field-edit-widget
+              editing-[[ editing.{{ field.name }} ? '':'in' ]]active">
+    {% block fieldEditWidget %}
+      {{ fieldTag }}
+    {% endblock %}
     <span class="input-group-btn">
       <button class="btn btn-default btn-end-editing" type="button"
               ng-click="editing.{{ field.name }} = false">

@@ -261,9 +261,11 @@ def newCreo(request, creotype):
     })
 
 from djangular.forms.angular_model import NgModelFormMixin
-from django.forms import ModelForm, TextInput, Textarea
-TextFormControl = TextInput(attrs={'class': 'form-control'})
-TextareaFormControl = Textarea(attrs={'class': 'form-control'})
+from django.forms import ModelForm, TextInput, Textarea, FileInput
+fcAttrs = {'class': 'form-control'}
+TextFormControl = TextInput(attrs=fcAttrs)
+TextareaFormControl = Textarea(attrs=fcAttrs)
+FileFormControl = FileInput(attrs=fcAttrs)
 class CreoForm(NgModelFormMixin, ModelForm):
     form_name = 'creoForm' #note that these need to stay distinct
     scope_prefix = 'creo'
@@ -274,6 +276,7 @@ class CreoForm(NgModelFormMixin, ModelForm):
             'name': TextFormControl,
             'brief': TextFormControl,
             'about': TextareaFormControl,
+            'cover': FileFormControl,
         }
 
 @login_required

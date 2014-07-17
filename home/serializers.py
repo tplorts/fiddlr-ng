@@ -18,16 +18,22 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ('id', 'latitude', 'longitude')
+        fields = ('id','address','neighborhood','zipcode',
+                  'latitude','longitude')
 
+#class ImageSerializer():
 
 class CreoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Creo
 
 class ArtistSerializer(CreoSerializer):
+    cover = serializers.Field(source='coverURL')
+    location = LocationSerializer()
     class Meta(CreoSerializer.Meta):
-        fields = ('id','name','brief')
+        fields = ('id','name','brief','about','cover','logo',
+                  'location','website','email','phone','genres',
+                  'isPublic','isOfficial','ties')
 
 
 

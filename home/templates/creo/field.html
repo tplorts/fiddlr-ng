@@ -1,8 +1,12 @@
 {% load creo %}
 <div class="creo-field creo-{{ field.name }}">
   {% if isEditing %}
-    {% CreoFieldEditor %}
+    {% block fieldEditing %}
+      {% CreoFieldEditor %}
+    {% endblock %}
   {% else %}
-    {{ field.value|default:field.defaultValue }}
+    {% block fieldViewing %}
+      {{ field.value|default:field.defaultValue }}
+    {% endblock %}
   {% endif %}
 </div>

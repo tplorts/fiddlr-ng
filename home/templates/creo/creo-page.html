@@ -37,14 +37,7 @@
     <div class="col-sm-5 col-md-4">
       <div class="creo-panel">
         {% CreoField "name" creoForm.name %}
-        <div class="creo-picture">
-          <img class="full-width-image" 
-               {% if creo.cover %}
-               src="{{ creo.cover.url }}"
-               {% else %}
-               src="http://lorempixel.com/350/450/animals" 
-               {% endif %}  />
-        </div>
+        {% CreoImageField "cover" creoForm.cover %}
         <div class="fan-buttons">
           {% with n=creo.fans.count %}
           <button disabled class="btn btn-info {% if n == 0 %}invisible{% endif %}">

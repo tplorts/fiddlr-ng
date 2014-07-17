@@ -125,6 +125,19 @@
                 opacity: 0.25;
                 .transition(opacity, 180ms);
             }
+
+            .field-edit-widget {
+                position: absolute;
+                top: 0;
+                &.editing-inactive {
+                    z-index: -10;
+                    visibility: hidden;
+                }
+                &.editing-active {
+                    z-index: 1;
+                    visibility: visible;
+                }
+            }
         }
 
         .creo-about {
@@ -134,6 +147,9 @@
             }
             .btn-end-editing {
                 height: 100%;
+            }
+            .field-edit-widget {
+                margin-top: -7px;
             }
         }
 

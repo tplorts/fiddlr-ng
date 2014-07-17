@@ -116,6 +116,9 @@ class Creo( models.Model, NamedModel ):
     sponsor = SponsorModelManager()
     events = EventModelManager()
 
+    def coverURL(self):
+        return self.cover.url
+
     # I make these just for the convenience in template authoring
     def isArtist(self):
         return self.creotype == CreotypeArtist

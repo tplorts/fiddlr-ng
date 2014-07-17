@@ -31,12 +31,21 @@ def CreoFieldEditor(context):
 
 
 @register.inclusion_tag('creo/field.html', takes_context=True)
-def CreoField(context, fieldName, fieldTag=None):
+def CreoField(context, fieldName, fieldTag=None, defaultValue=None):
     c = Context({
-        'field': LalaField(context['creo'], fieldName),
+        'field': LalaField(context['creo'], fieldName, defaultValue),
         'fieldTag': fieldTag,
     })
     c.update(context)
     return c
 
 
+@register.inclusion_tag('creo/image-field.html', takes_context=True)
+def CreoImageField(context, fieldName, fieldTag=None):
+    lp = 'http://lorempixel.com/350/450/animals'
+    return CreoField(context, fieldName, fieldTag, lp)
+
+
+@register.inclusion_tag('creo/image-field-editor.html', takes_context=True)
+def CreoImageFieldEditor(context):
+    return CreoFieldEditor(context)
