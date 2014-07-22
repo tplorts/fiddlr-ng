@@ -2,15 +2,18 @@
 
 {% block fieldViewWidget %}
   <span class="glyphicon glyphicon-globe"></span>
-  {% if creo.isArtist %}
-    [[ creo.location.neighborhood ]]
-  {% elif creo.isEvent %}
-    [[ creo.venue.name ]]
-  {% elif creo.isSponsor %}
-    [[ creo.location.city ]]
-  {% elif creo.isVenue %}
-    [[ creo.location.address ]]
-  {% endif %}
+  <span ng-show="creo.isArtist()"
+        ng-bind="creo.location.neighborhood">
+  </span>
+  <span ng-show="creo.isEvent()"
+        ng-bind="creo.venue.name">
+  </span>
+  <span ng-show="creo.isSponsor()"
+        ng-bind="creo.location.city">
+  </span>
+  <span ng-show="creo.isVenue()"
+        ng-bind="creo.location.address">
+  </span>
 {% endblock %}
 
 

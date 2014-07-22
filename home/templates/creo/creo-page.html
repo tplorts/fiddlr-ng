@@ -6,10 +6,7 @@
 <script>
   var ngScopeInitials = {
       isEditing: {{ isEditing|default:"false"|lower }},
-      {% if isEditing %}
-        creoId: {{ creoId }},
-      {% endif %}
-      lalalala:""
+      creoId: {{ creoId }}
   };
 </script>
 {% endblock %}
@@ -17,7 +14,7 @@
 
 {% block content %}
 
-{% if isEditing and creotype != 1 %}
+{% if isEditing and False %}
 {#############################################}
 <div id="soon-message">
   COM<br>
@@ -39,8 +36,8 @@
         {% CreoField "name" %}
         {% CreoImageField "cover" %}
         <div class="fan-buttons">
-          {% with n=creo.fans.count %}
-          <button disabled class="btn btn-info {% if n == 0 %}invisible{% endif %}">
+          {% with n=1423 %} {# creo.fans.count #}
+          <button disabled class="btn {% if n == 0 %}invisible{% endif %}">
             <b>{{ n }}</b>
             <small>fan{% if n != 1 %}s{% endif %}</small>
           </button>
@@ -52,12 +49,13 @@
             {% if isFollowingThis %}
             Already following
             {% else %}
-            Follow this {{ creotype }}
+            Follow this thang
             {% endif %}
           </button>
 
         </div>
-        {% if creo.events.count > 0 %}
+        {# % if creo.events.count > 0 % #}
+        {% if False %}
         <div id="prior-events">
           <div class="dropdown">
             <button id="dLabel" class="btn btn-default"
@@ -79,7 +77,7 @@
               <li role="presentation" class="divider"></li>
               <li role="presentation">
                 <a href="events/" role="menuitem" tabindex="-1">
-                  See all prior events of {{ creo.name }}
+                  See all prior events of [[ creo.name ]]
                 </a>
               </li>
             </ul>

@@ -2,6 +2,22 @@
 {% load staticfiles misc registration %}
 
 
+{% block default_prescripts %}
+  {{ block.super }}
+  <script>
+    {% for ccNo, ccName in CreotypeChoices %}
+      var Creotype{{ ccName }} = {{ ccNo }};
+    {% endfor %}
+    var Creotypes = {
+      {% for ccNo, ccName in CreotypeChoices %}
+        {{ ccNo }}: '{{ ccName }}' 
+            {% if not forloop.last %},{% endif %}
+      {% endfor %}
+    };
+  </script>
+{% endblock %}
+
+
 {% block body_attributes %}ng-app="fiddlrApp"{% endblock %}
 
 
@@ -225,6 +241,7 @@
   {% endif %}
 
   <script src="{% static 'djangular/js/django-angular.js' %}"></script>
+  <script src="{% static '3p/scripts/restangular.js' %}"></script>
 
 {% endblock %}
 

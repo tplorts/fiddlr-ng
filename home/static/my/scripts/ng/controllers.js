@@ -290,7 +290,7 @@ cmod.controller(
 
 cmod.controller(
     'CreoPageController', 
-    ['$scope', 'Artist', function($scope, Artist) {
+    ['$scope', 'Creo', function($scope, Creo) {
         if( typeof ngScopeInitials !== 'undefined' ) {
             $scope.isEditing = ngScopeInitials.isEditing;
             $scope.creoId = ngScopeInitials.creoId;
@@ -311,21 +311,21 @@ cmod.controller(
             }
         };
         
+
+        Creo.one($scope.creoId).get().then(function(c){
+            $scope.creo = c;
+        });
+
+
         // Everthing past this point is only for Create
         if( !$scope.isEditing ) return;
+        //=============================================
 
         $scope.editing = {};
-
-        //TODO: handle creating a new one:
-        //$scope.creo = new Artist();
-        $scope.creo = Artist.get({pk: $scope.creoId});
         
         $scope.saveCreo = function() {
             $scope.creo.$save();
         };
-
-        //$scope.artists = Artist.query();
-
     }] // end: controller function
 ); // end: CreoPageController
 

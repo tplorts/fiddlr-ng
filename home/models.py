@@ -31,6 +31,14 @@ QEvent = Q(creotype=CreotypeEvent)
 QTour = Q(creotype=CreotypeTour)
 
 
+lptype = {
+    CreotypeArtist: 'fashion',
+    CreotypeVenue: 'nightlife',
+    CreotypeSponsor: 'business',
+    CreotypeEvent: 'abstract',
+    CreotypeTour: 'city',
+}
+
 def userPictureS3Key(instance, filename):
     return '/'.join(('media', 'users', instance.user.username, filename))
 
@@ -117,7 +125,9 @@ class Creo( models.Model, NamedModel ):
     events = EventModelManager()
 
     def coverURL(self):
-        return self.cover.url
+        if self.cover:
+            return self.cover.url
+        return 'http://lorempixel.com/300/485/' + lptype[self.creotype]
 
     # I make these just for the convenience in template authoring
     def isArtist(self):

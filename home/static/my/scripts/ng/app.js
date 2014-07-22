@@ -8,6 +8,7 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ngCookies',
     'ngSanitize',
     'ngResource',
+    'restangular',
     'fiddlrApp.controllers',
     'fiddlrApp.directives',
     'fiddlrApp.filters',
@@ -16,8 +17,8 @@ var fiddlrApp = angular.module('fiddlrApp', [
 
 fiddlrApp.config(
     ['$interpolateProvider', '$tooltipProvider', 
-     '$httpProvider', '$resourceProvider',
-     function($interpolateProvider, $tooltipProvider, $httpProvider, $resourceProvider) {
+     '$httpProvider', '$resourceProvider', 'RestangularProvider',
+     function($interpolateProvider, $tooltipProvider, $httpProvider, $resourceProvider, RestangularProvider) {
          $interpolateProvider.startSymbol('[[');
          $interpolateProvider.endSymbol(']]');
 
@@ -32,6 +33,9 @@ fiddlrApp.config(
 
          // Don't strip trailing slashes from calculated URLs
          //$resourceProvider.defaults.stripTrailingSlashes = false;
+
+         RestangularProvider.setBaseUrl('/api');
+         RestangularProvider.setRequestSuffix('.json');
      }
     ]
 );

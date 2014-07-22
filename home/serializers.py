@@ -21,24 +21,19 @@ class LocationSerializer(serializers.ModelSerializer):
         fields = ('id','address','neighborhood','zipcode',
                   'latitude','longitude')
 
-#class ImageSerializer():
 
 class CreoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Creo
-
-class ArtistSerializer(CreoSerializer):
     cover = serializers.Field(source='coverURL')
     location = LocationSerializer()
-    class Meta(CreoSerializer.Meta):
-        fields = ('id','name','brief','about','cover','logo',
+    class Meta:
+        model = Creo
+        fields = ('id','creotype','name','brief','about','cover','logo',
                   'location','website','email','phone','genres',
                   'isPublic','isOfficial','ties')
 
 
 
 class EventVenueSerializer(CreoSerializer):
-    location = LocationSerializer()
     class Meta(CreoSerializer.Meta):
         fields = ('id', 'name', 'website', 'logo', 'location')
 

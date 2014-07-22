@@ -87,6 +87,7 @@ def injectDefaultContext(request, template, context):
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
         'thetime': localNow(),
+        'CreotypeChoices': CreotypeChoices,
     })
 
 
@@ -169,9 +170,7 @@ def signup(q):
 
 @login_required
 def exploreCreo(q, creoId):
-    try:
-        creo = Creo.objects.get(pk=creoId)
-    except Creo.DoesNotExist:
+    if not Creo.objects.filter(pk=creoId).exists():
         raise Http404
 
     if not q.user.is_authenticated:
@@ -181,8 +180,7 @@ def exploreCreo(q, creoId):
 
     return renderPage(q, 'creo/creo-page', {
         'isEditing': False,
-        'creo': creo,
-        'creotype': creo.creotype,
+        'creoId': creoId,
         'isFollowingThis': following
     })
 
@@ -397,13 +395,6 @@ class CreoViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Creo.objects.all()
     serializer_class = CreoSerializer    
-
-
-class ArtistViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-    queryset = Creo.artists.all()
-    serializer_class = ArtistSerializer
-    
 
 
 class EventListView(generics.ListAPIView):

@@ -15,8 +15,7 @@ router = routers.DefaultRouter( trailing_slash=False )
 # API-bound requests.
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
-router.register(r'creos', CreoViewSet)
-router.register(r'artists', ArtistViewSet)
+router.register(r'creo', CreoViewSet)
 
 urlpatterns = patterns(
     '',
