@@ -25,3 +25,9 @@ def CreoField(context, fieldName):
 def CreoImageField(context, fieldName):
     lp = 'http://lorempixel.com/350/450/animals'
     return CreoField(context, fieldName)
+
+
+
+@register.inclusion_tag('creo/location-field.html', takes_context=True)
+def CreoLocationField(context):
+    return CreoField(context, 'location')

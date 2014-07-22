@@ -1,12 +1,16 @@
 {% extends "creo/field.html" %}
-{% load creo %}
 
-{% block fieldEditing %}
-  {# {% CreoLocationFieldEditor %} #}
-{% endblock %}
-
-{% block fieldViewing %}
+{% block fieldViewWidget %}
   <span class="glyphicon glyphicon-globe"></span>
-  
-  {{ field.value|default:'New York City' }}
+  {% if creo.isArtist %}
+    [[ creo.location.neighborhood ]]
+  {% elif creo.isEvent %}
+    [[ creo.venue.name ]]
+  {% elif creo.isSponsor %}
+    [[ creo.location.city ]]
+  {% elif creo.isVenue %}
+    [[ creo.location.address ]]
+  {% endif %}
 {% endblock %}
+
+
