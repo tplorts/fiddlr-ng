@@ -261,23 +261,24 @@ def newCreo(request, creotype):
     })
 
 from djangular.forms.angular_model import NgModelFormMixin
-from django.forms import ModelForm, TextInput, Textarea, FileInput
-fcAttrs = {'class': 'form-control'}
-TextFormControl = TextInput(attrs=fcAttrs)
-TextareaFormControl = Textarea(attrs=fcAttrs)
-FileFormControl = FileInput(attrs=fcAttrs)
-class CreoForm(NgModelFormMixin, ModelForm):
+from django.forms import ModelForm
+
+class PrettyNgModelFormMixin(NgModelFormMixin):
+    def get_widget_attrs(self, bound_field):
+        attrs = super(PrettyNgModelFormMixin, 
+                      self).get_widget_attrs(bound_field)
+        if attrs.has_key('class'):
+            attrs['class'] += ' form-control '
+        else:
+            attrs.update({'class': 'form-control'})
+        return attrs
+
+class CreoForm(PrettyNgModelFormMixin, ModelForm):
     form_name = 'creoForm' #note that these need to stay distinct
     scope_prefix = 'creo'
     class Meta:
         model = Creo
         fields = ['name','logo','cover','brief','about','location']
-        widgets = {
-            'name': TextFormControl,
-            'brief': TextFormControl,
-            'about': TextareaFormControl,
-            'cover': FileFormControl,
-        }
 
 @login_required
 def editCreo(request, creoId):
