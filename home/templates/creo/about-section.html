@@ -1,8 +1,8 @@
 {% load misc creo %}
 
+{% CreoField "location" %}
 
-
-{% CreoField "brief" creoForm.brief %}
+{% CreoField "brief" %}
 
 {% if creo.isEvent %}
 <div class="creo-artists">
@@ -22,4 +22,4 @@
 </div>
 {% endif %}
 
-{% CreoField "about" creoForm.about %}
+{% CreoField "about" %}

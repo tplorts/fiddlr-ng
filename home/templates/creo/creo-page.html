@@ -31,13 +31,13 @@
 {% else %}
 
 <div class="container creo-page 
-            {% if isEditing %}creo-editor{% endif %}" 
+            {% if isEditing %} creo-editor {% endif %}"
      ng-controller="CreoPageController">
   <div class="row">
     <div class="col-sm-5 col-md-4">
       <div class="creo-panel">
-        {% CreoField "name" creoForm.name %}
-        {% CreoImageField "cover" creoForm.cover %}
+        {% CreoField "name" %}
+        {% CreoImageField "cover" %}
         <div class="fan-buttons">
           {% with n=creo.fans.count %}
           <button disabled class="btn btn-info {% if n == 0 %}invisible{% endif %}">
@@ -85,6 +85,8 @@
             </ul>
           </div>
         </div>
+        {% elif isEditing %}
+          {# TODO: message about no events but show what it will look like #}
         {% endif %}
       </div>
     </div>

@@ -5,7 +5,11 @@
 .creo-page {
 
     .creo-field {
+        position: relative;
         border: 1px dotted transparent;
+        
+        // like ellipflow if parent is
+        .ellipflow-inherit;
     }
 
     .creo-text-field {
@@ -107,36 +111,40 @@
         overflow-x: hidden;
     }
 
+    .galleria {
+        height: 250px; // for mobile
+    }
+
+
     &.creo-editor {
+        .creo-field {
+            .transition(border-color, 180ms);
+            &:hover {
+                border-color: @grey;
+                .btn-begin-editing {
+                    opacity: 0.85;
+                }
+            }
+        }
+
+        .btn-begin-editing {
+            position: absolute;
+            right: 0px;
+            top: 2px;
+            opacity: 0.25;
+            .transition(opacity, 180ms);
+        }
+
         .field-editor {
-            position: relative;
-
-            // like ellipflow if parent is
-            .ellipflow-inherit;
-
-            .field-preview {
-                .ellipflow-inherit;
+            position: absolute;
+            top: 0;
+            &.editing-inactive {
+                z-index: -10;
+                visibility: hidden;
             }
-
-            .btn-begin-editing {
-                position: absolute;
-                right: 0px;
-                top: 2px;
-                opacity: 0.25;
-                .transition(opacity, 180ms);
-            }
-
-            .field-edit-widget {
-                position: absolute;
-                top: 0;
-                &.editing-inactive {
-                    z-index: -10;
-                    visibility: hidden;
-                }
-                &.editing-active {
-                    z-index: 1;
-                    visibility: visible;
-                }
+            &.editing-active {
+                z-index: 1;
+                visibility: visible;
             }
         }
 
@@ -152,20 +160,6 @@
                 margin-top: -7px;
             }
         }
-
-        .creo-field {
-            .transition(border-color, 180ms);
-            &:hover {
-                border-color: @grey;
-                .btn-begin-editing {
-                    opacity: 0.85;
-                }
-            }
-        }
     }
 
-
-    .galleria {
-        height: 250px; // for mobile
-    }
 }

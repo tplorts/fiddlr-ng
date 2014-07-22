@@ -1,12 +1,37 @@
 {% load creo %}
-<div class="creo-field creo-{{ field.name }}">
+<div class="creo-field creo-{{ fieldName }}"
+     ng-cloak>
+
+  {% block fieldViewWidget %}
+    [[ creo.{{ fieldName }} ]]
+  {% endblock %}
+
   {% if isEditing %}
-    {% block fieldEditing %}
-      {% CreoFieldEditor %}
-    {% endblock %}
-  {% else %}
-    {% block fieldViewing %}
-      {{ field.value|default:field.defaultValue }}
-    {% endblock %}
+
+    <button class="btn btn-default btn-sm btn-begin-editing"
+            type="button"
+            ng-click="editing.{{ fieldName }} = true">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+
+    <div class="input-group field-editor
+                editing-[[ editing.{{ fieldName }} ? '':'in' ]]active">
+      {% block fieldEditWidget %}
+        {% comment %}
+        <input class="form-control" type="text" 
+               id="id_{{ fieldName }}" name="{{ fieldName }}"
+               ng-model="creo.{{ fieldName }}" >
+        {% endcomment %}
+        {{ fieldTag }}
+      {% endblock %}
+      <span class="input-group-btn">
+        <button class="btn btn-default btn-end-editing"
+                type="button"
+                ng-click="editing.{{ fieldName }} = false">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </span>
+    </div><!-- /.field-editor -->
+
   {% endif %}
-</div>
+</div><!-- /.creo-field -->

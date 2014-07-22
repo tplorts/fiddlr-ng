@@ -1,0 +1,12 @@
+{% extends "creo/field.html" %}
+{% load creo %}
+
+{% block fieldEditing %}
+  {# {% CreoLocationFieldEditor %} #}
+{% endblock %}
+
+{% block fieldViewing %}
+  <span class="glyphicon glyphicon-globe"></span>
+  
+  {{ field.value|default:'New York City' }}
+{% endblock %}

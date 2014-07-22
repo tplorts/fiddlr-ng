@@ -1,11 +1,7 @@
 {% extends "creo/field.html" %}
-{% load creo %}
+{# {% load creo %} #}
 
-{% block fieldEditing %}
-  {% CreoImageFieldEditor %}
-{% endblock %}
-
-{% block fieldViewing %}
+{% block fieldViewWidget %}
   <img class="full-width-image" 
-       src="{{ field.value|default:field.defaultValue }}" />
+       ng-src="[[ creo.{{ fieldName }} ]]" />
 {% endblock %}

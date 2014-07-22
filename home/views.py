@@ -179,7 +179,7 @@ def exploreCreo(q, creoId):
     else:
         following = getUzer(q).isFollowing(creoId)
 
-    return renderPage(q, 'creo', {
+    return renderPage(q, 'creo/creo-page', {
         'isEditing': False,
         'creo': creo,
         'creotype': creo.creotype,
@@ -245,7 +245,7 @@ def createHome(q):
         yourProfileURL = 'edit/%d/' % k
         #TODO: change for multicreo creators
     else:
-        yourProfileURL = '#yo---you-should-like--create-somecreo'
+        yourProfileURL = '#'
     return renderPage(q, 'create/create-home', {
         'yourProfileURL': yourProfileURL,
     })
@@ -271,7 +271,7 @@ class CreoForm(NgModelFormMixin, ModelForm):
     scope_prefix = 'creo'
     class Meta:
         model = Creo
-        fields = ['name','logo','cover','brief','about',]
+        fields = ['name','logo','cover','brief','about','location']
         widgets = {
             'name': TextFormControl,
             'brief': TextFormControl,
