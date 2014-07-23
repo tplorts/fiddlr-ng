@@ -22,6 +22,11 @@ smod.service('Creo', ['Restangular', function(Restangular) {
         model.isTour = function() {
             return this.creotype === CreotypeTour;
         };
+
+        model.mapLink = function() {
+            return 'http://maps.google.com/?q='+ this.location.address;
+        };
+
         return model;
     });
 
