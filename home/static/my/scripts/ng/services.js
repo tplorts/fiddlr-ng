@@ -24,7 +24,9 @@ smod.service('Creo', ['Restangular', function(Restangular) {
         };
 
         model.mapLink = function() {
-            return 'http://maps.google.com/?q='+ this.location.address;
+            if( !this.location ) return '#';
+            var mapQuery = this.location.address;
+            return 'http://maps.google.com/?q=' + mapQuery;
         };
 
         return model;
