@@ -6,9 +6,11 @@
 
 <div id="create-wrapper" class="invisible">
 
+  {% if not isProduction %}
   <button id="crotator" class="btn btn-warning">
     <span class="glyphicon glyphicon-heart"></span>
   </button>
+  {% endif %}
 
   <div id="create-something-wrapper">
     <a class="create-round-button" id="create-something">

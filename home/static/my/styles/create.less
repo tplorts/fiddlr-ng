@@ -5,19 +5,17 @@
 @create-button-bg: rgba(100, 200, 100, 0.8);
 .create-round-button_( @radius, @fontsize ) {
     display: block;
-    transition-property: bottom, left, background-color, color;
-    @dp: 500ms; @dc: 150ms;
-    transition-duration: @dp, @dp, @dc, @dc;
+    .transition(all, 200ms, ease);
     position: fixed;
     width: 2 * @radius;
     height: 2 * @radius;
-    background-color: @create-button-bg;
-    color: #224;
+    background-color: #FAFAFA;
+    color: #444;
     cursor: pointer;
     text-align: center;
     font-weight: bold;
     font-size: @fontsize;
-    border: 1px solid #AAA;
+    border: 2px solid #BBB;
     border-radius: @radius;
 
     .button-text {
@@ -25,10 +23,10 @@
     }
     
     &:hover {
-        .box-shadow(0,0,5px);
-        background-color: #BFF;
+        .box-shadow(0,0,5px, #0AA);
+        background-color: #FFFFE0;
         text-decoration: none;
-        color: @navyblue;
+        color: #222;
     }
 }
 
