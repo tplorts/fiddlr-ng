@@ -36,15 +36,9 @@ function CreateUI( createWrapperSelector ) {
     this.createNav = this.wrapper.find('#create-navigation');
     this.navButtons = this.createNav.find('.create-round-button');
     this.navCount = this.navButtons.length;
-    Create.placeButton( this.allButtons, Create.contentCenter() );
-    this.vCenterBTexts();
     this.k = 0;
-    this.wrapper.removeClass('invisible');
-
-    var self = this;
-    setTimeout( function() {
-        self.initialArrangeButtons();
-    }, 0 );
+    this.arrangeButtons();
+    this.vCenterBTexts();
 
     this.centralButton.on('click', function() {
         self.showCreateSomething();
@@ -52,6 +46,8 @@ function CreateUI( createWrapperSelector ) {
     $('#create-backdrop, .smokescreen').on('click', function() {
         self.hideCreateSomething();
     });
+
+    this.wrapper.removeClass('invisible');
 }
 
 CreateUI.prototype.arrangeButtons = function() {
@@ -70,16 +66,8 @@ CreateUI.prototype.arrangeButtons = function() {
     }
 };
 
-CreateUI.prototype.initialArrangeButtons = function() {
-    this.arrangeButtons();
-    var self = this;
-    setTimeout( function() {
-        self.createNav.removeClass('prearranged');
-    }, 1000);
-}
-
 CreateUI.prototype.vCenterBTexts = function() {
-    $.each( this.allButtons, function(babymovethat, butt) {
+    $.each( this.allButtons, function(dat, butt) {
         Create.vCenterText( $(butt) );
     });
 };
