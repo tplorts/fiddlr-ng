@@ -242,6 +242,7 @@
 
   <script src="{% static 'djangular/js/django-angular.js' %}"></script>
   <script src="{% static '3p/scripts/restangular.js' %}"></script>
+  <script src="{% static '3p/angular-file-upload-bower-1.6.1/angular-file-upload.js' %}"></script>
 
 {% endblock %}
 
@@ -258,7 +259,7 @@
     <script src="{% static 'my/scripts/boogie.js' %}"></script>
   {% endif %}
 
-  {% if user.is_authenticated and user.username == 'gaby' %}
+  {% if isGabrielle %}
     <script src="{% static 'my/scripts/soulfood.js' %}"></script>
   {% endif %}
 

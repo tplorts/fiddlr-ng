@@ -40,6 +40,7 @@ function CreateUI( createWrapperSelector ) {
     this.arrangeButtons();
     this.vCenterBTexts();
 
+    var self = this;
     this.centralButton.on('click', function() {
         self.showCreateSomething();
     });
@@ -75,11 +76,11 @@ CreateUI.prototype.vCenterBTexts = function() {
 
 CreateUI.prototype.showCreateSomething = function() {
     this.smokescreen.addClass('active');
-}
+};
 
 CreateUI.prototype.hideCreateSomething = function() {
     this.smokescreen.removeClass('active');
-}
+};
 
 
 

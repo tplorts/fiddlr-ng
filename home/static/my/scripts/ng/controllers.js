@@ -5,7 +5,7 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 
 function readScopeInitials(scope) {
-    if( _.isUndefined(ngScopeInitials) )
+    if( typeof ngScopeInitials === 'undefined' )
         return;
     for( var k in ngScopeInitials ) {
         if( ngScopeInitials.hasOwnProperty(k) ) {
@@ -19,6 +19,7 @@ cmod.controller(
     'CommonHeaderController',
     ['$scope', '$modal', '$position', '$tooltip', '$http',
      function($scope, $modal, $position, $tooltip, $http) {
+         readScopeInitials( $scope );
          $scope.openLoginModal = function() {
              var modalInstance = $modal.open({
                  templateUrl: 'login-modal.html',
