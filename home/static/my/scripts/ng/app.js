@@ -9,6 +9,7 @@ var fiddlrApp = angular.module('fiddlrApp', [
     'ngSanitize',
     'ngResource',
     'restangular',
+    'angularFileUpload',
     'fiddlrApp.controllers',
     'fiddlrApp.directives',
     'fiddlrApp.filters',
@@ -30,6 +31,8 @@ fiddlrApp.config(
          });
 
          $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
 
          // Don't strip trailing slashes from calculated URLs
          //$resourceProvider.defaults.stripTrailingSlashes = false;
@@ -39,9 +42,3 @@ fiddlrApp.config(
      }
     ]
 );
-
-fiddlrApp.run( function($http, $cookies) {
-    $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-    $http.defaults.xsrfCookieName = 'csrftoken';
-    $http.defaults.xsrfHeaderName = 'X-CSRFToken';
-});

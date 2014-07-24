@@ -4,6 +4,17 @@
 var cmod = angular.module('fiddlrApp.controllers', []);
 
 
+function readScopeInitials(scope) {
+    if( typeof ngScopeInitials === 'undefined' )
+        return;
+    for( var k in ngScopeInitials ) {
+        if( ngScopeInitials.hasOwnProperty(k) ) {
+            scope[k] = ngScopeInitials[k];
+        }
+    }
+}        
+
+
 cmod.controller(
     'CommonHeaderController',
     ['$scope', '$modal', '$position', '$tooltip', '$http',
@@ -23,8 +34,6 @@ cmod.controller(
 var SigninupModalController = 
     function ($scope, $modalInstance, $position, $tooltip, $http)
 {
-    $scope.loginPrompted = loginPrompted !== undefined && loginPrompted;
-
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };
@@ -175,12 +184,11 @@ cmod.controller(
 
          $scope.isEmailVerified = null;
 
-         $http.post('/custom-api/is-email-verified/', {}, {
-             xsrfHeaderName: 'X-CSRFToken',
-             xsrfCookieName: 'csrftoken'
-         }).success(function(data, status) {
-             $scope.isEmailVerified = data === 'true';
-         });
+         $http.post('/custom-api/is-email-verified/', {}, {}).success(
+             function(data, status) {
+                 $scope.isEmailVerified = data === 'true';
+             }
+         );
 
          $scope.isPasswordChangerOpen = false;
          $scope.pw = {
@@ -290,11 +298,8 @@ cmod.controller(
 
 cmod.controller(
     'CreoPageController', 
-    ['$scope', 'Creo', function($scope, Creo) {
-        if( typeof ngScopeInitials !== 'undefined' ) {
-            $scope.isEditing = ngScopeInitials.isEditing;
-            $scope.creoId = ngScopeInitials.creoId;
-        }
+    ['$scope', '$upload', 'Creo', function($scope, $upload, Creo) {
+        readScopeInitials( $scope );
         
         $scope.isGalleriaInitialized = false;
         $scope.moveTabPane = function(tabIndex) {
@@ -321,11 +326,58 @@ cmod.controller(
         if( !$scope.isEditing ) return;
         //=============================================
 
+        // For each field, by field name, holds whether the editing
+        // state is active (true) or inactive (false).
         $scope.editing = {};
-        
-        $scope.saveCreo = function() {
-            $scope.creo.$save();
+
+        $scope.oldValues = {};
+
+        $scope.beginEditing = function( fieldName ) {
+            $scope.editing[fieldName] = true;
+            $scope.oldValues[fieldName] = $scope.creo[fieldName];
         };
+
+        $scope.endEditing = function( fieldName ) {
+            $scope.editing[fieldName] = false;
+            var newValue = $scope.creo[fieldName];
+            var hasChanged = newValue !== $scope.oldValues[fieldName];
+            if( -1 < $.inArray(fieldName, ['name','brief','about']) ){
+                if( hasChanged ) {
+                    var d = {};
+                    d[fieldName] = newValue;
+                    $scope.creo.patch(d);
+                }
+            }
+        };
+
+        $scope.onFileSelect = function($files) {
+            //$files: an array of files selected, each file has name, size, and type.
+            for (var i = 0; i < $files.length; i++) {
+                var file = $files[i];
+                $scope.upload = $upload.upload({
+                    url: '/api/creo/1',
+                    //withCredentials: true,
+                    data: $scope.creo,
+                    file: file, // or list of files ($files) for html5 only
+                    //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
+                    // customize file formData name ('Content-Desposition'), server side file variable name. 
+                    //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file' 
+                    // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
+                    //formDataAppender: function(formData, key, val){}
+                }).progress(function(evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log('upload finished '+status);
+                    console.log(data);
+                });
+                //.error(...)
+                //.then(success, error, progress); 
+                // access or attach event listeners to the underlying XMLHttpRequest.
+                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+            }
+        };
+
     }] // end: controller function
 ); // end: CreoPageController
 

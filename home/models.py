@@ -129,6 +129,11 @@ class Creo( models.Model, NamedModel ):
             return self.cover.url
         return 'http://lorempixel.com/300/485/' + lptype[self.creotype]
 
+    def logoURL(self):
+        if self.logo:
+            return self.logo.url
+        return 'http://lorempixel.com/64/64/' + lptype[self.creotype]
+
     # I make these just for the convenience in template authoring
     def isArtist(self):
         return self.creotype == CreotypeArtist

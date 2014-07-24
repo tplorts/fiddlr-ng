@@ -10,24 +10,19 @@
 
     <button class="btn btn-default btn-sm btn-begin-editing"
             type="button"
-            ng-click="editing.{{ fieldName }} = true">
+            ng-click="beginEditing( '{{ fieldName }}' )">
       <span class="glyphicon glyphicon-pencil"></span>
     </button>
 
     <div class="input-group field-editor
                 editing-[[ editing.{{ fieldName }} ? '':'in' ]]active">
       {% block fieldEditWidget %}
-        {% comment %}
-        <input class="form-control" type="text" 
-               id="id_{{ fieldName }}" name="{{ fieldName }}"
-               ng-model="creo.{{ fieldName }}" >
-        {% endcomment %}
         {{ fieldTag }}
       {% endblock %}
       <span class="input-group-btn">
         <button class="btn btn-default btn-end-editing"
                 type="button"
-                ng-click="editing.{{ fieldName }} = false">
+                ng-click="endEditing( '{{ fieldName }}' )">
           <span class="glyphicon glyphicon-ok"></span>
         </button>
       </span>

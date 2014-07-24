@@ -23,11 +23,13 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class CreoSerializer(serializers.ModelSerializer):
-    cover = serializers.Field(source='coverURL')
+    coverURL = serializers.Field(source='coverURL')
+    logoURL = serializers.Field(source='logoURL')
     location = LocationSerializer()
     class Meta:
         model = Creo
-        fields = ('id','creotype','name','brief','about','cover','logo',
+        fields = ('id','creotype','name','brief','about',
+                  'cover','coverURL','logo','logoURL',
                   'location','website','email','phone','genres',
                   'isPublic','isOfficial','ties')
 

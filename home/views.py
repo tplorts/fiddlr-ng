@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponseNotAllowed, HttpResponseBadRequest
 from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
 from django.contrib.auth.models import User, Group
@@ -261,6 +261,12 @@ def newCreo(request, creotype):
 from djangular.forms.angular_model import NgModelFormMixin
 from django.forms import ModelForm
 
+def getOwnedCreo(request, creoId):
+    creo = get_object_or_404(Creo, pk=creoId)
+    if not creo.isEditor(getUzer(request).pk):
+        raise PermissionDenied
+    return creo
+
 class PrettyNgModelFormMixin(NgModelFormMixin):
     def get_widget_attrs(self, bound_field):
         attrs = super(PrettyNgModelFormMixin, 
@@ -278,14 +284,10 @@ class CreoForm(PrettyNgModelFormMixin, ModelForm):
         model = Creo
         fields = ['name','logo','cover','brief','about','location']
 
+
 @login_required
 def editCreo(request, creoId):
-    try:
-        creo = Creo.objects.get(pk=creoId)
-        if not request.user.is_authenticated or not creo.isEditor(getUzer(request).pk):
-            raise PermissionDenied
-    except Creo.DoesNotExist:
-        raise Http404
+    creo = getOwnedCreo(request, creoId)
     return renderPage(request, 'creo/creo-page', {
         'creoId': creoId,
         'creo': creo,
@@ -294,7 +296,25 @@ def editCreo(request, creoId):
         'creoForm': CreoForm(),
     })
     
-        
+
+
+class CreoPictureForm(ModelForm):
+    class Meta:
+        model = Creo
+        fields = ['logo', 'cover']
+
+@login_required
+def uploadCreoPicture(request, creoId):
+    if not request.method == 'POST':
+        return HttpResponseNotAllowed('POST')
+    creo = getOwnedCreo(request, creoId)
+    form = CreoPictureForm(request.POST, request.FILES, instance=creo)
+    if not form.is_valid():
+        return HttpResponseBadRequest()
+    form.save()
+    return HttpResponse('OK')
+
+
 
 
 
@@ -421,6 +441,18 @@ class EventsHappeningNowList(EventListView):
         return Creo.events.filter(
             hasntEnded & startsByTomorrow
         ).order_by('end')
+
+
+
+# class UploadImageView(APIView):
+#     parser_classes = (FileUploadParser,)
+
+#     def put(self, request, filename, format=None):
+#         file_obj = request.FILES['file']
+#         # ...
+#         # do some staff with uploaded file
+#         # ...
+#         return Response(status=204)
 
 
 

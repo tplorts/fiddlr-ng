@@ -75,6 +75,8 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/set-password/$', SetPasswordView.as_view()),
     url(r'^custom-api/is-email-verified/$', IsEmailVerifiedView.as_view()),
 
+    url(r'^custom-api/creo/(\d+)/picture/$', uploadCreoPicture),
+
     url(r'^custom-api/events/featured/$', FeaturedEventsList.as_view()),
     url(r'^custom-api/events/near-you/$', EventsNearYouList.as_view()),
     url(r'^custom-api/events/for-you/$', EventsForYouList.as_view()),

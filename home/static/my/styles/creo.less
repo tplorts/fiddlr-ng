@@ -74,6 +74,11 @@
         font-size: 12px;
     }
 
+    @creo-content-bg: #FFFFFA;
+    #small-about {
+        background: @creo-content-bg;
+    }
+
     .nav-tabs > li {
         > a {
             font-size: 16px;
@@ -83,12 +88,14 @@
         }
         &.active > a {
             cursor: default !important;
+            background: @creo-content-bg;
         }
     }
 
     @initial-pane-height: 350px;
 
     .tab-content {
+        background: @creo-content-bg;
         width: 300%;
         position: relative;
         .transition(all, 400ms, ease);
