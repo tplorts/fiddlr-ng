@@ -5,7 +5,7 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 
 function readScopeInitials(scope) {
-    if( typeof ngScopeInitials === 'undefined' )
+    if( _.isUndefined(ngScopeInitials) )
         return;
     for( var k in ngScopeInitials ) {
         if( ngScopeInitials.hasOwnProperty(k) ) {
@@ -341,7 +341,7 @@ cmod.controller(
             $scope.editing[fieldName] = false;
             var newValue = $scope.creo[fieldName];
             var hasChanged = newValue !== $scope.oldValues[fieldName];
-            if( -1 < $.inArray(fieldName, ['name','brief','about']) ){
+            if( _.contains(['name','brief','about'], fieldName) ){
                 if( hasChanged ) {
                     var d = {};
                     d[fieldName] = newValue;
