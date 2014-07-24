@@ -52,7 +52,7 @@ urlpatterns = patterns(
 
 
     url(r'^create/$', createHome, name='Create'),
-    url(r'^create/new/', newCreo),
+    url(r'^create/new/(\w+)/$', newCreo),
     url(r'^create/edit/(\d+)/$', editCreo),
 
     url(r'^connect/', IntraFiew.as_view(template='connect/connect-home'), name='Connect'),

@@ -22,7 +22,14 @@ CreotypeChoices = (
     (CreotypeTour, 'Tour'),
 )
 
-ValidCreotypes = range(CreotypeChoices[0][0], CreotypeChoices[-1][0]+1)
+ValidCreotypes = [c[0] for c in CreotypeChoices]
+ValidCreotypeNames = [c[1].lower() for c in CreotypeChoices]
+
+#TODO: make a dict?
+def creotypeForName(name):
+    for choice in CreotypeChoices:
+        if choice[1].lower() == name.lower():
+            return choice[0]
 
 QArtist = Q(creotype=CreotypeArtist)
 QVenue = Q(creotype=CreotypeVenue)

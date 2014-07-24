@@ -249,14 +249,6 @@ def createHome(q):
     })
 
 
-@login_required
-def newCreo(request, creotype):
-    if creotype not in ValidCreotypes:
-        raise Http404
-    return renderPage(request, 'creo/creo-page', {
-        'creotype': creotype,
-        'isEditing': True,
-    })
 
 from djangular.forms.angular_model import NgModelFormMixin
 from django.forms import ModelForm
@@ -296,6 +288,17 @@ def editCreo(request, creoId):
         'creoForm': CreoForm(),
     })
     
+
+@login_required
+def newCreo(request, creotypeName):
+    if creotypeName not in ValidCreotypeNames:
+        raise Http404
+    creo = Creo(creotype=creotypeForName(creotypeName))
+    creo.save()
+    creo.editors.add(getUzer(request))
+    return editCreo(request, creo.pk)
+
+
 
 
 class CreoPictureForm(ModelForm):
