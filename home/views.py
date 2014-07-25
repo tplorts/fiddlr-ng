@@ -137,11 +137,11 @@ def signin(q):
                            extra_context=context)
 
 
-secret_agents = ('the1&onlyGABY', 'H@NN@H',)
+
 def signup(q):
     if q.method == 'POST':
-        said = q.POST['secret_agent_id']
-        if said not in secret_agents:
+        code = q.POST['accessCode']
+        if code != 'musicologenealogipositorology':
             raise PermissionDenied
         uname = q.POST['username']
         email = q.POST['email']
