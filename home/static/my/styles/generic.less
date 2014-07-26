@@ -1,6 +1,15 @@
 @import (less) "variables.less";
 
 
+.browser-prefix(@property, @value) {
+    -webkit-@{property}: @value;
+    -moz-@{property}: @value;
+    -o-@{property}: @value;
+    -ms-@{property}: @value;
+    @{property}: @value;
+}
+
+
 .on {
     display: initial;
 }
@@ -60,37 +69,28 @@
     line-height: 1.1;
 }
 
+.writing-mode(@mode) {
+    .browser-prefix(writing-mode, @mode);
+}
+
 .text-vertical-rl {
     -ms-writing-mode: tb-rl;
-    -webkit-writing-mode: vertical-rl;
-    -moz-writing-mode: vertical-rl;
-    -ms-writing-mode: vertical-rl;
-    writing-mode: vertical-rl;
+    .writing-mode( vertical-rl );
 }
 
 .text-vertical-lr {
     -ms-writing-mode: tb-lr;
-    -webkit-writing-mode: vertical-lr;
-    -moz-writing-mode: vertical-lr;
-    -ms-writing-mode: vertical-lr;
-    writing-mode: vertical-lr;
+    .writing-mode( vertical-lr );
 }
 
 .text-horizontal-lr {
     -ms-writing-mode: lr-tb;
-    -webkit-writing-mode: horizontal-tb;
-    -moz-writing-mode: horizontal-tb;
-    -ms-writing-mode: horizontal-tb;
-    writing-mode: horizontal-tb;
+    .writing-mode( horizontal-tb );
 }
 
 .text-horizontal-rl {
     -ms-writing-mode: rl-tb;
-    -webkit-writing-mode: horizontal-tb;
-    -moz-writing-mode: horizontal-tb;
-    -ms-writing-mode: horizontal-tb;
-    writing-mode: horizontal-tb;
-
+    .writing-mode( horizontal-tb );
     direction: rtl; /* not specified as part of writing-mode property in standard syntax */
 }
 
@@ -167,37 +167,23 @@
 // http://designshack.net/articles/css/10-less-css-examples-you-should-steal-for-your-projects/
 
 .border-radius (@radius: 5px) {
-    -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-    border-radius: @radius;
+    .browser-prefix( border-radius, @radius );
 }
 
 .border-radius-custom (@topleft: 5px, @topright: 5px, @bottomleft: 5px, @bottomright: 5px) {
-    -webkit-border-radius: @topleft @topright @bottomright @bottomleft;
-    -moz-border-radius: @topleft @topright @bottomright @bottomleft;
-    border-radius: @topleft @topright @bottomright @bottomleft;
+    .browser-prefix(border-radius, @topleft @topright @bottomright @bottomleft);
 }
 
 .box-shadow( @x: 0px, @y: 3px, @blur: 5px, @color: rgba(0,0,0,0.5) ) {
-    -webkit-box-shadow: @x @y @blur @color;
-    -moz-box-shadow: @x @y @blur @color;
-    box-shadow: @x @y @blur @color;
+    .browser-prefix(box-shadow, @x @y @blur @color);
 }
 
 .transition (@prop: all, @time: 150ms, @ease: ease) {
-    -webkit-transition: @prop @time @ease;
-    -moz-transition: @prop @time @ease;
-    -o-transition: @prop @time @ease;
-    -ms-transition: @prop @time @ease;
-    transition: @prop @time @ease;
+    .browser-prefix(transition, @prop @time @ease);
 }
 
 .transform( @transforms: none ) {
-    -webkit-transform: @transforms;
-    -moz-transform: @transforms;
-    -o-transform: @transforms;
-    -ms-transform: @transforms;
-    transform: @transforms;
+    .browser-prefix(transform, @transforms);
 }
 
 .rotate (@rotate: 90deg) {
@@ -231,9 +217,7 @@
 
 
 .filter( @things ) {
-    -webkit-filter: @things;
-    -moz-filter: @things;
-    filter: @things;
+    .browser-prefix(filter, @things);
 }
 
 .grayscale( @howmuch: 100% ) {
@@ -241,13 +225,13 @@
 }
 
 
+.background-size( @size ) {
+    .browser-prefix( background-size, @size );
+}
 
 .cover-background( @imageURL ) {
     background: url( @imageURL ) no-repeat center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    .background-size( cover );
 }
 
 
@@ -288,9 +272,7 @@
 
 
 .user-select( @select ) {
-    -webkit-user-select: none; /* Chrome/Safari */        
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* IE10+ */
+    .browser-prefix( user-select, @select );
 }
 
 
@@ -324,3 +306,6 @@
 
 
 
+.animation( @a ) {
+    .browser-prefix( animation, @a );
+}

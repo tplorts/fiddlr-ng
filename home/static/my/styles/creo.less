@@ -140,11 +140,27 @@
         
         .uploading-spinner {
             position: absolute;
-            top: 1px;
-            right: 1px;
-            max-width: 32px;
-            height: auto;
+            top: 2px;
+            right: 2px;
+            .animation( loader 3s linear 0s infinite );
         }
+
+        .keyframes-loader {
+            from {
+                .rotate(0deg);
+            }
+            50% {
+                .rotate(180deg);
+            }
+            to {
+                .rotate(360deg);
+            }
+        }
+        @-webkit-keyframes loader { .keyframes-loader; }
+        @-moz-keyframes loader { .keyframes-loader; }
+        @-ms-keyframes loader { .keyframes-loader; }
+        @-o-keyframes loader { .keyframes-loader; }
+        @keyframes loader { .keyframes-loader; }
 
         .field-editor {
             position: absolute;
