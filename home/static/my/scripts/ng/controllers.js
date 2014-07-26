@@ -345,9 +345,8 @@ cmod.controller(
                 }).progress(function(evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function(data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log('upload finished '+status);
-                    $scope.creo = data;
+                    // To keep the Restangularity of creo: _.extend
+                    $scope.creo = _.extend($scope.creo, data);
                     doneUploading();
                 });
                 //.error(...)
