@@ -6,25 +6,3 @@
   <img class="full-width-image" 
        ng-src="[[ creo.{{ fieldName }}URL ]]" />
 {% endblock %}
-
-
-{% block fieldEditWidget %}
-
-  {{ block.super }}
-
-  {# <input type="file" ng-file-select="onFileSelect($files)" /> #}
-
-  {% comment %}
-  <div ng-file-drop="onFileSelect($files)"
-       ng-file-drag-over-class="optional-css-class-name-or-function"
-       ng-show="dropSupported">
-    drop files here
-  </div>
-  <div ng-file-drop-available="dropSupported=true" 
-       ng-show="!dropSupported">
-    HTML5 Drop File is not supported!
-  </div>
-  {% endcomment %}
-
-  {# <button ng-click="upload.abort()">Cancel Upload</button> #}
-{% endblock %}

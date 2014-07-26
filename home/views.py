@@ -1,38 +1,23 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from django.http import HttpResponseRedirect, Http404, HttpResponseNotAllowed, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, Http404
 from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
-from django.contrib.auth.models import User, Group
-from django.core.serializers import serialize
+from django.contrib.auth.models import User as Djuser
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django import forms
-from rest_framework import viewsets, authentication, generics
-from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.forms import ModelForm, ClearableFileInput
+from djangular.forms.angular_model import NgModelFormMixin
 from fiddlr import settings
-from serializers import *
-from permissions import JustMe
 from models import *
-from datetime import datetime, timedelta, date, time
 from utilities import *
-from django.shortcuts import get_object_or_404
 
 
 
-
-
-#  ██████╗ ███████╗███╗   ██╗███████╗██████╗ ██╗ ██████╗
-# ██╔════╝ ██╔════╝████╗  ██║██╔════╝██╔══██╗██║██╔════╝
-# ██║  ███╗█████╗  ██╔██╗ ██║█████╗  ██████╔╝██║██║     
-# ██║   ██║██╔══╝  ██║╚██╗██║██╔══╝  ██╔══██╗██║██║     
-# ╚██████╔╝███████╗██║ ╚████║███████╗██║  ██║██║╚██████╗
-#  ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝
 
 # http://brack3t.com/our-custom-mixins.html
 class LoginRequiredMixin(object):
@@ -107,12 +92,6 @@ class IntraFiew(LoginRequiredMixin, Fiew):
     pass
 
 
-def getUzer(q):
-    if q.user.is_authenticated:
-        return Uzer.objects.get(user=q.user.pk)
-    return None
-
-
 
 
 
@@ -146,7 +125,7 @@ def signup(q):
         uname = q.POST['username']
         email = q.POST['email']
         pword = q.POST['password']
-        User.objects.create_user(uname, email, pword)
+        Djuser.objects.create_user(uname, email, pword)
         #TODO: handle failure to create user
         user = auth.authenticate(username=uname, password=pword)
         if user is not None and user.is_active:
@@ -159,13 +138,10 @@ def signup(q):
 
 
 
-
-# ███████╗██╗  ██╗██████╗ ██╗      ██████╗ ██████╗ ███████╗
-# ██╔════╝╚██╗██╔╝██╔══██╗██║     ██╔═══██╗██╔══██╗██╔════╝
-# █████╗   ╚███╔╝ ██████╔╝██║     ██║   ██║██████╔╝█████╗  
-# ██╔══╝   ██╔██╗ ██╔═══╝ ██║     ██║   ██║██╔══██╗██╔══╝  
-# ███████╗██╔╝ ██╗██║     ███████╗╚██████╔╝██║  ██║███████╗
-# ╚══════╝╚═╝  ╚═╝╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝
+#  _____  _____ ___ ___ ___ ___ _  _  ___ ___ 
+# | __\ \/ / _ \ __| _ \_ _| __| \| |/ __| __|
+# | _| >  <|  _/ _||   /| || _|| .` | (__| _| 
+# |___/_/\_\_| |___|_|_\___|___|_|\_|\___|___|
 
 
 @login_required
@@ -173,23 +149,20 @@ def exploreCreo(q, creoId):
     if not Creo.objects.filter(pk=creoId).exists():
         raise Http404
 
-    if not q.user.is_authenticated:
-        following = False
-    else:
-        following = getUzer(q).isFollowing(creoId)
-
     return renderPage(q, 'creo/creo-page', {
         'isEditing': False,
         'creoId': creoId,
-        'isFollowingThis': following
+        'isFollowingThis': getUzer(q).isFollowing(creoId),
     })
 
 
+
+#TODO: don't make this a view, make an api point for creos' events
 @login_required
 def exploreCreoEvents(q, creoId):
     raise Http404 #Haven't made this template yet
     return renderPage(q, 'creo/creo-events', {
-        'creo': Creo.objects.get(pk=creoId),
+        'creo': get_object_or_404(Creo, pk=creoId),
     })
 
 
@@ -228,13 +201,11 @@ def exploreEventListingMap(q, listingKey):
 
 
 
+#   ___ ___ ___   _ _____ ___ 
+#  / __| _ \ __| /_\_   _| __|
+# | (__|   / _| / _ \| | | _| 
+#  \___|_|_\___/_/ \_\_| |___|
 
-#  ██████╗██████╗ ███████╗ █████╗ ████████╗███████╗
-# ██╔════╝██╔══██╗██╔════╝██╔══██╗╚══██╔══╝██╔════╝
-# ██║     ██████╔╝█████╗  ███████║   ██║   █████╗  
-# ██║     ██╔══██╗██╔══╝  ██╔══██║   ██║   ██╔══╝  
-# ╚██████╗██║  ██║███████╗██║  ██║   ██║   ███████╗
-#  ╚═════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
 @login_required
 def createHome(q):
@@ -249,9 +220,6 @@ def createHome(q):
     })
 
 
-
-from djangular.forms.angular_model import NgModelFormMixin
-from django.forms import ModelForm
 
 def getOwnedCreo(request, creoId):
     creo = get_object_or_404(Creo, pk=creoId)
@@ -269,13 +237,21 @@ class PrettyNgModelFormMixin(NgModelFormMixin):
             attrs.update({'class': 'form-control'})
         return attrs
 
+def ngFileInput( fieldName ):
+    return ClearableFileInput(attrs={
+        'ng-file-select': "onFileChanged('%s', $files)" % fieldName
+    })
+
 class CreoForm(PrettyNgModelFormMixin, ModelForm):
     form_name = 'creoForm' #note that these need to stay distinct
     scope_prefix = 'creo'
     class Meta:
         model = Creo
         fields = ['name','logo','cover','brief','about','location']
-
+        widgets = {
+            'cover': ngFileInput('cover'),
+            'logo': ngFileInput('logo'),
+        }
 
 @login_required
 def editCreo(request, creoId):
@@ -301,22 +277,6 @@ def newCreo(request, creotypeName):
 
 
 
-class CreoPictureForm(ModelForm):
-    class Meta:
-        model = Creo
-        fields = ['logo', 'cover']
-
-@login_required
-def uploadCreoPicture(request, creoId):
-    if not request.method == 'POST':
-        return HttpResponseNotAllowed('POST')
-    creo = getOwnedCreo(request, creoId)
-    form = CreoPictureForm(request.POST, request.FILES, instance=creo)
-    if not form.is_valid():
-        return HttpResponseBadRequest()
-    form.save()
-    return HttpResponse('OK')
-
 
 
 
@@ -328,6 +288,7 @@ def alerts(q):
     })
 
 
+#TODO: turn search results into an api outlet
 @login_required
 def search(q):
     c = {}
@@ -365,97 +326,7 @@ if not settings.isProduction:
 
 
 
-#  █████╗ ██████╗ ██╗
-# ██╔══██╗██╔══██╗██║
-# ███████║██████╔╝██║
-# ██╔══██║██╔═══╝ ██║
-# ██║  ██║██║     ██║
-# ╚═╝  ╚═╝╚═╝     ╚═╝
 
-class UserExistsView(APIView):
-    permission_classes = (AllowAny,)
-
-    def get(self, request, username, format=None):
-        exists = User.objects.filter(username=username).exists()
-        return Response(exists)
-
-
-class SetPasswordView(APIView):
-    permission_classes = (JustMe,)
-
-#    def post(self, request, format=None):
-
-
-class IsEmailVerifiedView(APIView):
-    permission_classes = (JustMe,)
-
-    def post(self, request, format=None):
-        try:
-            isVerified = getUzer(request).isEmailVerified
-        except Uzer.DoesNotExist:
-            isVerified = False
-        return Response(isVerified)
-
-
-
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-
-
-class CreoViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
-    queryset = Creo.objects.all()
-    serializer_class = CreoSerializer    
-
-
-class EventListView(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = EventListSerializer
-
-class FeaturedEventsList(EventListView):
-    queryset = Creo.events.all()
-    #TODO: probably can't get away with not returning a queryset
-    #      to feature objects instead of event objects
-
-class EventsNearYouList(EventListView):
-    queryset = Creo.events.all()
-    #TODO: geoDistance in python
-    
-class EventsForYouList(EventListView):
-    def get_queryset(self):
-        return getUzer(self.request).autovocatedEvents()
-
-class EventsHappeningNowList(EventListView):
-    def get_queryset(self):
-        hasntEnded = Q( end__gt=localNow() )
-        startsByTomorrow = Q( start__lt=endOfTomorrow() )
-        return Creo.events.filter(
-            hasntEnded & startsByTomorrow
-        ).order_by('end')
-
-
-
-# class UploadImageView(APIView):
-#     parser_classes = (FileUploadParser,)
-
-#     def put(self, request, filename, format=None):
-#         file_obj = request.FILES['file']
-#         # ...
-#         # do some staff with uploaded file
-#         # ...
-#         return Response(status=204)
 
 
 

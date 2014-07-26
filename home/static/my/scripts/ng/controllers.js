@@ -327,6 +327,37 @@ cmod.controller(
         if( !$scope.isEditing ) return;
         //=============================================
 
+        $scope.isUploading = {};
+
+        var uploadPicture = function( fieldName ) {
+            $scope.isUploading[fieldName] = true;
+            function doneUploading() {
+                $scope.isUploading[fieldName] = false;
+            }
+            var files = pendingFiles[fieldName];
+            var cpk = $scope.creo.id;
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                $scope.upload = $upload.upload({
+                    url: '/api/creo/'+cpk+'/uploadCover/.json',
+                    file: file,
+                    fileFormDataName: fieldName
+                }).progress(function(evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function(data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log('upload finished '+status);
+                    $scope.creo = data;
+                    doneUploading();
+                });
+                //.error(...)
+                //.then(success, error, progress); 
+                // access or attach event listeners to the underlying XMLHttpRequest.
+                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+            }
+        };
+
+
         // For each field, by field name, holds whether the editing
         // state is active (true) or inactive (false).
         $scope.editing = {};
@@ -342,41 +373,26 @@ cmod.controller(
             $scope.editing[fieldName] = false;
             var newValue = $scope.creo[fieldName];
             var hasChanged = newValue !== $scope.oldValues[fieldName];
+            if( !hasChanged ) return;
+
             if( _.contains(['name','brief','about'], fieldName) ){
-                if( hasChanged ) {
-                    var d = {};
-                    d[fieldName] = newValue;
-                    $scope.creo.patch(d);
-                }
+                var d = {};
+                d[fieldName] = newValue;
+                $scope.creo.patch(d);
+            } else if( _.contains(['logo','cover'], fieldName) ) {
+                uploadPicture( fieldName );
             }
         };
 
-        $scope.onFileSelect = function($files) {
-            //$files: an array of files selected, each file has name, size, and type.
-            for (var i = 0; i < $files.length; i++) {
-                var file = $files[i];
-                $scope.upload = $upload.upload({
-                    url: '/api/creo/1',
-                    //withCredentials: true,
-                    data: $scope.creo,
-                    file: file, // or list of files ($files) for html5 only
-                    //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
-                    // customize file formData name ('Content-Desposition'), server side file variable name. 
-                    //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file' 
-                    // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
-                    //formDataAppender: function(formData, key, val){}
-                }).progress(function(evt) {
-                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-                }).success(function(data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log('upload finished '+status);
-                    console.log(data);
-                });
-                //.error(...)
-                //.then(success, error, progress); 
-                // access or attach event listeners to the underlying XMLHttpRequest.
-                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
-            }
+        var pendingFiles = {};
+        
+        $scope.onFileChanged = function( fieldName, files ) {
+            pendingFiles[fieldName] = files;
+            // Shouldn't break the view because for example, it
+            // uses coverURL instead of cover itself, and we're not
+            // changing the __URL field.
+            $scope.creo[fieldName] = 'something different';
+            // The value doesn't actually matter.
         };
 
     }] // end: controller function

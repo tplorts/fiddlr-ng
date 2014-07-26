@@ -38,7 +38,7 @@ fiddlrApp.config(
          //$resourceProvider.defaults.stripTrailingSlashes = false;
 
          RestangularProvider.setBaseUrl('/api');
-         RestangularProvider.setRequestSuffix('.json');
+         RestangularProvider.setRequestSuffix('/.json');
      }
     ]
 );

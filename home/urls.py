@@ -6,15 +6,13 @@ from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from home import views
 from home.views import *
+from home.api import *
 from fiddlr import settings
 
 
-router = routers.DefaultRouter( trailing_slash=False )
-# Not using trailing slashes on the API now because angular
-# presently does not respect the trailing slash upon issuing
-# API-bound requests.
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router = routers.DefaultRouter()
+#router.register(r'users', UserViewSet)
+#router.register(r'groups', GroupViewSet)
 router.register(r'creo', CreoViewSet)
 
 urlpatterns = patterns(
@@ -75,7 +73,7 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/set-password/$', SetPasswordView.as_view()),
     url(r'^custom-api/is-email-verified/$', IsEmailVerifiedView.as_view()),
 
-    url(r'^custom-api/creo/(\d+)/picture/$', uploadCreoPicture),
+#    url(r'^custom-api/creo/(\d+)/picture/$', uploadCreoPicture),
 
     url(r'^custom-api/events/featured/$', FeaturedEventsList.as_view()),
     url(r'^custom-api/events/near-you/$', EventsNearYouList.as_view()),

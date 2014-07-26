@@ -1,4 +1,5 @@
-{% load creo %}
+{% load creo staticfiles %}
+
 <div class="creo-field creo-{{ fieldName }}"
      ng-cloak>
 
@@ -7,12 +8,20 @@
   {% endblock %}
 
   {% if isEditing %}
-
-    <button class="btn btn-default btn-sm btn-begin-editing"
+  
+    {% with uploading="isUploading."|add:fieldName %}
+    <button class="btn btn-sm btn-begin-editing
+                   btn-[[ {{uploading}} ? 'warning' : 'default' ]]"
             type="button"
+            ng-disabled="{{uploading}}"
             ng-click="beginEditing( '{{ fieldName }}' )">
-      <span class="glyphicon glyphicon-pencil"></span>
+      <span class="glyphicon glyphicon-pencil"
+            ng-show="!{{uploading}}"></span>
+      <img src="{% static 'ex/ajax-loader.gif' %}"
+           class="full-width-image"
+           ng-show="{{uploading}}" />
     </button>
+    {% endwith %}
 
     <div class="input-group field-editor
                 editing-[[ editing.{{ fieldName }} ? '':'in' ]]active">
