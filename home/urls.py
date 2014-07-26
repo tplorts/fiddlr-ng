@@ -32,28 +32,28 @@ urlpatterns = patterns(
     url(r'^signout/$', auth_logout_view, name='Sign out'),
     url(r'^account/$', IntraFiew.as_view(template='registration/account'), name='Account'),
 
-    # EXPLORE
-    url(r'^explore/$', IntraFiew.as_view(template='explore/explore-home'), name='Explore'),
-    url(r'^explore/(\d+)/$', exploreCreo, name='Explore Creo'),
-    url(r'^explore/(\d+)/events/$', exploreCreoEvents, name='Explore Creo Events'),
-    url(r'^explore/events/([\w\d\-]+)/$', exploreEventListingList, name='Event Listing'),
-    url(r'^explore/events/([\w\d\-]+)/map/$', exploreEventListingMap, name='Event Listing Map'),
+    # EXPERIENCE
+    url(r'^experience/$', IntraFiew.as_view(template='experience/experience-home'), name='Experience'),
+    url(r'^experience/(\d+)/$', experienceCreo, name='Experience Creo'),
+    url(r'^experience/(\d+)/events/$', experienceCreoEvents, name='Experience Creo Events'),
+    url(r'^experience/events/([\w\d\-]+)/$', experienceEventListingList, name='Event Listing'),
+    url(r'^experience/events/([\w\d\-]+)/map/$', experienceEventListingMap, name='Event Listing Map'),
 
-    # EXPLORE PROFILE
-    url(r'^explore/profile/$', IntraFiew.as_view(template='explore/profile/root'), name='Explore Profile'),
-    url(r'^explore/profile/events$', IntraFiew.as_view(template='explore/profile/events'), name='Explore Favorite Events'),
-    url(r'^explore/profile/artists$', IntraFiew.as_view(template='explore/profile/artists'), name='Explore Favorite Artists'),
-    url(r'^explore/profile/venues$', IntraFiew.as_view(template='explore/profile/venues'), name='Explore Favorite Venues'),
-    url(r'^explore/profile/for-me$', IntraFiew.as_view(template='explore/profile/for-me'), name='Explore For Me'),
-    url(r'^explore/profile/near-me$', IntraFiew.as_view(template='explore/profile/near-me'), name='Explore Near Me'),
-    url(r'^explore/profile/browse$', IntraFiew.as_view(template='explore/profile/browse'), name='Explore Browse'),
+    # EXPERIENCE PROFILE
+    url(r'^experience/profile/$', IntraFiew.as_view(template='experience/profile/root'), name='Experience Profile'),
+    url(r'^experience/profile/events$', IntraFiew.as_view(template='experience/profile/events'), name='Experience Favorite Events'),
+    url(r'^experience/profile/artists$', IntraFiew.as_view(template='experience/profile/artists'), name='Experience Favorite Artists'),
+    url(r'^experience/profile/venues$', IntraFiew.as_view(template='experience/profile/venues'), name='Experience Favorite Venues'),
+    url(r'^experience/profile/for-me$', IntraFiew.as_view(template='experience/profile/for-me'), name='Experience For Me'),
+    url(r'^experience/profile/near-me$', IntraFiew.as_view(template='experience/profile/near-me'), name='Experience Near Me'),
+    url(r'^experience/profile/browse$', IntraFiew.as_view(template='experience/profile/browse'), name='Experience Browse'),
 
 
     url(r'^create/$', createHome, name='Create'),
     url(r'^create/new/(\w+)/$', newCreo),
     url(r'^create/edit/(\d+)/$', editCreo),
 
-    url(r'^connect/', IntraFiew.as_view(template='connect/connect-home'), name='Connect'),
+    url(r'^nexus/', IntraFiew.as_view(template='nexus/nexus-home'), name='Nexus'),
 
 
     url(r'^alerts/', alerts, name='Alerts'),

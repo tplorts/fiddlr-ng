@@ -36,18 +36,8 @@
   </div>
   <div id="big-ol-buttons">
     <div class="container">
-      {% if isGabrielle and time4gabymorning %}
-      <audio src="{% static 'ex/goodmorningGABY.mp3' %}"
-             preload="auto" id="gaby">
-      </audio>
-      <p>
-        Gaby!  How very nice of you stop by!<br>
-        Say &ndash; is your volume turned up? &hellip;
-        <button onclick="document.getElementById('gaby').play()">Umm.. yes?</button>
-      </p>
-      {% endif %}
       <div class="row">
-        {% for page in "Explore,Create,Connect"|split:"," %}
+        {% for page in "Experience,Create,Nexus"|split:"," %}
           <div class="col-sm-4">
             <a href="{% url page %}"
                class="section-link btn btn-primary btn-purple 

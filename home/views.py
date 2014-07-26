@@ -145,7 +145,7 @@ def signup(q):
 
 
 @login_required
-def exploreCreo(q, creoId):
+def experienceCreo(q, creoId):
     if not Creo.objects.filter(pk=creoId).exists():
         raise Http404
 
@@ -159,7 +159,7 @@ def exploreCreo(q, creoId):
 
 #TODO: don't make this a view, make an api point for creos' events
 @login_required
-def exploreCreoEvents(q, creoId):
+def experienceCreoEvents(q, creoId):
     raise Http404 #Haven't made this template yet
     return renderPage(q, 'creo/creo-events', {
         'creo': get_object_or_404(Creo, pk=creoId),
@@ -177,13 +177,13 @@ EventListingViewTypes = ('list', 'map')
 
 
 @login_required
-def exploreEventListing(q, listingKey, viewType):
+def experienceEventListing(q, listingKey, viewType):
     if listingKey not in EventListings:
         raise Http404
     if viewType not in EventListingViewTypes:
         raise Http404
 
-    return renderPage(q, 'explore/events/'+viewType, {
+    return renderPage(q, 'experience/events/'+viewType, {
         'listingKey': listingKey,
         'listingTitle': EventListings[listingKey],
         'googleAPIKey': settings.googleAPIKey,
@@ -191,12 +191,12 @@ def exploreEventListing(q, listingKey, viewType):
 
 
 @login_required
-def exploreEventListingList(q, listingKey):
-    return exploreEventListing(q, listingKey, 'list')
+def experienceEventListingList(q, listingKey):
+    return experienceEventListing(q, listingKey, 'list')
 
 @login_required
-def exploreEventListingMap(q, listingKey):
-    return exploreEventListing(q, listingKey, 'map')
+def experienceEventListingMap(q, listingKey):
+    return experienceEventListing(q, listingKey, 'map')
 
 
 

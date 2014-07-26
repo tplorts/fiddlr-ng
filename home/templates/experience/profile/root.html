@@ -9,7 +9,7 @@
   <div class="row">
     {% for X in "Favorite Events,Favorite Artists,Favorite Venues"|split:"," %}
       <div class="col-sm-4">
-        <a href="{% url 'Explore '|add:X %}">
+        <a href="{% url 'Experience '|add:X %}">
           {% pallet text=X imageURL=image_url|add:"fashion" shape="normal-height" %}
         </a>
       </div>
@@ -18,7 +18,7 @@
   <div class="row">
     {% for X in "For Me,Near Me,Browse"|split:"," %}
       <div class="col-sm-4">
-        <a href="{% url 'Explore '|add:X %}">
+        <a href="{% url 'Experience '|add:X %}">
           {% pallet text=X imageURL=image_url|add:"fashion" shape="normal-height" %}
         </a>
       </div>
