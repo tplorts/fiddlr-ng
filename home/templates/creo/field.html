@@ -13,14 +13,13 @@
     <button class="btn btn-sm btn-begin-editing
                    btn-[[ {{uploading}} ? 'warning' : 'default' ]]"
             type="button"
-            ng-disabled="{{uploading}}"
+            ng-disabled="{{uploading}}" ng-show="!{{uploading}}"
             ng-click="beginEditing( '{{ fieldName }}' )">
-      <span class="glyphicon glyphicon-pencil"
-            ng-show="!{{uploading}}"></span>
-      <img src="{% static 'ex/ajax-loader.gif' %}"
-           class="full-width-image"
-           ng-show="{{uploading}}" />
+      <span class="glyphicon glyphicon-pencil"></span>
     </button>
+    <img src="{% static 'ex/loaders/triplex.gif' %}"
+         class="uploading-spinner"
+         ng-show="{{uploading}}" />
     {% endwith %}
 
     <div class="input-group field-editor
