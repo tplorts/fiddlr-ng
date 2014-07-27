@@ -11,7 +11,7 @@ body {
 
 //'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif
 a {
-    .transition(color, 100ms, ease);
+    .transition(all, 100ms, ease);
     color: @navyblue;
     &:hover {
         color: @purple;
@@ -110,18 +110,6 @@ a {
     border-top-left-radius: 8px;
 }
 
-.footer-link {
-    display: inline-block;
-    &::before {
-        content: "|";
-    }
-    &:first-of-type {
-        &::before {
-            content: none;
-        }
-    }
-}
-
 
 @front-cover-height: 250px;
 #front-cover-image {
@@ -148,15 +136,11 @@ a {
     .gradient-down(@navyblue);
 }
 
-#big-ol-buttons {
-    margin: 10px 0;
-}
-
 .section-link {
     margin: 15px;
     border-radius: 8px;
     &:hover {
-        .dark-text-shadow;
+        text-shadow: -1px -1px #AAA;
     }
 }
 

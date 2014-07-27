@@ -7,7 +7,6 @@
 
 {% block content %}
 <div ng-controller="FrontPageController">
-  <div class="backdrop backdrop-front"></div>
   <div id="front-cover-image">
     <div class="container">
       <div class="col-sm-4 col-sm-offset-8
@@ -34,24 +33,22 @@
       </div>
     </div>
   </div>
-  <div id="big-ol-buttons">
-    <div class="container">
-      <div class="row">
-        {% for page in "Experience,Create,Nexus"|split:"," %}
-          <div class="col-sm-4">
-            <a href="{% url page %}"
-               class="section-link btn btn-primary btn-purple 
-                      text-bold center-block"
-               popover="[[  briefs['{{page}}']  ]]" 
-               popover-placement="bottom"
-               popover-trigger="mouseenter">
-              <span class="huge">{{ page|smallcaps }}</span>
-            </a>
-          </div><!--/.col-sm-4-->
-        {% endfor %}
-      </div><!--/.row-->
-    </div><!--/.container-->
-  </div><!--/#big-ol-buttons-->
+  <div class="container">
+    <div class="row mt15px">
+      {% for page in "Experience,Create,Nexus"|split:"," %}
+      <div class="col-sm-4">
+        <a href="{% url page %}"
+           class="section-link btn btn-default
+                  text-bold center-block"
+           popover="[[  briefs['{{page}}']  ]]" 
+           popover-placement="bottom"
+           popover-trigger="mouseenter">
+          <span class="huge">{{ page|smallcaps }}</span>
+        </a>
+      </div><!--/.col-sm-4-->
+      {% endfor %}
+    </div><!--/.row-->
+  </div><!--/.container-->
   {% if isGabrielle or isTheodore %}
   <a id="Locus-Proprius-Link" href="Locus-Proprius-Gabriellae"
      class="btn btn-sm btn-default">
