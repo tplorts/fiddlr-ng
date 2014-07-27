@@ -328,6 +328,7 @@ cmod.controller(
         //=============================================
 
         $scope.isUploading = {};
+        $scope.isPatching = {};
 
         var uploadPicture = function( fieldName ) {
             $scope.isUploading[fieldName] = true;
@@ -375,9 +376,13 @@ cmod.controller(
             if( !hasChanged ) return;
 
             if( _.contains(['name','brief','about'], fieldName) ){
-                var d = {};
-                d[fieldName] = newValue;
-                $scope.creo.patch(d);
+                var patchData = {};
+                patchData[fieldName] = newValue;
+                $scope.isPatching[fieldName] = true;
+                $scope.creo.patch(patchData).then(function(data) {
+                    console.log(data);
+                    $scope.isPatching[fieldName] = false;
+                });
             } else if( _.contains(['logo','cover'], fieldName) ) {
                 uploadPicture( fieldName );
             }

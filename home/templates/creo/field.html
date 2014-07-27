@@ -9,13 +9,15 @@
 
   {% if isEditing %}
   
-    {% with uploading="isUploading."|add:fieldName %}
-    <button class="btn btn-sm btn-begin-editing
-                   btn-[[ {{uploading}} ? 'warning' : 'default' ]]"
+    {% with uploading="isUploading."|add:fieldName patching="isPatching."|add:fieldName %}
+    <button class="btn btn-sm btn-begin-editing btn-default"
             type="button"
-            ng-disabled="{{uploading}}" ng-show="!{{uploading}}"
+            ng-disabled="{{patching}}" ng-show="!{{uploading}}"
             ng-click="beginEditing( '{{ fieldName }}' )">
-      <span class="glyphicon glyphicon-pencil"></span>
+      <span class="glyphicon glyphicon-pencil"
+            ng-show="!{{patching}}"></span>
+      <img class="patching-indicator" ng-show="{{patching}}"
+           src="{% static 'ex/loaders/circle-ball.gif' %}" />
     </button>
     <img src="{% static 'ex/loaders/quadflower64.png' %}"
          class="uploading-spinner"
