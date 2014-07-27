@@ -13,20 +13,6 @@
 
 
 {% block content %}
-
-{% if isEditing and False %}
-{#############################################}
-<div id="soon-message">
-  COM<br>
-  ING<br>
-  SOO<br>
-  N!@!
-</div>
-<div class="left-margin-gradient"></div>
-<div class="right-margin-gradient"></div>
-{#############################################}
-{% else %}
-
 <div class="container creo-page 
             {% if isEditing %} creo-editor {% endif %}"
      ng-controller="CreoPageController">
@@ -174,16 +160,4 @@
       Galleria.run('.galleria');
     }
   </script>
-
-{#############################################}
-<script src="{% static 'my/scripts/hue-rotate.js' %}"></script>
-<script>
-  var ha = new HueRotation('#soon-message');
-  var haha = new HueRotation('.left-margin-gradient');
-  var hahaha = new HueRotation('.right-margin-gradient');
-  ha.start();
-  haha.start();
-  hahaha.start();
-</script>
-{#############################################}
 {% endblock %}

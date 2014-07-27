@@ -183,7 +183,18 @@
 {% endif %}
 
 <div id="content" class="{% block content_class %}{% endblock %}">
-  {% block content %}{% endblock %}
+  {% block content %}
+    {#############################################}
+    <div id="soon-message">
+      COM<br>
+      ING<br>
+      SOO<br>
+      N!!
+    </div>
+    <div class="left-margin-gradient"></div>
+    <div class="right-margin-gradient"></div>
+    {#############################################}
+  {% endblock %}
   
   {% if time2boogie %}
   <img id="discoball" class="center-block"
@@ -263,4 +274,13 @@
     <script src="{% static 'my/scripts/soulfood.js' %}"></script>
   {% endif %}
 
+  <script src="{% static 'my/scripts/hue-rotate.js' %}"></script>
+  <script>
+    var ha = new HueRotation('#soon-message');
+    var haha = new HueRotation('.left-margin-gradient');
+    var hahaha = new HueRotation('.right-margin-gradient');
+    ha.start();
+    haha.start();
+    hahaha.start();
+  </script>
 {% endblock %}
