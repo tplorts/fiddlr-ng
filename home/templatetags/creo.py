@@ -29,6 +29,10 @@ def CreoImageField(context, fieldName):
     return CreoField(context, fieldName)
 
 
+@register.inclusion_tag('creo/formatted-text-field.html', takes_context=True)
+def CreoFormattedTextField(context, fieldName):
+    return CreoField(context, fieldName)
+
 
 @register.inclusion_tag('creo/location-field.html', takes_context=True)
 def CreoLocationField(context):

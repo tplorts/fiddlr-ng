@@ -1,0 +1,6 @@
+{% extends "creo/field.html" %}
+
+
+{% block fieldViewWidget %}
+  <span ng-bind-html="creo.{{fieldName}} | formattedText"></span>
+{% endblock %}

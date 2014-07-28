@@ -39,3 +39,12 @@ fmod.filter('dateRange', ['$filter', function($filter) {
         return from + ' &ndash; ' + to;
     };
 }]);
+
+
+
+fmod.filter('formattedText', ['$filter', function($filter) {
+    return function(rawText) {
+        if( !rawText ) return '';
+        return rawText.replace(/\n/g, '<br>');
+    };
+}]);
