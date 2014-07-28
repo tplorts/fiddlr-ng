@@ -322,6 +322,12 @@ cmod.controller(
             $scope.creo = c;
         });
 
+        $scope.creotypeName = function() {
+            if( !$scope.creo || typeof Creotypes === 'undefined' )
+                return '';
+            return Creotypes[$scope.creo.creotype];
+        };
+                
 
         // Everthing past this point is only for Create
         if( !$scope.isEditing ) return;

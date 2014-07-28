@@ -22,11 +22,11 @@
 
           <button class="btn btn-info pull-right"
                   {% if isEditing %}disabled{% endif %}
-                  id="follow-this-creo">
+                  id="follow-this-creo" ng-cloak>
             {% if isFollowingThis %}
             Already following
             {% else %}
-            Follow this thang
+            Follow this [[ creotypeName() ]]
             {% endif %}
           </button>
 
