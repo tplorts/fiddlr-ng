@@ -75,6 +75,14 @@ def injectDefaultContext(request, template, context):
         'CreotypeChoices': CreotypeChoices,
     })
 
+    if 'ngScopeVars' in context:
+        context['ngScopeInitials'] = {}
+        for symbol in context['ngScopeVars']:
+            if symbol in context:
+                context['ngScopeInitials'].update({
+                    symbol: context[symbol],
+                })
+
 
 class Fiew(TemplateView):
     template = 'pagebase'
@@ -138,6 +146,22 @@ def signup(q):
 
 
 
+
+# @login_required
+# def creoPage(request, creoId, editing, context={}):
+#     if not Creo.objects.filter(pk=creoId).exists():
+#         raise Http404
+
+#     context.update({
+#         'isEditing': editing,
+#         'creoId': creoId,
+#         'isFollowingThis': getUzer(request).isFollowing(creoId),
+#         'ngScopeVars': ('isEditing', 'creoId'),
+#     })
+#     return renderPage(q, 'creo/creo-page', context)
+
+
+
 #  _____  _____ ___ ___ ___ ___ _  _  ___ ___ 
 # | __\ \/ / _ \ __| _ \_ _| __| \| |/ __| __|
 # | _| >  <|  _/ _||   /| || _|| .` | (__| _| 
@@ -153,6 +177,7 @@ def experienceCreo(q, creoId):
         'isEditing': False,
         'creoId': creoId,
         'isFollowingThis': getUzer(q).isFollowing(creoId),
+        'ngScopeVars': ('isEditing', 'creoId'),
     })
 
 
@@ -262,6 +287,7 @@ def editCreo(request, creoId):
         'creotype': creo.creotype,
         'isEditing': True,
         'creoForm': CreoForm(),
+        'ngScopeVars': ('isEditing', 'creoId'),
     })
     
 

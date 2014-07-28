@@ -1,8 +1,10 @@
 from django import template
 from django.utils.safestring import mark_safe
+from django.core.serializers.json import DjangoJSONEncoder
 from fiddlr import settings
 import re
 import pytz
+import json
 
 
 register = template.Library()
@@ -13,6 +15,9 @@ def split(string, delimiter):
     return string.split(delimiter)
 
 
+@register.filter
+def toJSON(something):
+    return mark_safe(json.dumps(something, cls=DjangoJSONEncoder))
 
 
 @register.filter

@@ -2,16 +2,6 @@
 {% load misc staticfiles creo %}
 
 
-{% block prescripts %}
-<script>
-  var ngScopeInitials = {
-      isEditing: {{ isEditing|default:"false"|lower }},
-      creoId: {{ creoId }}
-  };
-</script>
-{% endblock %}
-
-
 {% block content %}
 <div class="container creo-page 
             {% if isEditing %} creo-editor {% endif %}"

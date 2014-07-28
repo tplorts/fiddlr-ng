@@ -10,8 +10,12 @@
     {% endfor %}
     var Creotypes = {
       {% for ccNo, ccName in CreotypeChoices %}
-        {{ ccNo }}: '{{ ccName }}' 
-            {% if not forloop.last %},{% endif %}
+        {{ccNo}}: '{{ccName}}'{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    };
+    var ngScopeInitials = {
+      {% for symbol, data in ngScopeInitials.items %}
+        {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
       {% endfor %}
     };
   </script>
