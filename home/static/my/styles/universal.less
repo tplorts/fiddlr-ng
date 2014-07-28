@@ -136,11 +136,29 @@ a {
     .gradient-down(@navyblue);
 }
 
-.section-link {
-    margin: 15px;
-    border-radius: 8px;
-    &:hover {
-        text-shadow: -1px -1px #AAA;
+.major-page-dropdown {
+    width: 100%;
+
+    .dropdown-toggle {
+        width: 100%;
+        border-radius: 8px;
+        font-size: 32px;
+        font-weight: bold;
+        font-family: serif;
+        .transition(all, 180ms, ease);
+    }
+
+    &.open .dropdown-toggle {
+        text-shadow: -1px -1px #999;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        border-radius: 8px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 }
 

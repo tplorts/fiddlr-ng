@@ -16,9 +16,14 @@ def split(string, delimiter):
 
 
 @register.filter
-def smallcaps(text):
-    o = re.sub(r'([a-z]+)', r'<span class="smallcaps">\1</span>', text)
-    return mark_safe(o)
+def smallcaps(text, smallSize=None):
+    if smallSize:
+        style = 'style="font-size: %s;"' % smallSize
+    else:
+        style = ''
+    #TODO: how will I insert this custom style into the span?
+    s = re.sub(r'([a-z]+)', r'<span class="smallcaps">\1</span>', text)
+    return mark_safe(s)
 
 
 @register.filter
