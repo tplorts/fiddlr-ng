@@ -413,9 +413,6 @@ cmod.controller(
             if( !geocoder ) return ['**not available**'];
             var deferred = $q.defer();
             var promise = deferred.promise;
-            promise.then(function(geocoderResults) {
-                return geocoderResults;
-            });
             geocoder.geocode({
                 address: query,
                 componentRestrictions: {
@@ -428,8 +425,25 @@ cmod.controller(
                     deferred.reject(status);
                 }
             });
-            return promise;
+            return promise.then(function(geocoderResults) {
+                var nbhoods = [];
+                angular.forEach(geocoderResults, function(item){
+                    if( _.contains(item.types, 'neighborhood') ){
+                        var name = getComponent(item, 'neighborhood').long_name;
+                        var sublo = getComponent(item, 'sublocality_level_1');
+                        if( sublo ) name += ', ' + sublo.long_name;
+                        nbhoods.push( name );
+                    }
+                });
+                return nbhoods;
+            });
         };//end: getLocations()
+
+        function getComponent(item, compName) {
+            return _.find( item.address_components, function(comp){
+                return _.contains( comp.types, compName );
+            });
+        }
 
     }] // end: controller function
 ); // end: CreoPageController

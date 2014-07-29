@@ -26,8 +26,11 @@
 {% block fieldEditInput %}
   <input type="text" class="form-control" id="id_{{fieldName}}"
          name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
-         typeahead="l.formatted_address for l in getLocations($viewValue)"
-         typeahead-loading="gettingLocations.{{fieldName}}" />
+         placeholder="Enter your neighborhood"
+         typeahead="l for l in getLocations($viewValue) | limitTo:7"
+         typeahead-loading="gettingLocations.{{fieldName}}" 
+         typeahead-wait-ms="100" typeahead-min-length="2"
+         />
 {% endblock %}
 
 {% block extraEditActions %}
