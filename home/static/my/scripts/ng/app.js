@@ -17,9 +17,9 @@ var fiddlrApp = angular.module('fiddlrApp', [
 ]);
 
 fiddlrApp.config(
-    ['$interpolateProvider', '$tooltipProvider', 
+    ['$interpolateProvider', '$tooltipProvider', '$sceDelegateProvider',
      '$httpProvider', '$resourceProvider', 'RestangularProvider',
-     function($interpolateProvider, $tooltipProvider, $httpProvider, $resourceProvider, RestangularProvider) {
+     function($interpolateProvider, $tooltipProvider, $sceDelegateProvider, $httpProvider, $resourceProvider, RestangularProvider) {
          $interpolateProvider.startSymbol('[[');
          $interpolateProvider.endSymbol(']]');
 
@@ -39,6 +39,12 @@ fiddlrApp.config(
 
          RestangularProvider.setBaseUrl('/api');
          RestangularProvider.setRequestSuffix('/.json');
+
+         $sceDelegateProvider.resourceUrlWhitelist([
+             'self', 
+             'http://maps.googleapis.com/**',
+             'https://maps.googleapis.com/**'
+         ]);
      }
     ]
 );

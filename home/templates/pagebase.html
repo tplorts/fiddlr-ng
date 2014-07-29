@@ -5,6 +5,7 @@
 {% block default_prescripts %}
   {{ block.super }}
   <script>
+    var GoogleAPIKey = '{{ googleAPIKey }}';
     {% for ccNo, ccName in CreotypeChoices %}
       var Creotype{{ ccName }} = {{ ccNo }};
     {% endfor %}

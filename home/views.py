@@ -69,6 +69,7 @@ def injectDefaultContext(request, template, context):
         'useLESS': settings.TEMPLATE_DEBUG,
         'section': section,
         'page': page,
+        'googleAPIKey': settings.googleAPIKey,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'ngVersion': '1.3.0-beta.13/',
         'thetime': localNow(),
@@ -211,7 +212,6 @@ def experienceEventListing(q, listingKey, viewType):
     return renderPage(q, 'experience/events/'+viewType, {
         'listingKey': listingKey,
         'listingTitle': EventListings[listingKey],
-        'googleAPIKey': settings.googleAPIKey,
     })
 
 
@@ -256,7 +256,7 @@ class PrettyNgModelFormMixin(NgModelFormMixin):
     def get_widget_attrs(self, bound_field):
         attrs = super(PrettyNgModelFormMixin, 
                       self).get_widget_attrs(bound_field)
-        if attrs.has_key('class'):
+        if 'class' in attrs:
             attrs['class'] += ' form-control '
         else:
             attrs.update({'class': 'form-control'})
@@ -264,7 +264,8 @@ class PrettyNgModelFormMixin(NgModelFormMixin):
 
 def ngFileInput( fieldName ):
     return ClearableFileInput(attrs={
-        'ng-file-select': "onFileChanged('%s', $files)" % fieldName
+        'ng-file-select': "onFileChanged('%s', $files)" % fieldName,
+        'class': 'btn-default',
     })
 
 class CreoForm(PrettyNgModelFormMixin, ModelForm):

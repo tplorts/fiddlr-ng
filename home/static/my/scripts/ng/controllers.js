@@ -299,7 +299,7 @@ cmod.controller(
 
 cmod.controller(
     'CreoPageController', 
-    ['$scope', '$upload', 'Creo', function($scope, $upload, Creo) {
+    ['$scope', '$http', '$upload', '$q', 'Creo', function($scope, $http, $upload, $q, Creo) {
         readScopeInitials( $scope );
         
         $scope.isGalleriaInitialized = false;
@@ -327,7 +327,7 @@ cmod.controller(
                 return '';
             return Creotypes[$scope.creo.creotype];
         };
-                
+        
 
         // Everthing past this point is only for Create
         if( !$scope.isEditing ) return;
@@ -404,6 +404,32 @@ cmod.controller(
             $scope.creo[fieldName] = 'something different';
             // The value doesn't actually matter.
         };
+
+        $scope.gettingLocations = {};
+
+        var geocoder = new google.maps.Geocoder();
+
+        $scope.getLocations = function( query ) {
+            if( !geocoder ) return ['**not available**'];
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            promise.then(function(geocoderResults) {
+                return geocoderResults;
+            });
+            geocoder.geocode({
+                address: query,
+                componentRestrictions: {
+                    locality: 'New York'
+                }
+            }, function (results, status) {
+                if( status == google.maps.GeocoderStatus.OK ) {
+                    deferred.resolve(results);
+                } else {
+                    deferred.reject(status);
+                }
+            });
+            return promise;
+        };//end: getLocations()
 
     }] // end: controller function
 ); // end: CreoPageController

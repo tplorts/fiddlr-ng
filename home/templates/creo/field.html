@@ -27,15 +27,16 @@
     <div class="input-group field-editor
                 editing-[[ editing.{{ fieldName }} ? '':'in' ]]active">
       {% block fieldEditWidget %}
-        {{ fieldTag }}
+        {% block fieldEditInput %}{{ fieldTag }}{% endblock %}
+        <div class="input-group-btn">
+          {% block extraEditActions %}{% endblock %}
+          <button class="btn btn-default btn-end-editing"
+                  type="button"
+                  ng-click="endEditing( '{{ fieldName }}' )">
+            <span class="glyphicon glyphicon-ok"></span>
+          </button>
+        </div>
       {% endblock %}
-      <span class="input-group-btn">
-        <button class="btn btn-default btn-end-editing"
-                type="button"
-                ng-click="endEditing( '{{ fieldName }}' )">
-          <span class="glyphicon glyphicon-ok"></span>
-        </button>
-      </span>
     </div><!-- /.field-editor -->
 
   {% endif %}

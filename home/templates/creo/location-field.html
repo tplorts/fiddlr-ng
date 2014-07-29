@@ -23,4 +23,15 @@
   </span>
 {% endblock %}
 
+{% block fieldEditInput %}
+  <input type="text" class="form-control" id="id_{{fieldName}}"
+         name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
+         typeahead="l.formatted_address for l in getLocations($viewValue)"
+         typeahead-loading="gettingLocations.{{fieldName}}" />
+{% endblock %}
 
+{% block extraEditActions %}
+  <button type="button" class="btn btn-default">
+    use map
+  </button>
+{% endblock %}
