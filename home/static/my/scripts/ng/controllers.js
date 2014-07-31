@@ -464,13 +464,17 @@ cmod.controller(
                 if( locations.length > 0 ) {
                     var l = locations[0];
                     console.log('gonnause '+l.id);
-                    // $scope.creo.patch({
-                    //     'location': l
-                    // });
                     $scope.creo['location'] = l.id;
+                } else {
+                    Location.post({
+                        'neighborhood': item.neighborhood
+                    }).then(function(loc) {
+                        console.log('created location '+loc.id);
+                        $scope.creo['location'] = loc.id;
+                    });
                 }
             });
-        };
+        };//end: onSelectLocation()
 
     }] // end: controller function
 ); // end: CreoPageController
