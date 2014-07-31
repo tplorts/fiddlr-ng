@@ -87,6 +87,31 @@ class CreoViewSet(viewsets.ModelViewSet):
         return Response(CreoSerializer(creo).data)
 
 
+class LocationViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
+
+    def get_queryset(self):
+        qs = Location.objects.all()
+        params = self.request.QUERY_PARAMS
+        address = params.get('address', None)
+        neighborhood = params.get('neighborhood', None)
+        zipcode = params.get('zipcode', None)
+        latitude = params.get('latitude', None)
+        longitude = params.get('longitude', None)
+        if latitude is not None and longitude is not None:
+            qs = qs.filter(Q(latitude=latitude) & Q(longitude=longitude))
+        elif address is not None:
+            qs = qs.filter(address__iexact=address)
+        elif neighborhood is not None:
+            qs = qs.filter(neighborhood__iexact=neighborhood)
+        elif zipcode is not None:
+            qs = qs.filter(zipcode=zipcode)
+        return qs
+
+
+
 
 #  ___             _        _    _    _   _              
 # | __|_ _____ _ _| |_ ___ | |  (_)__| |_(_)_ _  __ _ ___

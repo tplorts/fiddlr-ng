@@ -3,16 +3,16 @@
 {% block fieldViewWidget %}
   <span class="glyphicon glyphicon-globe"></span>
   <span ng-show="creo.isArtist()"
-        ng-bind="creo.location.neighborhood">
+        ng-bind="creo.locationInfo.neighborhood">
   </span>
   <span ng-show="creo.isEvent()"
         ng-bind="creo.venue.name">
   </span>
   <span ng-show="creo.isSponsor()"
-        ng-bind="creo.location.city">
+        ng-bind="creo.locationInfo.city">
   </span>
   <span ng-show="creo.isVenue()"
-        ng-bind="creo.location.address">
+        ng-bind="creo.locationInfo.address">
   </span>
   <span ng-show="creo.isVenue() || creo.isEvent()">
     <a href="[[ creo.mapLink() ]]"
@@ -24,13 +24,18 @@
 {% endblock %}
 
 {% block fieldEditInput %}
-  <input type="text" class="form-control" id="id_{{fieldName}}"
-         name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
-         placeholder="Enter your neighborhood"
-         typeahead="l for l in getLocations($viewValue) | limitTo:7"
-         typeahead-loading="gettingLocations.{{fieldName}}" 
-         typeahead-wait-ms="100" typeahead-min-length="2"
-         />
+  <div class="has-feedback">
+    <input type="text" class="form-control" id="id_{{fieldName}}"
+           name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
+           placeholder="Enter your neighborhood"
+           typeahead="l.neighborhood for l in getLocations($viewValue) | limitTo:7"
+           typeahead-loading="gettingLocations.{{fieldName}}" 
+           typeahead-wait-ms="100" typeahead-min-length="2"
+           typeahead-on-select="onSelectLocation($item)"
+           />
+    <span class="glyphicon glyphicon-time form-control-feedback"
+          ng-show="gettingLocations.{{fieldName}}"></span>
+  </div>
 {% endblock %}
 
 {% block extraEditActions %}

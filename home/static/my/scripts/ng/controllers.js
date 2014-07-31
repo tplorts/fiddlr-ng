@@ -5,7 +5,7 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 
 function readScopeInitials(scope) {
-    if( typeof ngScopeInitials === 'undefined' )
+    if( angular.isUndefined(ngScopeInitials) )
         return;
     for( var k in ngScopeInitials ) {
         if( ngScopeInitials.hasOwnProperty(k) ) {
@@ -299,7 +299,7 @@ cmod.controller(
 
 cmod.controller(
     'CreoPageController', 
-    ['$scope', '$http', '$upload', '$q', 'Creo', function($scope, $http, $upload, $q, Creo) {
+    ['$scope', '$http', '$upload', '$q', 'Creo', 'Location', function($scope, $http, $upload, $q, Creo, Location) {
         readScopeInitials( $scope );
         
         $scope.isGalleriaInitialized = false;
@@ -323,7 +323,7 @@ cmod.controller(
         });
 
         $scope.creotypeName = function() {
-            if( !$scope.creo || typeof Creotypes === 'undefined' )
+            if( !$scope.creo || angular.isUndefined(Creotypes) )
                 return '';
             return Creotypes[$scope.creo.creotype];
         };
@@ -352,8 +352,8 @@ cmod.controller(
                 }).progress(function(evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function(data, status, headers, config) {
-                    // To keep the Restangularity of creo: _.extend
-                    $scope.creo = _.extend($scope.creo, data);
+                    // To keep the Restangularity of creo: extend
+                    $scope.creo = angular.extend($scope.creo, data);
                     doneUploading();
                 });
                 //.error(...)
@@ -375,18 +375,21 @@ cmod.controller(
             $scope.oldValues[fieldName] = $scope.creo[fieldName];
         };
 
+        var patchableFields = ['name','brief','about','location'];
+
         $scope.endEditing = function( fieldName ) {
             $scope.editing[fieldName] = false;
             var newValue = $scope.creo[fieldName];
             var hasChanged = newValue !== $scope.oldValues[fieldName];
             if( !hasChanged ) return;
 
-            if( _.contains(['name','brief','about'], fieldName) ){
+            if( _.contains(patchableFields, fieldName) ){
                 var patchData = {};
                 patchData[fieldName] = newValue;
                 $scope.isPatching[fieldName] = true;
                 $scope.creo.patch(patchData).then(function(data) {
                     console.log(data);
+                    angular.extend( $scope.creo, data );
                     $scope.isPatching[fieldName] = false;
                 });
             } else if( _.contains(['logo','cover'], fieldName) ) {
@@ -406,6 +409,21 @@ cmod.controller(
         };
 
         $scope.gettingLocations = {};
+
+
+        var getComponent = function(item, compName) {
+            return _.find( item.address_components, function(comp){
+                return _.contains( comp.types, compName );
+            });
+        };
+
+        var neighborhoodName = function(item) {
+            if( !item ) return;
+            var name = getComponent(item, 'neighborhood').long_name;
+            var sublo = getComponent(item, 'sublocality_level_1');
+            if( sublo ) name += ', ' + sublo.long_name;
+            return name;
+        };
 
         var geocoder = new google.maps.Geocoder();
 
@@ -429,21 +447,30 @@ cmod.controller(
                 var nbhoods = [];
                 angular.forEach(geocoderResults, function(item){
                     if( _.contains(item.types, 'neighborhood') ){
-                        var name = getComponent(item, 'neighborhood').long_name;
-                        var sublo = getComponent(item, 'sublocality_level_1');
-                        if( sublo ) name += ', ' + sublo.long_name;
-                        nbhoods.push( name );
+                        item['neighborhood'] = neighborhoodName(item);
+                        nbhoods.push( item );
                     }
                 });
                 return nbhoods;
             });
         };//end: getLocations()
 
-        function getComponent(item, compName) {
-            return _.find( item.address_components, function(comp){
-                return _.contains( comp.types, compName );
+        $scope.onSelectLocation = function(item) {
+            var params = {};
+            // TODO: account for things other than neighborhood...
+            params['neighborhood'] = item.neighborhood;
+            Location.getList(params).then(function(locations){
+                // console.log('received: '+locations.length+' matches');
+                if( locations.length > 0 ) {
+                    var l = locations[0];
+                    console.log('gonnause '+l.id);
+                    // $scope.creo.patch({
+                    //     'location': l
+                    // });
+                    $scope.creo['location'] = l.id;
+                }
             });
-        }
+        };
 
     }] // end: controller function
 ); // end: CreoPageController

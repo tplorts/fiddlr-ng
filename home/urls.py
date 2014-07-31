@@ -14,6 +14,8 @@ router = routers.DefaultRouter()
 #router.register(r'users', UserViewSet)
 #router.register(r'groups', GroupViewSet)
 router.register(r'creo', CreoViewSet)
+router.register(r'location', LocationViewSet)
+
 
 urlpatterns = patterns(
     '',

@@ -35,3 +35,11 @@ smod.service('Creo', ['Restangular', function(Restangular) {
     return Creo;
 }]);
 
+
+
+
+
+smod.service('Location', ['Restangular', function(Restangular) {
+    var Location = Restangular.service('location');
+    return Location;
+}]);
