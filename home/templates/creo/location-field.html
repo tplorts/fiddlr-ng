@@ -28,6 +28,7 @@
     <input type="text" class="form-control" id="id_{{fieldName}}"
            name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
            placeholder="Enter your neighborhood"
+           autocomplete="off"
            typeahead="l.neighborhood for l in getLocations($viewValue) | limitTo:7"
            typeahead-loading="gettingLocations.{{fieldName}}" 
            typeahead-wait-ms="100" typeahead-min-length="2"
