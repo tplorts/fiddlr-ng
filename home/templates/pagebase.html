@@ -249,12 +249,10 @@
 
   {% if isProduction %}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/{{v.bootstrap}}/js/bootstrap.min.js"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
     <script src="{% static '3p/scripts/angular-google-maps-1.1.4.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
   {% else %}
     <script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>
-    <script src="{% static '3p/bootstrap-'|add:v.bootstrap|add:'-dist/js/bootstrap.js' %}"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.js' %}"></script>
     <script src="{% static '3p/scripts/angular-google-maps-1.1.4.js' %}"></script>
   {% endif %}
