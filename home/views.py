@@ -70,8 +70,8 @@ def injectDefaultContext(request, template, context):
         'section': section,
         'page': page,
         'googleAPIKey': settings.googleAPIKey,
+        'v': settings.PluginVersions,
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
-        'ngVersion': '1.3.0-beta.13/',
         'thetime': localNow(),
         'CreotypeChoices': CreotypeChoices,
     })

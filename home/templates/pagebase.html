@@ -230,7 +230,7 @@
   {{ block.super }}
 
   {% for ngPiece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
-    {% with ngFile=ngVersion|add:'angular'|add:ngPiece %}
+    {% with ngFile=v.angular|add:'/angular'|add:ngPiece %}
       {% if isProduction %}
         <script src="{{ ngCDN|add:ngFile|add:'.min.js' }}"></script>
       {% else %}
@@ -241,7 +241,7 @@
 
   {# mocks is only for testing #}
   {% if not isProduction %}
-    <script src="{% static '3p/ng/'|add:ngVersion|add:'angular-mocks.js' %}"></script>
+    <script src="{% static '3p/ng/'|add:v.angular|add:'/angular-mocks.js' %}"></script>
   {% endif %}
 
 
@@ -249,10 +249,12 @@
 
   {% if isProduction %}
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/{{v.bootstrap}}/js/bootstrap.min.js"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
     <script src="{% static '3p/scripts/angular-google-maps-1.1.4.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
   {% else %}
     <script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>
+    <script src="{% static '3p/bootstrap-'|add:v.bootstrap|add:'-dist/js/bootstrap.js' %}"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.js' %}"></script>
     <script src="{% static '3p/scripts/angular-google-maps-1.1.4.js' %}"></script>
   {% endif %}
