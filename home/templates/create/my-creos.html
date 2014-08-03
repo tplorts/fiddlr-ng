@@ -1,0 +1,17 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+
+{% block content %}
+<div class="container">
+  <ul>
+    {% for creo in uzer.creos.all %}
+      <li>
+        <a href="{% url 'edit-creo' creo.id %}">
+          {{ creo.name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock content %}

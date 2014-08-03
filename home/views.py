@@ -75,6 +75,7 @@ def injectDefaultContext(request, template, context):
         'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
         'thetime': localNow(),
         'CreotypeChoices': CreotypeChoices,
+        'uzer': getUzer(request),
     })
 
     if 'ngScopeVars' in context:
@@ -235,14 +236,9 @@ def experienceEventListingMap(q, listingKey):
 
 @login_required
 def createHome(q):
-    if q.user.is_authenticated and getUzer(q).creos.count() > 0:
-        k = getUzer(q).creos.all()[0].pk
-        yourProfileURL = 'edit/%d/' % k
-        #TODO: change for multicreo creators
-    else:
-        yourProfileURL = '#'
+    creoCount = getUzer(q).creos.count()
     return renderPage(q, 'create/create-home', {
-        'yourProfileURL': yourProfileURL,
+        'creoCount': creoCount,
     })
 
 

@@ -30,10 +30,20 @@
   </div>
 
   <div id="create-navigation" class="prearranged">
-      <a class="create-round-button"
-         href="{{ yourProfileURL }}">
-        <span class="button-text">Your<br>Profile</span>
-      </a>
+    <a class="create-round-button"
+       {% if creoCount == 0 %}
+         disabled="disabled"
+       {% elif creoCount == 1 %}
+         href="{% url 'edit-creo' uzer.creos.all.0 %}"
+       {% else %}
+         href="{% url 'my-creos' %}"
+       {% endif %}
+       >
+      <span class="button-text">
+        Your<br>
+        Profile{% if creoCount > 1 %}s{% endif %}
+      </span>
+    </a>
     {% for x in "Your Contacts,Your Projects,For You,Near You"|split:"," %}
       <a class="create-round-button">
         <span class="button-text">{{ x|space2newline }}</span>
