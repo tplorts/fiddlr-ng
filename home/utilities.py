@@ -13,5 +13,8 @@ def endOfTomorrow():
 
 def getUzer(request):
     if request.user.is_authenticated:
-        return Uzer.objects.get(user=request.user.pk)
+        try:
+            return Uzer.objects.get(user=request.user.pk)
+        except Uzer.DoesNotExist:
+            return None
     return None
