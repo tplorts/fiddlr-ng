@@ -52,8 +52,8 @@ urlpatterns = patterns(
 
 
     url(r'^create/$', createHome, name='Create'),
-    url(r'^create/new/(\w+)/$', newCreo),
-    url(r'^create/edit/(\d+)/$', editCreo),
+    url(r'^create/new/(\w+)/$', newCreo, name='new-creo'),
+    url(r'^create/edit/(\d+)/$', editCreo, name='edit-creo'),
 
     url(r'^nexus/', IntraFiew.as_view(template='nexus/nexus-home'), name='Nexus'),
 

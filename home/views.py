@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
 from django.contrib import auth
 from django.contrib.auth.views import login as auth_login_view
@@ -299,7 +300,7 @@ def newCreo(request, creotypeName):
     creo = Creo(creotype=creotypeForName(creotypeName))
     creo.save()
     creo.editors.add(getUzer(request))
-    return editCreo(request, creo.pk)
+    return HttpResponseRedirect(reverse('edit-creo', args=[creo.pk]))
 
 
 
