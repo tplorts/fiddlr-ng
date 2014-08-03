@@ -379,6 +379,7 @@ cmod.controller(
 
         $scope.endEditing = function( fieldName ) {
             $scope.editing[fieldName] = false;
+            $scope.isMapOpen[fieldName] = false;
             var newValue = $scope.creo[fieldName];
             var hasChanged = newValue !== $scope.oldValues[fieldName];
             if( !hasChanged ) return;
@@ -427,23 +428,26 @@ cmod.controller(
 
         var geocoder = new google.maps.Geocoder();
 
-        $scope.getLocations = function( query ) {
-            if( !geocoder ) return ['**not available**'];
+        var getLocations = function(geocodeQuery) {
             var deferred = $q.defer();
             var promise = deferred.promise;
-            geocoder.geocode({
-                address: query,
-                componentRestrictions: {
-                    locality: 'New York'
-                }
-            }, function (results, status) {
+            geocoder.geocode(geocodeQuery, function (results, status) {
                 if( status == google.maps.GeocoderStatus.OK ) {
                     deferred.resolve(results);
                 } else {
                     deferred.reject(status);
                 }
             });
-            return promise.then(function(geocoderResults) {
+            return promise;
+        };//end: getLocations()
+
+        $scope.getNamedLocations = function(typedQuery) {
+            return getLocations({
+                address: typedQuery,
+                componentRestrictions: {
+                    locality: 'New York'
+                }
+            }).then(function(geocoderResults) {
                 var nbhoods = [];
                 angular.forEach(geocoderResults, function(item){
                     if( _.contains(item.types, 'neighborhood') ){
@@ -453,29 +457,74 @@ cmod.controller(
                 });
                 return nbhoods;
             });
-        };//end: getLocations()
+        };
 
-        $scope.onSelectLocation = function(item) {
+        $scope.isPreparingLocation = {};
+
+        $scope.selectLocation = function(fieldName, item) {
             var params = {};
             // TODO: account for things other than neighborhood...
             params['neighborhood'] = item.neighborhood;
+            $scope.isPreparingLocation[fieldName] = true;
             Location.getList(params).then(function(locations){
                 // console.log('received: '+locations.length+' matches');
                 if( locations.length > 0 ) {
                     var l = locations[0];
-                    console.log('gonnause '+l.id);
-                    $scope.creo['location'] = l.id;
+                    $scope.creo[fieldName] = l.id;
+                    $scope.isPreparingLocation[fieldName] = false;
                 } else {
                     Location.post({
                         'neighborhood': item.neighborhood
                     }).then(function(loc) {
-                        console.log('created location '+loc.id);
-                        $scope.creo['location'] = loc.id;
+                        $scope.creo[fieldName] = loc.id;
+                        $scope.isPreparingLocation[fieldName] = false;
                     });
                 }
             });
-        };//end: onSelectLocation()
+        };//end: selectLocation()
 
+        var getMapLocations = function() {
+            var c = $scope.map.center;
+            getLocations({
+                latLng: new google.maps.LatLng(c.latitude, c.longitude)
+            }).then(function(geocoderResults) {
+                var nbhoods = [];
+                angular.forEach(geocoderResults, function(item){
+                    if( _.contains(item.types, 'neighborhood') ){
+                        item['neighborhood'] = neighborhoodName(item);
+                        nbhoods.push( item );
+                    }
+                });
+                $scope.mapLocations = nbhoods;
+            });
+        };
+
+        $scope.map = {
+            center: {
+                latitude: 40.7517556,
+                longitude: -73.9844816
+            },
+            zoom: 14,
+            events: {
+                dragend: getMapLocations
+            }
+        };
+        $scope.isMapOpen = {};
+        $scope.hasMapOpened = {};
+        $scope.toggleMap = function( fieldName ) {
+            $scope.isMapOpen[fieldName] = !$scope.isMapOpen[fieldName];
+            if( $scope.isMapOpen[fieldName] ) {
+                $scope.hasMapOpened[fieldName] = true;
+            }
+        }
+        $scope.mapLocations = [];
+
+        $scope.clickMapLocation = function( fieldName, i ) {
+            var loc = $scope.mapLocations[i];
+            var inputKey = fieldName + 'Input';
+            $scope.creo[inputKey] = loc.neighborhood;
+            $scope.selectLocation( fieldName, loc );
+        };
     }] // end: controller function
 ); // end: CreoPageController
 

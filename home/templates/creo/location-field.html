@@ -29,10 +29,10 @@
            name="{{fieldName}}" ng-model="creo.{{fieldName}}Input"
            placeholder="Enter your neighborhood"
            autocomplete="off"
-           typeahead="l.neighborhood for l in getLocations($viewValue) | limitTo:7"
+           typeahead="l.neighborhood for l in getNamedLocations($viewValue) | limitTo:7"
            typeahead-loading="gettingLocations.{{fieldName}}" 
            typeahead-wait-ms="100" typeahead-min-length="2"
-           typeahead-on-select="onSelectLocation($item)"
+           typeahead-on-select="selectLocation('{{fieldName}}', $item)"
            />
     <span class="glyphicon glyphicon-time form-control-feedback"
           ng-show="gettingLocations.{{fieldName}}"></span>
@@ -40,7 +40,31 @@
 {% endblock %}
 
 {% block extraEditActions %}
-  <button type="button" class="btn btn-default">
-    use map
+  <button type="button" class="btn btn-default"
+          ng-click="toggleMap('{{fieldName}}')">
+    [[ isMapOpen.{{fieldName}} ? 'close':'use' ]]
+    map
   </button>
+{% endblock %}
+
+
+{% block extraEditMarkup %}
+  <div class="map-location-picker"
+       ng-show="isMapOpen.{{fieldName}}">
+    <div class="gmap" ng-if="hasMapOpened.{{fieldName}}">
+      <google-map center="map.center" zoom="map.zoom"
+                  pan="false" draggable="true"
+                  events="map.events">
+      </google-map>
+    </div>
+
+    <div class="map-locations btn-group-vertical center-block"
+         ng-show="mapLocations.length > 0">
+      <button type="button" class="btn btn-default btn-sm"
+              ng-repeat="l in mapLocations"
+              ng-click="clickMapLocation( '{{fieldName}}', $index )">
+        [[ l.neighborhood ]]
+      </button>
+    </div>
+  </div>
 {% endblock %}

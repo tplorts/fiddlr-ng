@@ -1,6 +1,7 @@
 {% load creo staticfiles %}
 
-<div class="creo-field creo-{{ fieldName }}"
+<div class="creo-field creo-{{ fieldName }}
+            [[ isMapOpen.{{fieldName}} ? 'map-open':'' ]]"
      ng-cloak>
 
   {% block fieldViewWidget %}
@@ -24,19 +25,26 @@
          ng-show="{{uploading}}" />
     {% endwith %}
 
-    <div class="input-group field-editor
-                editing-[[ editing.{{ fieldName }} ? '':'in' ]]active">
-      {% block fieldEditWidget %}
-        {% block fieldEditInput %}{{ fieldTag }}{% endblock %}
-        <div class="input-group-btn">
-          {% block extraEditActions %}{% endblock %}
-          <button class="btn btn-default btn-end-editing"
-                  type="button"
-                  ng-click="endEditing( '{{ fieldName }}' )">
-            <span class="glyphicon glyphicon-ok"></span>
-          </button>
-        </div>
-      {% endblock %}
+    <div class="field-editor
+                editing-[[ editing.{{ fieldName }} ? '':'in' ]]active
+                [[ isMapOpen.{{fieldName}} ? 'map-open':'' ]]">
+      <div class="input-group">
+        {% block fieldEditWidget %}
+          {% block fieldEditInput %}{{ fieldTag }}{% endblock %}
+          <div class="input-group-btn">
+            {% block extraEditActions %}{% endblock %}
+            <button class="btn btn-default btn-end-editing"
+                    type="button"
+                    ng-disabled="isPreparingLocation.{{fieldName}}"
+                    ng-click="endEditing( '{{ fieldName }}' )">
+              <span class="glyphicon
+                           glyphicon-[[ isPreparingLocation.{{fieldName}} ? 'time':'ok' ]]">
+              </span>
+            </button>
+          </div>
+        {% endblock %}
+      </div><!-- /.input-group -->
+      {% block extraEditMarkup %}{% endblock %}
     </div><!-- /.field-editor -->
 
   {% endif %}

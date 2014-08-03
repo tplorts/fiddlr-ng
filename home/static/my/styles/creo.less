@@ -128,7 +128,13 @@
                     opacity: 0.85;
                 }
             }
+            &.map-open {
+                &:hover {
+                    border-color: transparent;
+                }
+            }
         }
+        
 
         .btn-begin-editing {
             position: absolute;
@@ -178,6 +184,34 @@
                     top: 0;
                 }
             }
+            &.map-open {
+                border-radius: 4px;
+                box-shadow: 0 0 5px;
+                .input-group > .has-feedback > input:first-child {
+                    border-bottom-left-radius: 0;
+                }
+                .btn-end-editing {
+                    margin-right: -1px;
+                    border-bottom-right-radius: 0;
+                }
+            }
+            .map-location-picker {
+                .gmap {
+                    width: 100%;
+                    height: 300px;
+                }
+                .btn-close-map {
+                    position: absolute;
+                    bottom: 20px;
+                    right: 6px;
+                }
+                .map-locations.btn-group-vertical {
+                    & > .btn:first-child {
+                        border-top-right-radius: 0;
+                        border-top-left-radius: 0;
+                    }
+                }
+            }
         }
 
         .creo-about {
@@ -193,5 +227,4 @@
             }
         }
     }
-
 }
