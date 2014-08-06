@@ -306,7 +306,10 @@ cmod.controller(
 
         $scope.openPortfolio = function() {
             if( !$scope.isGalleriaInitialized ) {
-                initGalleria();
+                Galleria.loadTheme( GalleriaThemeJs.miniml );
+                Galleria.run('.galleria', {
+                    imagePan: false
+                });
                 $scope.isGalleriaInitialized = true;
             }
         };

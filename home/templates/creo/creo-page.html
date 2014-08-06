@@ -2,6 +2,16 @@
 {% load misc staticfiles creo %}
 
 
+{% block prescripts %}
+  <script>
+    var GalleriaThemeJs = {
+      classic: "{% static '3p/galleria/themes/classic/galleria.classic.min.js' %}",
+      miniml:  "{% static '3p/galleria/themes/miniml/galleria.miniml.min.js' %}"
+    };
+  </script>
+{% endblock %}
+
+
 {% block content %}
 <div class="container creo-page 
             {% if isEditing %} creo-editor {% endif %}"
@@ -138,11 +148,5 @@
 
 
 {% block postscripts %}
-  <script src="{% static '3p/galleria/galleria-1.3.5.min.js' %}"></script>
-  <script>
-    var initGalleria = function() {
-      Galleria.loadTheme("{% static '3p/galleria/themes/classic/galleria.classic.min.js' %}");
-      Galleria.run('.galleria');
-    }
-  </script>
+  <script src="{% static '3p/galleria/galleria-1.3.6.min.js' %}"></script>
 {% endblock %}
