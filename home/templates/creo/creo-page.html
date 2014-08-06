@@ -14,13 +14,15 @@
         {% CreoImageField "cover" %}
         <div class="fan-buttons">
           {% with n=1423 %} {# creo.fans.count #}
-          <button disabled class="btn {% if n == 0 %}invisible{% endif %}">
+          <button class="btn btn-default 
+                         {% if n == 0 %}invisible{% endif %}"
+                  disabled >
             <b>{{ n }}</b>
             <small>fan{% if n != 1 %}s{% endif %}</small>
           </button>
           {% endwith %}
 
-          <button class="btn btn-info pull-right"
+          <button class="btn btn-default pull-right"
                   {% if isEditing %}disabled{% endif %}
                   id="follow-this-creo" ng-cloak>
             {% if isFollowingThis %}
@@ -30,7 +32,8 @@
             {% endif %}
           </button>
 
-        </div>
+        </div><!-- /.fan-buttons -->
+
         {# % if creo.events.count > 0 % #}
         {% if False %}
         <div id="prior-events">
@@ -58,14 +61,13 @@
                 </a>
               </li>
             </ul>
-          </div>
-        </div>
+          </div><!-- /.dropdown -->
+        </div><!-- /#prior-events -->
         {% elif isEditing %}
           {# TODO: message about no events but show what it will look like #}
         {% endif %}
-      </div>
-    </div>
-
+      </div><!-- /.creo-panel -->
+    </div><!-- /.col Panel -->
     <div class="col-sm-7">
       <div class="hidden-xs mt15px"></div>
 
@@ -92,49 +94,46 @@
       {% endif %}
 
       {% CreoFormattedTextField "about" %}
-    </div>        
+    </div><!-- /.col About -->
+  </div><!-- /.row -->
 
-  </div>
-
-      <div class="sliding-tabs-theca" ng-cloak>
-        <tabset id="profile-tabs">
-          <tab select="openPortfolio()">
-            <tab-heading>
-              <span class="hidden-xs">
-                <i class="glyphicon glyphicon-folder-open"></i>
-              </span>
-              {{ 'Portfolio'|smallcaps }}
-            </tab-heading>
-            {% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/400/200/' lpl='http://lorempixel.com/400/200/' %}
-            <div class="galleria">
-              {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
-              <a href="{{ lpm|add:category }}">
-                <img src="{{ lps|add:category }}" 
-                     data-big="{{ lpl|add:category }}" 
-                     data-title="{{ category }}" 
-                     data-description="This is a random picture of the {{category}}">
-              </a>
-              {% endfor %}
-            </div>
-            {% endwith %}
-          </tab>
-          <tab>
-            <tab-heading>
-              <span class="hidden-xs">
-                <i class="glyphicon glyphicon-bullhorn"></i>
-              </span>
-              {{ 'Upcoming'|smallcaps }}
-            </tab-heading>
-            <accordion>
-              <accordion-group heading="Check out Pedrito!">
-                <iframe width="560" height="315" src="//www.youtube.com/embed/-_6kyx1XGDo" frameborder="0" allowfullscreen></iframe>
-              </accordion-group>
-            </accordion>
-          </tab>
-        </tabset>
+  <tabset ng-cloak id="profile-tabs">
+    <tab select="openPortfolio()">
+      <tab-heading>
+        <span class="hidden-xs">
+          <i class="glyphicon glyphicon-folder-open"></i>
+        </span>
+        {{ 'Portfolio'|smallcaps }}
+      </tab-heading>
+      {% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/400/200/' lpl='http://lorempixel.com/400/200/' %}
+      <div class="galleria">
+        {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
+        <a href="{{ lpm|add:category }}">
+          <img src="{{ lps|add:category }}" 
+               data-big="{{ lpl|add:category }}" 
+               data-title="{{ category }}" 
+               data-description="This is a random picture of the {{category}}">
+        </a>
+        {% endfor %}
       </div>
+      {% endwith %}
+    </tab>
+    <tab>
+      <tab-heading>
+        <span class="hidden-xs">
+          <i class="glyphicon glyphicon-bullhorn"></i>
+        </span>
+        {{ 'Upcoming'|smallcaps }}
+      </tab-heading>
+      <accordion>
+        <accordion-group heading="Check out Pedrito!">
+          <iframe width="560" height="315" src="//www.youtube.com/embed/-_6kyx1XGDo" frameborder="0" allowfullscreen></iframe>
+        </accordion-group>
+      </accordion>
+    </tab>
+  </tabset>
 
-</div>
+</div><!-- /CreoPageController -->
 {% endblock %}
 
 
