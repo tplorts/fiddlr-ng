@@ -36,7 +36,7 @@ urlpatterns = patterns(
 
     # EXPERIENCE
     url(r'^experience/$', IntraFiew.as_view(template='experience/experience-home'), name='Experience'),
-    url(r'^experience/(\d+)/$', experienceCreo, name='Experience Creo'),
+    url(r'^experience/(\d+)/$', experienceCreo, name='view-creo'),
     url(r'^experience/(\d+)/events/$', experienceCreoEvents, name='Experience Creo Events'),
     url(r'^experience/events/([\w\d\-]+)/$', experienceEventListingList, name='Event Listing'),
     url(r'^experience/events/([\w\d\-]+)/map/$', experienceEventListingMap, name='Event Listing Map'),

@@ -303,20 +303,13 @@ cmod.controller(
         readScopeInitials( $scope );
         
         $scope.isGalleriaInitialized = false;
-        $scope.moveTabPane = function(tabIndex) {
-            if( isSmAboutOn() && tabIndex == 0 ) {
-                setTimeout( function() {
-                    gotoTab1();
-                }, 0);
-                return;
-            }
-            $('.tab-content').css('margin-left', -tabIndex*100+'%');
-            if( !$scope.isGalleriaInitialized && tabIndex == 1 && Galleria ) {
+
+        $scope.openPortfolio = function() {
+            if( !$scope.isGalleriaInitialized ) {
                 initGalleria();
                 $scope.isGalleriaInitialized = true;
             }
         };
-        
 
         Creo.one($scope.creoId).get().then(function(c){
             $scope.creo = c;
@@ -527,24 +520,6 @@ cmod.controller(
         };
     }] // end: controller function
 ); // end: CreoPageController
-
-function isSmAboutOn() {
-    return $('#small-about').css('display') !== 'none';
-}
-
-function gotoTab1() {
-    $('#profile-tabs > ul > li:eq(1) > a').click();
-}
-
-function isAboutTabOpen() {
-    return $('#profile-tabs .tab-pane:eq(0)').hasClass('active');
-}
-
-$(window).on('load resize orientationChange', function() {
-    if( isAboutTabOpen() && isSmAboutOn() ) {
-        gotoTab1();
-    }
-});
 
 
 

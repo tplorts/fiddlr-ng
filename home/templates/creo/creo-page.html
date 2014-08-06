@@ -6,9 +6,9 @@
 <div class="container creo-page 
             {% if isEditing %} creo-editor {% endif %}"
      ng-controller="CreoPageController">
-  {% if isEditing %}<form name="creoForm">{% endif %}
+
   <div class="row">
-    <div class="col-sm-5 col-md-4">
+    <div class="col-sm-5">
       <div class="creo-panel">
         {% CreoField "name" %}
         {% CreoImageField "cover" %}
@@ -66,31 +66,39 @@
       </div>
     </div>
 
-    <div class="col-sm-7 visible-sm" id="small-about">
-      <div class="small-about-header">
-        <i class="glyphicon glyphicon-info-sign"></i> 
-        {{ 'About'|smallcaps }}
+    <div class="col-sm-7">
+      <div class="hidden-xs mt15px"></div>
+
+      {% CreoField "brief" %}
+
+      {% CreoLocationField %}
+
+      {% if creo.isEvent %}
+      <div class="creo-artists">
+        {% for artist in creo.artists %}
+        <span class="ib">
+          {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
+          <a href="{% url 'view-creo' artist.id %}">
+            {{ artist }}
+          </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
+        </span>
+        {% endfor %}
       </div>
-      <div class="profile-bio">
-        {% CreoAboutSection %}
+      <div class="creo-venue">
+        <a href="{% url 'view-creo' creo.venue.id %}">
+          {{ creo.venue.name }}
+        </a>
       </div>
+      {% endif %}
+
+      {% CreoFormattedTextField "about" %}
     </div>        
 
-    <div class="col-sm-12 col-md-8">
+  </div>
+
       <div class="sliding-tabs-theca" ng-cloak>
         <tabset id="profile-tabs">
-          <tab select="moveTabPane(0)" class="hidden-sm">
-            <tab-heading>
-              <span class="hidden-xs">
-                <i class="glyphicon glyphicon-info-sign"></i> 
-              </span>
-              {{ 'About'|smallcaps }}
-            </tab-heading>
-            <div class="profile-bio">
-              {% CreoAboutSection %}
-            </div>
-          </tab>
-          <tab select="moveTabPane(1)">
+          <tab select="openPortfolio()">
             <tab-heading>
               <span class="hidden-xs">
                 <i class="glyphicon glyphicon-folder-open"></i>
@@ -110,31 +118,22 @@
             </div>
             {% endwith %}
           </tab>
-          <tab select="moveTabPane(2)">
+          <tab>
             <tab-heading>
               <span class="hidden-xs">
                 <i class="glyphicon glyphicon-bullhorn"></i>
               </span>
               {{ 'Upcoming'|smallcaps }}
             </tab-heading>
-            <accordion close-others="true">
-              <accordion-group heading="UmadagagadaUmadagagadaUmadagagadaUmadagagada">
-                Well then
-              </accordion-group>
-              <accordion-group heading="Nocreo to see here &hellip;">
-                <p>Oh, hello!</p>
+            <accordion>
+              <accordion-group heading="Check out Pedrito!">
                 <iframe width="560" height="315" src="//www.youtube.com/embed/-_6kyx1XGDo" frameborder="0" allowfullscreen></iframe>
-              </accordion-group>
-              <accordion-group heading="And last but not least:">
-                Bipity Bopity Boo!
               </accordion-group>
             </accordion>
           </tab>
         </tabset>
       </div>
-    </div>
-  </div>
-  {% if isEditing %}</form>{% endif %}
+
 </div>
 {% endblock %}
 
