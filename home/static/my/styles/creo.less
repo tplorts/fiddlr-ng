@@ -70,19 +70,23 @@
         }
     }
 
-    .creo-about {
-        font-size: 12px;
-    }
-
-    .nav-tabs > li {
-        > a {
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer !important;
-            color: #333 !important;
-        }
-        &.active > a {
-            cursor: default !important;
+    .nav-tabs {
+        border: none;
+        & > li {
+            > a {
+                font-size: 16px;
+                font-weight: bold;
+                cursor: pointer !important;
+                color: #333 !important;
+                border: none !important;
+                &:hover {
+                    .gradient-down(#DDD);
+                }
+            }
+            &.active > a {
+                cursor: default !important;
+                .gradient-down(#AAA);
+            }
         }
     }
 

@@ -302,18 +302,6 @@ cmod.controller(
     ['$scope', '$http', '$upload', '$q', 'Creo', 'Location', function($scope, $http, $upload, $q, Creo, Location) {
         readScopeInitials( $scope );
         
-        $scope.isGalleriaInitialized = false;
-
-        $scope.openPortfolio = function() {
-            if( !$scope.isGalleriaInitialized ) {
-                Galleria.loadTheme( GalleriaThemeJs.miniml );
-                Galleria.run('.galleria', {
-                    imagePan: false
-                });
-                $scope.isGalleriaInitialized = true;
-            }
-        };
-
         Creo.one($scope.creoId).get().then(function(c){
             $scope.creo = c;
         });
@@ -322,6 +310,23 @@ cmod.controller(
             if( !$scope.creo || angular.isUndefined(Creotypes) )
                 return '';
             return Creotypes[$scope.creo.creotype];
+        };
+
+        $scope.isGalleriaInitialized = false;
+
+        $scope.openPortfolio = function() {
+            if( !$scope.isGalleriaInitialized ) {
+                Galleria.loadTheme( GalleriaThemeJs.miniml );
+                Galleria.run('.galleria', {
+                    imagePan: false,
+                    imageCrop: false
+                });
+                $scope.isGalleriaInitialized = true;
+            }
+        };
+
+        $scope.bulletin = {
+            isOpen: [true, false, false]
         };
         
 

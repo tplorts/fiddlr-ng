@@ -107,7 +107,7 @@
     </div><!-- /.col About -->
   </div><!-- /.row -->
 
-  <tabset ng-cloak id="profile-tabs">
+  <tabset ng-cloak id="profile-tabs" justified="true">
     <tab select="openPortfolio()">
       <tab-heading>
         <span class="hidden-xs">
@@ -131,17 +131,35 @@
     <tab>
       <tab-heading>
         <span class="hidden-xs">
-          <i class="glyphicon glyphicon-bullhorn"></i>
+          <i class="glyphicon glyphicon-fire"></i>
         </span>
         {{ 'Upcoming'|smallcaps }}
       </tab-heading>
       <accordion>
-        <accordion-group heading="Check out Pedrito!">
-          <iframe width="560" height="315" src="//www.youtube.com/embed/-_6kyx1XGDo" frameborder="0" allowfullscreen></iframe>
+        <accordion-group heading="Going out tonight">
+          Attn: I will be leaving the house tonight.
+        </accordion-group>
+      </accordion>
+    </tab>
+    <tab>
+      <tab-heading>
+        <span class="hidden-xs">
+          <i class="glyphicon glyphicon-bullhorn"></i>
+        </span>
+        {{ 'Bulletin'|smallcaps }}
+      </tab-heading>
+      <accordion>
+        <accordion-group heading="Check out Pedrito!" 
+                         is-open="bulletin.isOpen[0]">
+          <iframe width="560" height="315" 
+                  src="//www.youtube.com/embed/-_6kyx1XGDo" 
+                  frameborder="0" allowfullscreen></iframe>
         </accordion-group>
       </accordion>
     </tab>
   </tabset>
+
+  <div class="content-bottom-cushion"></div>
 
 </div><!-- /CreoPageController -->
 {% endblock %}
