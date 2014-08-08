@@ -46,12 +46,21 @@
     }
 
     .creo-basic-info {
-        @media (min-width: @screen-sm-min) {
+        margin-top: 30px;
+    }
+    @media (min-width: @screen-sm-min) {
+        .creo-basic-info {
+            margin-top: 0;
             padding: 10px;
             border: 2px solid @cream;
             border-top-right-radius: 15px;
             border-left: none;
             border-bottom: none;
+            margin-right: -2px;
+        }
+        #creo-top-row-wrapper {
+            border-right: 2px solid @cream;
+            border-top-right-radius: 15px;
         }
     }
 

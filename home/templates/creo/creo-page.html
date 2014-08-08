@@ -17,6 +17,7 @@
             {% if isEditing %} creo-editor {% endif %}"
      ng-controller="CreoPageController">
 
+  <div id="creo-top-row-wrapper">
   <div class="row">
     <div class="col-sm-5">
       <div class="creo-panel">
@@ -106,6 +107,7 @@
       </div><!-- /.creo-basic-info -->
     </div><!-- /.col -->
   </div><!-- /.row -->
+  </div>
 
   <tabset ng-cloak id="creo-tabset">
     <tab select="openPortfolio()">
