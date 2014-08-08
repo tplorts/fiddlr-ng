@@ -48,7 +48,7 @@
                      name="where" placeholder="where?" />
             </div>
             <div class="ib vmid">
-              <button class="btn btn-orpheus search-button"
+              <button class="btn btn-orpheus-purple search-button"
                       type="submit">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
@@ -59,7 +59,7 @@
       <div class="col-sm-4 col-xs-8">
         {% if user.is_authenticated %}
         <div class="ib vmid" id="alerts-icon">
-          <a class="btn btn-orpheus btn-narrow-xs"
+          <a class="btn btn-orpheus-purple btn-narrow-xs"
              href="{% url 'Alerts' %}">
             <span class="glyphicon glyphicon-bell"></span>
             <span class="badge">482</span>
@@ -68,7 +68,7 @@
         {% endif %}
         <div class="ib vmid" id="header-links">
           <div class="btn-group">
-            <button type="button" class="btn btn-orpheus dropdown-toggle" data-toggle="dropdown">
+            <button type="button" class="btn btn-orpheus-purple dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs hidden-sm">Pages</span>
               <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
@@ -93,7 +93,7 @@
                 id="signout-form">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <button class="btn btn-orpheus signout-button btn-narrow-xs"
+            <button class="btn btn-orpheus-purple signout-button btn-narrow-xs"
                     title="Signed in as {{user.get_full_name|default:user}}">
               Sign out
             </button>

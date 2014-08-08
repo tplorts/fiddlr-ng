@@ -23,25 +23,47 @@ a {
     margin-bottom: 350px;
 }
 
-.orpheus {
-    background-color: @orpheus-green;
+.orpheus-aqua {
     color: @cream !important;
+    background-color: @orpheus-aqua;
 }
 
-@orpheus-active: #468;
-.btn-orpheus {
-    .orpheus;
-    border: 1px solid #144;
+.orpheus-purple {
+    color: @cream !important;
+    background-color: @orpheus-purple;
+}
+
+.btn-orpheus-aqua {
+    .orpheus-aqua;
     .transition(all, 220ms, ease);
+    
+    border: 1px solid #144;
     &:hover {
-        background-color: #466;
+        background-color: @orpheus-aqua-hover;
     }
     &:focus {
-        background-color: #466;
+        background-color: @orpheus-aqua-hover;
         border-color: #CC9;
     }
     &:active {
-        background-color: @orpheus-active;
+        background-color: @orpheus-aqua-active;
+    }
+}
+
+.btn-orpheus-purple {
+    .orpheus-purple;
+    .transition(all, 220ms, ease);
+    
+    border: 1px solid #111;
+    &:hover {
+        background-color: @orpheus-purple-hover;
+    }
+    &:focus {
+        background-color: @orpheus-purple-hover;
+        border-color: #CC9;
+    }
+    &:active {
+        background-color: @orpheus-purple-active;
     }
 }
 
@@ -178,7 +200,7 @@ a {
     width: 100%;
 
     &.open .dropdown-toggle {
-        background-color: @orpheus-active;
+        background-color: @orpheus-aqua-active;
     }
 
     .dropdown-menu {
