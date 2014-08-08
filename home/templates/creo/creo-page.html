@@ -18,96 +18,96 @@
      ng-controller="CreoPageController">
 
   <div id="creo-top-row-wrapper">
-  <div class="row">
-    <div class="col-sm-5">
-      <div class="creo-panel">
-        {% CreoField "name" %}
-        {% CreoImageField "cover" %}
-        <div class="fan-buttons">
-          {% with n=1423 %} {# creo.fans.count #}
-          <button class="btn btn-default 
-                         {% if n == 0 %}invisible{% endif %}"
-                  disabled >
-            <b>{{ n }}</b>
-            <small>fan{% if n != 1 %}s{% endif %}</small>
-          </button>
-          {% endwith %}
-
-          <button class="btn btn-default pull-right"
-                  {% if isEditing %}disabled{% endif %}
-                  id="follow-this-creo" ng-cloak>
-            {% if isFollowingThis %}
-            Already following
-            {% else %}
-            Follow this [[ creotypeName() ]]
-            {% endif %}
-          </button>
-
-        </div><!-- /.fan-buttons -->
-
-        {# % if creo.events.count > 0 % #}
-        {% if False %}
-        <div id="prior-events">
-          <div class="dropdown">
-            <button id="dLabel" class="btn btn-default"
-                    role="button" data-toggle="dropdown"
-                    data-target="#">
-              Prior events
-              <span class="caret"></span>
+    <div class="row">
+      <div class="col-sm-5">
+        <div class="creo-panel">
+          {% CreoField "name" %}
+          {% CreoImageField "cover" %}
+          <div class="fan-buttons">
+            {% with n=1423 %} {# creo.fans.count #}
+            <button class="btn btn-default 
+                           {% if n == 0 %}invisible{% endif %}"
+                    disabled >
+              <b>{{ n }}</b>
+              <small>fan{% if n != 1 %}s{% endif %}</small>
             </button>
-            <ul class="dropdown-menu" role="menu" 
-                aria-labelledby="dLabel">
-              {% for event in creo.events %}
-              <li role="presentation">
-                <a role="menuitem" tabindex="-1"
-                   href="{% url 'Profile' event.id %}">
-                  {{ event.name }}
-                </a>
-              </li>
-              {% endfor %}
-              <li role="presentation" class="divider"></li>
-              <li role="presentation">
-                <a href="events/" role="menuitem" tabindex="-1">
-                  See all prior events of [[ creo.name ]]
-                </a>
-              </li>
-            </ul>
-          </div><!-- /.dropdown -->
-        </div><!-- /#prior-events -->
-        {% elif isEditing %}
-          {# TODO: message about no events but show what it will look like #}
-        {% endif %}
-      </div><!-- /.creo-panel -->
-    </div><!-- /.col Panel -->
-    <div class="col-sm-7">
-      <div class="creo-basic-info">
-        {% CreoField "brief" %}
+            {% endwith %}
 
-        {% CreoLocationField %}
+            <button class="btn btn-default pull-right"
+                    {% if isEditing %}disabled{% endif %}
+                    id="follow-this-creo" ng-cloak>
+              {% if isFollowingThis %}
+              Already following
+              {% else %}
+              Follow this [[ creotypeName() ]]
+              {% endif %}
+            </button>
 
-        {% if creo.isEvent %}
-        <div class="creo-artists">
-          {% for artist in creo.artists %}
-          <span class="ib">
-            {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
-            <a href="{% url 'view-creo' artist.id %}">
-              {{ artist }}
-            </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
-          </span>
-          {% endfor %}
-        </div>
-        <div class="creo-venue">
-          <a href="{% url 'view-creo' creo.venue.id %}">
-            {{ creo.venue.name }}
-          </a>
-        </div>
-        {% endif %}
+          </div><!-- /.fan-buttons -->
 
-        {% CreoFormattedTextField "about" %}
-      </div><!-- /.creo-basic-info -->
-    </div><!-- /.col -->
-  </div><!-- /.row -->
-  </div>
+          {# % if creo.events.count > 0 % #}
+          {% if False %}
+          <div id="prior-events">
+            <div class="dropdown">
+              <button id="dLabel" class="btn btn-default"
+                      role="button" data-toggle="dropdown"
+                      data-target="#">
+                Prior events
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" role="menu" 
+                  aria-labelledby="dLabel">
+                {% for event in creo.events %}
+                <li role="presentation">
+                  <a role="menuitem" tabindex="-1"
+                     href="{% url 'Profile' event.id %}">
+                    {{ event.name }}
+                  </a>
+                </li>
+                {% endfor %}
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                  <a href="events/" role="menuitem" tabindex="-1">
+                    See all prior events of [[ creo.name ]]
+                  </a>
+                </li>
+              </ul>
+            </div><!-- /.dropdown -->
+          </div><!-- /#prior-events -->
+          {% elif isEditing %}
+            {# TODO: message about no events but show what it will look like #}
+          {% endif %}
+        </div><!-- /.creo-panel -->
+      </div><!-- /.col Panel -->
+      <div class="col-sm-7">
+        <div class="creo-basic-info">
+          {% CreoField "brief" %}
+
+          {% CreoLocationField %}
+
+          {% if creo.isEvent %}
+          <div class="creo-artists">
+            {% for artist in creo.artists %}
+            <span class="ib">
+              {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
+              <a href="{% url 'view-creo' artist.id %}">
+                {{ artist }}
+              </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
+            </span>
+            {% endfor %}
+          </div>
+          <div class="creo-venue">
+            <a href="{% url 'view-creo' creo.venue.id %}">
+              {{ creo.venue.name }}
+            </a>
+          </div>
+          {% endif %}
+
+          {% CreoFormattedTextField "about" %}
+        </div><!-- /.creo-basic-info -->
+      </div><!-- /.col -->
+    </div><!-- /.row -->
+  </div><!-- /#creo-top-row-wrapper -->
 
   <tabset ng-cloak id="creo-tabset">
     <tab select="openPortfolio()">
