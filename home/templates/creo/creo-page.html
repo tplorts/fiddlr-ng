@@ -79,35 +79,35 @@
       </div><!-- /.creo-panel -->
     </div><!-- /.col Panel -->
     <div class="col-sm-7">
-      <div class="hidden-xs mt15px"></div>
+      <div class="creo-basic-info">
+        {% CreoField "brief" %}
 
-      {% CreoField "brief" %}
+        {% CreoLocationField %}
 
-      {% CreoLocationField %}
+        {% if creo.isEvent %}
+        <div class="creo-artists">
+          {% for artist in creo.artists %}
+          <span class="ib">
+            {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
+            <a href="{% url 'view-creo' artist.id %}">
+              {{ artist }}
+            </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
+          </span>
+          {% endfor %}
+        </div>
+        <div class="creo-venue">
+          <a href="{% url 'view-creo' creo.venue.id %}">
+            {{ creo.venue.name }}
+          </a>
+        </div>
+        {% endif %}
 
-      {% if creo.isEvent %}
-      <div class="creo-artists">
-        {% for artist in creo.artists %}
-        <span class="ib">
-          {% if forloop.last and creo.artists.count > 1 %}&amp;{% endif %}
-          <a href="{% url 'view-creo' artist.id %}">
-            {{ artist }}
-          </a>{% if creo.artists.count > 2 and not forloop.last %},{% endif %}
-        </span>
-        {% endfor %}
-      </div>
-      <div class="creo-venue">
-        <a href="{% url 'view-creo' creo.venue.id %}">
-          {{ creo.venue.name }}
-        </a>
-      </div>
-      {% endif %}
-
-      {% CreoFormattedTextField "about" %}
-    </div><!-- /.col About -->
+        {% CreoFormattedTextField "about" %}
+      </div><!-- /.creo-basic-info -->
+    </div><!-- /.col -->
   </div><!-- /.row -->
 
-  <tabset ng-cloak id="profile-tabs" justified="true">
+  <tabset ng-cloak id="creo-tabset">
     <tab select="openPortfolio()">
       <tab-heading>
         <span class="hidden-xs">
@@ -158,8 +158,6 @@
       </accordion>
     </tab>
   </tabset>
-
-  <div class="content-bottom-cushion"></div>
 
 </div><!-- /CreoPageController -->
 {% endblock %}

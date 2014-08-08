@@ -6,7 +6,8 @@
 
 <div id="create-wrapper" class="invisible">
   <div id="create-something-wrapper">
-    <a class="create-round-button" id="create-something">
+    <a class="create-round-button btn-orpheus" 
+       id="create-something">
       <span class="button-text">CREATE</span>
     </a>
     <div class="smokescreen">
@@ -30,7 +31,7 @@
   </div>
 
   <div id="create-navigation" class="prearranged">
-    <a class="create-round-button"
+    <a class="create-round-button btn-orpheus"
        {% if creoCount == 0 %}
          disabled="disabled"
        {% elif creoCount == 1 %}
@@ -45,7 +46,7 @@
       </span>
     </a>
     {% for x in "Your Contacts,Your Projects,For You,Near You"|split:"," %}
-      <a class="create-round-button">
+      <a class="create-round-button btn-orpheus">
         <span class="button-text">{{ x|space2newline }}</span>
       </a>
     {% endfor %}

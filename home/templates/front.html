@@ -2,6 +2,7 @@
 {% load misc staticfiles registration %}
 
 
+{% block body_class %} body-front {% endblock %}
 {% block content_class %} flush-with-header {% endblock %}
 
 
@@ -14,7 +15,7 @@
       <div class="col-sm-4">
         <div class="btn-group major-page-dropdown">
           <button type="button" id="ddm{{ page }}"
-                  class="btn btn-default dropdown-toggle"
+                  class="btn btn-orpheus btn-front dropdown-toggle"
                   data-toggle="dropdown">
             {{ page }}
           </button>

@@ -6,15 +6,15 @@
 @import (less) "octagram.less";
 
 body {
-    background: mintcream;
+    background: @darkpurple;
+    color: @cream;
 }
 
-//'Helvetica Neue', Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif
 a {
-    .transition(all, 100ms, ease);
-    color: @navyblue;
-    &:hover {
-        color: @purple;
+    .transition(all, 220ms, ease);
+    color: @purple;
+    &:hover, &:focus {
+        color: @navyblue;
         text-decoration: none;
     }
 }
@@ -22,6 +22,41 @@ a {
 .content-bottom-cushion {
     margin-bottom: 350px;
 }
+
+.orpheus {
+    background-color: @orpheus-green;
+    color: @cream !important;
+}
+
+@orpheus-active: #468;
+.btn-orpheus {
+    .orpheus;
+    border: 1px solid #144;
+    .transition(all, 220ms, ease);
+    &:hover {
+        background-color: #466;
+    }
+    &:focus {
+        background-color: #466;
+        border-color: #CC9;
+    }
+    &:active {
+        background-color: @orpheus-active;
+    }
+}
+
+.btn-front {
+    margin-top: 15px;
+    width: 100%;
+    border-radius: 16px;
+    font-size: 36px;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-family: serif;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
 
 .backdrop {
     z-index: -10;
@@ -51,7 +86,7 @@ a {
     left: 0;
     right: 0;
     z-index: 10;
-    background-color: rgba(250, 250, 210, 0.8);
+    background-color: rgba(250, 250, 240, 0.9);
     border-bottom: 1px solid #CCC;
     padding: 5px 0;
 
@@ -142,26 +177,12 @@ a {
 .major-page-dropdown {
     width: 100%;
 
-    .dropdown-toggle {
-        width: 100%;
-        border-radius: 8px;
-        font-size: 32px;
-        font-weight: bold;
-        font-family: serif;
-        .transition(all, 180ms, ease);
-    }
-
     &.open .dropdown-toggle {
-        text-shadow: -1px -1px #999;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
+        background-color: @orpheus-active;
     }
 
     .dropdown-menu {
         width: 100%;
-        border-radius: 8px;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
     }
 }
 
@@ -177,7 +198,7 @@ a {
     border-color: @black;
     .transition();
     &:hover {
-        background-color: @purple-blue;
+        background-color: @purpleblue;
         color: @lightgrey;
         border-color: @black;
     }
@@ -442,6 +463,10 @@ a {
 }
 
 
+#create-backdrop {
+    .gradient-radial( #424, #313 );
+}
+
 .create-round-button {
     .create-round-button_(40px, 14px);
 }
@@ -491,11 +516,6 @@ a {
 .backdrop-littlelamb {
     .cover-background( '@{s3url}/ex/oh-little-lamb-exclamation-mark.jpg' );
 }
-
-#create-backdrop {
-    .gradient-radial( #FFFFF0, #DAEAEA );
-}
-
 
 
 .form-group.labelless {
