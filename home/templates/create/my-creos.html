@@ -3,15 +3,18 @@
 
 
 {% block content %}
-<div class="container">
-  <ul>
-    {% for creo in uzer.creos.all %}
-      <li>
-        <a href="{% url 'edit-creo' creo.id %}">
-          {{ creo.name }}
-        </a>
-      </li>
-    {% endfor %}
-  </ul>
+<div>
+  {% for creo in uzer.creos.all %}
+  <a href="{% url 'edit-creo' creo.id %}">
+    <div class="creo-pallet">
+      <div class="pallet-image-wrapper">
+        <img src="{{ creo.coverURL }}" />
+      </div>
+      <div class="creo-pallet-label">
+        {{ creo.name }}
+      </div>
+    </div>
+  </a>
+  {% endfor %}
 </div>
 {% endblock content %}
