@@ -232,61 +232,42 @@ a {
 }
 
 
-@pallet-border-radius: 4px;
+
 .pallet {
     display: block;
     overflow: hidden;
     margin: 15px 0;
-    border-radius: @pallet-border-radius;
-    &:hover {
-        .box-shadow(0, 0, 12px);
-    }
-    &-image {
-        width: 100%;
-        height: auto;
-        min-height: 100%;
-        border-radius: inherit;
-    }
-    &-label {
-        position: absolute;
-        z-index: 1;
-        //bottom: 15px; (Only small+)
-        bottom: 0;
-        margin-left: -15px;
-        padding: 0 15px;
-        width: 100%;
-        text-align: center;
-        color: @purple;
-        font-size: 18px;
-        font-weight: bold;
-        .label-inner {
-            @label-bg: @translucent;
-            background-color: @label-bg;
-            .gradient-border {
-                .gradient-border_( @label-bg, 4px );
-            }
-            border-bottom-left-radius: @pallet-border-radius;
-            border-bottom-right-radius: @pallet-border-radius;
-        }
-    }
-}
-
-.creo-pallet {
-    display: inline-block;
-    width: 256px;
-    height: 160px;
-    overflow: hidden;
-    margin: 16px 0 16px 32px;
     border-radius: 8px;
+    height: 180px;
+    background: #444;
+    .transition();
+    &-tall {
+        height: 240px;
+    }
+    &:hover {
+        .box-shadow(0, 0, 12px, #BBB);
+    }
     .pallet-image-wrapper {
         width: 100%;
         height: 100%;
         img {
-            .full-width-image;
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
         }
     }
-    .creo-pallet-label {
+    &.pallet-image-fill .pallet-image-wrapper img {
+        min-width: 100%;
+        min-height: 100%;
+        max-width: initial;
+        max-height: initial;
+        width: 100%;
+    }
+    .pallet-label {
         position: relative;
+        z-index: 1;
         height: 30px;
         margin-top: -30px;
         line-height: 30px;
@@ -294,15 +275,15 @@ a {
         font-weight: bold;
         background-color: @translucent;
         text-align: center;
+        .ellipflow;
     }
 }
 
-.tall-height {
-    height: 240px;
-}
-
-.normal-height {
-    height: 180px;
+#my-creo-pallets .pallet {
+    display: inline-block;
+    width: 256px;
+    height: 160px;
+    margin: 16px 0 16px 32px;
 }
 
 

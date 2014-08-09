@@ -37,7 +37,7 @@ def space2newline(text):
     return mark_safe(o)
 
 
-@register.inclusion_tag('pallet.html')
+@register.inclusion_tag('tags/pallet.html')
 def pallet( *args, **kwargs ):
     return kwargs
 

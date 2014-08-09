@@ -3,17 +3,10 @@
 
 
 {% block content %}
-<div>
+<div id="my-creo-pallets">
   {% for creo in uzer.creos.all %}
   <a href="{% url 'edit-creo' creo.id %}">
-    <div class="creo-pallet">
-      <div class="pallet-image-wrapper">
-        <img src="{{ creo.coverURL }}" />
-      </div>
-      <div class="creo-pallet-label">
-        {{ creo.name }}
-      </div>
-    </div>
+    {% pallet text=creo.name imageURL=creo.coverURL %}
   </a>
   {% endfor %}
 </div>
