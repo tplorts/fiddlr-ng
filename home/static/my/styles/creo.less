@@ -101,31 +101,16 @@
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
 
-        .nav-tabs {
-            border: none;
-            & > li {
-                > a {
-                    padding-left: 5px;
-                    padding-right: 5px;
-                    font-size: 15px;
-                    @media (min-width: @screen-sm-min) {
-                        padding-left: 15px;
-                        padding-right: 15px;
-                        font-size: 16px;
-                    }
-                    font-weight: bold;
-                    cursor: pointer !important;
-                    color: #333;
-                    border: none !important;
-                    &:hover {
-                        .gradient-down(#AAA);
-                    }
+        .nav-tabs > li {
+            & > a {
+                color: #333;
+                &:hover {
+                    .gradient-down(#AAA);
                 }
-                &.active > a {
-                    cursor: default !important;
-                    .gradient-down( #999 );
-                    color: @purple;
-                }
+            }
+            &.active > a {
+                .gradient-down( #999 );
+                color: @purple;
             }
         }
 
@@ -133,12 +118,6 @@
             padding-top: 5px;
             min-height: 400px;
         }
-    }
-
-    #creo-tabset-cushion {
-        content: "";
-        height: 100px;
-        .gradient-down( @cream );
     }
 
     &.creo-editor {

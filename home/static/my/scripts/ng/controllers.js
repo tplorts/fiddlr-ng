@@ -214,6 +214,13 @@ cmod.controller(
 
 
 cmod.controller(
+    'ExperienceHomepageController',
+    ['$scope', function($scope) {
+    }]
+);
+
+
+cmod.controller(
     'EventsListController',
     ['$scope', '$http', '$filter', function($scope, $http, $filter) {
         $scope.isLoading = true;

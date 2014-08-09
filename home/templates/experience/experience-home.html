@@ -3,8 +3,30 @@
 
 
 {% block content %}
-<div class="container">
+<div class="container"
+     ng-controller="ExperienceHomepageController">
   <div class="row">
+    <div class="col-sm-4 col-md-3">
+      <div id="mystery-area">
+        Hayy<br>
+        What goes here?
+      </div>
+      {% for x in '123' %}
+      <div class="creo-feature">
+        Feature {{ x }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-sm-8 col-md-9">
+      <tabset ng-cloak>
+        <tab heading="My Profile">
+        </tab>
+        <tab heading="Bulletin">
+        </tab>
+      </tabset>
+    </div>
+  </div>
+  <div class="row" id="explore-pallets">
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
