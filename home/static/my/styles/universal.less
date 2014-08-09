@@ -108,7 +108,8 @@ a {
     left: 0;
     right: 0;
     z-index: 10;
-    background-color: rgba(250, 250, 240, 0.9);
+    background-color: fade(@orpheus-aqua, 85%);
+    //rgba(250, 250, 240, 0.9);
     border-bottom: 1px solid #CCC;
     padding: 5px 0;
 
@@ -290,12 +291,26 @@ a {
     margin: 16px 0 16px 32px;
 }
 
-
-.events-list-title {
-    font-size: 34px;
-    line-height: 39px; // .btn.large height
-    font-family: serif;
+#mystery-area {
+    border: 4px solid;
+    padding: 10px;
     font-weight: bold;
+    height: 200px;
+    background-color: #333;
+}
+
+.creo-feature {
+    margin-top: 25px;
+    height: 65px;
+    font-weight: bold;
+    background-color: @cream;
+    color: #333;
+    padding: 5px;
+    border: 3px solid @orpheus-aqua;
+}
+
+#experience-tabs {
+    height: 500px;
 }
 
 .nav-tabs {
@@ -332,6 +347,15 @@ a {
     }
 }
 
+
+
+
+.events-list-title {
+    font-size: 34px;
+    line-height: 39px; // .btn.large height
+    font-family: serif;
+    font-weight: bold;
+}
 
 @event-block-width: 280px;
 @event-block-height: 175px;
