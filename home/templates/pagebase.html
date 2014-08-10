@@ -48,7 +48,8 @@
                      name="where" placeholder="where?" />
             </div>
             <div class="ib vmid">
-              <button class="btn btn-orpheus-purple search-button"
+              <button class="btn btn-[[ colors.buttons.primary ]] 
+                             search-button"
                       type="submit">
                 <span class="glyphicon glyphicon-search"></span>
               </button>
@@ -59,7 +60,8 @@
       <div class="col-sm-4 col-xs-8">
         {% if user.is_authenticated %}
         <div class="ib vmid" id="alerts-icon">
-          <a class="btn btn-orpheus-purple btn-narrow-xs"
+          <a class="btn btn-[[ colors.buttons.primary ]]
+                    btn-narrow-xs"
              href="{% url 'Alerts' %}">
             <span class="glyphicon glyphicon-bell"></span>
             <span class="badge">482</span>
@@ -68,7 +70,9 @@
         {% endif %}
         <div class="ib vmid" id="header-links">
           <div class="btn-group">
-            <button type="button" class="btn btn-orpheus-purple dropdown-toggle" data-toggle="dropdown">
+            <button type="button" 
+                    class="btn btn-[[ colors.buttons.primary ]]
+                           dropdown-toggle" data-toggle="dropdown">
               <span class="hidden-xs hidden-sm">Pages</span>
               <span class="glyphicon glyphicon-chevron-down"></span>
             </button>
@@ -93,7 +97,8 @@
                 id="signout-form">
             {% csrf_token %}
             <input type="hidden" name="next" value="/" />
-            <button class="btn btn-orpheus-purple signout-button btn-narrow-xs"
+            <button class="btn btn-[[ colors.buttons.primary ]]
+                           signout-button btn-narrow-xs"
                     title="Signed in as {{user.get_full_name|default:user}}">
               Sign out
             </button>
@@ -105,10 +110,12 @@
                 <p class="large">Please sign in to view this page</p>
               </div>
               <div class="btn-group btn-group-justified">
-                <label class="btn btn-primary" ng-model="signinup.which" btn-radio="'in'">
+                <label class="btn btn-[[ colors.buttons.primary ]]"
+                       ng-model="signinup.which" btn-radio="'in'">
                   Sign in
                 </label>
-                <label class="btn btn-primary" ng-model="signinup.which" btn-radio="'up'">
+                <label class="btn btn-[[ colors.buttons.primary ]]" 
+                       ng-model="signinup.which" btn-radio="'up'">
                   Sign up
                 </label>
               </div>
@@ -161,7 +168,9 @@
                            placeholder="access code"
                            ng-model="pending.accessCode" />
                   </div>                  
-                  <button type="submit" class="btn btn-primary btn-purple pull-right">
+                  <button type="submit" 
+                          class="btn btn-[[ colors.buttons.primary ]]
+                                 pull-right">
                     Create account
                   </button>
                 </form>
@@ -171,7 +180,8 @@
               </button>
             </div>
           </script>
-          <button class="btn btn-primary btn-narrow-xs"
+          <button class="btn btn-[[ colors.buttons.primary ]]
+                         btn-narrow-xs"
                   id="signinup-modal-button"
                   ng-click="openLoginModal()">
             Sign in/up

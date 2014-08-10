@@ -5,6 +5,11 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 
 
 function readScopeInitials(scope) {
+    scope.colors = {
+        buttons: {
+            primary: 'orpheus-aqua'
+        }
+    };
     if( angular.isUndefined(ngScopeInitials) )
         return;
     for( var k in ngScopeInitials ) {
@@ -20,6 +25,7 @@ cmod.controller(
     ['$scope', '$modal', '$position', '$tooltip', '$http',
      function($scope, $modal, $position, $tooltip, $http) {
          readScopeInitials( $scope );
+
          $scope.openLoginModal = function() {
              var modalInstance = $modal.open({
                  templateUrl: 'login-modal.html',
@@ -35,6 +41,8 @@ cmod.controller(
 var SigninupModalController = 
     function ($scope, $modalInstance, $position, $tooltip, $http)
 {
+    readScopeInitials( $scope );
+
     $scope.jk = function () {
         $modalInstance.dismiss('cancel');
     };
@@ -167,6 +175,8 @@ cmod.controller(
     'FrontPageController', 
     ['$scope', '$position', '$tooltip',
      function($scope, $position, $tooltip) {
+         readScopeInitials( $scope );
+
          $scope.briefs = {
              'Experience': 'Arma virumque cano, Troiae qui primus ab oris Italiam, fato profugus, Laviniaque venit litora, multum ille et terris iactatus et alto vi superum saevae memorem Iunonis ob iram; multa quoque et bello passus, dum conderet urbem, inferretque deos Latio, genus unde Latinum, Albanique patres, atque altae moenia Romae.',
              'Create': 'Musa, mihi causas memora, quo numine laeso, quidve dolens, regina deum tot volvere casus insignem pietate virum, tot adire labores impulerit. Tantaene animis caelestibus irae?',
@@ -182,6 +192,7 @@ cmod.controller(
     'EditAccountController', 
     ['$scope', '$position', '$tooltip', '$http', '$cookies',
      function($scope, $position, $tooltip, $http, $cookies) {
+         readScopeInitials( $scope );
 
          $scope.isEmailVerified = null;
 
@@ -216,6 +227,7 @@ cmod.controller(
 cmod.controller(
     'ExperienceHomepageController',
     ['$scope', function($scope) {
+        readScopeInitials( $scope );
     }]
 );
 
@@ -223,6 +235,8 @@ cmod.controller(
 cmod.controller(
     'EventsListController',
     ['$scope', '$http', '$filter', function($scope, $http, $filter) {
+        readScopeInitials( $scope );
+        
         $scope.isLoading = true;
         $scope.events = [];
 

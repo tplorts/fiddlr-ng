@@ -6,7 +6,7 @@
 @import (less) "octagram.less";
 
 body {
-    background: #BBB;
+    background: #FEF;
     color: #333;
 }
 
@@ -35,7 +35,7 @@ a {
 
 .btn-orpheus-aqua {
     .orpheus-aqua;
-    .transition(all, 220ms, ease);
+    .transition();
     
     border: 1px solid #144;
     &:hover {
@@ -54,7 +54,7 @@ a {
     .orpheus-purple;
     .transition(all, 220ms, ease);
     
-    border: 1px solid #111;
+    border: 1px solid #555;
     &:hover {
         background-color: @orpheus-purple-hover;
     }
@@ -66,6 +66,44 @@ a {
         background-color: @orpheus-purple-active;
     }
 }
+
+.btn-orpheus-teal {
+    .transition(all, 220ms, ease);
+    background-color: @orpheus-teal;
+    color: #444;
+    border: 1px solid darken(@orpheus-teal, 30%);
+    &:hover {
+        background-color: darken(@orpheus-teal, 10%);
+    }
+    &:focus {
+        background-color: darken(@orpheus-teal, 15%);
+        border-color: #CC9;
+    }
+    &:active {
+        background-color: darken(@orpheus-teal, 20%);
+    }
+}
+
+@orpheus-blue: #249;
+.btn-orpheus-blue {
+    .transition();
+    background-color: #FFF;
+    color: @orpheus-blue;
+    border: 2px solid @orpheus-blue;
+    padding: 5px 10px;
+    border-radius: 6px;
+    &:hover {
+        background-color: @orpheus-blue;
+        color: #FFF;
+    }
+    &:focus {
+
+    }
+    &:active {
+        background-color: lighten(@orpheus-blue, 12%);
+    }
+}
+
 
 .btn-front {
     margin-top: 15px;
@@ -108,9 +146,8 @@ a {
     left: 0;
     right: 0;
     z-index: 10;
-    background-color: fade(@orpheus-aqua, 85%);
-    //rgba(250, 250, 240, 0.9);
-    border-bottom: 1px solid #CCC;
+    background-color: fade(#FEF, 85%);
+    border-bottom: 1px solid #999;
     padding: 5px 0;
 
     input {
@@ -120,7 +157,7 @@ a {
 
 #header-links {
     button .glyphicon {
-        .transition(all, 200ms, ease);
+        .transition-prefixed(transform, 200ms, ease);
     }
     .open {
         .glyphicon-chevron-down {

@@ -9,6 +9,15 @@
     @{property}: @value;
 }
 
+.browser-prefix-both(@property, @value) {
+    -webkit-@{property}: ~"-webkit-@{value}";
+    -moz-@{property}: ~"-moz-@{value}";
+    -o-@{property}: ~"-o-@{value}";
+    -ms-@{property}: ~"-ms-@{value}";
+    @{property}: @value;
+}
+
+
 
 .on {
     display: initial;
@@ -184,6 +193,10 @@
 
 .transition (@prop: all, @time: 150ms, @ease: ease) {
     .browser-prefix(transition, @prop @time @ease);
+}
+
+.transition-prefixed( @prop, @time: 150ms, @ease: ease ) {
+    .browser-prefix-both( transition, @prop @time @ease );
 }
 
 .transform( @transforms: none ) {
