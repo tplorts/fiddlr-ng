@@ -35,11 +35,10 @@ urlpatterns = patterns(
     url(r'^account/$', IntraFiew.as_view(template='registration/account'), name='Account'),
 
     # EXPERIENCE
-    url(r'^experience/$', IntraFiew.as_view(template='experience/home'), name='experience'),
-    url(r'^experience/profile/$', IntraFiew.as_view(template='experience/profile'), name='experience-profile'),
-    url(r'^experience/explore/$', IntraFiew.as_view(template='experience/explore'), name='explore'),
+    url(r'^experience/$', IntraFiew.as_view(template='experience'), name='experience'),
     url(r'^experience/page/(\d+)/$', viewCreo, name='view-creo'),
     url(r'^experience/page/(\d+)/events/$', creoEvents, name='creo-events'),
+    url(r'^experience/explore/$', IntraFiew.as_view(template='experience/explore'), name='explore'),
     url(r'^experience/explore/(\w+)/$', creoList, name='creo-list'),
     url(r'^experience/explore/(\w+)/map/$', creoMap, name='creo-map'),
 

@@ -110,13 +110,7 @@
   </div><!-- /#creo-top-row-wrapper -->
 
   <tabset ng-cloak id="creo-tabset">
-    <tab select="openPortfolio()">
-      <tab-heading>
-        <span class="hidden-xs">
-          <i class="glyphicon glyphicon-folder-open"></i>
-        </span>
-        {{ 'Portfolio'|smallcaps }}
-      </tab-heading>
+    <tab select="openPortfolio()" heading="Portfolio">
       {% with lps='http://lorempixel.com/100/50/' lpm='http://lorempixel.com/400/200/' lpl='http://lorempixel.com/400/200/' %}
       <div class="galleria">
         {% for category in "abstract,animals,business,cats,city,food,nightlife,fashion,people,nature,sports,technics,transport"|split:"," %}
@@ -130,30 +124,18 @@
       </div>
       {% endwith %}
     </tab>
-    <tab>
-      <tab-heading>
-        <span class="hidden-xs">
-          <i class="glyphicon glyphicon-fire"></i>
-        </span>
-        {{ 'Upcoming'|smallcaps }}
-      </tab-heading>
+    <tab heading="Upcoming">
       <accordion>
         <accordion-group heading="Going out tonight">
           Attn: I will be leaving the house tonight.
         </accordion-group>
       </accordion>
     </tab>
-    <tab>
-      <tab-heading>
-        <span class="hidden-xs">
-          <i class="glyphicon glyphicon-bullhorn"></i>
-        </span>
-        {{ 'Bulletin'|smallcaps }}
-      </tab-heading>
+    <tab heading="Bulletin">
       <accordion>
         <accordion-group heading="Check out Pedrito!" 
                          is-open="bulletin.isOpen[0]">
-          <iframe width="560" height="315" 
+          <iframe width="290" height="164" 
                   src="//www.youtube.com/embed/-_6kyx1XGDo" 
                   frameborder="0" allowfullscreen></iframe>
         </accordion-group>

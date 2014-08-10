@@ -370,17 +370,18 @@ a {
             padding-right: 5px;
             font-size: 15px;
             @media (min-width: @screen-sm-min) {
-                padding-left: 15px;
-                padding-right: 15px;
-                font-size: 16px;
+                padding-left: 35px;
+                padding-right: 35px;
+                font-size: 20px;
             }
+            font-variant: small-caps;
             font-weight: bold;
             cursor: pointer !important;
             color: #444;
             border: none !important;
             &:hover {
-                background-color: lighten(@orpheus-purple, 30%);
-                color: black;
+                background-color: lighten(@orpheus-purple, 10%);
+                color: darken(@cream, 6%);
             }
             .user-select(none);
         }
