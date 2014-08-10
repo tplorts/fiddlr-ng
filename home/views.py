@@ -172,7 +172,7 @@ def signup(q):
 
 
 @login_required
-def experienceCreo(q, creoId):
+def viewCreo(q, creoId):
     if not Creo.objects.filter(pk=creoId).exists():
         raise Http404
 
@@ -187,7 +187,7 @@ def experienceCreo(q, creoId):
 
 #TODO: don't make this a view, make an api point for creos' events
 @login_required
-def experienceCreoEvents(q, creoId):
+def creoEvents(q, creoId):
     raise Http404 #Haven't made this template yet
     return renderPage(q, 'creo/creo-events', {
         'creo': get_object_or_404(Creo, pk=creoId),
@@ -196,34 +196,34 @@ def experienceCreoEvents(q, creoId):
 
 EventListings = {
     'featured': 'Featured Events',
-    'for-you': 'Events For You',
-    'near-you': 'Events Near You',
-    'happening-now': 'Events Happening Now',
-    'fiddlr-events': 'fiddlr events',
+    'foryou': 'Events For You',
+    'nearyou': 'Events Near You',
+    'happeningnow': 'Events Happening Now',
+    'fiddlrevents': 'fiddlr events',
 }
 EventListingViewTypes = ('list', 'map')
 
 
 @login_required
-def experienceEventListing(q, listingKey, viewType):
+def listGeneric(q, listingKey, viewType):
     if listingKey not in EventListings:
         raise Http404
     if viewType not in EventListingViewTypes:
         raise Http404
 
-    return renderPage(q, 'experience/events/'+viewType, {
+    return renderPage(q, 'experience/'+viewType, {
         'listingKey': listingKey,
         'listingTitle': EventListings[listingKey],
     })
 
 
 @login_required
-def experienceEventListingList(q, listingKey):
-    return experienceEventListing(q, listingKey, 'list')
+def creoList(q, listingKey):
+    return listGeneric(q, listingKey, 'list')
 
 @login_required
-def experienceEventListingMap(q, listingKey):
-    return experienceEventListing(q, listingKey, 'map')
+def creoMap(q, listingKey):
+    return listGeneric(q, listingKey, 'map')
 
 
 
@@ -237,7 +237,7 @@ def experienceEventListingMap(q, listingKey):
 @login_required
 def createHome(q):
     creoCount = getUzer(q).creos.count()
-    return renderPage(q, 'create/create-home', {
+    return renderPage(q, 'create/home', {
         'creoCount': creoCount,
     })
 

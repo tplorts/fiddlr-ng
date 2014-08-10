@@ -1,0 +1,33 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles tz %}
+
+
+{% block content %}
+<div class="container"
+     ng-controller="ExperienceHomepageController">
+  <div class="row">
+    <div class="col-sm-4 col-md-3">
+      <div id="user-profile-picture">
+        <img src="{% static 'ex/lady-portrait.png' %}" />
+      </div>
+      <a class="btn btn-default center-block"
+         id="experience-community-link">
+        Your Community
+      </a>
+      {% for x in '123' %}
+      <div class="creo-feature">
+        Feature {{ x }}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-sm-8 col-md-9">
+      <tabset ng-cloak id="experience-tabs">
+        <tab heading="My Profile">
+        </tab>
+        <tab heading="Bulletin">
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
+{% endblock %}

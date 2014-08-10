@@ -35,28 +35,22 @@ urlpatterns = patterns(
     url(r'^account/$', IntraFiew.as_view(template='registration/account'), name='Account'),
 
     # EXPERIENCE
-    url(r'^experience/$', IntraFiew.as_view(template='experience/experience-home'), name='Experience'),
-    url(r'^experience/(\d+)/$', experienceCreo, name='view-creo'),
-    url(r'^experience/(\d+)/events/$', experienceCreoEvents, name='Experience Creo Events'),
-    url(r'^experience/events/([\w\d\-]+)/$', experienceEventListingList, name='Event Listing'),
-    url(r'^experience/events/([\w\d\-]+)/map/$', experienceEventListingMap, name='Event Listing Map'),
+    url(r'^experience/$', IntraFiew.as_view(template='experience/home'), name='experience'),
+    url(r'^experience/profile/$', IntraFiew.as_view(template='experience/profile'), name='experience-profile'),
+    url(r'^experience/explore/$', IntraFiew.as_view(template='experience/explore'), name='explore'),
+    url(r'^experience/page/(\d+)/$', viewCreo, name='view-creo'),
+    url(r'^experience/page/(\d+)/events/$', creoEvents, name='creo-events'),
+    url(r'^experience/explore/(\w+)/$', creoList, name='creo-list'),
+    url(r'^experience/explore/(\w+)/map/$', creoMap, name='creo-map'),
 
-    # EXPERIENCE PROFILE
-    url(r'^experience/profile/$', IntraFiew.as_view(template='experience/profile/root'), name='Experience Profile'),
-    url(r'^experience/profile/events$', IntraFiew.as_view(template='experience/profile/events'), name='Experience Favorite Events'),
-    url(r'^experience/profile/artists$', IntraFiew.as_view(template='experience/profile/artists'), name='Experience Favorite Artists'),
-    url(r'^experience/profile/venues$', IntraFiew.as_view(template='experience/profile/venues'), name='Experience Favorite Venues'),
-    url(r'^experience/profile/for-me$', IntraFiew.as_view(template='experience/profile/for-me'), name='Experience For Me'),
-    url(r'^experience/profile/near-me$', IntraFiew.as_view(template='experience/profile/near-me'), name='Experience Near Me'),
-    url(r'^experience/profile/browse$', IntraFiew.as_view(template='experience/profile/browse'), name='Experience Browse'),
-
-
-    url(r'^create/$', createHome, name='Create'),
+    # CREATE
+    url(r'^create/$', createHome, name='create'),
     url(r'^create/new/(\w+)/$', newCreo, name='new-creo'),
     url(r'^create/edit/(\d+)/$', editCreo, name='edit-creo'),
     url(r'^create/my-profiles/$', IntraFiew.as_view(template='create/my-creos'), name='my-creos'),
 
-    url(r'^nexus/', IntraFiew.as_view(template='nexus/nexus-home'), name='Nexus'),
+    # NEXUS
+    url(r'^nexus/', IntraFiew.as_view(template='nexus/nexus-home'), name='nexus'),
 
 
     url(r'^alerts/', alerts, name='Alerts'),
@@ -75,8 +69,6 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/exists/user/(?P<username>[\w\d\-\.\+\@\_]{0,30})/$', UserExistsView.as_view()),
     url(r'^custom-api/set-password/$', SetPasswordView.as_view()),
     url(r'^custom-api/is-email-verified/$', IsEmailVerifiedView.as_view()),
-
-#    url(r'^custom-api/creo/(\d+)/picture/$', uploadCreoPicture),
 
     url(r'^custom-api/events/featured/$', FeaturedEventsList.as_view()),
     url(r'^custom-api/events/near-you/$', EventsNearYouList.as_view()),

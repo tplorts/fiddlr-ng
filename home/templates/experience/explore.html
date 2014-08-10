@@ -1,31 +1,9 @@
 {% extends "pagebase.html" %}
-{% load misc staticfiles tz %}
+{% load misc staticfiles %}
 
 
 {% block content %}
-<div class="container"
-     ng-controller="ExperienceHomepageController">
-  <div class="row">
-    <div class="col-sm-4 col-md-3">
-      <div id="mystery-area">
-        Hayy<br>
-        What goes here?
-      </div>
-      {% for x in '123' %}
-      <div class="creo-feature">
-        Feature {{ x }}
-      </div>
-      {% endfor %}
-    </div>
-    <div class="col-sm-8 col-md-9">
-      <tabset ng-cloak id="experience-tabs">
-        <tab heading="My Profile">
-        </tab>
-        <tab heading="Bulletin">
-        </tab>
-      </tabset>
-    </div>
-  </div>
+<div class="container">
   <div class="row" id="explore-pallets">
     <div class="col-sm-4">
       <div class="row">
@@ -35,7 +13,7 @@
             {% pallet text="Featured" imageURL=powerstar moreClasses="pallet-tall" %}
           </a>
         </div>
-      </div>
+      </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-12">
           <a href="{% url 'Event Listing' 'near-you' %}">
@@ -43,8 +21,8 @@
             {% pallet text="Near You" imageURL=trolly moreClasses="pallet-image-fill" %}
           </a>
         </div>
-      </div>
-    </div>
+      </div><!-- /.row -->
+    </div><!-- col (featured,near) -->
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
@@ -59,7 +37,7 @@
             {% pallet text="fiddlr events" imageURL=logo %}
           </a>
         </div>
-      </div>
+      </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-12">
           <a href="{% url 'Event Listing' 'happening-now' %}">
@@ -67,8 +45,8 @@
             {% pallet text="Happening Now" imageURL=herewego moreClasses="pallet-tall" %}
           </a>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock %}
+      </div><!-- /.row -->
+    </div><!-- /.col (browse,fiddlr,happening) -->
+  </div><!-- /.row#explore-pallets -->
+</div><!-- /.container -->
+{% endblock content %}

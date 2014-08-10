@@ -1,0 +1,58 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles %}
+
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <h3>Featured</h3>
+      {% for i in '1234' %}
+      <a class="explore-link">
+        <div class="explore-feature">
+          Feature {{i}}
+        </div>
+      </a>
+      {% endfor %}
+      <a class="btn btn-lg btn-orpheus-aqua">
+        See All Featured
+      </a>
+    </div>
+    <div class="col-sm-8 
+                col-md-7 col-md-offset-1
+                col-lg-6 col-lg-offset-2">
+      <h3>&hellip;</h3>
+      <div class="xy">
+        <div class="xx xy-left xy-top">
+          <a class="explore-link">
+            <div class="xy-in">
+              Browse
+            </div>
+          </a>
+        </div>
+        <div class="yy xy-right xy-top">
+          <a class="explore-link">
+            <div class="xy-in">
+              Fiddlr<br>Projects
+            </div>
+          </a>
+        </div>
+        <div class="yy xy-left xy-bottom">
+          <a class="explore-link">
+            <div class="xy-in">
+              Near<br>You
+            </div>
+          </a>
+        </div>
+        <div class="xx xy-right xy-bottom">
+          <a class="explore-link">
+            <div class="xy-in">
+              Happening<br>Now
+            </div>
+          </a>
+        </div>
+      </div><!-- /.xy -->
+    </div><!-- /.col -->
+  </div><!-- /.row -->
+</div><!-- /.container -->
+{% endblock %}

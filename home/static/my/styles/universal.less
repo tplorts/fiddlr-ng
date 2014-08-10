@@ -280,9 +280,8 @@ a {
 
 #explore-pallets .pallet {
     width: 100%;
-    height: 120px;
     &-tall {
-        height: 160px;
+        height: 320px;
     }
 }
 
@@ -291,12 +290,24 @@ a {
     margin: 16px 0 16px 32px;
 }
 
-#mystery-area {
-    border: 4px solid;
-    padding: 10px;
-    font-weight: bold;
+#user-profile-picture {
     height: 200px;
-    background-color: #333;
+    background-color: transparent;
+    img {
+        max-height: 100%;
+        width: auto;
+        max-width: 100%;
+        margin: auto;
+        display: block;
+        border: 2px solid #002;
+    }
+}
+
+#experience-community-link {
+    margin-top: 15px;
+    width: 180px;
+    max-width: 100%;
+    font-weight: bold;
 }
 
 .creo-feature {
@@ -712,3 +723,92 @@ a {
 }
 
 
+
+
+.lumihover {
+    .transition(all, 150ms, ease);
+    &:hover {
+        .box-shadow(0, 0, 12px, #CCC);
+    }
+}
+
+.explore-feature {
+    width: 100%;
+    height: 75px;
+    border-radius: 8px;
+    background-color: #333;
+    padding: 5px 10px;
+    color: @cream;
+    margin-bottom: 25px;
+    .lumihover;
+}
+
+.xy_( @big, @small, @space ) {
+    @size: @big + @small;
+    @pad: @space / 2;
+    width: @size;
+    height: @size;
+
+    .xx, .yy {
+        display: inline-block;
+    }
+
+    .xx {
+        width: @big;
+        height: @small;
+    }
+
+    .yy {
+        width: @small;
+        height: @big;
+    }
+
+    .vtop {
+        vertical-align: top;
+    }
+
+    .xy-left {
+        float: left;
+        padding-right: @pad;
+    }
+
+    .xy-right {
+        float: right;
+        padding-left: @pad;
+    }
+
+    .xy-top {
+        padding-bottom: @pad;
+    }
+
+    .xy-bottom {
+        padding-top: @pad;
+    }
+
+    .xy-in {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        border-radius: 8px;
+    }
+}
+
+.xy {
+    .xy_( 176px, 114px, 16px );
+    .xy-in {
+        .lumihover;
+        color: @cream;
+        font-weight: bold;
+        font-size: 22px;
+        text-align: center;
+        padding: 8px 5px;
+    }
+    @media (min-width: @screen-sm-min) {
+        .xy_( 285px, 185px, 40px );
+        .xy-in {
+            font-size: 30px;
+            padding: 8px 16px;
+        }
+    }
+}

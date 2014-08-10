@@ -11,26 +11,26 @@
   <div id="front-cover-image"></div>
   <div class="container">
     <div class="row mt15px">
-      {% for page in "Experience,Create,Nexus"|split:"," %}
+      {% for page in "experience,create,nexus"|split:"," %}
       <div class="col-sm-4">
         <div class="btn-group major-page-dropdown">
           <button type="button" id="ddm{{ page }}"
                   class="btn btn-orpheus-aqua btn-front
                          dropdown-toggle"
                   data-toggle="dropdown">
-            {{ page }}
+            {{ page|capfirst }}
           </button>
           <ul class="dropdown-menu" role="menu">
             <li role="presentation">
               <a role="menuitem" tabindex="-1"
                  href="{% url page %}">
-                <span class="text-bold">to {{ page }}</span>
+                <span class="text-bold">To {{ page|capfirst }}</span>
               </a>
             </li>
             <li role="presentation" class="divider"></li>
             <li role="presentation">
               <a role="menuitem" tabindex="-1" href="#">
-                Coming soon
+                More coming soon &hellip;
               </a>
             </li>
           </ul><!-- /.dropdown-menu -->
