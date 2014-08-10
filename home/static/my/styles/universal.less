@@ -6,12 +6,12 @@
 @import (less) "octagram.less";
 
 body {
-    background: #FEF;
+    background: #F0F0F0;
     color: #333;
 }
 
 a {
-    .transition(all, 220ms, ease);
+    .transition();
     color: @purple;
     &:hover, &:focus {
         color: @navyblue;
@@ -52,7 +52,7 @@ a {
 
 .btn-orpheus-purple {
     .orpheus-purple;
-    .transition(all, 220ms, ease);
+    .transition();
     
     border: 1px solid #555;
     &:hover {
@@ -68,7 +68,7 @@ a {
 }
 
 .btn-orpheus-teal {
-    .transition(all, 220ms, ease);
+    .transition();
     background-color: @orpheus-teal;
     color: #444;
     border: 1px solid darken(@orpheus-teal, 30%);
@@ -146,7 +146,7 @@ a {
     left: 0;
     right: 0;
     z-index: 10;
-    background-color: fade(#FEF, 85%);
+    background-color: rgba(245, 250, 255, 0.85);
     border-bottom: 1px solid #999;
     padding: 5px 0;
 
@@ -362,10 +362,10 @@ a {
 }
 
 .nav-tabs {
-    border: none;
+    border-bottom: 2px solid @orpheus-purple;
     & > li {
         & > a {
-            background-color: transparent !important;
+            background-color: transparent;
             padding-left: 5px;
             padding-right: 5px;
             font-size: 15px;
@@ -376,21 +376,18 @@ a {
             }
             font-weight: bold;
             cursor: pointer !important;
-            color: @cream;
+            color: #444;
             border: none !important;
             &:hover {
-                color: @cream;
-                .gradient-down(#777);
+                background-color: lighten(@orpheus-purple, 30%);
+                color: black;
             }
             .user-select(none);
         }
         &.active > a {
             cursor: default !important;
-            color: @cream;
-            .gradient-down( #AAA );
-            &:hover {
-                color: @cream;
-            }
+            background-color: @orpheus-purple !important;
+            color: @cream !important;
         }
     }
 }

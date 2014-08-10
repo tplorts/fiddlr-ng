@@ -4,6 +4,9 @@
 
 .creo-page {
 
+    @major-border-thickness: 3px;
+    @major-border: @major-border-thickness solid lighten(@orpheus-purple, 10%);
+
     .creo-field {
         position: relative;
         border: 1px dotted transparent;
@@ -23,10 +26,13 @@
 
     .creo-panel {
         padding: 10px;
-        background-color: @cream;
+        background-color: white;
+        border: @major-border;
+        border-bottom: none;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         @media (min-width: @screen-sm-min) {
+            border-right: none;
             border-top-right-radius: 0;
         }
     }
@@ -52,20 +58,20 @@
         .creo-basic-info {
             margin-top: 0;
             padding: 10px;
-            border: 2px solid @cream;
+            border: @major-border;
             border-top-right-radius: 15px;
             border-left: none;
             border-bottom: none;
-            margin-right: -2px;
+            margin-right: -@major-border-thickness;
         }
         #creo-top-row-wrapper {
-            border-right: 2px solid @cream;
+            border-right: @major-border;
             border-top-right-radius: 15px;
         }
     }
 
     .creo-location {
-        color: #AAA;
+        color: @orpheus-blue;
         font-weight: bold;
 
         .location-map-link {
@@ -75,7 +81,6 @@
     }
 
     .creo-brief {
-        color: @cream-muted;
         font-size: 16px;
         font-style: italic;
     }
@@ -97,20 +102,18 @@
     #creo-tabset {
         margin-top: 30px;
         padding: 10px;
-        background-color: @cream;
+        background-color: white;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
+        border: @major-border;
+        border-top: none;
 
         .nav-tabs > li {
             & > a {
-                color: #333;
                 &:hover {
-                    .gradient-down(#AAA);
                 }
             }
             &.active > a {
-                .gradient-down( #999 );
-                color: @purple;
             }
         }
 
