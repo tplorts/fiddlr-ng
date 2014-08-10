@@ -7,7 +7,7 @@ var cmod = angular.module('fiddlrApp.controllers', []);
 function readScopeInitials(scope) {
     scope.colors = {
         buttons: {
-            primary: 'orpheus-aqua'
+            primary: 'orpheus-purple'
         }
     };
     if( angular.isUndefined(ngScopeInitials) )

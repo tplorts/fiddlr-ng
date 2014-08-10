@@ -12,9 +12,9 @@ body {
 
 a {
     .transition();
-    color: @purple;
+    color: @orpheus-purple;
     &:hover, &:focus {
-        color: @navyblue;
+        color: lighten(@orpheus-purple, 15%);
         text-decoration: none;
     }
 }
@@ -281,7 +281,7 @@ a {
     background: #444;
     .transition();
     &:hover {
-        .box-shadow(0, 0, 12px, #BBB);
+        .box-shadow(0, 0, 12px, lighten(@orpheus-purple, 15%));
     }
     .pallet-image-wrapper {
         width: 100%;
@@ -601,7 +601,7 @@ a {
 
 
 #create-backdrop {
-    .gradient-radial( #424, #313 );
+    .gradient-radial( #EEE, #CCC );
 }
 
 .create-round-button {
