@@ -25,7 +25,7 @@
           {% CreoImageField "cover" %}
           <div class="fan-buttons">
             {% with n=1423 %} {# creo.fans.count #}
-            <button class="btn btn-orpheus-purple 
+            <button class="btn btn-default 
                            {% if n == 0 %}invisible{% endif %}"
                     disabled >
               <b>{{ n }}</b>
@@ -33,7 +33,7 @@
             </button>
             {% endwith %}
 
-            <button class="btn btn-orpheus-purple pull-right"
+            <button class="btn btn-default pull-right"
                     {% if isEditing %}disabled{% endif %}
                     id="follow-this-creo" ng-cloak>
               {% if isFollowingThis %}

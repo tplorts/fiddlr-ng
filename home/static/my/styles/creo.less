@@ -19,20 +19,19 @@
 
     .creo-name {
         font-size: 24px;
-        color: @charcoal;
+        font-weight: bold;
         height: 36px;
         .ellipflow;
     }
 
     .creo-panel {
         padding: 10px;
-        background-color: white;
-        border: @major-border;
-        border-bottom: none;
+        border: none;
+        background-color: @orpheus-purple;
+        color: @cream;
         border-top-left-radius: 15px;
         border-top-right-radius: 15px;
         @media (min-width: @screen-sm-min) {
-            border-right: none;
             border-top-right-radius: 0;
         }
     }
@@ -71,7 +70,7 @@
     }
 
     .creo-location {
-        color: @orpheus-blue;
+        color: @orpheus-purple;
         font-weight: bold;
 
         .location-map-link {
@@ -102,20 +101,6 @@
     #creo-tabset {
         margin-top: 30px;
         padding: 10px;
-        background-color: white;
-        border-bottom-left-radius: 15px;
-        border-bottom-right-radius: 15px;
-        border: @major-border;
-        border-top: none;
-
-        .nav-tabs > li {
-            & > a {
-                &:hover {
-                }
-            }
-            &.active > a {
-            }
-        }
 
         .tab-content {
             padding-top: 5px;
