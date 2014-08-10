@@ -6,8 +6,8 @@
 @import (less) "octagram.less";
 
 body {
-    background: @darkpurple;
-    color: @cream;
+    background: #BBB;
+    color: #333;
 }
 
 a {
@@ -725,10 +725,10 @@ a {
 
 
 
-.lumihover {
+.lumihover(@c: #CCC) {
     .transition(all, 150ms, ease);
     &:hover {
-        .box-shadow(0, 0, 12px, #CCC);
+        .box-shadow(0, 0, 12px, @c);
     }
 }
 
@@ -789,15 +789,42 @@ a {
         display: block;
         width: 100%;
         height: 100%;
-        background-color: #333;
-        border-radius: 8px;
+        background-color: #124;
+        border-radius: 4px;
+        border: 1px solid #DDD;
+    }
+
+    @big-radius: 40px;
+    .xy-top.xy-left .xy-in {
+        border-top-left-radius: @big-radius;
+    }
+    .xy-top.xy-right .xy-in {
+        border-top-right-radius: @big-radius;
+    }
+    .xy-bottom.xy-left .xy-in {
+        border-bottom-left-radius: @big-radius;
+    }
+    .xy-bottom.xy-right .xy-in {
+        border-bottom-right-radius: @big-radius;
+    }
+
+    @mid-size: @big - @small;
+    .xy-middle {
+        width: @mid-size;
+        height: @mid-size;
+        display: inline-block;
+        vertical-align: top;
+        padding: @pad;
+        .xy-in {
+            padding: 11px;
+        }
     }
 }
 
 .xy {
     .xy_( 176px, 114px, 16px );
     .xy-in {
-        .lumihover;
+        .lumihover( #124 );
         color: @cream;
         font-weight: bold;
         font-size: 22px;
@@ -811,4 +838,8 @@ a {
             padding: 8px 16px;
         }
     }
+}
+
+.darkred {
+    color: darkred;
 }
