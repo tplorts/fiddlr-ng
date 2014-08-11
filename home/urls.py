@@ -39,8 +39,8 @@ urlpatterns = patterns(
     url(r'^experience/page/(\d+)/$', viewCreo, name='view-creo'),
     url(r'^experience/page/(\d+)/events/$', creoEvents, name='creo-events'),
     url(r'^experience/explore/$', IntraFiew.as_view(template='experience/explore'), name='explore'),
-    url(r'^experience/explore/(\w+)/$', creoList, name='creo-list'),
-    url(r'^experience/explore/(\w+)/map/$', creoMap, name='creo-map'),
+    url(r'^experience/explore/(\w+)/$', creoList, name='explore-list'),
+    url(r'^experience/explore/(\w+)/map/$', creoMap, name='explore-map'),
 
     # CREATE
     url(r'^create/$', createHome, name='create'),

@@ -8,17 +8,17 @@
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Event Listing' 'featured' %}">
+          <a href="{% url 'explore-list' 'featured' %}">
             {% static 'ex/plore/powerstar.png' as powerstar %}
-            {% pallet text="Featured" imageURL=powerstar moreClasses="pallet-tall" %}
+            {% pallet text="Featured" imageURL=powerstar moreClasses="pallet-tall pallet-imgfit" %}
           </a>
         </div>
       </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Event Listing' 'near-you' %}">
+          <a href="{% url 'explore-list' 'nearyou' %}">
             {% static 'ex/plore/trolly.png' as trolly %}
-            {% pallet text="Near You" imageURL=trolly moreClasses="pallet-image-fill" %}
+            {% pallet text="Near You" imageURL=trolly %}
           </a>
         </div>
       </div><!-- /.row -->
@@ -26,23 +26,23 @@
     <div class="col-sm-8">
       <div class="row">
         <div class="col-sm-6">
-          <a href="{% url 'Event Listing' 'for-you' %}">
+          <a href="{% url 'explore-list' 'foryou' %}">
             {% static 'ex/plore/bookbrowsing.jpg' as bookbrowsing %}
-            {% pallet text="Browse" imageURL=bookbrowsing moreClasses="pallet-image-fill" %}
+            {% pallet text="Browse" imageURL=bookbrowsing %}
           </a>
         </div>
         <div class="col-sm-6">
-          <a href="{% url 'Event Listing' 'fiddlr-events' %}">
+          <a href="{% url 'explore-list' 'fiddlrevents' %}">
             {% static 'ex/plore/logo-228.png' as logo %}
-            {% pallet text="fiddlr events" imageURL=logo %}
+            {% pallet text="fiddlr events" imageURL=logo moreClasses="pallet-imgfit" %}
           </a>
         </div>
       </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-12">
-          <a href="{% url 'Event Listing' 'happening-now' %}">
-            {% static 'ex/plore/herewego.png' as herewego %}
-            {% pallet text="Happening Now" imageURL=herewego moreClasses="pallet-tall" %}
+          <a href="{% url 'explore-list' 'happeningnow' %}">
+            {% static 'ex/plore/nyc-blueprint.jpg' as nyc %}
+            {% pallet text="Happening Now" imageURL=nyc moreClasses="pallet-tall" %}
           </a>
         </div>
       </div><!-- /.row -->
