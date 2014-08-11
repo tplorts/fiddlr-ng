@@ -1,0 +1,114 @@
+@import (less) "generic.less";
+@import (less) "variables.less";
+
+
+
+.lumihover(@c: #CCC) {
+    .transition(all, 150ms, ease);
+    &:hover {
+        .box-shadow(0, 0, 12px, @c);
+    }
+}
+
+
+.xy_( @big, @small, @space ) {
+    @size: @big + @small;
+    @pad: @space / 2;
+    width: @size;
+    height: @size;
+
+    .xx, .yy {
+        display: inline-block;
+    }
+
+    .xx {
+        width: @big;
+        height: @small;
+    }
+
+    .yy {
+        width: @small;
+        height: @big;
+    }
+
+    .vtop {
+        vertical-align: top;
+    }
+
+    .xy-left {
+        float: left;
+        padding-right: @pad;
+    }
+
+    .xy-right {
+        float: right;
+        padding-left: @pad;
+    }
+
+    .xy-top {
+        padding-bottom: @pad;
+    }
+
+    .xy-bottom {
+        padding-top: @pad;
+    }
+
+    .xy-in {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: #124;
+        border-radius: 4px;
+        border: 1px solid #DDD;
+    }
+
+    @big-radius: 40px;
+    .xy-top.xy-left .xy-in {
+        border-top-left-radius: @big-radius;
+    }
+    .xy-top.xy-right .xy-in {
+        border-top-right-radius: @big-radius;
+    }
+    .xy-bottom.xy-left .xy-in {
+        border-bottom-left-radius: @big-radius;
+    }
+    .xy-bottom.xy-right .xy-in {
+        border-bottom-right-radius: @big-radius;
+    }
+
+    @mid-size: @big - @small;
+    .xy-middle {
+        width: @mid-size;
+        height: @mid-size;
+        display: inline-block;
+        vertical-align: top;
+        padding: @pad;
+        .xy-in {
+            padding: 11px;
+        }
+    }
+}
+
+.xy {
+    .xy_( 176px, 114px, 16px );
+    .xy-in {
+        .lumihover( #124 );
+        color: @cream;
+        font-weight: bold;
+        font-size: 22px;
+        text-align: center;
+        padding: 8px 5px;
+    }
+    @media (min-width: @screen-sm-min) {
+        .xy_( 285px, 185px, 40px );
+        .xy-in {
+            font-size: 30px;
+            padding: 8px 16px;
+        }
+    }
+}
+
+.darkred {
+    color: darkred;
+}
+
