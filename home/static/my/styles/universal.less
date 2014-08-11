@@ -59,8 +59,8 @@ a {
         background-color: @orpheus-purple-hover;
     }
     &:focus {
-        background-color: @orpheus-purple-hover;
-        border-color: #CC9;
+        .box-shadow(0, 0, 8px, @orpheus-purple);
+        border-color: darken(@cream, 30%);
     }
     &:active {
         background-color: @orpheus-purple-active;
@@ -238,7 +238,7 @@ a {
     width: 100%;
 
     &.open .dropdown-toggle {
-        background-color: @orpheus-aqua-active;
+        background-color: @orpheus-purple-active;
     }
 
     .dropdown-menu {
