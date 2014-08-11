@@ -61,3 +61,8 @@ def date_range( start, end ):
         'same_month': same_month,
         'same_day': same_day,
     }
+
+
+@register.inclusion_tag('tags/octagram-loader.html')
+def OctagramLoader( *args, **kwargs ):
+    return kwargs

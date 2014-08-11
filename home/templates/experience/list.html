@@ -26,15 +26,8 @@
     </div>
   </div>
 
-  <script>
-    function activateLoadingIndicator(image) {
-        setTimeout(function() {image.className += ' active ';}, 0);
-    }
-  </script>
-  <div id="loading-indicator" ng-show="isLoading">
-    <img src="{% static 'ex/zeaface-sm.png' %}" 
-         class="center-block"
-         onload="activateLoadingIndicator(this)" />
+  <div ng-show="isLoading" class="mt50px">
+    {% OctagramLoader %}
   </div>
 
   <div ng-repeat="event in events | filter:eventFilter('{{listingKey}}')"

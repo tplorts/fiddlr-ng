@@ -19,8 +19,8 @@
                 @percent: 100 * @k / @count;
                 @percent-str: ~'@{percent}%';
                 @{percent-str} {
-                    left: @Cx + @r*cos(@t) - @Er;
-                    bottom: @Cy + @r*sin(@t) - @Er;
+                    margin-left: @Lr + @r*cos(@t) - @Er;
+                    margin-top: @Lr - @r*sin(@t) - @Er;
                 }
                 .keyframe-loop(mod((@p + 2), @count), (@k + 1));
             }
@@ -36,13 +36,19 @@
         .animation-loop(8);
     }
 
+    .ngmpt-wrapper {
+        position: absolute;
+        width: 2*@Lr;
+        height: 2*@Lr;
+    }
+
     .ngmpt {
-        position: fixed;
-        background-color: #9AF;
+        position: relative;
+        background-color: @orpheus-purple;
         border-radius: @Er;
         width: 2*@Er;
         height: 2*@Er;
-        -webkit-animation-duration: 6s;
+        -webkit-animation-duration: 8s;
         -webkit-animation-iteration-count: infinite;
     }
 }
@@ -52,14 +58,7 @@
     width: 2*@Lr;
     height: 2*@Lr;
     border-radius: @Lr;
-    .gradient-radial(#CCC, #777);
-    position: fixed;
-    bottom: @By;
-    left: @Bx;
-    line-height: 2*@Lr;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-    text-shadow: 1px 1px white;
-    .box-shadow(0, 0, 20px, #088);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
