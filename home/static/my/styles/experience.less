@@ -17,6 +17,7 @@
     @icon-margin: (@protrude - @fontsize)/2;
 
     background-color: transparent;
+    margin: auto;
     img {
         display: block;
         float: left;
@@ -81,7 +82,11 @@
             }
         }
     }
-
+    
+    .x_(290px);//mobile
+    .btn-group-vertical .btn:hover {
+        margin-left: initial;
+    }
     @media (min-width: @screen-sm-min) {
         @width: floor(@row-sm * @colSm/12) - 30px;
         .x_(@width);
