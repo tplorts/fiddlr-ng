@@ -7,13 +7,33 @@
      ng-controller="ExperienceHomepageController">
   <div class="row">
     <div class="col-sm-4 col-md-3">
-      <div id="user-profile-picture">
-        <img src="{% static 'ex/lady-portrait.png' %}" />
+      <div id="user-pic-widget">
+        <img src="{% static 'ex/lady.png' %}" />
+        <div class="profile-buttons">
+          <div class="btn-group-vertical">
+            <a href="#" class="btn btn-orpheus-purple">
+              Community
+              <span class="glyphicon glyphicon-tower"></span>
+            </a>
+            <a href="#" class="btn btn-orpheus-purple">
+              Favorites
+              <span class="glyphicon glyphicon-heart"></span>
+            </a>
+            <a href="#" class="btn btn-orpheus-purple">
+              Explore
+              <span class="glyphicon glyphicon-globe"></span>
+            </a>
+            <a href="#" class="btn btn-orpheus-purple">
+              Marketplace
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+            </a>
+            <a href="#" class="btn btn-orpheus-purple">
+              Settings
+              <span class="glyphicon glyphicon-cog"></span>
+            </a>
+          </div>
+        </div>
       </div>
-      <a class="btn btn-default center-block"
-         id="experience-community-link">
-        Your Community
-      </a>
       {% for x in '123' %}
       <div class="creo-feature">
         Feature {{ x }}

@@ -327,24 +327,50 @@ a {
     margin: 16px 0 16px 32px;
 }
 
-#user-profile-picture {
-    height: 200px;
+#user-pic-widget {
+    @w-icon: 54px;
+    @w-col-s: 220px;
+    @w-img-s: @w-col-s - @w-icon;
+    height: 196px;
     background-color: transparent;
     img {
-        max-height: 100%;
-        width: auto;
-        max-width: 100%;
-        margin: auto;
+        width: @w-img-s;
+        height: 196px;
         display: block;
-        border: 2px solid #002;
+        float: left;
+        border: 1px solid @orpheus-purple;
+        z-index: 10;
+        position: relative;
     }
-}
-
-#experience-community-link {
-    margin-top: 15px;
-    width: 180px;
-    max-width: 100%;
-    font-weight: bold;
+    .profile-buttons {
+        float: right;
+        width: @w-icon;
+    }
+    .btn-group-vertical {
+        position: relative;
+        width: @w-col-s;
+        margin-left: -@w-img-s;
+        .btn {
+            position: relative;
+            &:hover {
+                margin-left: @w-img-s;
+            }
+            &:first-child {
+                border-top-left-radius: 0;
+            }
+            &:last-child {
+                border-bottom-left-radius: 0;
+            }
+            padding: 6px 16px;
+            line-height: 26px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: right;
+            .glyphicon {
+                margin-left: 16px;
+            }
+        }
+    }
 }
 
 .creo-feature {

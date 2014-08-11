@@ -326,3 +326,13 @@
 .animation( @a ) {
     .browser-prefix( animation, @a );
 }
+
+
+
+.order( @order ) {
+    -webkit-box-ordinal-group: @order;  
+    -moz-box-ordinal-group: @order;     
+    -ms-flex-order: @order;     
+    -webkit-order: @order;  
+    order: @order;
+}
