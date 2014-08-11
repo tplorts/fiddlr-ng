@@ -195,11 +195,11 @@ def creoEvents(q, creoId):
 
 
 EventListings = {
-    'featured': 'Featured Events',
-    'foryou': 'Events For You',
-    'nearyou': 'Events Near You',
+    'featured': 'Featured',
+    'foryou': 'Recommended For You',
+    'nearyou': 'Things Near You',
     'happeningnow': 'Events Happening Now',
-    'fiddlrevents': 'fiddlr events',
+    'fiddlrevents': 'Fiddlr Events',
 }
 EventListingViewTypes = ('list', 'map')
 

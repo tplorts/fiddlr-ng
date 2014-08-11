@@ -121,7 +121,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 class EventListView(generics.ListAPIView):
     permission_classes = (IsAuthenticated,)
-    serializer_class = EventListSerializer
+    serializer_class = CreoSerializer
 
 class FeaturedEventsList(EventListView):
     queryset = Creo.events.all()

@@ -49,9 +49,9 @@ class EventSponsorsSerializer(CreoSerializer):
         fields = ('id', 'name', 'logo')
 
 class EventListSerializer(CreoSerializer):
-    venue = EventVenueSerializer()
-    artists = EventArtistsSerializer(many=True)
-    sponsors = EventSponsorsSerializer(many=True)
+    # venues = EventVenueSerializer()
+    # artists = EventArtistsSerializer(many=True)
+    # sponsors = EventSponsorsSerializer(many=True)
     class Meta(CreoSerializer.Meta):
-        fields = ('id', 'name', 'brief', 'venue', 'logo', 'start',
+        fields = ('id', 'name', 'brief', 'venues', 'logo', 'start',
                   'end', 'artists', 'sponsors')

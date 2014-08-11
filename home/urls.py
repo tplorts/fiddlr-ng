@@ -70,9 +70,9 @@ urlpatterns += format_suffix_patterns(patterns(
     url(r'^custom-api/is-email-verified/$', IsEmailVerifiedView.as_view()),
 
     url(r'^custom-api/events/featured/$', FeaturedEventsList.as_view()),
-    url(r'^custom-api/events/near-you/$', EventsNearYouList.as_view()),
-    url(r'^custom-api/events/for-you/$', EventsForYouList.as_view()),
-    url(r'^custom-api/events/happening-now/$', EventsHappeningNowList.as_view()),
+    url(r'^custom-api/events/nearyou/$', EventsNearYouList.as_view()),
+    url(r'^custom-api/events/foryou/$', EventsForYouList.as_view()),
+    url(r'^custom-api/events/happeningnow/$', EventsHappeningNowList.as_view()),
 ))
 
 
