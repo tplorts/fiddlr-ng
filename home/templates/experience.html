@@ -7,7 +7,8 @@
      ng-controller="ExperienceHomepageController">
   <div class="row">
     <div class="col-sm-4 col-md-3">
-      <div id="user-pic-widget">
+      <div id="user-pic-widget"
+           class="[[ menu.isHidden ? '':'revealing' ]]">
         <img src="{% static 'ex/lady.png' %}" />
         <div class="profile-buttons">
           <div class="btn-group-vertical">
@@ -31,8 +32,16 @@
               Settings
               <span class="glyphicon glyphicon-cog"></span>
             </a>
-          </div>
-        </div>
+          </div> <!-- /.btn-group-vertical -->
+        </div> <!-- /.profile-buttons -->
+      </div>
+      <div class="visible-xs">
+        <button type="button" 
+                ng-click="menu.isHidden = !menu.isHidden"
+                class="btn btn-default
+                       profile-menu-toggle">
+          Hello
+        </button>
       </div>
       {% for x in '123' %}
       <div class="creo-feature">

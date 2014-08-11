@@ -328,6 +328,7 @@ a {
 }
 
 #user-pic-widget {
+    width: 220px;
     @w-icon: 54px;
     @w-col-s: 220px;
     @w-img-s: @w-col-s - @w-icon;
@@ -343,6 +344,7 @@ a {
         border-bottom-left-radius: 4px;
         z-index: 10;
         position: relative;
+        .transition(all, 250ms);
     }
     .profile-buttons {
         float: right;
@@ -355,7 +357,9 @@ a {
         .btn {
             position: relative;
             &:hover {
-                margin-left: @w-img-s - 8px;
+                @media (min-width: @screen-sm-min) {
+                    margin-left: @w-img-s - 8px;
+                }
             }
             &:first-child {
                 border-top-left-radius: 0;
@@ -371,6 +375,11 @@ a {
             .glyphicon {
                 margin-left: 16px;
             }
+        }
+    }
+    &.revealing {
+        img {
+            margin-left: -150px;
         }
     }
 }

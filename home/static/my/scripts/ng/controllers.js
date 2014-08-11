@@ -228,6 +228,9 @@ cmod.controller(
     'ExperienceHomepageController',
     ['$scope', function($scope) {
         readScopeInitials( $scope );
+        $scope.menu = {
+            isHidden: true
+        };
     }]
 );
 
