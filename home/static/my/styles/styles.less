@@ -247,6 +247,32 @@ a {
     text-shadow: 1px 2px black;
 }
 
+#front-videos {
+    display: flex;
+    @aspect: 16/9;
+    @ws: 720px;
+    @wm: 940px;
+    video {
+        flex-grow: 1;
+        &:not(:first-of-type) {
+            display: none;
+        }
+
+        @media (min-width: @screen-sm-min) {
+            &:not(:first-of-type) {
+                display: initial;
+            }
+            @width: @ws/2;
+            height: @width / @aspect;
+        }
+        @media (min-width: @screen-md-min) {
+            @width: @wm/2;
+            height: @width / @aspect;
+        }
+    }
+    background-color: #000;
+}
+
 .backdrop-front {
     .gradient-down(@navyblue);
 }

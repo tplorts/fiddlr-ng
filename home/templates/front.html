@@ -8,8 +8,13 @@
 
 {% block content %}
 <div ng-controller="FrontPageController">
-  <div id="front-cover-image"></div>
   <div class="container">
+    <div id="front-videos">
+      <video controls src="{% static 'ex/videos/spacetime-360.mp4' %}">
+      </video>
+      <video controls src="{% static 'ex/videos/spacetime-360.mp4' %}">
+      </video>
+    </div>
     <div class="row mt15px">
       {% for page in "experience,create,nexus"|split:"," %}
       <div class="col-sm-4">
