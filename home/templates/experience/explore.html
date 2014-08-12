@@ -3,22 +3,35 @@
 
 
 {% block content %}
+
+<div class="backdrop backdrop-full backdrop-hubble"></div>
+<div class="background-attribution" style="display:none;">
+  <a href="http://commons.wikimedia.org/wiki/File:NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg#mediaviewer/File:NASA-HS201427a-HubbleUltraDeepField2014-20140603.jpg">
+    NASA-HS201427a-HubbleUltraDeepField2014-20140603
+  </a> 
+  by NASA, ESA, H. Teplitz and M. Rafelski (IPAC/Caltech), A. Koekemoer (STScI), R. Windhorst (Arizona State University), and Z. Levay (STScI) - 
+  <a rel="nofollow" class="external free" href="http://hubblesite.org/newscenter/archive/releases/2014/27/image/a/">http://hubblesite.org/newscenter/archive/releases/2014/27/image/a/</a> 
+  (<a rel="nofollow" class="external text" href="http://imgsrc.hubblesite.org/hu/db/images/hs-2014-27-a-full_jpg.jpg">image link</a>). 
+  Licensed under Public domain via 
+  <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
+</div>
+
 <div class="container">
   <div class="row" id="explore-pallets">
     <div class="col-sm-4">
       <div class="row">
         <div class="col-sm-12">
           <a href="{% url 'explore-list' 'featured' %}">
-            {% static 'ex/plore/powerstar.png' as powerstar %}
-            {% pallet text="Featured" imageURL=powerstar moreClasses="pallet-tall pallet-imgfit" %}
+            {% static 'ex/plore/featuringnathan.jpg' as feat %}
+            {% pallet text="Featured" imageURL=feat moreClasses="pallet-tall" %}
           </a>
         </div>
       </div><!-- /.row -->
       <div class="row">
         <div class="col-sm-12">
           <a href="{% url 'explore-list' 'nearyou' %}">
-            {% static 'ex/plore/trolly.png' as trolly %}
-            {% pallet text="Near You" imageURL=trolly %}
+            {% static 'ex/plore/stoop.jpg' as near %}
+            {% pallet text="Near You" imageURL=near %}
           </a>
         </div>
       </div><!-- /.row -->
@@ -33,8 +46,8 @@
         </div>
         <div class="col-sm-6">
           <a href="{% url 'explore-list' 'fiddlrevents' %}">
-            {% static 'ex/plore/logo-228.png' as logo %}
-            {% pallet text="fiddlr events" imageURL=logo moreClasses="pallet-imgfit" %}
+            {% static 'ex/plore/FMT.jpg' as fidd %}
+            {% pallet text="fiddlr events" imageURL=fidd %}
           </a>
         </div>
       </div><!-- /.row -->

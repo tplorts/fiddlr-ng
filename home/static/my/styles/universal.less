@@ -130,6 +130,19 @@ a {
     }
 }
 
+.backdrop-littlelamb {
+    .cover-background( '@{s3url}/ex/oh-little-lamb-exclamation-mark.jpg' );
+}
+
+.backdrop-hubble {
+    .i_(@size) {
+        .cover-background( '@{s3url}/ex/plore/NASA-HS201427a-HubbleUltraDeepField2014-20140603-@{size}.jpg' );
+    }
+    .i_('iPhone');
+    @media (min-width: @screen-sm-min) { .i_('992'); }
+    @media (min-width: @screen-md-min) { .i_('1200'); }
+    @media (min-width: @screen-lg-min) { .i_('1600'); }
+}
 
 
 .fiddlr-title {
@@ -321,6 +334,9 @@ a {
     height: 192px;
     &-tall {
         height: 256px;
+    }
+    &:hover {
+        .box-shadow(0, 0, 12px, #FFF);
     }
 }
 
@@ -618,10 +634,6 @@ a {
 }
 
 
-
-.backdrop-littlelamb {
-    .cover-background( '@{s3url}/ex/oh-little-lamb-exclamation-mark.jpg' );
-}
 
 
 .form-group.labelless {
