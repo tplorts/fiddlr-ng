@@ -14,22 +14,15 @@
 {% endblock %}
 
 
-{% block prescripts %}
-<script>
-  var listName = '{{ listingKey }}';
-</script>
-{% endblock %}
-
-
 {% block content %}
-<div ng-controller="EventsListController">
+<div ng-controller="ExploreController">
 
   <div id="gmap-explore" class="gmap full-height-map">
     <google-map center="map.center" 
                 zoom="map.zoom"
                 pan="false"
                 draggable="true">
-      <marker ng-repeat="e in events | filter:eventFilter('{{listingKey}}')"
+      <marker ng-repeat="e in events | filter:eventFilter(listKey)"
               coords="e.venue.geocoordinates"
               {% comment %}
               ng-init="mgeo = e.venue.geocoordinates"
@@ -43,17 +36,17 @@
 
 
   <div id="leave-map-link">
-    <a href="{% url 'explore-list' listingKey %}" 
-       class="btn btn-info bold btn-purple">
-      Return to List View
+    <a href="{% url 'explore-list' ngScopeInitials.listKey %}" 
+       class="btn btn-orpheus-purple">
+      List View
     </a>
   </div>
 
-  <div class="events-map-list">
-    <div class="events-map-title">{{ listingTitle }}</div>
-    <div ng-cloak>
+  <div ng-cloak class="events-map-list">
+    <div class="events-map-title">[[ listTitle ]]</div>
+    <div>
       <accordion close-others="false">
-        <accordion-group ng-repeat="e in events | filter:eventFilter('{{listingKey}}')"
+        <accordion-group ng-repeat="e in events | filter:eventFilter(listKey)"
                          ng-init="geo = e.venue.geocoordinates"
                          class="event-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
                          is-open="itemStati[geo.id]"

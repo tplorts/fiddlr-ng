@@ -236,15 +236,21 @@ cmod.controller(
 
 
 cmod.controller(
-    'EventsListController',
-    ['$scope', '$http', '$filter', function($scope, $http, $filter) {
+    'ExploreController',
+    ['$scope', '$http', '$filter', 'Creo', function($scope, $http, $filter, Creo) {
         readScopeInitials( $scope );
         
         $scope.isLoading = true;
         $scope.events = [];
 
-        if( listName != 'fiddlr-events' ) {
-            var listURL = '/custom-api/events/' + listName + '/.json';
+        if( $scope.listKey == 'browse' ) {
+            Creo.getList().then( function(creos) {
+                $scope.events = creos;
+                $scope.isLoading = false;
+            });
+        } else if( $scope.listKey != 'fiddlr-events' ) {
+            var listURL = '/custom-api/events/'
+                + $scope.listKey + '/.json';
             $http.get(listURL).success( function(data, status, h, c) {
                 $scope.events = data;
                 $scope.isLoading = false;
@@ -266,9 +272,9 @@ cmod.controller(
             'near-you': nearYouFilter
         };
 
-        $scope.eventFilter = function(listName) {
-            if( listName in eventFilters )
-                return eventFilters[listName];
+        $scope.eventFilter = function(listKey) {
+            if( listKey in eventFilters )
+                return eventFilters[listKey];
             return function( event ) { return true; };
         };
 

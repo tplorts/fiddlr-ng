@@ -2,24 +2,18 @@
 {% load misc staticfiles %}
 
 
-{% block prescripts %}
-<script>
-  var listName = '{{ listingKey }}';
-</script>
-{% endblock %}
-
 
 {% block content %}
-<div class="container" ng-controller="EventsListController">
+<div class="container" ng-controller="ExploreController">
 
   <div class="row">
     <div class="col-sm-9">
-      <div class="events-list-title">{{ listingTitle }}</div>
+      <div class="events-list-title">[[ listTitle ]]</div>
     </div>
     <div class="col-sm-3">
       <div class="text-right">
-        <a href="{% url 'explore-map' listingKey %}"
-           class="btn btn-info bold btn-purple large">
+        <a href="{% url 'explore-map' ngScopeInitials.listKey %}"
+           class="btn btn-orpheus-purple large">
           Map View
         </a>
       </div>
@@ -30,7 +24,7 @@
     {% OctagramLoader %}
   </div>
 
-  <div ng-repeat="event in events | filter:eventFilter('{{listingKey}}')"
+  <div ng-repeat="event in events | filter:listFilter(listKey)"
        class="event-block" ng-cloak>
     <div class="expand-event-block">
       <span class="glyphicon glyphicon-resize-full"></span>
@@ -76,22 +70,19 @@
   </div>
 </div>
 
-
-{% if listingKey == 'featured' %}
-<div id="feature-feature">
+<div ng-cloak ng-show="listKey == 'featured'" id="feature-feature">
   <div class="container">
     <hr>
     <h4>Interested in featuring your event?</h4>
     <a class="btn btn-success"
        target="_blank"
-       href="http://lorempixel.com/500/500/business/">
+       href="#">
       Find out more &raquo;
     </a>
   </div>
 </div>
-{% endif %}
-  
 {% endblock content %}
+
 
 {% block postscripts %}
 <script src="{% static 'my/scripts/geo.js' %}"></script>

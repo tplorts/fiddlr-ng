@@ -196,7 +196,7 @@ def creoEvents(q, creoId):
 
 EventListings = {
     'featured': 'Featured',
-    'foryou': 'Recommended For You',
+    'browse': 'Browse',
     'nearyou': 'Things Near You',
     'happeningnow': 'Events Happening Now',
     'fiddlrevents': 'Fiddlr Events',
@@ -212,8 +212,10 @@ def listGeneric(q, listingKey, viewType):
         raise Http404
 
     return renderPage(q, 'experience/'+viewType, {
-        'listingKey': listingKey,
-        'listingTitle': EventListings[listingKey],
+        'ngScopeInitials': {
+            'listKey': listingKey,
+            'listTitle': EventListings[listingKey],
+        },
     })
 
 
