@@ -49,6 +49,23 @@
      class="btn btn-sm btn-default">
     <span class="glyphicon glyphicon-star"></span>
   </a>
+
+    {% if nytime.month == 8 and nytime.day == 13 %}
+    <div id="GabysBirthday">
+      <div class="loading-bit">
+        {% OctagramLoader %}
+        <div class="large bold mt25px text-center">
+          Now just sit tight for a moment &hellip;
+        </div>
+      </div>
+      <img src="{% static 'ex/GabySpecials/bcake.gif' %}" 
+           class="center-block hidden" />
+      <audio preload="auto" 
+             src="{% static 'ex/GabySpecials/happybirthdaygaby.mp3' %}">
+      </audio>
+    </div>
+    {% endif %}
+
   {% endif %}
 </div>
 {% endblock %}

@@ -82,3 +82,21 @@ $(function() {
     $('.pallet-label > .label-inner').gradientBorderTop();
   });
 */
+
+
+
+var GabysBirthday = $('#GabysBirthday');
+if( GabysBirthday.length == 1 ) {
+    console.log('Happy Birthday, Dearest Gaby!');
+    var bdaySong = GabysBirthday.find('audio');
+    var cake = GabysBirthday.find('img');
+    var loadingbit = GabysBirthday.find('.loading-bit');
+    bdaySong.on('playing', function() {
+        loadingbit.addClass('hidden');
+        cake.removeClass('hidden');
+    });
+    bdaySong.on('ended', function() {
+        GabysBirthday.addClass('hidden');
+    });
+    bdaySong[0].play();
+}
