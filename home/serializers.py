@@ -25,7 +25,6 @@ class LocationSerializer(serializers.ModelSerializer):
 class CreoSerializer(serializers.ModelSerializer):
     coverURL = serializers.Field(source='coverURL')
     logoURL = serializers.Field(source='logoURL')
-    # location = LocationSerializer()
     locationInfo = LocationSerializer(source='location')
     class Meta:
         model = Creo
