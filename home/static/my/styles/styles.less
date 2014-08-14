@@ -427,7 +427,8 @@ a {
     overflow: hidden;
     margin: 15px 5px; //container has 15px padding on phone
     border-radius: 8px;
-    background-color: #DDF;
+    border: 1px solid #CCC;
+    background-color: #FDFEFF;
     .transition();
 
     .content-case {
@@ -484,36 +485,30 @@ a {
         left: inherit;
         width: 38px;
         height: 38px;
-        margin-left: @event-block-width - 38px;
+        margin-left: @event-block-width - 38px - 2px;
+        // extra 2px to compensate for the border
         border-radius: inherit;
         border-top-left-radius: 0;
         border-bottom-right-radius: 0;
-        background-color: darkred;
+        background-color: @orpheus-purple;
         color: @lightgrey;
         padding: 2px 4px;
         font-size: 28px;
         opacity: 0;
         cursor: pointer;
-        .transition(all, 150ms, ease-in);
+        .transition();
 
         .glyphicon {
             .rotate(90deg);
         }
         
         &:hover {
-            color: @mustard;
+            color: white;
         }
     }
 
-    .scroll-down-button {
-        opacity: 0;
-        cursor: pointer;
-        padding: 0 10px;
-        .transition(all, 150ms, ease-in);
-    }
-
     &:hover {
-        .box-shadow(0, 0, 8px);
+        .box-shadow(0, 0, 8px, @orpheus-purple);
         .expand-event-block {
             opacity: 0.95;
         }
