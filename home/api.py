@@ -15,6 +15,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+import django_filters
+
 from permissions import *
 from serializers import *
 from models import *
@@ -65,19 +67,31 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
 
 
+class CreoFilter(django_filters.FilterSet):
+    latitudeMin = django_filters.NumberFilter(name='location__latitude', lookup_type='gte')
+    latitudeMax = django_filters.NumberFilter(name='location__latitude', lookup_type='lte')
+    longitudeMin = django_filters.NumberFilter(name='location__longitude', lookup_type='gte')
+    longitudeMax = django_filters.NumberFilter(name='location__longitude', lookup_type='lte')
 
-class CoverForm(ModelForm):
     class Meta:
         model = Creo
-        fields = ['cover']
+        fields = ('creotype',
+                  'latitudeMin','latitudeMax',
+                  'longitudeMin','longitudeMax',)
+
 
 class CreoViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Creo.objects.all()
-    serializer_class = CreoSerializer    
+    serializer_class = CreoSerializer
+    filter_class = CreoFilter
 
     @action()
     def uploadCover(self, request, pk=None, format=None):
+        class CoverForm(ModelForm):
+            class Meta:
+                model = Creo
+                fields = ['cover']
         creo = self.get_object()
         form = CoverForm(request.POST, request.FILES, instance=creo)
         if not form.is_valid():
@@ -87,28 +101,26 @@ class CreoViewSet(viewsets.ModelViewSet):
         return Response(CreoSerializer(creo).data)
 
 
+class LocationFilter(django_filters.FilterSet):
+    neighborhood = django_filters.CharFilter(lookup_type='iexact')
+    latitudeMin = django_filters.NumberFilter(name='latitude', lookup_type='gte')
+    latitudeMax = django_filters.NumberFilter(name='latitude', lookup_type='lte')
+    longitudeMin = django_filters.NumberFilter(name='longitude', lookup_type='gte')
+    longitudeMax = django_filters.NumberFilter(name='longitude', lookup_type='lte')
+
+    class Meta:
+        model = Location
+        fields = ('neighborhood','zipcode','address',
+                  'latitude','longitude',
+                  'latitudeMin','latitudeMax',
+                  'longitudeMin','longitudeMax',)
+
+
 class LocationViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-
-    def get_queryset(self):
-        qs = Location.objects.all()
-        params = self.request.QUERY_PARAMS
-        address = params.get('address', None)
-        neighborhood = params.get('neighborhood', None)
-        zipcode = params.get('zipcode', None)
-        latitude = params.get('latitude', None)
-        longitude = params.get('longitude', None)
-        if latitude is not None and longitude is not None:
-            qs = qs.filter(Q(latitude=latitude) & Q(longitude=longitude))
-        elif address is not None:
-            qs = qs.filter(address__iexact=address)
-        elif neighborhood is not None:
-            qs = qs.filter(neighborhood__iexact=neighborhood)
-        elif zipcode is not None:
-            qs = qs.filter(zipcode=zipcode)
-        return qs
+    filter_class = LocationFilter
 
 
 

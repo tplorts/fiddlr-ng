@@ -83,6 +83,7 @@ INSTALLED_APPS = (
     'home',
     'rest_framework',
     'djangular',
+    'django_filters',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,6 +103,7 @@ WSGI_APPLICATION = 'fiddlr.wsgi.application'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
 #    'PAGINATE_BY': 50,
 }
 

@@ -243,11 +243,17 @@ cmod.controller(
         $scope.isLoading = true;
         $scope.events = [];
 
+        function defaultThen(creos) {
+            $scope.events = creos;
+            $scope.isLoading = false;
+        }
+
         if( $scope.listKey == 'browse' ) {
-            Creo.getList().then( function(creos) {
-                $scope.events = creos;
-                $scope.isLoading = false;
-            });
+            Creo.getList().then( defaultThen );
+        } else if( $scope.listKey == 'happeningnow' ) {
+            Creo.getList({
+                creotype: CreotypeEvent
+            }).then( defaultThen );
         } else if( $scope.listKey != 'fiddlr-events' ) {
             var listURL = '/custom-api/events/'
                 + $scope.listKey + '/.json';

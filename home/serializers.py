@@ -31,7 +31,8 @@ class CreoSerializer(serializers.ModelSerializer):
         fields = ('id','creotype','name','brief','about',
                   'cover','coverURL','logo','logoURL',
                   'location','website','email','phone','genres',
-                  'isPublic','isOfficial','ties','locationInfo')
+                  'isPublic','isOfficial','ties','locationInfo',
+                  'start', 'end',)
 
 
 
