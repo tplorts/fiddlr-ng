@@ -15,6 +15,10 @@
       {% endfor %}
     };
     var ngScopeInitials = {
+      Creotypes: Creotypes,
+      {% for ccNo, ccName in CreotypeChoices %}
+        Creotype{{ ccName }}: {{ ccNo }},
+      {% endfor %}
       {% for symbol, data in ngScopeInitials.items %}
         {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
       {% endfor %}

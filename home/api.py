@@ -124,34 +124,7 @@ class LocationViewSet(viewsets.ModelViewSet):
 
 
 
-
-#  ___             _        _    _    _   _              
-# | __|_ _____ _ _| |_ ___ | |  (_)__| |_(_)_ _  __ _ ___
-# | _|\ V / -_) ' \  _(_-< | |__| (_-<  _| | ' \/ _` (_-<
-# |___|\_/\___|_||_\__/__/ |____|_/__/\__|_|_||_\__, /__/
-#                                               |___/    
-
-class EventListView(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
-    serializer_class = CreoSerializer
-
-class FeaturedEventsList(EventListView):
-    queryset = Creo.events.all()
-    #TODO: probably can't get away with not returning a queryset
-    #      to feature objects instead of event objects
-
-class EventsNearYouList(EventListView):
-    queryset = Creo.events.all()
-    #TODO: geoDistance in python
-    
-class EventsForYouList(EventListView):
-    def get_queryset(self):
-        return getUzer(self.request).autovocatedEvents()
-
-class EventsHappeningNowList(EventListView):
-    def get_queryset(self):
-        hasntEnded = Q( end__gt=localNow() )
-        startsByTomorrow = Q( start__lt=endOfTomorrow() )
-        return Creo.events.filter(
-            hasntEnded & startsByTomorrow
-        ).order_by('end')
+#TODO: turn this into a @link() ?
+# class EventsForYouList(EventListView):
+#     def get_queryset(self):
+#         return getUzer(self.request).autovocatedEvents()

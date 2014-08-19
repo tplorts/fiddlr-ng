@@ -241,55 +241,62 @@ cmod.controller(
         readScopeInitials( $scope );
         
         $scope.isLoading = true;
-        $scope.events = [];
+        $scope.creos = {};
+        for( var ctype in Creotypes ){
+            $scope.creos[ctype] = [];
+        }
 
         function defaultThen(creos) {
-            $scope.events = creos;
+            for( var ctype in Creotypes ){
+                var iType = parseInt(ctype);
+                $scope.creos[ctype] = _.where(creos, {creotype: iType});
+            }
             $scope.isLoading = false;
         }
 
-        if( $scope.listKey == 'browse' ) {
-            Creo.getList().then( defaultThen );
-        } else if( $scope.listKey == 'happeningnow' ) {
-            Creo.getList({
-                creotype: CreotypeEvent
-            }).then( defaultThen );
-        } else if( $scope.listKey != 'fiddlr-events' ) {
-            var listURL = '/custom-api/events/'
-                + $scope.listKey + '/.json';
-            $http.get(listURL).success( function(data, status, h, c) {
-                $scope.events = data;
-                $scope.isLoading = false;
-            });
-        }
-
-        function nearYouFilter( event ) {
-            var myself = {
-                latitude: 40.767902,
-                longitude: -73.982038
+        function llBox(center, distance) {
+            var Root2 = 1.41421356237;
+            var NE = center.destinationPoint(45, distance*Root2);
+            var dLat = NE.lat - center.lat;
+            var dLon = NE.lon - center.lon;
+            return {
+                latitudeMin: center.lat - dLat,
+                latitudeMax: center.lat + dLat,
+                longitudeMin: center.lon - dLon,
+                longitudeMax: center.lon + dLon
             };
-            var evloc = event.venue.geocoordinates;
-            var distance = geoDistance(evloc, myself);
-            return distance < 1;
+        }
+
+        var I = new LatLon(40.765871,-73.983872);
+        var parameterMap = {
+            'browse': {},
+            'featured': {},
+            'nearyou': llBox(I, 3),
+            'happeningnow': {creotype: CreotypeEvent},
+            'fiddlrevents': {}
+        };
+        
+        Creo.getList(parameterMap[$scope.listKey]).then( defaultThen );
+
+        function nearYouFilter( creo ) {
+            var distance = creo.getLatLon().distanceTo(I);
+            return distance < 3;
         }
 
 
-        var eventFilters = {
-            'near-you': nearYouFilter
+        var creoFilters = {
+            'nearyou': nearYouFilter
         };
 
-        $scope.eventFilter = function(listKey) {
-            if( listKey in eventFilters )
-                return eventFilters[listKey];
-            return function( event ) { return true; };
+        $scope.listFilter = function(listKey) {
+            if( listKey in creoFilters )
+                return creoFilters[listKey];
+            return function( creo ) { return true; };
         };
 
         // Specific to the map view
         $scope.map = {
-            center: {
-                latitude: 40.7590615,
-                longitude: -73.969231
-            },
+            center: I,
             zoom: 12
         };
 

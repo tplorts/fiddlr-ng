@@ -22,10 +22,32 @@ smod.service('Creo', ['Restangular', function(Restangular) {
         model.isTour = function() {
             return this.creotype === CreotypeTour;
         };
+        
+        model.venue = function() {
+            return _.findWhere( this.ties, {creotype: CreotypeVenue} );
+        };
+
+        model.locationInfo = function() {
+            if( this.locationExpanded ) 
+                return this.locationExpanded;
+            if( this.isEvent() )
+                return this.venue().locationInfo();
+            return null;
+        }
+        model.latitude = function() {
+            return this.locationInfo().latitude;
+        };
+        model.longitude = function() {
+            return this.locationInfo().longitude;
+        };
+        model.getLatLon = function() {
+            return new LatLon(this.latitude(), this.longitude());
+        };
 
         model.mapLink = function() {
-            if( !this.locationInfo ) return '#';
-            var mapQuery = this.locationInfo.address;
+            var location = this.locationInfo();
+            if( !location ) return '#';
+            var mapQuery = location.address;
             return 'http://maps.google.com/?q=' + mapQuery;
         };
 

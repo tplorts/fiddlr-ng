@@ -22,7 +22,7 @@
                 zoom="map.zoom"
                 pan="false"
                 draggable="true">
-      <marker ng-repeat="e in events | filter:eventFilter(listKey)"
+      <marker ng-repeat="e in creos | filter:eventFilter(listKey)"
               coords="e.venue.geocoordinates"
               {% comment %}
               ng-init="mgeo = e.venue.geocoordinates"
@@ -42,24 +42,24 @@
     </a>
   </div>
 
-  <div ng-cloak class="events-map-list">
-    <div class="events-map-title">[[ listTitle ]]</div>
+  <div ng-cloak class="explore-map-list">
+    <div class="explore-map-title">[[ listTitle ]]</div>
     <div>
       <accordion close-others="false">
-        <accordion-group ng-repeat="e in events | filter:eventFilter(listKey)"
-                         ng-init="geo = e.venue.geocoordinates"
-                         class="event-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
+        <accordion-group ng-repeat="c in creos | filter:eventFilter(listKey)"
+                         ng-init="geo = c.venue.geocoordinates"
+                         class="creo-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
                          is-open="itemStati[geo.id]"
                          ng-click="clickEventItem(geo.id)">
           <accordion-heading>
-            <div class="event-name">[[ e.name ]]</div>
+            <div class="creo-name">[[ c.name ]]</div>
           </accordion-heading>
-          <div class="event-venue">@ [[ e.venue.name ]]</div>
+          <div class="creo-venue">@ [[ c.venue.name ]]</div>
           <div>
-            <div ng-bind-html="e | dateRange"></div>
+            <div ng-bind-html="c | dateRange"></div>
           </div>
           <div>
-            [[ e.brief ]]
+            [[ c.brief ]]
           </div>
         </accordion-group>
       </accordion>

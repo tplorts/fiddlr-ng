@@ -1,0 +1,166 @@
+.explore-list-title {
+    font-size: 34px;
+    line-height: 39px; // .btn.large height
+    font-family: serif;
+    font-weight: bold;
+}
+
+.creotype-section {
+    .creotype-section-header {
+        border-top: 2px solid @orpheus-purple;
+    }
+}
+
+@creo-block-width: 280px;
+@creo-block-height: 175px;
+.creo-block {
+    display: inline-block;
+    vertical-align: top;
+    width: @creo-block-width;
+    height: @creo-block-height;
+    overflow: hidden;
+    margin: 15px 5px; //container has 15px padding on phone
+    border-radius: 8px;
+    border: 1px solid #CCC;
+    background-color: #FDFEFF;
+    .transition();
+
+    .content-case {
+        padding: 7px 10px;
+    }
+
+    .creo-info {
+        height: @creo-block-height - 35px;
+        overflow: hidden;
+    }
+
+    .creo-name {
+        display: block;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .creo-venue {
+        margin-top: 8px;
+    }
+
+    .creo-name, .creo-venue {
+        .ellipflow;
+    }
+
+    .creo-datetime {
+        font-family: serif;
+        font-weight: bold;
+        color: #555;
+        margin-top: 3px;
+    }
+
+    .creo-artists {
+        margin-top: 8px;
+    }
+
+    .creo-description {
+        font-size: 12px;
+        overflow: hidden;
+        .inner-content {
+            .transition(all, 500ms, ease);
+            position: relative;
+        }
+    }
+
+    .creo-actions {
+    }
+
+    .expand-creo-block {
+        display: none; // not good for mobile
+
+        position: absolute;
+        top: inherit;
+        left: inherit;
+        width: 38px;
+        height: 38px;
+        margin-left: @creo-block-width - 38px - 2px;
+        // extra 2px to compensate for the border
+        border-radius: inherit;
+        border-top-left-radius: 0;
+        border-bottom-right-radius: 0;
+        background-color: @orpheus-purple;
+        color: @lightgrey;
+        padding: 2px 4px;
+        font-size: 28px;
+        opacity: 0;
+        cursor: pointer;
+        .transition();
+
+        .glyphicon {
+            .rotate(90deg);
+        }
+        
+        &:hover {
+            color: white;
+        }
+    }
+
+    &:hover {
+        .box-shadow(0, 0, 8px, @orpheus-purple);
+        .expand-creo-block {
+            opacity: 0.95;
+        }
+        .scroll-down-button {
+            opacity: 1;
+        }
+    }
+
+    @media (min-width: @screen-sm-min) {
+        margin: 15px 30px 15px 0;
+        .expand-creo-block {
+            display: block;
+        }
+    }
+}
+
+
+
+
+.creo-hover {
+    border-color: @purple;
+}
+
+.creo-item {
+    margin: 12px 0;
+    .transition();
+    &:hover {
+        .creo-hover;
+    }
+}
+
+.corresponding-marker-hover {
+    .creo-hover;
+}
+
+
+#gmap-explore {
+    left: 0;
+    width: 60%;
+}
+
+
+
+.explore-map-list {
+    margin-left: 60%;
+    width: 40%;
+    padding: 0 10px;
+}
+
+.explore-map-title {
+    font-size: 30px;
+    line-height: 34px; // same height as a btn
+    font-family: serif;
+}
+
+#leave-map-link {
+    z-index: 10;
+    position: fixed;
+    top: @header-height + 5px;
+    left: 80px;
+}

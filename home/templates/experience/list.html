@@ -8,7 +8,7 @@
 
   <div class="row">
     <div class="col-sm-9">
-      <div class="events-list-title">[[ listTitle ]]</div>
+      <div ng-cloak class="explore-list-title">[[ listTitle ]]</div>
     </div>
     <div class="col-sm-3">
       <div class="text-right">
@@ -24,50 +24,61 @@
     {% OctagramLoader %}
   </div>
 
-  <div ng-repeat="event in events | filter:listFilter(listKey)"
-       class="event-block" ng-cloak>
-    <div class="expand-event-block">
-      <span class="glyphicon glyphicon-resize-full"></span>
-    </div>
-    <div class="content-case">
-      <div class="event-info">
-        <a href="/experience/page/[[ event.id ]]/"
-           class="event-name" title="[[ event.name ]]">
-          <span class="inner-content">
-            [[ event.name ]]
-          </span>
-        </a>
-        <div class="event-venue">
-          <span class="inner-content">
-            @ 
-            <a href="/experience/page/[[ event.venue.id ]]/"
-               title="[[ event.venue.name ]]">
-              [[ event.venue.name ]]
-            </a>
-          </span>
-        </div>
-        <div class="event-datetime">
-          <span class="inner-content">
-            <span ng-bind-html="event | dateRange"></span>
-          </span>
-        </div>
-        <div class="event-artists">
-          <span class="inner-content">
-            <span ng-repeat="artist in event.artists">
-              <span ng-show="$last && $index > 0">&amp;</span>
-              <a href="/experience/page/[[ artist.id ]]/" class="ib">
-                [[ artist.name ]]
-              </a><span ng-show="!$last && event.artists.length > 2">,</span>
+  <div ng-repeat="type in Creotypes" ng-cloak
+       class="creotype-section"
+       ng-init="iType = $index + 1">
+    <h2 class="creotype-section-header" 
+        ng-show="creos[iType].length != 0">[[ type ]]s</h2>
+
+    <div ng-repeat="creo in creos[iType] | filter:listFilter(listKey)"
+         class="creo-block" ng-cloak>
+      <div class="expand-creo-block">
+        <span class="glyphicon glyphicon-resize-full"></span>
+      </div>
+      <div class="content-case">
+        <div class="creo-info">
+          <a href="/experience/page/[[ creo.id ]]/"
+             class="creo-name" title="[[ creo.name ]]">
+            <span class="inner-content">
+              [[ creo.name ]]
             </span>
-          </span>
+          </a>
+          <div ng-show="creo.isEvent()">
+            <div class="creo-venue">
+              <span class="inner-content">
+                @ 
+                <a href="/experience/page/[[ creo.venue().id ]]/"
+                   title="[[ creo.venue().name ]]">
+                  [[ creo.venue().name ]]
+                </a>
+              </span>
+            </div>
+            <div class="creo-datetime">
+              <span class="inner-content">
+                <span ng-bind-html="creo | dateRange"></span>
+              </span>
+            </div>
+            <div class="creo-artists">
+              <span class="inner-content">
+                <span ng-repeat="artist in creo.artists">
+                  <span ng-show="$last && $index > 0">&amp;</span>
+                  <a href="/experience/page/[[ artist.id ]]/" class="ib">
+                    [[ artist.name ]]
+                  </a><span ng-show="!$last && creo.artists.length > 2">,</span>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="creo-actions">
+          <a href="#" class="pull-left">Directions</a>
+          <a href="#" class="pull-right">Attend</a>
         </div>
       </div>
-      <div class="event-actions">
-        <a href="#" class="pull-left">Directions</a>
-        <a href="#" class="pull-right">Attend</a>
-      </div>
     </div>
+
   </div>
+
 </div>
 
 <div ng-cloak ng-show="listKey == 'featured'" id="feature-feature">
@@ -85,5 +96,5 @@
 
 
 {% block postscripts %}
-<script src="{% static 'my/scripts/geo.js' %}"></script>
+<script src="{% static '3p/scripts/latlon.js' %}"></script>
 {% endblock %}

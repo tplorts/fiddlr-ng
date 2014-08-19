@@ -131,6 +131,13 @@ class Creo( models.Model, NamedModel ):
     sponsor = SponsorModelManager()
     events = EventModelManager()
 
+    def save(self, *args, **kwargs):
+        if self.isEvent():
+            v = self.venue()
+            if v:
+                self.location = v.location
+        super(Creo, self).save(*args, **kwargs)
+
     def coverURL(self):
         if self.cover:
             return self.cover.url
@@ -155,8 +162,9 @@ class Creo( models.Model, NamedModel ):
 
 
     def venue(self):
-        if self.venues.count() > 0:
-            return self.venues.all()[0]
+        venues = self.ties.filter(QVenue)
+        if venues.exists():
+            return venues[0]
         return None
 
     def isEditor(self, uzerId):

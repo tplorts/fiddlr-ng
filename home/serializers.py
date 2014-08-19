@@ -22,36 +22,22 @@ class LocationSerializer(serializers.ModelSerializer):
                   'latitude','longitude')
 
 
+class CreoTieSerializer(serializers.ModelSerializer):
+    locationExpanded = LocationSerializer(source='location')
+    class Meta:
+        model = Creo
+        fields = ('id','creotype','name','locationExpanded')
+
+
 class CreoSerializer(serializers.ModelSerializer):
     coverURL = serializers.Field(source='coverURL')
     logoURL = serializers.Field(source='logoURL')
-    locationInfo = LocationSerializer(source='location')
+    locationExpanded = LocationSerializer(source='location')
+    ties = CreoTieSerializer(many=True)
     class Meta:
         model = Creo
         fields = ('id','creotype','name','brief','about',
                   'cover','coverURL','logo','logoURL',
                   'location','website','email','phone','genres',
-                  'isPublic','isOfficial','ties','locationInfo',
+                  'isPublic','isOfficial','ties','locationExpanded',
                   'start', 'end',)
-
-
-
-class EventVenueSerializer(CreoSerializer):
-    class Meta(CreoSerializer.Meta):
-        fields = ('id', 'name', 'website', 'logo', 'location')
-
-class EventArtistsSerializer(CreoSerializer):
-    class Meta(CreoSerializer.Meta):
-        fields = ('id', 'name', 'brief')
-
-class EventSponsorsSerializer(CreoSerializer):
-    class Meta(CreoSerializer.Meta):
-        fields = ('id', 'name', 'logo')
-
-class EventListSerializer(CreoSerializer):
-    # venues = EventVenueSerializer()
-    # artists = EventArtistsSerializer(many=True)
-    # sponsors = EventSponsorsSerializer(many=True)
-    class Meta(CreoSerializer.Meta):
-        fields = ('id', 'name', 'brief', 'venues', 'logo', 'start',
-                  'end', 'artists', 'sponsors')

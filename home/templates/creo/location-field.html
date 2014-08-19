@@ -3,16 +3,16 @@
 {% block fieldViewWidget %}
   <span class="glyphicon glyphicon-globe"></span>
   <span ng-show="creo.isArtist()"
-        ng-bind="creo.locationInfo.neighborhood">
+        ng-bind="creo.locationInfo().neighborhood">
   </span>
   <span ng-show="creo.isEvent()"
         ng-bind="creo.venue.name">
   </span>
   <span ng-show="creo.isSponsor()"
-        ng-bind="creo.locationInfo.city">
+        ng-bind="creo.locationInfo().city">
   </span>
   <span ng-show="creo.isVenue()"
-        ng-bind="creo.locationInfo.address">
+        ng-bind="creo.locationInfo().address">
   </span>
   <span ng-show="creo.isVenue() || creo.isEvent()">
     <a href="[[ creo.mapLink() ]]"
