@@ -17,7 +17,7 @@
         ng-bind="creo.locationInfo().address">
   </span>
   <span ng-show="creo.isVenue() || creo.isEvent()">
-    <a ng-href="[[ creo.mapLink() ]]"
+    <a ng-href="[[ creo.mapURL() ]]"
        class="location-map-link" target="_blank"
        ><span class="smaller glyphicon glyphicon-new-window"></span> map</a>
   </span>
