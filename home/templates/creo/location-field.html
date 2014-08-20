@@ -5,8 +5,10 @@
   <span ng-show="creo.isArtist()"
         ng-bind="creo.locationInfo().neighborhood">
   </span>
-  <span ng-show="creo.isEvent()"
-        ng-bind="creo.venue.name">
+  <span ng-show="creo.isEvent()">
+    <a ng-href="[[ creo.venue().pageURL() ]]">
+      [[ creo.venue().name ]]
+    </a>
   </span>
   <span ng-show="creo.isSponsor()"
         ng-bind="creo.locationInfo().city">
@@ -15,11 +17,9 @@
         ng-bind="creo.locationInfo().address">
   </span>
   <span ng-show="creo.isVenue() || creo.isEvent()">
-    <a href="[[ creo.mapLink() ]]"
-       class="location-map-link" target="_blank">
-      map 
-      <span class="smaller glyphicon glyphicon-new-window"></span>
-    </a>
+    <a ng-href="[[ creo.mapLink() ]]"
+       class="location-map-link" target="_blank"
+       ><span class="smaller glyphicon glyphicon-new-window"></span> map</a>
   </span>
 {% endblock %}
 

@@ -37,7 +37,7 @@
       </div>
       <div class="content-case">
         <div class="creo-info">
-          <a href="/experience/page/[[ creo.id ]]/"
+          <a ng-href="[[ creo.pageURL() ]]"
              class="creo-name" title="[[ creo.name ]]">
             <span class="inner-content">
               [[ creo.name | default:'[nameless]' ]]
@@ -47,7 +47,7 @@
             <div class="creo-venue">
               <span class="inner-content">
                 @ 
-                <a href="/experience/page/[[ creo.venue().id ]]/"
+                <a ng-href="[[ creo.venue().pageURL() ]]"
                    title="[[ creo.venue().name ]]">
                   [[ creo.venue().name ]]
                 </a>
@@ -60,11 +60,11 @@
             </div>
             <div class="creo-artists">
               <span class="inner-content">
-                <span ng-repeat="artist in creo.artists">
+                <span ng-repeat="artist in creo.artists()">
                   <span ng-show="$last && $index > 0">&amp;</span>
-                  <a href="/experience/page/[[ artist.id ]]/" class="ib">
-                    [[ artist.name ]]
-                  </a><span ng-show="!$last && creo.artists.length > 2">,</span>
+                  <a ng-href="[[ artist.pageURL() ]]" class="ib">
+                    [[ artist.name | default:'[nameless]' ]]
+                  </a><span ng-show="!$last && creo.artists().length > 2">,</span>
                 </span>
               </span>
             </div>

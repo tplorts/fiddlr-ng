@@ -7,6 +7,10 @@ smod.service('Creo', ['Restangular', function(Restangular) {
     var Creo = Restangular.service('creo');
     
     Restangular.extendModel('creo', function(model) {
+        model.pageURL = function() {
+            return '/experience/page/'+this.id+'/';
+        };
+
         model.isArtist = function() {
             return this.creotype === CreotypeArtist;
         };
@@ -26,12 +30,15 @@ smod.service('Creo', ['Restangular', function(Restangular) {
         model.venue = function() {
             return _.findWhere( this.ties, {creotype: CreotypeVenue} );
         };
+        model.artists = function() {
+            return _.where( this.ties, {creotype: CreotypeArtist} );
+        };
 
         model.locationInfo = function() {
             if( this.locationExpanded ) 
                 return this.locationExpanded;
             if( this.isEvent() )
-                return this.venue().locationInfo();
+                return this.venue().locationExpanded;
             return null;
         }
         model.latitude = function() {
