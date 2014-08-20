@@ -48,3 +48,11 @@ fmod.filter('formattedText', ['$filter', function($filter) {
         return rawText.replace(/\n/g, '<br>');
     };
 }]);
+
+
+
+fmod.filter('default', ['$filter', function($filter) {
+    return function(text, defaultValue) {
+        return text ? text : defaultValue;
+    };
+}]);

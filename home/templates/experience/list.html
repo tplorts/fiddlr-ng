@@ -40,7 +40,7 @@
           <a href="/experience/page/[[ creo.id ]]/"
              class="creo-name" title="[[ creo.name ]]">
             <span class="inner-content">
-              [[ creo.name ]]
+              [[ creo.name | default:'[nameless]' ]]
             </span>
           </a>
           <div ng-show="creo.isEvent()">
