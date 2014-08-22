@@ -241,15 +241,23 @@ cmod.controller(
         readScopeInitials( $scope );
         
         $scope.isLoading = true;
+        $scope.allCreos = [];
         $scope.creos = {};
         for( var ctype in Creotypes ){
-            $scope.creos[ctype] = [];
+            $scope.creos[parseInt(ctype)] = [];
         }
 
         function defaultThen(creos) {
+            if( $scope.isMapView ){
+                $scope.allCreos = _.filter( creos, function(c){
+                    return c.hasGeocoordinates();
+                });
+            } else {
+                $scope.allCreos = creos;
+            }
             for( var ctype in Creotypes ){
                 var iType = parseInt(ctype);
-                $scope.creos[ctype] = _.where(creos, {creotype: iType});
+                $scope.creos[iType] = _.where($scope.allCreos, {creotype: iType});
             }
             $scope.isLoading = false;
         }
@@ -323,16 +331,7 @@ cmod.controller(
                 $scope.$apply(function() {
                     $scope.itemStati[id] = true;
                 });
-            },
-            'icon_changed': function(event) {
-                this.options.opacity = 1;
-                console.log('got it!');
             }
-        };
-        $scope.activeItemId = 4;
-        $scope.clickEventItem = function( geoId ) {
-            $scope.activeItemId = geoId;
-            $scope.$broadcast('icon_changed');
         };
     }]
 );

@@ -22,15 +22,12 @@
                 zoom="map.zoom"
                 pan="false"
                 draggable="true">
-      <marker ng-repeat="e in creos | filter:eventFilter(listKey)"
-              coords="e.venue.geocoordinates"
-              {% comment %}
-              ng-init="mgeo = e.venue.geocoordinates"
-              coords="mgeo"
-              {% endcomment %}
-              options="{opacity:1}"
+{%comment%}
+      <marker ng-repeat="c in allCreos"
+              coords="c.geocoordinates()"
               events="markerEvents">
       </marker>
+{%endcomment%}
     </google-map>
   </div>
 
@@ -44,20 +41,19 @@
 
   <div ng-cloak class="explore-map-list">
     <div class="explore-map-title">[[ listTitle ]]</div>
-    <div>
+    <div ng-repeat="type in Creotypes" ng-cloak
+         class="creotype-section"
+         ng-init="iType = $index + 1">
+      <div class="creotype-section-header" 
+           ng-show="creos[iType].length != 0">[[ type ]]s</div>
       <accordion close-others="false">
-        <accordion-group ng-repeat="c in creos | filter:eventFilter(listKey)"
-                         ng-init="geo = c.venue.geocoordinates"
+        <accordion-group ng-repeat="c in creos[iType] | filter:listFilter(listKey)"
+                         ng-init="geo = c.geocoordinates()"
                          class="creo-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
-                         is-open="itemStati[geo.id]"
-                         ng-click="clickEventItem(geo.id)">
+                         is-open="itemStati[geo.id]">
           <accordion-heading>
             <div class="creo-name">[[ c.name ]]</div>
           </accordion-heading>
-          <div class="creo-venue">@ [[ c.venue.name ]]</div>
-          <div>
-            <div ng-bind-html="c | dateRange"></div>
-          </div>
           <div>
             [[ c.brief ]]
           </div>
@@ -72,6 +68,6 @@
 
 
 {% block postscripts %}
-<script src="{% static 'my/scripts/geo.js' %}"></script>
+<script src="{% static '3p/scripts/latlon.js' %}"></script>
 {% endblock %}
 

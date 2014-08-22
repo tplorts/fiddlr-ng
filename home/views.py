@@ -72,7 +72,7 @@ def injectDefaultContext(request, template, context):
         'page': page,
         'googleAPIKey': settings.googleAPIKey,
         'v': settings.PluginVersions,
-        'ngCDN': 'http://ajax.googleapis.com/ajax/libs/angularjs/',
+        'ngCDN': '//ajax.googleapis.com/ajax/libs/angularjs/',
         'nytime': nytime(),
         'CreotypeChoices': CreotypeChoices,
         'uzer': getUzer(request),
@@ -215,6 +215,7 @@ def listGeneric(q, listingKey, viewType):
         'ngScopeInitials': {
             'listKey': listingKey,
             'listTitle': EventListings[listingKey],
+            'isMapView': viewType == 'map',
         },
     })
 

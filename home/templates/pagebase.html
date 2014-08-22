@@ -228,16 +228,18 @@
   {% endif %}
 
 
-  <script src="http://maps.googleapis.com/maps/api/js?key={{ googleAPIKey }}&sensor=true"></script>
+  <script src="//maps.googleapis.com/maps/api/js?key={{ googleAPIKey }}&sensor=false"></script>
 
   {% if isProduction %}
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+    {#<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/{{ v.lodash }}/lodash.underscore.min.js"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
-    <script src="{% static '3p/scripts/angular-google-maps-1.1.4.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
+    <script src="{% static '3p/scripts/angular-google-maps-'|add:v.nggmaps|add:'.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
   {% else %}
-    <script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>
+    {#<script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>#}
+    <script src="{% static '3p/scripts/lodash.underscore-'|add:v.lodash|add:'.js' %}"></script>
     <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.js' %}"></script>
-    <script src="{% static '3p/scripts/angular-google-maps-1.1.4.js' %}"></script>
+    <script src="{% static '3p/scripts/angular-google-maps-'|add:v.nggmaps|add:'.js' %}"></script>
   {% endif %}
 
   <script src="{% static 'djangular/js/django-angular.js' %}"></script>

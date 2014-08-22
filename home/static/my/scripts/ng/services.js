@@ -50,6 +50,18 @@ smod.service('Creo', ['Restangular', function(Restangular) {
         creoModel.getLatLon = function() {
             return new LatLon(this.latitude(), this.longitude());
         };
+        creoModel.geocoordinates = function() {
+            return {
+                id: this.id,
+                latitude: parseFloat(this.latitude()),
+                longitude: parseFloat(this.longitude())
+            };
+        };
+        creoModel.hasGeocoordinates = function() {
+            return this.locationInfo() != null
+                && this.latitude() != null
+                && this.longitude() != null;
+        };
 
         creoModel.mapURL = function() {
             var location = this.locationInfo();

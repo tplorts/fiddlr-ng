@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 PluginVersions = {
     'bootstrap': '3.2.0',
     'angular': '1.2.21',
+    'nggmaps': '1.2.0',
+    'lodash': '2.4.1',
 }
 
 
