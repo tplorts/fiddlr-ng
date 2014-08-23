@@ -324,24 +324,21 @@ cmod.controller(
         $scope.clickedMarkerId = null;
         $scope.itemStati = {}; // empty is ok: all start closed
         $scope.markerEvents = {
-            'mouseover': function(event) {
-                var thisMarker = this;
+            'mouseover': function(marker, eventName, args) {
                 $scope.$apply(function() {
-                    thisMarker.options.opacity = 1;
-                    $scope.hoverMarkerId = thisMarker.coords.id;
+                    //thisMarker.options.opacity = 1;
+                    $scope.hoverMarkerId = marker.key;
                 });
             },
-            'mouseout': function(event) {
-                var thisMarker = this;
+            'mouseout': function(marker, eventName, args) {
                 $scope.$apply(function() {
-                    thisMarker.options.opacity = 0.7;
+                    //thisMarker.options.opacity = 0.7;
                     $scope.hoverMarkerId = null;
                 });
             },
-            'click': function(event) {
-                var id = this.coords.id;
+            'click': function(marker, eventName, args) {
                 $scope.$apply(function() {
-                    $scope.itemStati[id] = true;
+                    $scope.itemStati[marker.key] = true;
                 });
             }
         };

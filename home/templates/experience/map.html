@@ -23,7 +23,8 @@
                 pan="false"
                 draggable="true">
       <markers models="markers"
-               coords="'self'">
+               coords="'self'"
+               events="markerEvents">
       </markers>
     </google-map>
   </div>
@@ -46,8 +47,8 @@
       <accordion close-others="false">
         <accordion-group ng-repeat="c in creos[iType] | filter:listFilter(listKey)"
                          ng-init="geo = c.geocoordinates()"
-                         class="creo-item [[geo.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
-                         is-open="itemStati[geo.id]">
+                         class="creo-item [[c.id==hoverMarkerId?'corresponding-marker-hover':'']]" 
+                         is-open="itemStati[c.id]">
           <accordion-heading>
             <div class="creo-name">[[ c.name ]]</div>
           </accordion-heading>
