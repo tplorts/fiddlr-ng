@@ -246,11 +246,16 @@ cmod.controller(
         for( var ctype in Creotypes ){
             $scope.creos[parseInt(ctype)] = [];
         }
+        $scope.markers = [];
 
         function defaultThen(creos) {
             if( $scope.isMapView ){
                 $scope.allCreos = _.filter( creos, function(c){
                     return c.hasGeocoordinates();
+                });
+                $scope.markers = [];
+                angular.forEach( $scope.allCreos, function( c ){
+                    $scope.markers.push( c.geocoordinates() );
                 });
             } else {
                 $scope.allCreos = creos;
@@ -302,9 +307,16 @@ cmod.controller(
             return function( creo ) { return true; };
         };
 
+        function toGeocoords( latlon ) {
+            return {
+                latitude: latlon.lat,
+                longitude: latlon.lon
+            };
+        }
+
         // Specific to the map view
         $scope.map = {
-            center: I,
+            center: toGeocoords( I ),
             zoom: 12
         };
 

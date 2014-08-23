@@ -22,12 +22,9 @@
                 zoom="map.zoom"
                 pan="false"
                 draggable="true">
-{%comment%}
-      <marker ng-repeat="c in allCreos"
-              coords="c.geocoordinates()"
-              events="markerEvents">
-      </marker>
-{%endcomment%}
+      <markers models="markers"
+               coords="'self'">
+      </markers>
     </google-map>
   </div>
 
