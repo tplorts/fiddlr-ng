@@ -36,48 +36,49 @@
         <span class="glyphicon glyphicon-resize-full"></span>
       </div>
       <div class="content-case">
-        <div class="creo-info">
-          <a ng-href="[[ creo.pageURL() ]]"
-             class="creo-name" title="[[ creo.name ]]">
+        <a ng-href="[[ creo.pageURL() ]]"
+           class="creo-name" title="[[ creo.name ]]">
+          <span class="inner-content">
+            [[ creo.name | default:'[nameless]' ]]
+          </span>
+        </a>
+        <div class="creo-brief">
+          [[ creo.brief ]]
+        </div> <!-- /.creo-brief -->
+        <div ng-show="creo.isEvent()">
+          <div class="creo-venue">
             <span class="inner-content">
-              [[ creo.name | default:'[nameless]' ]]
+              @ 
+              <a ng-href="[[ creo.venue() | pageURL ]]"
+                 title="[[ creo.venue().name ]]">
+                [[ creo.venue().name ]]
+              </a>
             </span>
-          </a>
-          <div ng-show="creo.isEvent()">
-            <div class="creo-venue">
-              <span class="inner-content">
-                @ 
-                <a ng-href="[[ creo.venue().pageURL() ]]"
-                   title="[[ creo.venue().name ]]">
-                  [[ creo.venue().name ]]
-                </a>
+          </div> <!-- /.creo-venue -->
+          <div class="creo-datetime">
+            <span class="inner-content">
+              <span ng-bind-html="creo | dateRange"></span>
+            </span>
+          </div> <!-- /.creo-datetime -->
+          <div class="creo-artists">
+            <span class="inner-content">
+              <span ng-repeat="artist in creo.artists()">
+                <span ng-show="$last && $index > 0">&amp;</span>
+                <a ng-href="[[ artist.pageURL() ]]" class="ib">
+                  [[ artist.name | default:'[nameless]' ]]
+                </a><span ng-show="!$last && creo.artists().length > 2">,</span>
               </span>
-            </div>
-            <div class="creo-datetime">
-              <span class="inner-content">
-                <span ng-bind-html="creo | dateRange"></span>
-              </span>
-            </div>
-            <div class="creo-artists">
-              <span class="inner-content">
-                <span ng-repeat="artist in creo.artists()">
-                  <span ng-show="$last && $index > 0">&amp;</span>
-                  <a ng-href="[[ artist.pageURL() ]]" class="ib">
-                    [[ artist.name | default:'[nameless]' ]]
-                  </a><span ng-show="!$last && creo.artists().length > 2">,</span>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="creo-actions">
-          <a href="#" class="pull-left">Directions</a>
-          <a href="#" class="pull-right">Attend</a>
-        </div>
-      </div>
-    </div>
-
-  </div>
+            </span>
+          </div> <!-- /.creo-artists -->
+        </div> <!-- /if isEvent -->
+      </div> <!-- /.content-case -->
+      <div class="creo-actions"
+           ng-show="creo.isVenue() || creo.isEvent()">
+        <a href="#" class="pull-left">Directions</a>
+        <a href="#" class="pull-right" ng-show="creo.isEvent()">Attend</a>
+      </div><!-- /.creo-actions -->
+    </div><!-- /.creo-block -->
+  </div><!-- /.creo-section -->
 
 </div>
 

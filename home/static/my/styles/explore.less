@@ -26,11 +26,8 @@
     .transition();
 
     .content-case {
+        height: 100%;
         padding: 7px 10px;
-    }
-
-    .creo-info {
-        height: @creo-block-height - 35px;
         overflow: hidden;
     }
 
@@ -38,6 +35,11 @@
         display: block;
         font-size: 16px;
         font-weight: bold;
+    }
+
+    .creo-brief {
+        font-size: 12px;
+        font-style: italic;
     }
 
     .creo-venue {
@@ -69,6 +71,12 @@
     }
 
     .creo-actions {
+        position: relative;
+        height: 25px;
+        margin-top: -25px;
+        padding: 0 10px;
+        opacity: 0;
+        .transition();
     }
 
     .expand-creo-block {
@@ -103,10 +111,7 @@
 
     &:hover {
         .box-shadow(0, 0, 4px, fade(@orpheus-purple, 50%));
-        .expand-creo-block {
-            opacity: 0.95;
-        }
-        .scroll-down-button {
+        .expand-creo-block, .creo-actions {
             opacity: 1;
         }
     }

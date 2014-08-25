@@ -56,3 +56,13 @@ fmod.filter('default', ['$filter', function($filter) {
         return text ? text : defaultValue;
     };
 }]);
+
+
+
+fmod.filter('pageURL', ['$filter', function($filter) {
+    return function(creo) {
+        if( !angular.isUndefined(creo) && creo && creo.hasOwnProperty('id') )
+            return '/experience/page/' + creo.id + '/';
+        return '';
+    };
+}]);
