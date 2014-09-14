@@ -5,37 +5,52 @@
 {% block content %}
 <div ng-controller="PortalCtlr" id="portal">
   <div id="navigator">
+    <div class="btn-group btn-group-justified">
+      <a class="btn pfb" href="/">fiddlr</a>
+      <div class="btn-group">
+        <button type="button" class="btn pfb">
+          <i class="glyphicon glyphicon-align-justify"></i>
+          <i class="glyphicon glyphicon-chevron-down swivels"></i>
+        </button>
+      </div>
+      <div class="btn-group">
+        <button type="button" class="btn pfb">
+          <i class="glyphicon glyphicon-search"></i>
+          <i class="glyphicon glyphicon-chevron-right swivels"></i>
+        </button>
+      </div>
+    </div>
       <div id="user-pic-widget"
            class="[[ menu.isHidden ? '':'revealing' ]]">
         <div id="perspective-changer">
-          <button class="btn btn-orpheus-purple ">
-            <span class="glyphicon glyphicon-repeat"></span>
-            <span class="glyphicon glyphicon-user"></span>
+          <button class="btn pfb ">
+            <i class="glyphicon glyphicon-repeat"></i>
+            <i class="glyphicon glyphicon-user"></i>
           </button>
         </div>
         <img src="{% static 'ex/lady.png' %}" />
         <div class="profile-buttons">
           <div class="btn-group-vertical">
-            <a href="#" class="btn btn-orpheus-purple">
+            <a href="#" class="btn pfb">
               Community
-              <span class="glyphicon glyphicon-tower"></span>
+              <i class="glyphicon glyphicon-tower"></i>
             </a>
-            <a href="#" class="btn btn-orpheus-purple">
+            <a href="#" class="btn pfb">
               Favorites
-              <span class="glyphicon glyphicon-heart"></span>
+              <i class="glyphicon glyphicon-heart"></i>
             </a>
             <a href="{% url 'explore' %}" 
-               class="btn btn-orpheus-purple">
+               class="btn pfb">
               Explore
-              <span class="glyphicon glyphicon-globe"></span>
+              <i class="glyphicon glyphicon-globe"></i>
             </a>
-            <a href="#" class="btn btn-orpheus-purple">
+            <a href="#" class="btn pfb">
               Marketplace
-              <span class="glyphicon glyphicon-shopping-cart"></span>
+              <i class="glyphicon glyphicon-shopping-cart"></i>
             </a>
-            <a href="#" class="btn btn-orpheus-purple">
+            <a href="#" class="btn pfb">
               Settings
-              <span class="glyphicon glyphicon-cog"></span>
+              <i class="glyphicon glyphicon-cog"></i>
             </a>
           </div> <!-- /.btn-group-vertical -->
         </div> <!-- /.profile-buttons -->
@@ -44,7 +59,7 @@
                   ng-click="menu.isHidden = !menu.isHidden"
                   class="btn btn-default
                          profile-menu-toggle">
-            <span class="glyphicon glyphicon-expand"></span>
+            <i class="glyphicon glyphicon-expand"></i>
           </button>
         </div>
       </div> <!-- /#user-pic-widget -->
@@ -62,5 +77,10 @@
         </tab>
       </tabset>
   </div> <!-- /#portal-content -->
+  <div id="advert-board">
+    <div id="temporary-advert-banner">
+      advert space
+    </div>
+  </div> <!-- /#advert-board -->
 </div> <!-- /#portal -->
 {% endblock %}
