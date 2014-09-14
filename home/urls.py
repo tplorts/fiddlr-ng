@@ -26,7 +26,7 @@ urlpatterns = patterns(
     # Place the favicon in a standard static location but still conform to an old fashion favicon
     url(r'^favicon\.ico$', RedirectView.as_view(url=static('ex/icons/favicon.ico')), name='favicon'),
 
-    url(r'^$', Fiew.as_view(template='front'), name='Home'),
+    url(r'^$', Fiew.as_view(template='portal'), name='portal'),
 
     # REGISTRATION
     url(r'^signin/$', signin, name='Sign in'),

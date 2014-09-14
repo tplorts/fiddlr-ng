@@ -1,0 +1,71 @@
+{% extends "pagebase.html" %}
+{% load misc staticfiles registration %}
+
+
+{% block body_class %} body-front {% endblock %}
+{% block content_class %} flush-with-header {% endblock %}
+
+
+{% block content %}
+<div ng-controller="FrontPageController">
+  <div class="container">
+    <div id="front-videos">
+      <video controls src="{% static 'ex/videos/spacetime-360.mp4' %}">
+      </video>
+      <video controls src="{% static 'ex/videos/spacetime-360.mp4' %}">
+      </video>
+    </div>
+    <div class="row mt15px">
+      {% for page in "experience,create,nexus"|split:"," %}
+      <div class="col-sm-4">
+        <div class="btn-group major-page-dropdown">
+          <button type="button" id="ddm{{ page }}"
+                  class="btn btn-orpheus-purple btn-front
+                         dropdown-toggle"
+                  data-toggle="dropdown">
+            {{ page|capfirst }}
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1"
+                 href="{% url page %}">
+                <span class="text-bold">To {{ page|capfirst }}</span>
+              </a>
+            </li>
+            <li role="presentation" class="divider"></li>
+            <li role="presentation">
+              <a role="menuitem" tabindex="-1" href="#">
+                More coming soon &hellip;
+              </a>
+            </li>
+          </ul><!-- /.dropdown-menu -->
+        </div><!-- /.dropdown -->
+      </div><!--/.col-sm-4-->
+      {% endfor %}
+    </div><!--/.row-->
+  </div><!--/.container-->
+  {% if isGabrielle %}
+  <a id="Locus-Proprius-Link" href="Locus-Proprius-Gabriellae"
+     class="btn btn-sm btn-default">
+    <span class="glyphicon glyphicon-star"></span>
+  </a>
+
+    {% if nytime.month == 8 and nytime.day == 13 %}
+    <div id="GabysBirthday">
+      <div class="loading-bit">
+        {% OctagramLoader %}
+        <div class="large bold mt25px text-center">
+          Now just sit tight for a moment &hellip;
+        </div>
+      </div>
+      <img src="{% static 'ex/GabySpecials/bcake.gif' %}" 
+           class="center-block hidden" />
+      <audio preload="auto" 
+             src="{% static 'ex/GabySpecials/happybirthdaygaby.mp3' %}">
+      </audio>
+    </div>
+    {% endif %}
+
+  {% endif %}
+</div>
+{% endblock %}

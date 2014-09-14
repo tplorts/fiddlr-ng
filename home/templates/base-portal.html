@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load staticfiles misc registration %}
+
+
+{% block default_prescripts %}
+  {{ block.super }}
+  <script>
+    var GoogleAPIKey = '{{ googleAPIKey }}';
+    {% for ccNo, ccName in CreotypeChoices %}
+      var Creotype{{ ccName }} = {{ ccNo }};
+    {% endfor %}
+    var Creotypes = {
+      {% for ccNo, ccName in CreotypeChoices %}
+        {{ccNo}}: '{{ccName}}'{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    };
+    var ngScopeInitials = {
+      Creotypes: Creotypes,
+      {% for ccNo, ccName in CreotypeChoices %}
+        Creotype{{ ccName }}: {{ ccNo }},
+      {% endfor %}
+      {% for symbol, data in ngScopeInitials.items %}
+        {{symbol}}: {{data|toJSON}}{% if not forloop.last %},{% endif %}
+      {% endfor %}
+    };
+  </script>
+{% endblock %}
+
+
+{% block body_attributes %}ng-app="fiddlrApp"{% endblock %}
+
+
+{% block super_content %}
+<div id="content" class="{% block content_class %}{% endblock %}">
+  {% block content %}<p>Coming soon</p>{% endblock %}
+</div>
+
+<div id="dev-warning">
+  <span class="text-danger">
+    <strong>fiddlr is presently under development</strong>
+  </span>
+</div>
+{% endblock %}
+
+
+{% block thirdparty_postscripts %}
+  {{ block.super }}
+
+  {% for ngPiece in ",-loader,-route,-cookies,-resource,-sanitize,-touch"|split:"," %}
+    {% with ngFile=v.angular|add:'/angular'|add:ngPiece %}
+      {% if isProduction %}
+        <script src="{{ ngCDN|add:ngFile|add:'.min.js' }}"></script>
+      {% else %}
+        <script src="{% static '3p/ng/'|add:ngFile|add:'.js' %}"></script>
+      {% endif %}
+    {% endwith %}
+  {% endfor %}
+
+  {# mocks is only for testing #}
+  {% if not isProduction %}
+    <script src="{% static '3p/ng/'|add:v.angular|add:'/angular-mocks.js' %}"></script>
+  {% endif %}
+
+
+  <script src="//maps.googleapis.com/maps/api/js?key={{ googleAPIKey }}&sensor=false"></script>
+
+  {% if isProduction %}
+    {#<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>#}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/{{ v.lodash }}/lodash.underscore.min.js"></script>
+    <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
+    <script src="{% static '3p/scripts/angular-google-maps-'|add:v.nggmaps|add:'.min.js' %}"></script> {# ~~~ no CDN ~~~ #}
+  {% else %}
+    {#<script src="{% static '3p/scripts/underscore-1.6.0.js' %}"></script>#}
+    <script src="{% static '3p/scripts/lodash.underscore-'|add:v.lodash|add:'.js' %}"></script>
+    <script src="{% static '3p/scripts/ui-bootstrap-tpls-0.11.0.js' %}"></script>
+    <script src="{% static '3p/scripts/angular-google-maps-'|add:v.nggmaps|add:'.js' %}"></script>
+  {% endif %}
+
+  <script src="{% static 'djangular/js/django-angular.js' %}"></script>
+  <script src="{% static '3p/scripts/restangular.js' %}"></script>
+  <script src="{% static '3p/angular-file-upload-bower-1.6.1/angular-file-upload.js' %}"></script>
+
+{% endblock %}
+
+
+
+{% block default_postscripts %}
+  {{ block.super }}
+
+  {% for appfile in "app.js,controllers.js,directives.js,filters.js,services.js"|split:"," %}
+    <script src="{% static 'my/scripts/ng/'|add:appfile %}"></script>
+  {% endfor %}
+{% endblock %}

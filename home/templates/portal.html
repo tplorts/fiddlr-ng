@@ -1,12 +1,10 @@
-{% extends "pagebase.html" %}
-{% load misc staticfiles tz %}
+{% extends "base-portal.html" %}
+{% load misc staticfiles %}
 
 
 {% block content %}
-<div class="container"
-     ng-controller="ExperienceHomepageController">
-  <div class="row">
-    <div class="col-sm-4 col-md-3">
+<div ng-controller="PortalCtlr" id="portal">
+  <div id="navigator">
       <div id="user-pic-widget"
            class="[[ menu.isHidden ? '':'revealing' ]]">
         <div id="perspective-changer">
@@ -55,15 +53,14 @@
         Feature {{ x }}
       </div>
       {% endfor %}
-    </div>
-    <div class="col-sm-8 col-md-9">
+  </div> <!-- /#navigator -->
+  <div id="portal-content">
       <tabset ng-cloak id="experience-tabs">
         <tab heading="Yourself">
         </tab>
         <tab heading="Community">
         </tab>
       </tabset>
-    </div>
-  </div>
-</div>
+  </div> <!-- /#portal-content -->
+</div> <!-- /#portal -->
 {% endblock %}

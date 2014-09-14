@@ -223,16 +223,13 @@ cmod.controller(
 );
 
 
-
-cmod.controller(
-    'ExperienceHomepageController',
-    ['$scope', function($scope) {
-        readScopeInitials( $scope );
-        $scope.menu = {
-            isHidden: true
-        };
-    }]
-);
+function PortalCtlr($scope) {
+    readScopeInitials( $scope );
+    $scope.menu = {
+        isHidden: true
+    };
+}
+cmod.controller( 'PortalCtlr', ['$scope', PortalCtlr] );
 
 
 cmod.controller(
