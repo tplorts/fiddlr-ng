@@ -41,15 +41,15 @@
             </a>
           </div> <!-- /.btn-group-vertical -->
         </div> <!-- /.profile-buttons -->
-      </div>
-      <div class="visible-xs">
-        <button type="button" 
-                ng-click="menu.isHidden = !menu.isHidden"
-                class="btn btn-default
-                       profile-menu-toggle">
-          Hello
-        </button>
-      </div>
+        <div class="visible-xs">
+          <button type="button" 
+                  ng-click="menu.isHidden = !menu.isHidden"
+                  class="btn btn-default
+                         profile-menu-toggle">
+            <span class="glyphicon glyphicon-expand"></span>
+          </button>
+        </div>
+      </div> <!-- /#user-pic-widget -->
       {% for x in '123' %}
       <div class="creo-feature">
         Feature {{ x }}
