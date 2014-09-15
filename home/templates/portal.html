@@ -8,10 +8,35 @@
     <div class="btn-group btn-group-justified">
       <a class="btn pfb" href="/">fiddlr</a>
       <div class="btn-group">
-        <button type="button" class="btn pfb">
+        <button type="button" class="btn pfb dropdown-toggle"
+                data-toggle="dropdown">
           <i class="glyphicon glyphicon-align-justify"></i>
           <i class="glyphicon glyphicon-chevron-down swivels"></i>
         </button>
+        <ul class="dropdown-menu" role="menu">
+          {% if user.is_authenticated %}
+          <li role="presentation">
+            <form action="{% url 'Sign out' %}" method="POST"
+                  id="signout-form">
+              {% csrf_token %}
+              <input type="hidden" name="next" value="/" />
+              <button class="btn btn-default
+                             signout-button"
+                      title="Signed in as {{user.get_full_name|default:user}}">
+                Sign out
+              </button>
+            </form>
+          </li>
+          <li role="presentation" class="divider"></li>
+          {% endif %}
+          {% for link in "About,Copyright,Help,Ads"|split:"," %}
+          <li role="presentation">
+            <a href="{% url link %}" role="menuitem" tabindex="-1">
+              {{ link|capfirst }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
       </div>
       <div class="btn-group">
         <button type="button" class="btn pfb">
