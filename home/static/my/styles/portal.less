@@ -43,38 +43,48 @@
     @lineheight: round(@fontsize * 1.5);
     @icon-margin: (@protrude - @fontsize)/2;
 
+    display: flex;
     background-color: transparent;
     margin: auto;
     margin-top: 10px;
-    img {
-        display: block;
-        float: left;
+    .picture {
+        flex-grow: 1;
         border: 1px solid @orpheus-purple;
         border-top-left-radius: @bRad;
         border-bottom-left-radius: @bRad;
         z-index: 5;
         position: relative;
-        .transition(all, 300ms);
-    }
+        overflow: hidden;
+        img {
+            width: 100%;
+            height: auto;
+            min-height: 100%;
+        }
+    }        
 
-    #perspective-changer {
-        @pcsize: 40px;
+    @pcsize: 40px;
+    #perspective-changer, #picture-changer {
+        position: absolute;
+        z-index: 6;
         width: @pcsize;
         height: @pcsize;
         overflow: hidden;
-        border-top-left-radius: 4px;
         .btn {
             width: @pcsize*2;
             height: @pcsize*2;
             margin-left: -@pcsize;
-            margin-top: -@pcsize;
             border-radius: @pcsize;
         }
-        position: absolute;
-        z-index: 6;
         .glyphicon {
             position: absolute;
         }
+    }
+    #perspective-changer {
+        border-top-left-radius: @bRad -1;
+        .btn {
+            margin-top: -@pcsize;
+        }
+        top: 0;
         .glyphicon-user {
             margin-top: 10px;
             margin-left: 10px;
@@ -87,9 +97,20 @@
         }
     }
 
-    .profile-buttons {
-        float: right;
-        width: @protrude;
+    #picture-changer {
+        border-bottom-left-radius: @bRad - 1;
+        bottom: 0;
+        .btn {
+            margin-bottom: -@pcsize;
+        }
+        .glyphicon {
+            margin-left: 10px;
+            margin-top: 14px;
+        }
+    }
+
+    .popout-buttons {
+        flex-basis: @protrude;
     }
     .btn-group-vertical {
         position: relative;
@@ -112,11 +133,6 @@
             }
         }
     }
-    &.revealing {
-        img {
-            margin-left: -150px;
-        }
-    }
 
     .profile-menu-toggle {
         .glyphicon-expand {
@@ -129,9 +145,8 @@
         @height: @imgWidth * 1.4;
         width: @width;
         height: @height;
-        img {
-            width: @imgWidth;
-            height: @height;
+        .picture {
+            flex-basis: @width - @protrude;
         }
         .btn-group-vertical {
             width: @width - @bRad;
@@ -148,14 +163,7 @@
         }
     }
     
-    .x_(290px);//mobile
-    .btn-group-vertical .btn:hover {
-        margin-left: initial;
-    }
-    @media (min-width: @screen-sm-min) {
-        @width: floor(@row-sm * @colSm/12) - 30px;
-        .x_(220px);
-    }
+    .x_(220px);
 }
 
 

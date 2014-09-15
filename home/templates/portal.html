@@ -19,55 +19,53 @@
           <i class="glyphicon glyphicon-chevron-right swivels"></i>
         </button>
       </div>
-    </div>
-      <div id="user-pic-widget"
-           class="[[ menu.isHidden ? '':'revealing' ]]">
+    </div> <!-- /.btn-group-justified -->
+    <div id="user-pic-widget">
+      <div class="picture">
+        <img src="{% static 'ex/lady.png' %}" />
         <div id="perspective-changer">
-          <button class="btn pfb ">
+          <button class="btn pfb">
             <i class="glyphicon glyphicon-repeat"></i>
             <i class="glyphicon glyphicon-user"></i>
           </button>
         </div>
-        <img src="{% static 'ex/lady.png' %}" />
-        <div class="profile-buttons">
-          <div class="btn-group-vertical">
-            <a href="#" class="btn pfb">
-              Community
-              <i class="glyphicon glyphicon-tower"></i>
-            </a>
-            <a href="#" class="btn pfb">
-              Favorites
-              <i class="glyphicon glyphicon-heart"></i>
-            </a>
-            <a href="{% url 'explore' %}" 
-               class="btn pfb">
-              Explore
-              <i class="glyphicon glyphicon-globe"></i>
-            </a>
-            <a href="#" class="btn pfb">
-              Marketplace
-              <i class="glyphicon glyphicon-shopping-cart"></i>
-            </a>
-            <a href="#" class="btn pfb">
-              Settings
-              <i class="glyphicon glyphicon-cog"></i>
-            </a>
-          </div> <!-- /.btn-group-vertical -->
-        </div> <!-- /.profile-buttons -->
-        <div class="visible-xs">
-          <button type="button" 
-                  ng-click="menu.isHidden = !menu.isHidden"
-                  class="btn btn-default
-                         profile-menu-toggle">
-            <i class="glyphicon glyphicon-expand"></i>
+        <div id="picture-changer">
+          <button class="btn pfb">
+            <i class="glyphicon glyphicon-picture"></i>
           </button>
         </div>
-      </div> <!-- /#user-pic-widget -->
-      {% for x in '123' %}
-      <div class="creo-feature">
-        Feature {{ x }}
       </div>
-      {% endfor %}
+      <div class="popout-buttons">
+        <div class="btn-group-vertical">
+          <a href="#" class="btn pfb">
+            Community
+            <i class="glyphicon glyphicon-tower"></i>
+          </a>
+          <a href="#" class="btn pfb">
+            Favorites
+            <i class="glyphicon glyphicon-heart"></i>
+          </a>
+          <a href="{% url 'explore' %}" 
+             class="btn pfb">
+            Explore
+            <i class="glyphicon glyphicon-globe"></i>
+          </a>
+          <a href="#" class="btn pfb">
+            Marketplace
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+          </a>
+          <a href="#" class="btn pfb">
+            Settings
+            <i class="glyphicon glyphicon-cog"></i>
+          </a>
+        </div> <!-- /.btn-group-vertical -->
+      </div> <!-- /.popout-buttons -->
+    </div> <!-- /#user-pic-widget -->
+    {% for x in '123' %}
+    <div class="creo-feature">
+      Feature {{ x }}
+    </div>
+    {% endfor %}
   </div> <!-- /#navigator -->
   <div id="portal-content">
       <tabset ng-cloak id="experience-tabs">
