@@ -48,15 +48,21 @@
     <div id="user-pic-widget">
       <div class="picture">
         <img src="{% static 'ex/lady.png' %}" />
-        <button class="btn pfb" id="perspective-changer">
+        <button class="btn pfb" id="perspective-changer"
+                ng-click="menu.perspective = !menu.perspective">
           <i class="glyphicon glyphicon-eye-open"></i>
         </button>
-        <div id="perspective-menu">
-          <div class="perspective-choice">
-            <i class="glyphicon glyphicon-tree-deciduous"></i>
-          </div>
-          <div class="perspective-choice">
-            <i class="glyphicon glyphicon-tree-conifer"></i>
+        <div id="perspective-menu-wrapper"
+             ng-class="{open: menu.perspective}">
+          <div id="perspective-menu-window">
+            <div id="perspective-menu">
+              <div class="perspective-choice">
+                <i class="glyphicon glyphicon-tree-deciduous"></i>
+              </div>
+              <div class="perspective-choice">
+                <i class="glyphicon glyphicon-tree-conifer"></i>
+              </div>
+            </div>
           </div>
         </div>
         <button class="btn pfb" id="picture-changer">
@@ -73,7 +79,7 @@
             Favorites
             <i class="glyphicon glyphicon-heart"></i>
           </a>
-          <a href="{% url 'explore' %}" 
+          <a href="#" 
              class="btn pfb">
             Explore
             <i class="glyphicon glyphicon-globe"></i>

@@ -63,6 +63,7 @@
     }        
 
     @pcsize: 40px;
+    @pmsize: @pcsize * 2;
 
     #perspective-changer, #picture-changer {
         position: absolute;
@@ -88,19 +89,37 @@
         }
     }
 
+    #perspective-menu-wrapper {
+        position: absolute;
+        top: 0;
+        width: @pmsize*2;
+        height: @pmsize*2;
+        margin-top: -@pmsize;
+        margin-left: -@pmsize;
+        .transition(all, 300ms);
+        &.open {
+            .rotate( 90deg );
+        }
+    }
+
+    #perspective-menu-window {
+        position: relative;
+        width: 100%;
+        height: 50%;
+        overflow: hidden;
+    }
+
     #perspective-menu {
         position: absolute;
         top: 0;
-        width: @pcsize*4;
-        height: @pcsize*4;
+        width: @pmsize*2;
+        height: @pmsize*2;
         background: grey;
-        border-radius: @pcsize*2;
-        border: 1px solid #333;
-        margin-left: -@pcsize*2;
-        margin-top: -@pcsize*2;
+        border-radius: @pmsize;
+        border: 1px solid;
         color: @orpheus-purple;
         overflow: hidden;
-        .rotate( 45deg );
+        .rotate( -45deg );
         .perspective-choice {
             position: relative;
             width: 100%;
@@ -123,6 +142,7 @@
             &:last-child {
                 z-index: 8;
                 border-bottom-right-radius: 2*@pcsize;
+                border-top: 1px solid;
             }
             &:hover {
                 background: lightgrey;
