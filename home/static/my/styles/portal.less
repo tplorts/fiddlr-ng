@@ -63,49 +63,70 @@
     }        
 
     @pcsize: 40px;
+
     #perspective-changer, #picture-changer {
         position: absolute;
-        z-index: 6;
-        width: @pcsize;
-        height: @pcsize;
-        overflow: hidden;
-        .btn {
-            width: @pcsize*2;
-            height: @pcsize*2;
-            margin-left: -@pcsize;
-            border-radius: @pcsize;
-        }
-        .glyphicon {
-            position: absolute;
-        }
+        z-index: 10;
+        width: @pcsize*2;
+        height: @pcsize*2;
+        margin-left: -@pcsize;
+        padding-left: @pcsize;
+        border-radius: @pcsize;
     }
+
     #perspective-changer {
-        border-top-left-radius: @bRad -1;
-        .btn {
-            margin-top: -@pcsize;
-        }
+        margin-top: -@pcsize;
+        padding-top: @pcsize;
         top: 0;
-        .glyphicon-user {
-            margin-top: 10px;
-            margin-left: 10px;
-        }
-        .glyphicon-repeat {
-            margin-top: 4px;
-            margin-left: 7px;
-            color: grey;
-            font-size: 20px;
-        }
     }
 
     #picture-changer {
-        border-bottom-left-radius: @bRad - 1;
         bottom: 0;
-        .btn {
-            margin-bottom: -@pcsize;
-        }
+        margin-bottom: -@pcsize;
+        padding-bottom: @pcsize;
         .glyphicon {
-            margin-left: 10px;
-            margin-top: 14px;
+        }
+    }
+
+    #perspective-menu {
+        position: absolute;
+        top: 0;
+        width: @pcsize*4;
+        height: @pcsize*4;
+        background: grey;
+        border-radius: @pcsize*2;
+        border: 1px solid #333;
+        margin-left: -@pcsize*2;
+        margin-top: -@pcsize*2;
+        color: @orpheus-purple;
+        overflow: hidden;
+        .rotate( 45deg );
+        .perspective-choice {
+            position: relative;
+            width: 100%;
+            height: 50%;
+            background: grey;
+            .glyphicon {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                .rotate( -45deg );
+            }
+            &:first-child {
+                z-index: 9;
+                border-top-right-radius: 2*@pcsize;
+                .glyphicon {
+                    right: 13px;
+                    top: 45px;
+                }
+            }
+            &:last-child {
+                z-index: 8;
+                border-bottom-right-radius: 2*@pcsize;
+            }
+            &:hover {
+                background: lightgrey;
+            }
         }
     }
 

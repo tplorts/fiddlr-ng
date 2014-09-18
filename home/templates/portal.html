@@ -48,18 +48,21 @@
     <div id="user-pic-widget">
       <div class="picture">
         <img src="{% static 'ex/lady.png' %}" />
-        <div id="perspective-changer">
-          <button class="btn pfb">
-            <i class="glyphicon glyphicon-repeat"></i>
-            <i class="glyphicon glyphicon-user"></i>
-          </button>
+        <button class="btn pfb" id="perspective-changer">
+          <i class="glyphicon glyphicon-eye-open"></i>
+        </button>
+        <div id="perspective-menu">
+          <div class="perspective-choice">
+            <i class="glyphicon glyphicon-tree-deciduous"></i>
+          </div>
+          <div class="perspective-choice">
+            <i class="glyphicon glyphicon-tree-conifer"></i>
+          </div>
         </div>
-        <div id="picture-changer">
-          <button class="btn pfb">
-            <i class="glyphicon glyphicon-picture"></i>
-          </button>
-        </div>
-      </div>
+        <button class="btn pfb" id="picture-changer">
+          <i class="glyphicon glyphicon-picture"></i>
+        </button>
+      </div> <!-- /.picture -->
       <div class="popout-buttons">
         <div class="btn-group-vertical">
           <a href="#" class="btn pfb">
